@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div style="text-align: center">
-    <div class="row">
-        <div class="col-sm-12">
+
+    <div style="text-align: center">
+        <div>
+            <h4>Login</h4>
+        </div>
+        <div>
             <form action="" method="post">
                 {% csrf_token %}
                 {{ form }}
-
-                <input type="submit"/>
+                <input type="submit" class="btn btn-primary">
             </form>
         </div>
     </div>
-</div>
 
 {% endblock %}
