@@ -23,3 +23,7 @@
 - https://www.youtube.com/watch?v=g0p_GsjAHRA
 - 위 링크를 지우고 여러분의 영상 링크를 남겨주세요.
 - 영상을 일부공개로 설정해주세요, 링크가 있는 분들만 볼 수 있습니다.
+
+
+debug = True 상태 
+docker-compose.yml 
