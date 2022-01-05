@@ -1,2 +1,1 @@
-Django
-mysqlclient
+-r requirements/prod.txt
