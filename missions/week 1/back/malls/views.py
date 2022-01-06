@@ -1,13 +1,35 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
+from .forms import *
+from .models import *
 
 # Create your views here.
 def index(request):
     return render(request, 'index.html')
 
 def main(request):
-    return render(request, 'main.html')
+    if request.method == 'POST':
+        title = request.POST['title']
+        content = request.POST['content']
+        writer = request.POST['writer']
+
+        mall = Malls(
+            title=title,
+            content=content,
+            writer=writer,
+        )
+        mall.save()
+        return redirect('main_page')
+    else:
+        mallForm = MallsForm
+        mall = Malls.objects.all()
+        context = {
+            'boardForm': mallForm,
+            'board': mall,
+        }
+        return render(request, 'main.html', context)
+
 
 def login(request):
     if request.method == "POST":
@@ -17,7 +39,7 @@ def login(request):
         
         if user is not None:
             auth.login(request, user)
-            return redirect('main')
+            return redirect('main_page')
             
         else:
             return render(request, 'login.html', {'error' : 'username or password is incorrect'})
@@ -26,7 +48,7 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return redirect('main')
+    return redirect('main_page')
 
 
 def signup(request):
@@ -38,7 +60,8 @@ def signup(request):
                 email=request.POST['email'],
             )
             auth.login(request, user)
-            return redirect('main')
+            return redirect('main_page')
         
         return render(request, 'signup.html')
     return render(request, 'signup.html')
+

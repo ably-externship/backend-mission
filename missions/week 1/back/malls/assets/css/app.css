@@ -11,7 +11,6 @@
     background-repeat: no-repeat;
     background-size: cover;
     height: 80vh;
-    margin: 5rem;
 }
 
 #top .overlay{
@@ -31,6 +30,7 @@
 }
 
 #top .welcome{
+    padding-left: 4rem;
     padding-right: 8rem;
     color: #fff;
 }
@@ -42,7 +42,12 @@
     #top .welcome{
         padding-right: 2rem;
         padding-left: 2rem;
-    }   
+    }  
+
+    #intro {
+        padding-right: 1rem;
+        padding-left: 1rem;
+    } 
 }
 
 @media screen and (max-width: 360px) {
