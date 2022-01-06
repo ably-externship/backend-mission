@@ -3,15 +3,26 @@
 {% block sidebar %}
 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
     <li class="nav-item">
-        <a href="#" class="nav-link">
+        <a href="{% url 'home' %}" class="nav-link">
             Home
         </a>
     </li>
     <li class="nav-item">
-        <a href="#" class="nav-link">
-            Login
+        <a href="{% url 'main_page' %}" class="nav-link">
+            Shops
         </a>
     </li>
+
+    <li class="nav-item">
+        {% if user.is_authenticated %}
+        <a class="nav-link" href="{% url 'logout' %}">{{ user.username }} (logout)</a>
+        {% else %}
+        <a class="nav-link" href="{% url 'login_page' %}">
+            Login
+        </a>
+        {% endif %}
+    </li>
+    
     <li class="nav-item">
         <a href="#" class="nav-link">
             Cart
@@ -24,7 +35,7 @@
             My page
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">♥</a></li>
+            <li><a class="dropdown-item" href="#">좋아요</a></li>
             <li><a class="dropdown-item" href="#">즐겨찾기</a></li>
             <li><a class="dropdown-item" href="#">질문</a></li>
         </ul>
@@ -34,5 +45,8 @@
 
 
 {% block section %}
-
+<form class="d-flex">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
 {% endblock %}
