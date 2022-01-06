@@ -5,6 +5,13 @@ class UserBaseView(BaseView):
     pass
 
 
+class Test:
+    @classmethod
+    def test(cls):
+        print(1)
+        return None
+
+
 class LoginView(UserBaseView):
     pass
 

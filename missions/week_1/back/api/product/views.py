@@ -6,8 +6,6 @@ class ProductBaseView(BaseView):
 
 
 class ProductListView(ProductBaseView):
-    _db = 'product'
-    _table = 'product'
     pass
 
 
