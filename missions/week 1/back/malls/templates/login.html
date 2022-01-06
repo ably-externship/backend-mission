@@ -1,0 +1,43 @@
+{% extends "main.html" %}
+
+{% block section %}
+<section id="login" class="position-relative">
+    <div class="section-content overlay d-flex justify-content-center align-items-center">
+        <div class="container-xxl">
+            <div class="row align-items-center">
+                <div class="loginbox col-md-16 text-align">
+                    <h1 class="login-title fw-light" style="font-family: 'Poppins', sans-serif;">Login</h1>
+                    <div class="row login-desc">
+                        <div class="col-sm-14 col-md-12" style="font-family: 'Poppins';"> 
+                            <label for="loginid" class="mt-3">아이디(E-mail)</label>
+                            <input type="text" id="loginid" placeholder="아이디(E-mail)을 입력해 주세요">
+                            
+                            <label for="loginpw">비밀번호</label>
+                            <input type="password" id="loginpw" placeholder="비밀번호를 입력해 주세요">
+                            
+                            
+                            <a href="#" class="btn li_button"> · 아이디/비밀번호찾기</a>
+                            <a href="#" class="btn li_button"> · 회원가입</a>
+                            
+                        </div>
+
+                        <div class="col-sm-3 col-md-12 mt-3">
+                            <a href="#" class="btn btn-warning" type="submit"> 로그인 </a>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+        </div>
+</section>
+
+<section id="event">
+    <div class="eventbox col-md-16 text-align">
+        <div class="card-img-top col-sm-14 col-md-12">
+            <a href="#">
+                <img src="../assets/images/bg_top.jpg" alt="" class="card-img-top">
+            </a>
+        </div>    
+    </div>
+</section>
+
+{% endblock %}

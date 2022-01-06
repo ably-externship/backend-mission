@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
@@ -19,10 +19,9 @@
     
     <nav class="navbar navbar-expand-lg navbar-light bg-light py-0 shadow-lg sticky-top">
         <div class="container">
-            <a href="index.html" class="navbar-brand align-middle">
-                <h3 class="m-0" style="font-family: 'Poppins', sans-serif;">
-                    <img src="../assets/images/logo.png" alt="Logo" height="70px">
-                    &nbsp; MBLY site
+            <a href="#" class="navbar-brand align-middle">
+                <h3 class="m-0">
+                    <img src="../assets/images/logo.png" alt="Logo" height="36px">
                 </h3>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -31,6 +30,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                {% block sidebar %}
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a href="#top" class="nav-link">
@@ -41,13 +41,7 @@
                         <a href="#intro" class="nav-link">
                             Describe
                         </a>
-                    </li>
-                    
-                    <li class="nav-item">
-                        <a href="#cart" class="nav-link">
-                            Cart
-                        </a>
-                    </li>        
+                    </li>                          
                     <li class="nav-item">
                         <a href="#slide1" class="nav-link">
                             Gallery
@@ -70,10 +64,12 @@
                         </ul>
                     </li>
                 </ul>
+                {% endblock %}
             </div>
         </div>
     </nav>
-
+    
+    {% block section %}
     <section id="top" class="position-relative">
         <div class="section-content overlay d-flex justify-content-center align-items-center">
             <div class="container-xxl">
@@ -86,15 +82,15 @@
                             <p class="col-sm-10 col-md-12 lead" style="font-family: 'Poppins';"> MBLY는 초개인화 알고리즘을 이용한
                                 취향추천이 이루어지는 쇼핑메이트 입니다. 여러분의 취향대로 마음껏
                                 입어보세요. enjoy shopping enjoy life. </p>
-                            <p class="col-sm-2 col-md-12">
-                                <a href="#" class="btn btn-warning">들어가기</a>
+                            <p class="col-sm-2 col-md-12 mt-3">
+                                <a href="#" class="btn btn-warning button">들어가기</a>
                             </p>
                         </div>
                     </div>
                     <div class="col-md-3 d-none d-md-block letsgo">
                         <div class="card card-body letsgo-card">
-                            <div class="letsgo my-3">
-                                <h4 class="letsgo-title card-title text-dark mb-3">Easy contact!</h4>
+                            <div class="letsgo my-1">
+                                <h4 class="letsgo-title card-title text-dark mb-1">Easy contact!</h4>
                                 <p class="card-text text-secondary"> How can I help?</p>
                             </div>
                             <div class="letsco-card-form">
@@ -112,7 +108,7 @@
                                         </label>
                                     </div>
                                     <p class="mb-3">
-                                        <button class="btn btn-primary w-100" type="button">Submit</button>
+                                        <button class="btn btn-primary w-100 button" type="button">Submit</button>
                                     </p>
                                 </form>
                             </div>
@@ -132,18 +128,18 @@
                         <h5 class="fw-light">Greetings!</h5>
                         <h1 class="mb-4">Introduce our website.</h1>
                         <div class="intro-text">
-                            <p class="lead">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores fugiat
+                            <p class="lead text_sm">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores fugiat
                                 obcaecati illum delectus! Ea, eos quibusdam, excepturi odit nam voluptatibus deserunt
                                 iure distinctio praesentium exercitationem animi, voluptatem optio officia voluptatum?
                             </p>
-                            <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, reiciendis.
+                            <p class="lead text_sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, reiciendis.
                                 Sapiente ad ex quam cumque debitis? Necessitatibus quasi dolor similique?</p>
                         </div>
                     </div>
                     <div class="col-md-6 intro-first">
                         <div class="row px-md-2">
                             <div class="col-6">
-                                <div class="card card-body my-3 position-relative rounded-3 shadow-lg intro-first-card">
+                                <div class="card card-body my-3 position-relative rounded-3 intro-first-card">
                                     <div
                                         class="overlay d-flex justify-content-center align-items-center position-absolute h-100 w-100 shadow-lg">
                                         <h3 class="fw-light">
@@ -153,7 +149,7 @@
                                 </div>
                             </div>
                             <div class="col-6">
-                                <div class="card card-body my-3 position-relative rounded-3 shadow-lg intro-first-card">
+                                <div class="card card-body my-3 position-relative rounded-3 intro-first-card">
                                     <div
                                         class="overlay d-flex justify-content-center align-items-center position-absolute h-100 w-100 shadow-lg">
                                         <h3 class="fw-light">
@@ -163,7 +159,7 @@
                                 </div>
                             </div>
                             <div class="col-6">
-                                <div class="card card-body my-3 position-relative rounded-3 shadow-lg intro-first-card">
+                                <div class="card card-body my-3 position-relative rounded-3 intro-first-card">
                                     <div
                                         class="overlay d-flex justify-content-center align-items-center position-absolute h-100 w-100 shadow-lg">
                                         <h3 class="fw-light">
@@ -173,7 +169,7 @@
                                 </div>
                             </div>
                             <div class="col-6">
-                                <div class="card card-body my-3 position-relative rounded-3 shadow-lg intro-first-card">
+                                <div class="card card-body my-3 position-relative rounded-3 intro-first-card">
                                     <div
                                         class="overlay d-flex justify-content-center align-items-center position-absolute h-100 w-100 shadow-lg">
                                         <h3 class="fw-light">
@@ -191,18 +187,11 @@
 
     
     <section id="slide1">
-        <style>
-            .carousel-item {
-                height: 30rem;
-                font-family: 'Poppins', sans-serif;
-            }
-        </style>
-
         <div class="slide1-header text-center m-4">
             <h1 class="display-5">Our amazing services</h1>
 
             <div class="divider"></div>
-            <p class="lead text-secondary m-4">
+            <p class="lead text-secondary m-2 text_sm">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat quisquam doloribus blanditiis
                 quam libero quasi dolore quia laboriosam vel eligendi?
             </p>
@@ -218,23 +207,22 @@
                     class="active" aria-current="true"></button>
             </div>
 
-            <div class="carousel-inner">
-                <div class="carousel-item">
-
+            <div class="carousel-inner media">
+                <div class="carousel-item media">
                     <a href="#">
                         <img src="../assets/images/slide1.jpg" alt="" class="card-img-top">
                     </a>
 
                     <div class="container">
-                        <div class="carousel-caption text-start">
+                        <div class="carousel-caption text-start text-dark">
                             <h1>Example headline.</h1>
                             <p>Some representative placeholder content for the first slide of the carousel.</p>
-                            <p><a class="btn btn-lg btn-primary"
+                            <p><a class="btn btn-lg button"
                                     href="#">Sign up today</a></p>
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item">
+                <div class="carousel-item media">
                     <a href="#">
                         <img src="../assets/images/slide2.jpg" alt="" class="card-img-top">
                     </a>
@@ -243,26 +231,27 @@
                         <div class="carousel-caption">
                             <h1>Another example headline.</h1>
                             <p>Some representative placeholder content for the second slide of the carousel.</p>
-                            <p><a class="btn btn-lg btn-primary"
+                            <p><a class="btn btn-lg button"
                                     href="#">Learn more</a></p>
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item active">
+                <div class="carousel-item active media">
                     <a href="#">
-                        <img src="../assets/images/slide7.jpg" alt="" class="card-img-top">
+                        <img src="../assets/images/slide3.jpg" alt="" class="card-img-top">
                     </a>
 
                     <div class="container">
-                        <div class="carousel-caption text-end">
+                        <div class="carousel-caption text-end text-light">
                             <h1>One more for good measure.</h1>
                             <p>Some representative placeholder content for the third slide of this carousel.</p>
-                            <p><a class="btn btn-lg btn-primary"
+                            <p><a class="btn btn-lg button"
                                     href="#">Browse gallery</a></p>
                         </div>
                     </div>
                 </div>
             </div>
+
             <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
@@ -271,12 +260,16 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
+
         </div>
     </section>
-    
-    <footer class="container">
-        <p class="float-end"><a href="#top" class="link-dark text-decoration-none">Back to top</a></p>
-        <p>© 2022 Company, Inc. · <a href="#" class="link-dark text-decoration-none">Privacy</a> · <a href="#"class="link-dark text-decoration-none">Terms</a></p>
+    {% endblock %}
+
+    <footer class="py-2 bg-dark">
+        <div class="container">
+            <p class="float-end text-light"><a href="#top" class="text-light">Back to top</a></p>
+            <p class="text-light">© 2022 Company, Inc. · <a href="#" class="text-light">Privacy</a></p>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
