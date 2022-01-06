@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Product_qna
+class QnaAdmin(admin.ModelAdmin):
+    list_display = ('content', )
 
-# Register your models here.
+admin.site.register(Product_qna,QnaAdmin)
