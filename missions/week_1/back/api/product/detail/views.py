@@ -1,4 +1,4 @@
-from missions.week_1.back.api.product.views import ProductBaseView
+from ..views import ProductBaseView
 
 
 class ProductDetailView(ProductBaseView):

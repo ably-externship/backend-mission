@@ -1,4 +1,4 @@
-from missions.week_1.back.api import BaseView
+from ..views import BaseView
 
 
 class UserBaseView(BaseView):

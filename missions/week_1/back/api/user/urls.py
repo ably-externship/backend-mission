@@ -1,5 +1,5 @@
 from django.urls import path
-from missions.week_1.back.api.user import views
+from ..user import views
 
 app_name = 'user'
 
