@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'head.html' %}
+
+<body>
+    {% include 'header.html' %}
+
+    <hr>
+
+    {% block content %}
+        <h4 style="text-align:center">멋블리에 오신걸 환영합니다.</h4>
+    {% endblock %}
+
+    <hr>
+
+    {% include 'footer.html' %}
+
+</body>
+</html>
