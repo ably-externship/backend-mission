@@ -260,4 +260,4 @@ fabric.properties
 # 추가
 .idea
 .DS_Store
-my_settings.pys
+my_settings.py
