@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-from mbly import my_setting
+from . import my_setting
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,7 +42,8 @@ INSTALLED_APPS = [
 
 INSTALLED_APPS += [
     'mbly',
-    'login'
+    'db',
+    'api'
 ]
 
 MIDDLEWARE = [
