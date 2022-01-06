@@ -1,3 +1,6 @@
 from django.db import models
+from user.models import User
 
-# Create your models here.
+# Cart table
+class Cart(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
