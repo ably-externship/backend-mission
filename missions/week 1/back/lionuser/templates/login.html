@@ -1,0 +1,65 @@
+
+{% extends "base.html" %}
+  {% block header %}
+        <style>
+            body {
+                height: 500px;
+                width: 500px;
+            }
+        </style>
+      <script>
+        function showJwtToken(){
+          $.ajax({
+            type:"POST",
+            url:"/user/login/jwt",
+            data:{email: $('#email').val(),password: $('#password').val()},
+            success : function(response){
+                alert(response['token']);
+
+                alert(response['success']);
+
+                window.location.reload();
+        }
+    });
+        }
+      </script>
+  {% endblock %}
+  {% block contents %}
+  <div class="row mt-5">
+    <div class="col-12 text-center">
+      <h1>로그인</h1>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-12">
+      {{ error }}
+    </div>
+  </div>
+  <div class="row mt-5">
+   <div class="info">
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">이메일</span>
+            </div>
+            <input type="email" class="form-control" id="email">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">비밀번호</span>
+            </div>
+            <input type="password" class="form-control" id="password">
+        </div>
+<!--        <div class="input-group mb-3">-->
+<!--            <div class="input-group-prepend">-->
+<!--                <span class="input-group-text">상품</span>-->
+<!--            </div>-->
+<!--            <input type="text" class="form-control" id="product">-->
+<!--        </div>-->
+
+        <div class="review">
+            <button onclick="showJwtToken()" type="button" class="btn btn-primary">로그인하기</button>
+        </div>
+    </div>
+  </div>
+  {% endblock %}

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>아이템 리스트, 검색 </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Jua&display=swap" rel="stylesheet">
+    <style>
+
+    </style>
+    <link rel="stylesheet" type="text/css" href="../static/css/mymemo.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+<!--    <script src="../static/js/shop.js"></script>-->
+     <!-- jQuery를 import 합니다 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style type="text/css">
+            body {
+                height: 500px;
+                width: 500px;
+            }
+            .wrap{
+                width: 900px;
+                margin: auto;
+
+            }
+            .comment{
+                color:blue;
+                font-weight: bold;
+            }
+            * {
+                 font-family: 'Jua', sans-serif;
+            }
+            .posting-box {
+                width: 500px;
+                margin: 10px auto 30px auto;
+
+                border: 3px solid black;
+                border-radius: 5px;
+
+                padding: 20px;
+            }
+    </style>
+    <script>
+
+        $(document).ready(function () {
+            $('#cards-box').empty();
+            //     listing();
+            showItems();
+        });
+//
+//     function postArticles() {
+//         let url = $('#post-url').val();
+//         let comment = $('#exampleComment').val();
+//         console.log(url, comment);
+//         $.ajax({
+//             type: "POST",
+//             url: "/memo-link",
+//             data: { url_give: url, comment_give: comment },
+//             success: function (response) {
+//                 alert(response['msg']);
+//                 window.location.reload();
+//             }
+//         })
+//     }
+//
+
+
+    var page = 0;
+    function showItems(front) {
+        page=parseInt(page)+1;
+        if (front ===1){
+            page = 1;   }
+
+        $.ajax({
+            type: "GET",
+            url: "items/all?page=" + page,
+            success: function (response) {
+                $('#cards-box').empty();
+                //alert(response);
+                // let articles = response['articles'];
+                for (let i = 0; i < response.length; i++) {
+                    let title = response[i]['product_name'];
+                    let desc = response[i]['description'];
+                    let image = response[i]['price'];
+                    let stock = response[i]['stock'];
+                    let shop = response[i]['shop'];
+                    let id = response[i]['id'];
+                    // alert(title);
+                    console.log(title);
+                    let temp_html = ` <div class="card">
+                                        <img class="card-img-top" src=${image} alt="Card image cap">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${title}</h5>
+                                            <p class="card-text">${desc}</p>
+                                            <p class="card-text comment">재고 ${stock}</p>
+                                            <a href="/shop/${shop}/items/${id}" class="btn btn-primary">자세히</a>
+                                        </div>
+                                    </div>`
+                    $('#cards-box').append(temp_html);
+                }
+            }
+        })
+    }
+
+        function findItem(){
+            $.ajax({
+                type:"POST",
+                url:"items/search",
+                data:{item_search: $('#item-search').val() },
+                success : function(response){
+                    //alert(response["msg"]);
+                    // window.location.reload();
+                    $('#cards-box').empty();
+                    //alert(response);
+                    // let articles = response['articles'];
+                    for (let i = 0; i < response.length; i++) {
+                        let title = response[i]['product_name'];
+                        let desc = response[i]['description'];
+                        let image = response[i]['price'];
+                        let stock = response[i]['stock'];
+                        let shop = response[i]['shop'];
+                        let id = response[i]['id'];
+                        // alert(title);
+                        console.log(title);
+                        let temp_html = ` <div class="card">
+                                            <img class="card-img-top" src=${image} alt="Card image cap">
+                                            <div class="card-body">
+                                                <h5 class="card-title">${title}</h5>
+                                                <p class="card-text">${desc}</p>
+                                                <p class="card-text comment">${stock}</p>
+                                                <a href="/shop/${shop}/items/${id}" class="btn btn-primary">자세히</a>
+                                            </div>
+                                        </div>`
+                        $('#cards-box').append(temp_html);
+                    }
+                }
+            })
+        }
+</script>
+
+
+</head>
+
+<body>
+<div class="posting-box" id="post-box">
+        <div class="form-group">
+            <h1>상품검색</h1>
+            <input class="form-control" id="item-search">
+            <button onclick="findItem()" type="button" class="btn btn-primary">검색</button>
+        </div>
+        <div class="review">
+
+        </div>
+</div>
+<div>
+    <button onclick="showItems()">다음으로</button>
+    <button onclick="showItems(front=1)">맨 앞으로</button>
+    {% if product_list.has_previous %}
+        <button onclick="showItems(product_list.previous_page_number)">이전으로</button>
+
+        <a href="items/all?page={{product_list.previous_page_number}}">이전으로</a>
+    {% endif %}
+</div>
+
+<div id="cards-box" class="card-columns">
+    {% for product in product_list %}
+        <div class="card">
+<!--<            <img class="card-img-top" src="https://image.theminda.com/data/tg/image/tour/middle/201905/c8aee858ed6e8c34010fe3c4ae9be8a5.jpg" alt="Card image cap">&ndash;&gt;-->
+            <div class="card-body">
+                <h5 class="card-title" >{{ product.id }}</h5>
+                <p class="card-text">{{ product.product_name }}</p>
+                <p class="card-text comment">{{ product.description }}</p>
+                <a href="/shop/{{ product.shop }}/items/{{ product.id }}" class="btn btn-primary">자세히</a>
+            </div>
+            {% endfor %}
+        </div>
+</div>
+
+</body>
+</html>

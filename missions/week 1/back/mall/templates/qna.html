@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Webpage Title -->
+    <title>질문하기</title>
+
+    <!-- Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+     <!-- jQuery를 import 합니다 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./static/js/shop.js"></script>
+    <style>
+            body {
+                height: 500px;
+                width: 500px;
+            }
+        </style>
+    <script>
+        function makeQuestion(){
+        $.ajax({
+            type:"POST",
+            url:"qna", //shop/shopid
+            data:{title_give: $('#title').val() ,user_give:$('#user').val(), qna_give:$('#question').val()},
+            success : function(response){
+                //alert(response);
+                window.location.reload();
+            }
+        })
+        }
+    </script>
+
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<div class="container">
+
+    <div class="info">
+        <h1>질문 남겨주세요.</h1>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">제목</span>
+            </div>
+            <input type="text" class="form-control" id="title">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">글쓴이</span>
+            </div>
+            <input type="text" class="form-control" id="user">
+        </div>
+<!--        <div class="input-group mb-3">-->
+<!--            <div class="input-group-prepend">-->
+<!--                <span class="input-group-text">상품</span>-->
+<!--            </div>-->
+<!--            <input type="text" class="form-control" id="product">-->
+<!--        </div>-->
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">질문</span>
+            </div>
+            <textarea class="form-control" id="question"
+                      cols="30"
+                      rows="5" placeholder="140자까지 입력할 수 있습니다."></textarea>
+        </div>
+        <div class="review">
+            <button onclick="makeQuestion()" type="button" class="btn btn-primary">질문 작성하기</button>
+        </div>
+    </div>
+    <div>
+        <a href="qna-list" class="btn btn-primary">질문 목록 </a>
+    </div>
+</div>
+</body>
+</html>

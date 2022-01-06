@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: .
+      dockerfile : Dockerfile
+    command: 'python manage.py runserver 0.0.0.0:8000'
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app
+    depends_on:
+      - mall-db
+
+  mall-db:
+    image: mysql:8.0
+    restart: always
+    environment:
+       MYSQL_DATABASE: admin
+       MYSQL_USER: ably
+       MYSQL_PASSWORD: root
+       MYSQL_ROOT_PASSWORD: root-pass
+       TZ: UTC
+    command: # 명령어 실행
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --lower_case_table_names=1
+    volumes:
+      - ./mysql:/var/lib/mysql
+    ports:
+      - 33065:3306
+    # volumes:

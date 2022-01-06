@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <style>
+            body {
+                height: 500px;
+                width: 500px;
+            }
+        </style>
+  {% endblock %}
+{% block contents %}
+    <h5 class="name-title">ABLY 쇼핑몰 - 질문 리스트</h5>
+
+    {% for question in questions %}
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <img src={{ question.img_url }} class="card-img-top" alt="...">
+            <p class="card-text">{{ question.title }}</p>
+            <p class="card-text">{{ question.description }}</p>
+             <div>
+                <a href="/answer" class="btn btn-primary">답변 확인</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+
+
+{% endblock %}

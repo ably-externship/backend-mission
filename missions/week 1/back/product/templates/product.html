@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block header %}
+<style>
+
+        body {
+                height: 500px;
+                width: 500px;
+            }
+</style>
+<script>
+    function product_detail(id){
+        $.ajax({
+            url:"/api/product/" + id,
+            sucess: function(result){
+                $("#product-" + id).popover({
+                    html: true,
+                    content: result.name + "<br/>" + result.price 
+                }).popover('show');
+            }
+        });
+    }
+    function product_leave(id){
+        $("#product-" + id).popover('hide');
+    }
+    $(document).ready(function() {
+        
+    });
+</script>
+{% endblock %}
+{% block contents %}
+<div class="row mt-5">
+
+    <div class="col-12">
+        <table class="table table-light">
+            <theaad class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">상품명</th>
+                    <th scope="col">설명</th>
+                    <th scope="col">가격</th>
+                    <th scope="col">재고</th>
+                    <th scope="col">상태</th>
+                </tr>
+            </theaad>
+            <tbody class="text-dart">
+                {% for product in product_list %}
+                <tr>
+                    <th scope="row">{{ product.id }}</th>
+<!--                    onmouseenter="product_detail({{ product.id }});" onmouseleave="product_leave({{ product.id }});"-->
+                    <th scope="row"><a id="product-{{ product.id }}"  href="./items/{{ product.id }}">{{ product.product_name }}</th>
+                    <th scope="row">{{ product.description }}</th>
+                    <th scope="row">{{ product.price }}</th>
+                    <th scope="row">{{ product.stock }}</th>
+                    <th scope="row">{{ product.status }}</th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div>
+        <a href="qna" class="btn btn-primary">질문하기</a>
+    </div>
+    </div>
+
+</div>
+{% endblock %}
