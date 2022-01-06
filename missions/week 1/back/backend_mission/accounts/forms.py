@@ -21,12 +21,12 @@ class SignupForm(UserCreationForm):
                 raise forms.ValidationError("이미 등록된 이메일 주소 입니다.")
             return email
 
+
 class AccountCreateForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['username'].required = True
         self.fields['email'].required = True
-
 
     class Meta(UserCreationForm.Meta):
         model = User
@@ -39,6 +39,7 @@ class AccountCreateForm(UserCreationForm):
             if qs.exists():
                 raise forms.ValidationError("이미 등록된 이메일 주소 입니다.")
             return email
+
 
 class AccountUpdateForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
