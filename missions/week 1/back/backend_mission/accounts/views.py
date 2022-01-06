@@ -10,10 +10,7 @@ from .decorators import account_owner
 from .forms import SignupForm, AccountUpdateForm, AccountCreateForm
 from .models import User
 
-has_ownership = [login_required, account_owner ]
-
-def home(request):
-    return render(request, 'accounts/home.html')
+has_ownership = [login_required, account_owner]
 
 
 class AccountCreateView(CreateView):

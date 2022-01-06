@@ -16,7 +16,7 @@ SECRET_KEY = 'django-insecure-&z*+r4)ni0$m44+kh!g-t8xf-l1*^^od7j@-p1ffx#!1z5$0n^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     'bootstrap5', # 라이브러리 사용
     # Locals Apps
     'accounts',
+    'product',
+
 ]
 
 MIDDLEWARE = [
@@ -49,7 +51,7 @@ ROOT_URLCONF = 'base.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'base', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
