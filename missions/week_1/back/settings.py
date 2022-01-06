@@ -1,3 +1,6 @@
+import os
+
+ENV = os.getenv("MBLY_ENV")
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',

@@ -6,6 +6,7 @@ class ProductBaseView(BaseView):
 
 
 class ProductListView(ProductBaseView):
+
     pass
 
 
