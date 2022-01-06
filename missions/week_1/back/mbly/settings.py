@@ -42,8 +42,8 @@ INSTALLED_APPS = [
 
 INSTALLED_APPS += [
     'mbly',
+    'api',
     'db',
-    'api'
 ]
 
 MIDDLEWARE = [

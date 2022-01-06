@@ -1,6 +1,8 @@
 from django.urls import path, include
 
+app_name = 'api'
+
 urlpatterns = [
-    path('v1/user/', include('user.urls')),
-    path('v1/product/', include('product.urls')),
+    path(r'v1/user/', include('api.user.urls', 'user')),
+    path(r'v1/product/', include('api.product.urls', 'product')),
 ]

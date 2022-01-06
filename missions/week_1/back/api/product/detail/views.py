@@ -1,5 +1,5 @@
-from missions.week_1.back.api.product.detail import ProductDetailBaseView
+from missions.week_1.back.api.product.views import ProductBaseView
 
 
-class ProductDetailView(ProductDetailBaseView):
+class ProductDetailView(ProductBaseView):
     pass

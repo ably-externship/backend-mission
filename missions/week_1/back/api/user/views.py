@@ -1,4 +1,8 @@
-from missions.week_1.back.api.user import UserBaseView
+from missions.week_1.back.api import BaseView
+
+
+class UserBaseView(BaseView):
+    pass
 
 
 class LoginView(UserBaseView):
@@ -10,4 +14,6 @@ class LogoutView(UserBaseView):
 
 
 class RegisterView(UserBaseView):
+    _db = 'meta'
+    _table = 'customer'
     pass

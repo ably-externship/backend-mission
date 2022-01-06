@@ -1,3 +1,12 @@
-from django.shortcuts import render
+from django.views import View
+from django.http import JsonResponse
 
-# Create your views here.
+
+class BaseView(View):
+    @staticmethod
+    def response(response, message, status_code=200):
+        result = {
+            'result': response,
+            'message': message,
+        }
+        return JsonResponse(result, status=status_code)
