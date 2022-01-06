@@ -43,6 +43,12 @@ INSTALLED_APPS = [
     #Local App
     'accounts.apps.AccountsConfig',
     'market.apps.MarketConfig',
+    'board.apps.BoardConfig',
+    'file.apps.FileConfig',
+    'market_sns.apps.MarketSnsConfig',
+    'product.apps.ProductConfig',
+    'product_option.apps.ProductOptionConfig',
+
 ]
 
 MIDDLEWARE = [
