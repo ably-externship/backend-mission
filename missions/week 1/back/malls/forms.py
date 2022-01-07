@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from .models import *
 
-class MallsForm(ModelForm):
+class BoardForm(ModelForm):
     class Meta:
-        model = Malls
+        model = Board
         fields = ['title', 'content', 'writer']

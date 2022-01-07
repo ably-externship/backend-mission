@@ -9,26 +9,8 @@ def index(request):
     return render(request, 'index.html')
 
 def main(request):
-    if request.method == 'POST':
-        title = request.POST['title']
-        content = request.POST['content']
-        writer = request.POST['writer']
-
-        mall = Malls(
-            title=title,
-            content=content,
-            writer=writer,
-        )
-        mall.save()
-        return redirect('main_page')
-    else:
-        mallForm = MallsForm
-        mall = Malls.objects.all()
-        context = {
-            'boardForm': mallForm,
-            'board': mall,
-        }
-        return render(request, 'main.html', context)
+    return render(request, 'main.html')
+    
 
 
 def login(request):
@@ -64,4 +46,26 @@ def signup(request):
         
         return render(request, 'signup.html')
     return render(request, 'signup.html')
+
+def board_pagd(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        content = request.POST['content']
+        writer = request.POST['writer']
+
+        board = Board(
+            title=title,
+            content=content,
+            writer=writer,
+        )
+        board.save()
+        return redirect('main_page')
+    else:
+        boardForm = BoardForm
+        board = Board.objects.all()
+        context = {
+            'boardForm': boardForm,
+            'board': board,
+        }
+        return render(request, 'main.html', context)
 
