@@ -3,8 +3,9 @@
         <h1 class="logo">멋블리</h1>
     </div>
     <div>
-
-
+        <a href="{% url 'product:list' %}">
+            <span>쇼핑하기</span>
+        </a>
     </div>
     <div style="margin-top: 1rem;">
         {% if not user.is_authenticated %}

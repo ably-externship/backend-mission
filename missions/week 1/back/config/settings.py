@@ -45,6 +45,8 @@ INSTALLED_APPS = [
 
     # local app
     'account',
+    'product',
+    'comment',
 ]
 
 AUTH_USER_MODEL = 'account.User'
@@ -142,3 +144,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = None
 LOGOUT_REDIRECT_URL = reverse_lazy('account:login')
+
+
+
+STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+DEBUG = True
