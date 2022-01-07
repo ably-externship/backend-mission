@@ -11,15 +11,13 @@
         function showJwtToken(){
           $.ajax({
             type:"POST",
-            url:"/user/login/jwt",
-            data:{email: $('#email').val(),password: $('#password').val()},
+            url:"/user/lioncustomlogin",
+            data:{username: $('#username').val(),password: $('#password').val()},
             success : function(response){
-                alert(response['token']);
-
-                alert(response['success']);
-
-                window.location.reload();
-        }
+                alert(response['access']);
+                alert(response['message']);
+                $(location).attr('href', 'http://localhost:8000')
+            }
     });
         }
       </script>
@@ -40,9 +38,9 @@
 
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text">이메일</span>
+                <span class="input-group-text">사용자이름</span>
             </div>
-            <input type="email" class="form-control" id="email">
+            <input type="username" class="form-control" id="username">
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -50,12 +48,12 @@
             </div>
             <input type="password" class="form-control" id="password">
         </div>
-<!--        <div class="input-group mb-3">-->
-<!--            <div class="input-group-prepend">-->
-<!--                <span class="input-group-text">상품</span>-->
-<!--            </div>-->
-<!--            <input type="text" class="form-control" id="product">-->
-<!--        </div>-->
+{#<!--       <div class="input-group mb-3">#}
+{#            <div class="input-group-prepend">#}
+{#                <span class="input-group-text">이메일</span>#}
+{#            </div>#}
+{#            <input type="email" class="form-control" id="email">#}
+{#        </div>#}
 
         <div class="review">
             <button onclick="showJwtToken()" type="button" class="btn btn-primary">로그인하기</button>

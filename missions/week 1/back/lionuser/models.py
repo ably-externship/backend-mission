@@ -3,44 +3,37 @@ from django.db import models
 # Create your models here.
 from django.db import models
 
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
-from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin, UserManager, AbstractUser
 
-class LionuserManager(BaseUserManager):
+from django.contrib.auth import get_user_model
+class LionuserManager(UserManager):
     use_in_migrations = True
+#     #
+    # def _create_user(self, username, email, password, **extra_fields):
+    #     """
+    #     Create and save a user with the given username, email, and password.
+    #     """
+    #     if not username:
+    #         raise ValueError('The given username must be set')
+    #     email = self.normalize_email(email)
+    #     # Lookup the real model class from the global app registry so this
+    #     # manager method can be used in migrations. This is fine because
+    #     # managers are by definition working on the real model.
+    #     GlobalUserModel = apps.get_model(self.model._meta.app_label, self.model._meta.object_name)
+    #     username = GlobalUserModel.normalize_username(username)
+    #     user = self.model(username=username, email=email, **extra_fields)
+    #     user.password = make_password(password)
+    #     user.save(using=self._db)
+    #     return user
 
-    def _create_user(self, email, password, **extra_fields):
-        if not email:
-            raise ValueError('The given email must be set')
-        email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
-
-    def create_user(self, email, password=None, **extra_fields):
-        extra_fields.setdefault('is_staff', False)
-        extra_fields.setdefault('is_superuser', False)
-        return self._create_user(email, password, **extra_fields)
-
-    def create_superuser(self, email, password, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
-
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError('Superuser must have is_staff=True.')
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Superuser must have is_superuser=True.')
-
-        return self.create_user(email, password, **extra_fields)
-
-
-
-class Lionuser(AbstractBaseUser,PermissionsMixin):
+#custome AuthUser
+class Lionuser(AbstractUser): #AbstractBaseUser,PermissionsMixin
     """
     customized User
     """
+    class Meta(AbstractUser.Meta):
+        swappable = 'AUTH_USER_MODEL'
+
     email = models.EmailField(
         max_length=64,
         unique=True,
@@ -48,20 +41,20 @@ class Lionuser(AbstractBaseUser,PermissionsMixin):
     )
     username = models.CharField(
         max_length=30,
+        unique=True
     )
-    # password = models.TextField(), password 컬럼 상속
-    objects = LionuserManager()
+    password = models.TextField() # password 컬럼 상속?
+    #phone_number = models.TextField()
+    #objects = LionuserManager()
 
-    EMAIL_FIELD = 'email'
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'username'
 
-
-    class Meta:
-        verbose_name = _('user')
-        verbose_name_plural = _('users')
+    # class Meta:
+    #     verbose_name = _('user')
+    #     verbose_name_plural = _('users')
+    # #
+    # # def __str__(self):
+    # #     return self.username
     #
-    # def __str__(self):
-    #     return self.username
-
-    def get_short_name(self):
-        return self.email
+    # def get_short_name(self):
+    #     return self.email

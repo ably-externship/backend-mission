@@ -1,39 +1,62 @@
 {% extends "base.html" %}
-{% block header %}
-  <style>
+  {% block header %}
+        <style>
             body {
                 height: 500px;
                 width: 500px;
             }
         </style>
+      <script>
+        function registerUser(){
+          $.ajax({
+            type:"POST",
+            url:"/user/lion",
+            data:{username: $('#username').val(),password: $('#password').val(), email:$('#email').val()},
+            success : function(response){
+                alert(response['access']);
+                alert(response['message']);
+                $(location).attr('href', 'http://localhost:8000')
+            }
+    });
+        }
+      </script>
   {% endblock %}
-{% block contents %}
-<div class="row mt-5">
-  <div class="col-12 text-center">
-    <h1>회원가입</h1>
+  {% block contents %}
+  <div class="row mt-5">
+    <div class="col-12 text-center">
+      <h1>회원가입</h1>
+    </div>
   </div>
-</div>
-<div class="row mt-5">
-  <div class="col-12">
-    {{ error }}
+  <div class="row mt-5">
+    <div class="col-12">
+      {{ error }}
+    </div>
   </div>
-</div>
-<div class="row mt-5">
-  <div class="col-12">
-    <form method="POST" action=".">
-      {% csrf_token %}
-      {% for field in form %}
-      <div class="form-group">
-        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-        <input type="{{ field.field.widget.input_type }}" class="form-control" id="{{ field.id_for_label }}"
-          placeholder="{{ field.label }}" name="{{ field.name }}" />
-      </div>
-      {% if field.errors %}
-      <span style="color: red">{{ field.errors }}</span>
-      {% endif %}
-      {% endfor %}
-      <button type="submit" class="btn btn-primary">회원가입</button>
-    </form>
+  <div class="row mt-5">
+   <div class="info">
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">사용자이름</span>
+            </div>
+            <input type="username" class="form-control" id="username">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">비밀번호</span>
+            </div>
+            <input type="password" class="form-control" id="password">
+        </div>
+       <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">이메일</span>
+            </div>
+            <input type="email" class="form-control" id="email">
+        </div>
+
+        <div class="review">
+            <button onclick="registerUser()" type="button" class="btn btn-primary">회원가입하기</button>
+        </div>
+    </div>
   </div>
-</div>
-{% endblock %}
+  {% endblock %}

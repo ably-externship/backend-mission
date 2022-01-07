@@ -6,7 +6,7 @@ from django.db import models
 
 class Question(models.Model):
     shop = models.ForeignKey('mall.Shop', on_delete=models.CASCADE, verbose_name='쇼핑몰')
-    product = models.ForeignKey('product.Product', on_delete=models.CASCADE, verbose_name='상품')
+    #product = models.ForeignKey('product.Product', on_delete=models.CASCADE, verbose_name='상품')
     # user = models.ForeignKey('user.User', on_delete=models.CASCADE, verbose_name='사용자')
 
     category = models.CharField(choices=(

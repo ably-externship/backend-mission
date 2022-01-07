@@ -14,7 +14,7 @@ POST  http://localhost:8000/shop/1/items
 Content-Type: application/json
 
 {
-    "product_name":"패딩",
+    "product_name":"잠바3",
     "description":"따뜻",
     "price":900008,
     "stock":94,
@@ -42,7 +42,7 @@ POST  http://localhost:8000/shop/2/items
 Content-Type: application/json
 
 {
-    "product_name":"치마",
+    "product_name":"니트",
     "description":"이뻐",
     "price":100000,
     "stock":150,

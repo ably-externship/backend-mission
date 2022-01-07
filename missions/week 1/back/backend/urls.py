@@ -15,8 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include,re_path
-from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token, refresh_jwt_token
-
+#from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token, refresh_jwt_token
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,10 +30,13 @@ urlpatterns = [
     path('user/', include('lionuser.urls')),
     path('board/', include('board.urls')),
 
-    path('api/token/', obtain_jwt_token),
-    # re_path(r'^rest-auth/', include('rest_auth.urls')),
-    # re_path(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
 
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+
+    # path('api/token/', obtain_jwt_token),
     # path('api/token/verify/', verify_jwt_token),
     # path('api/token/refresh/', refresh_jwt_token),
 

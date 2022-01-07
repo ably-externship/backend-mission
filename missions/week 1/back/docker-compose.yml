@@ -10,23 +10,21 @@ services:
     volumes:
       - .:/app
     depends_on:
-      - mall-db
+      - calendar_db
 
-  mall-db:
-    image: mysql:8.0
-    restart: always
+  calendar_db:
+    container_name: harim_db
+    image: mysql/mysql-server:5.7
     environment:
-       MYSQL_DATABASE: admin
-       MYSQL_USER: ably
-       MYSQL_PASSWORD: root
-       MYSQL_ROOT_PASSWORD: root-pass
-       TZ: UTC
-    command: # 명령어 실행
-      - --character-set-server=utf8mb4
-      - --collation-server=utf8mb4_unicode_ci
-      - --lower_case_table_names=1
-    volumes:
-      - ./mysql:/var/lib/mysql
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_USER: "calendar"
+      MYSQL_PASSWORD: "calendar"
+      MYSQL_DATABASE: "calendar_db"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      TZ: 'Asia/Seoul'
     ports:
-      - 33065:3306
-    # volumes:
+      - "33068:3306"
+    command:
+      - "mysqld"
+      - "--character-set-server=utf8mb4"
+      - "--collation-server=utf8mb4_unicode_ci"

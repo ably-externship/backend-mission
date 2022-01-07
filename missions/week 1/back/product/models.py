@@ -12,7 +12,7 @@ class Product(models.Model):
 
     price = models.IntegerField(verbose_name='상품가격')
 
-    stock = models.IntegerField(verbose_name='재고') # option마다
+    stock = models.IntegerField(verbose_name='재고') # 전체 - option 그룹 1에서 전체 재고 확인, 부분 품절 - OptionGroup 마다 재고 확인
 
     # image_urls = ListTextField(
     #     base_field=models.TextField(),

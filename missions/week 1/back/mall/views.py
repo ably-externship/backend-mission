@@ -41,7 +41,7 @@ def shop_item(request, shop):
                 optionItems = ProductOptionGroupItem.objects.filter(productOptionGroup=optionGroup.id)
                 for item in optionItems: #재고 확인
                     stock += item.stock
-            product.calculateStock(stock / i)
+            product.calculateStock(stock / i) #전체 재고 확인
         return render(request, 'product.html', {'product_list': products, 'shop':shop})
         #serializer = ProductSerializer(products, many=True)
         #return JsonResponse(serializer.data, safe=False)
@@ -82,7 +82,7 @@ def shop_item_detail(request, shop, item):
         # optionGroupSerializer = ProductOptionGroupSerializer(optionGroups, many=True)
 
         choices = []
-        for optionGroup in optionGroups:
+        for optionGroup in optionGroups: #주문시 option마다 추가가격 확인
             optionItems = ProductOptionGroupItem.objects.filter(productOptionGroup=optionGroup.id)
             # optionItemSerializer = ProductOptionGroupItemSerializer(optionItems, many=True)
             choices.append(optionItems)
@@ -94,9 +94,9 @@ def shop_item_detail(request, shop, item):
 
 
 
-from rest_framework.decorators import api_view, permission_classes, authentication_classes
-from rest_framework.permissions import IsAuthenticated
-from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+# from rest_framework.decorators import api_view, permission_classes, authentication_classes
+# from rest_framework.permissions import IsAuthenticated
+# from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 # @api_view(['GET'])
 # @permission_classes((IsAuthenticated, ))
 # @authentication_classes((JSONWebTokenAuthentication,))
@@ -113,13 +113,13 @@ def qna_list(request, pk):
 def shop_qna_create(request, shop):
     if request.method == 'POST':
         shop = Shop.objects.get(id=shop)
-        product = Product.objects.get(id=21) #질문 임의로 선택할 수 있어야 함 default
+        #product = Product.objects.get(id=21) #질문 임의로 선택할 수 있어야 함 default
 
         title = request.POST.get('title_give')
         user = request.POST.get('user_give')
         qna = request.POST.get('qna_give')
 
-        qna = shop.question_set.create(shop=shop, title=title, description=qna, product = product)
+        qna = shop.question_set.create(shop=shop, title=title, description=qna) #, product = product)
         serializer = QuestionSerializer(qna)
         # return Response(serializer.data)
         return JsonResponse({'msg': 'suc'}, status=201)
