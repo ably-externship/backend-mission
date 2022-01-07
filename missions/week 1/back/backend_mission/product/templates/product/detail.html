@@ -25,6 +25,10 @@
         {% endif %}
         <hr>
 
+        {% for comment in target_product.comment.all %}
+            {% include 'comment/detail.html' with comment=comment %}
+        {% endfor %}
+
         {% include 'comment/create.html' with product=target_product %}
 
     </div>
