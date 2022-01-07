@@ -140,13 +140,7 @@ AUTH_USER_MODEL = 'accounts.User'
 LOGIN_REDIRECT_URL = reverse_lazy('accounts:home')
 LOGOUT_REDIRECT_URL = reverse_lazy('accounts:login')
 
-# email
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_PORT = '587'
-# EMAIL_HOST_USER = 'h45652@naver.com'
-# EMAIL_HOST_PASSWORD = 'alsudghks94'
-# EMAIL_USE_TLS = True
-# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 
 
 # Email 전송
