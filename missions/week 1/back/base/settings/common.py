@@ -41,14 +41,13 @@ INSTALLED_APPS = [
     # 라이브러리
     'debug_toolbar',
     #Local App
-    'accounts.apps.AccountsConfig',
     'market.apps.MarketConfig',
     'board.apps.BoardConfig',
     'file.apps.FileConfig',
     'market_sns.apps.MarketSnsConfig',
     'product.apps.ProductConfig',
     'product_option.apps.ProductOptionConfig',
-
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -147,4 +146,4 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-AUTH_USER_MODEL = 'accounts.User'
+#AUTH_USER_MODEL = 'accounts.User'
