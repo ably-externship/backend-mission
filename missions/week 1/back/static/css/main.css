@@ -1,0 +1,53 @@
+/* 폰트 설정 */
+@font-face {
+  font-family: 'GmarketSansMedium';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html > body {
+  font-family:"GmarketSansMedium";
+  text-underline-position: under;
+}
+
+/* 노말라이즈 */
+
+/* 라이브러리 */
+
+/* 커스텀 */
+body {
+  background-color:#afafaf;
+}
+
+:root {
+  --site-width:1280px;
+}
+
+.con {
+  max-width:var(--site-width);
+}
+
+/* 로고 */
+.logo {
+  font-size:1.3rem;
+  font-weight:bold;
+  letter-spacing:0.025rem;
+}
+
+/* 탑바 */
+.top-bar {
+  --height:64px;
+  height:var(--height);
+  background-color:#777; /* 임시 */
+  color:white;
+}
+
+/* 메뉴 1 */
+.menu-1__li-icon > a > span {
+  font-size:20px;
+}
+
+.menu-1 > li:not(.menu-1__li-icon) > a > span {
+  font-size:14px;
+}

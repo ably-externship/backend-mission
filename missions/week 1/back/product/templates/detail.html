@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{%block contents %}
+
+    {% if product %}
+
+        <img src = "{% static '{{ product.image }}' %}" height="280" width="180">
+        {{ product.name }}
+        {{ product.price }}
+    {% else %}
+        상품 없음
+    {% endif %}
+
+
+    {% if qnas %}
+        {% for qna in qnas %}
+            <div>
+                {{qna.content}}
+            </div>
+
+        {% endfor %}
+    {% else %}
+        댓글 없음
+    {% endif %}
+
+{% endblock contents %}
