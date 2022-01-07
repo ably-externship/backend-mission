@@ -40,6 +40,9 @@ INSTALLED_APPS = [
 
     # library
     'bootstrap5',
+
+    # local app
+    'account',
 ]
 
 MIDDLEWARE = [
