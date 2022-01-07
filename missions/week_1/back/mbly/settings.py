@@ -79,7 +79,19 @@ DATABASES = {
         'USER': 'fbaudrl96',
         'PASSWORD': 'audrl30734',
         'HOST': 'localhost',
-        'PORT': '3306'
+        'PORT': 3306
+    },
+    'PROD': {
+        'USER': None,
+        'PASSWORD': None,
+        'HOST': None,
+        'PORT': None
+    },
+    'LOCAL': {
+        'USER': 'fbaudrl96',
+        'PASSWORD': 'audrl30734',
+        'HOST': 'localhost',
+        'PORT': 3306
     }
 }
 
@@ -101,6 +113,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+DB_SERVER_INFO = {
+    'ADDRESS': '127.0.0.1',
+    'USER': 'fbaudrl96',
+    'PASSWORD': 'audrl30734',
+    'PORT': 3306,
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

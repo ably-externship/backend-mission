@@ -1,45 +1,49 @@
 import pymysql
-from missions.week_1.back.settings import ENV
 from missions.week_1.back.db import Singleton
+from missions.week_1.back.mbly.settings import DATABASES, ENV
 
 
 class SqlDb(metaclass=Singleton):
-    def __init__(self):
-        self.client = None
-        self._server = None,
-        self._user = None,
-        self._password = None,
-        self._db = None,
-        self._port = None
-
-    def init(self):
-        self._server = None,
-        self._user = None,
-        self._password = None,
-        self._db = None,
-        self._port = None
-
-    def set_sql_instance(self, ENV):
-        if ENV == 'PROD':
-            self._server = ''
-            self._user = ''
-            self._password = ''
-            self._port = ''
-        else:
-            self._server = '127.0.0.1'
-            self._user = 'fbaudrl96'
-            self._password = 'audrl30734'
-            self._port = '3306'
-
-    def get_database(self, db):
-        return pymysql.connect(
-            host=self._server,
+    def __init__(self, db_name):
+        self._host = DATABASES[ENV]['HOST']
+        self._user = DATABASES[ENV]['USER']
+        self._password = DATABASES[ENV]['PASSWORD']
+        self._port = DATABASES[ENV]['PORT']
+        self._db = pymysql.connect(
+            host=self._host,
             user=self._user,
             password=self._password,
-            db=db,
+            db=db_name,
             port=self._port
         )
+        self._cursor = self._db.cursor(pymysql.cursors.DictCursor)
 
+    def init(self):
+        self._host = None,
+        self._user = None,
+        self._password = None,
+        self._db = None
+        self._port = None
 
-sql_db = SqlDb()
-sql_db.set_sql_instance(ENV)
+    def execute(self, query, args={}):
+        self._cursor.execute(query, args)
+
+    def executeOne(self, query, args={}):
+        self._cursor.execute(query, args)
+        row = self._cursor.fetchone()
+        return row
+
+    def executeAll(self, query, args={}):
+        self._cursor.execute(query, args)
+        row = self._cursor.fetchall()
+        return row
+
+    def commit(self):
+        self._db.commit()
+
+    def set_sql_instance(self, ENV):
+        self._host = DATABASES[ENV]['HOST']
+        self._user = DATABASES[ENV]['USER']
+        self._password = DATABASES[ENV]['PASSWORD']
+        self._port = DATABASES[ENV]['PORT']
+
