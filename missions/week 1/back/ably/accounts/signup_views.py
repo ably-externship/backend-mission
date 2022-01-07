@@ -42,7 +42,7 @@ class SignUpView(View):
                     phone_number = phone_number
                 )
 
-            return JsonResponse({'message' : 'Success'}, status = 200)
+            return JsonResponse({'message' : 'Success'}, status = 201)
 
         except KeyError:
             return JsonResponse({'message' : 'Key Error'}, status = 400)
