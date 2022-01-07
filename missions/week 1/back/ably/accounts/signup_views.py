@@ -1,4 +1,3 @@
-from django.shortcuts import render
 import json
 import bcrypt
 
@@ -49,17 +48,3 @@ class SignUpView(View):
             return JsonResponse({'message' : 'Key Error'}, status = 400)
         except ValidationError as e:
             return JsonResponse({'message' : e.message}, status = 400)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
