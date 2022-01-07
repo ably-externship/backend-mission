@@ -12,7 +12,6 @@ def main(request):
     return render(request, 'main.html')
     
 
-
 def login(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -49,23 +48,27 @@ def signup(request):
 
 def board_pagd(request):
     if request.method == 'POST':
-        title = request.POST['title']
+        q_num = request.POST['q_num']
+        subject = request.POST['subject']
         content = request.POST['content']
-        writer = request.POST['writer']
+        user = request.POST['user']
+        date = request.POST['date']
 
-        board = Board(
-            title=title,
+        question = MallsQuestion(
+            q_num = q_num,
+            subject=subject,
             content=content,
-            writer=writer,
+            user=user,
+            date=date,
         )
-        board.save()
+        question.save()
         return redirect('main_page')
     else:
-        boardForm = BoardForm
-        board = Board.objects.all()
+        questionForm = MallsquestionForm
+        question = MallsQuestion.objects.all()
         context = {
-            'boardForm': boardForm,
-            'board': board,
+            'questionForm': questionForm,
+            'question': question,
         }
         return render(request, 'main.html', context)
 

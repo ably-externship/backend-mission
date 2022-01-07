@@ -22,16 +22,16 @@
         </a>
         {% endif %}
     </li>
-    
+
     <li class="nav-item">
         <a href="#" class="nav-link">
             Cart
         </a>
     </li>
-    
+
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-            data-bs-toggle="dropdown" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
             My page
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -45,26 +45,39 @@
 
 
 {% block section %}
-    <div class="row">
+<section id="shops">
+    <div class="container-fluid">
+        <div class="row">
+            {% for mall_list in mall %}
+                <div class="col-md-2 col-sm-6">
+                    <tr>
+                        <td>{{ mall_list.q_num }}</td>
+                        <td>{{ mall_list.subject }}</td>
+                        <td>{{ mall_list.content }}</td>
+                        <td>{{ mall_list.user }}</td>
+                        
+                    </tr>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<div class="row m-2">
+    <div class="col-md-10 col-sm-12">
         <form class="d-flex m-2">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-warning" type="submit">Search</button>
         </form>
     </div>
-    <div class="container-fluid" >
-        <div class="row">
-            <!-- {% for mall_list in mall %}
-            <div class="col-md-2 col-sm-6">
-                <tr>
-                    <td>{{ mall_list.pk }}</td>
-                    <td>{{ mall_list.title }}</td>
-                    <td>{{ mall_list.content }}</td>
-                    <td>{{ mall_list.writer }}</td>
-                    
-                </tr>
-            </div>
-            {% endfor %} -->
-        </div>
+</div>
+
+<div class="eventbox col-md-16 text-align m-3">
+    <div class="card-img-top col-sm-14 col-md-12">
+        <a href="#">
+            <img src="../assets/images/bg_top.jpg" alt="" class="card-img-top">
+        </a>
     </div>
-        
+</div>
+
 {% endblock %}
