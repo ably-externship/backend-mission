@@ -1,19 +1,25 @@
+import os
 from pathlib import Path
-from missions.week_1.back import settings
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+print('BASE DIR: ', BASE_DIR)
+
+ENV = os.getenv('MBLY_ENV')
+if not ENV:
+    ENV = 'LOCAL'
+print(ENV)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = settings.SECRET_KEY
+SECRET_KEY = '&7ndpkq-hq(_5*411*8p3^k+qh-q_bv&!0=5vj7!l#6pn#gof&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -47,7 +53,7 @@ ROOT_URLCONF = 'mbly.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -66,7 +72,28 @@ WSGI_APPLICATION = 'mbly.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = settings.DATABASES
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'meta',
+        'USER': 'fbaudrl96',
+        'PASSWORD': 'audrl30734',
+        'HOST': 'localhost',
+        'PORT': 3306
+    },
+    'PROD': {
+        'USER': None,
+        'PASSWORD': None,
+        'HOST': None,
+        'PORT': None
+    },
+    'LOCAL': {
+        'USER': 'fbaudrl96',
+        'PASSWORD': 'audrl30734',
+        'HOST': 'localhost',
+        'PORT': 3306
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -86,13 +113,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
