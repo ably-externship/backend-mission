@@ -62,7 +62,7 @@ class ProductOption(models.Model):
     color = models.ForeignKey(Color, on_delete=models.CASCADE)
     size = models.ForeignKey(Size, on_delete=models.CASCADE)
     stock = models.IntegerField()
-    extra_price = models.DecimalField(max_digits=10, decimal_places=2)
+    extra_price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     is_sold_out = models.BooleanField(default=False)
 
     class Meta:
