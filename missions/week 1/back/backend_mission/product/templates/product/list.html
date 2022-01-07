@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<style>
 
-   <style>
+<style>
 
     .container {
         padding: 0;
@@ -16,6 +15,10 @@
     }
 
     .container div {
+
+      width: 250px;
+
+
       display: flex;
       justify-content: center;
       align-items: center;
@@ -50,7 +53,6 @@
 
     {% include 'snippets/pagination.html' with page_obj=page_obj %}
 
-
-
-
 {% endblock %}
+
+
