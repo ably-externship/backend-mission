@@ -3,29 +3,20 @@
 {% block content %}
 
 <style>
-
     .container {
         padding: 0;
         margin: 0, auto;
     }
-
     .container a {
       width: 45%;
       max-width: 250px;
     }
-
     .container div {
-
       width: 250px;
-
-
-      display: flex;
       justify-content: center;
       align-items: center;
-
       border-radius: 1rem;
     }
-
     .container img {
       width: 100%;
       border-radius: 1rem;
@@ -39,6 +30,7 @@
         {% for product in product_list %}
         <a href="{% url 'product:detail' pk=product.pk %}">
             <div>
+                <P> {{ product.name}}</P>
                 <img src="{{ product.image.url }}" alt="">
             </div>
         </a>

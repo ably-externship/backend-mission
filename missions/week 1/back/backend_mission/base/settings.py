@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     # Locals Apps
     'accounts',
     'product',
+    'comment',
 
 ]
 

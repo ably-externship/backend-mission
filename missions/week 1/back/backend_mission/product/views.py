@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
+from django.views.generic.edit import FormMixin
 
+from comment.forms import CommentCreationForm
 from product.forms import ProductCreationForm
 from product.models import Product
 
@@ -15,8 +17,9 @@ class ProductCreateView(CreateView):
         return reverse('product:detail', kwargs={'pk': self.object.pk})
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(DetailView, FormMixin):
     model = Product
+    form_class = CommentCreationForm
     context_object_name = 'target_product'
     template_name = 'product/detail.html'
 
@@ -32,4 +35,4 @@ class ProductListview(ListView):
     model = Product
     context_object_name = 'product_list'
     template_name = 'product/list.html'
-    paginate_by = 25
+    paginate_by = 2

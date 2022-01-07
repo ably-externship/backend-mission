@@ -10,7 +10,7 @@
             {{ target_product.seller }}
         </h5>
         <hr>
-        <img style="width: 100%; border-radius: 1rem; margin: 2rem 0 "
+        <img style="width: 50%; border-radius: 1rem; margin: 2rem 0 "
                 src="{{ target_product.image.url }}" alt="">
 
         <p>
@@ -24,6 +24,9 @@
         </a>
         {% endif %}
         <hr>
+
+        {% include 'comment/create.html' with product=target_product %}
+
     </div>
 
 {% endblock %}
