@@ -3,9 +3,19 @@
 {% block content %}
 <style>
 
+   <style>
+
+    .container {
+        padding: 0;
+        margin: 0, auto;
+    }
+
+    .container a {
+      width: 45%;
+      max-width: 250px;
+    }
+
     .container div {
-      width: 250px;
-      background-color: antiquewhite;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -14,51 +24,33 @@
     }
 
     .container img {
-        width: 100%;
-        border-radius: 1rem;
+      width: 100%;
+      border-radius: 1rem;
     }
 
+</style>
 
 </style>
+    {% if product_list %}
     <div class="container">
-        <div>
-            <img src="https://picsum.photos/id/237/200/300" alt="">
-        </div>
-        <div>
-            <img src="https://picsum.photos/id/200/200/300" alt="">
-        </div>
-        <div>
-            <img src="https://picsum.photos/id/100/200/300" alt="">
-        </div>
-        <div>
-            <img src="https://picsum.photos/id/10/200/300" alt="">
-        </div>
-        <div>
-            <img src="https://picsum.photos/200/300" alt="">
-        </div>
-        <div>
-            <img src="https://picsum.photos/200/300" alt="">
-        </div>
-        <div>
-            <img src="https://picsum.photos/200/300" alt="">
-        </div>
-        <div>
-            <img src="https://picsum.photos/200/300" alt="">
-        </div>
-        <div>
-            <img src="https://picsum.photos/200/300" alt="">
-        </div>
-        <div>
-            <img src="https://picsum.photos/200/300" alt="">
-        </div>
-        <div>
-            <img src="https://picsum.photos/200/450" alt="">
-        </div>
-
-
+        {% for product in product_list %}
+        <a href="{% url 'product:detail' pk=product.pk %}">
+            <div>
+                <img src="{{ product.image.url }}" alt="">
+            </div>
+        </a>
+        {% endfor %}
     </div>
+    <script src="{% static 'js/magicgrid.js' %}"></script>
+    {% else %}
+    <div style="text-align:center">
+        <h1> No Product </h1>
+    </div>
+    {% endif %}
 
-<script src="{% static 'js/magicgrid.js' %}"></script>
+    {% include 'snippets/pagination.html' with page_obj=page_obj %}
+
+
 
 
 {% endblock %}

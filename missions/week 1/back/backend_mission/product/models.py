@@ -2,12 +2,12 @@ from django.db import models
 
 
 class Product(models.Model):
-    product_name = models.CharField(max_length=200, null=True)
-    price = models.IntegerField()
-    size = models.CharField(max_length=200, null=True)
-    count = models.IntegerField()
-    description = models.TextField(max_length=200)
-    image = models.ImageField(upload_to='product/', null=False)
+    name = models.CharField(max_length=200, null=True, verbose_name='상품명')
+    price = models.IntegerField(verbose_name='가격')
+    size = models.CharField(max_length=200, null=True, verbose_name='사이즈')
+    count = models.IntegerField(verbose_name='재고')
+    description = models.TextField(max_length=200, verbose_name='설명')
+    image = models.ImageField(upload_to='product/', null=True, verbose_name='사진')
 
-    seller = models.CharField(max_length=200, null=True)
-    register = models.DateField(auto_now=True, null=True)
+    seller = models.CharField(max_length=200, null=True, verbose_name='입점사')
+

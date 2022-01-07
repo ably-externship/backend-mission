@@ -18,7 +18,7 @@ class AccountCreateView(CreateView):
     model = User
     form_class = AccountCreateForm
     success_url = reverse_lazy('base')
-    template_name = 'accounts/create.html'
+    template_name = 'accounts/signup.html'
 
 
 class AccountDetailView(DetailView):

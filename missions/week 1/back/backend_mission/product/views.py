@@ -26,3 +26,10 @@ class ProductDeleteView(DeleteView):
     context_object_name = 'target_product'
     success_url = reverse_lazy('product:list')
     template_name = 'product/delete.html'
+
+
+class ProductListview(ListView):
+    model = Product
+    context_object_name = 'product_list'
+    template_name = 'product/list.html'
+    paginate_by = 2
