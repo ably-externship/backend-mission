@@ -27,4 +27,7 @@ class Product(core_models.DateTimeModel):
     color = models.CharField(max_length=10, choices=COLOR_CHOICES)
     size = models.CharField(max_length=1, choices=SIZE_CHOICES)
     category = models.CharField(max_length=5, choices=CATEGORY_CHOICES)
-    stock = models.PositiveIntegerField(default=0)  # 재고
+    stock = models.PositiveIntegerField(default=1)  # 재고
+
+    def __str__(self):
+        return self.name

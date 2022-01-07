@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+    <div>
+        {% for product in products %}
+            <div>
+                <h3>
+                    <a href="{% url 'products:detail' product.pk %}">{{product.name}} / ${{product.price}}</a>
+                </h3>
+            </div>
+        {% endfor %}
+    </div>
+    <div>
+         {% if page_obj.has_previous %}
+            <a href="?page={{page_obj.previous_page_number}}">
+                <i>이전</i>
+            </a>
+        {% endif %}
+            <span>
+                Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
+            </span>
+        {% if page_obj.has_next  %}
+            <a href="?page={{page_obj.next_page_number}}">
+                <i>다음</i>
+            </a>
+        {% endif %}
+    </div>
+{% endblock content %}

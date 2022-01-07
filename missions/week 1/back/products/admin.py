@@ -4,4 +4,4 @@ from .models import Product
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('id', 'name', 'market', 'price', 'color', 'size', 'category', 'stock')
