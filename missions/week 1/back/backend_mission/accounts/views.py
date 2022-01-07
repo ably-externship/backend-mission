@@ -1,14 +1,17 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordResetForm, SetPasswordForm
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, \
+    PasswordResetCompleteView
 from django.core.mail import EmailMessage
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, resolve_url
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, UpdateView, CreateView, DeleteView
 
+from base import settings
 from .decorators import account_owner
-from .forms import SignupForm, AccountUpdateForm, AccountCreateForm
+from .forms import AccountUpdateForm, AccountCreateForm
 from .models import User
 
 has_ownership = [login_required, account_owner]
@@ -42,12 +45,24 @@ class AccountDeleteView(DeleteView):
     success_url = reverse_lazy('accounts:login')
     template_name = 'accounts/delete.html'
 
-    from django.core.mail.message import EmailMessage
+
+class UserPasswordResetView(PasswordResetView):
+    template_name = 'accounts/password_reset.html'
+    success_url = reverse_lazy('accounts:password_reset_done')
+    form_class = PasswordResetForm
+
+    def form_valid(self, form):
+        if User.objects.filter(email=self.request.POST.get("email")).exists():
+            return super().form_valid(form)
+        else:
+            return render(self.request, 'accounts/password_reset_done_fail.html')
 
 
-# def send_email(request):
-#     subject = "message"
-#     to = ["min949494@gmail.com"]
-#     from_email = "min949494@gmail.com"
-#     message = "메지시 테스트"
-#     EmailMessage(subject=subject, body=message, to=to, from_email=from_email).send()
+class UserPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'accounts/password_reset_done.html'  # 템플릿을 변경하려면 이와같은 형식으로 입력
+
+
+
+
+
+
