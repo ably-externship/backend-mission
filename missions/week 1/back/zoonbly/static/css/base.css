@@ -1,0 +1,24 @@
+footer{ position:fixed; 
+    left:0px; 
+    bottom:0px; 
+    height:60px; 
+    width:100%; 
+    background:#e3f2fd;
+    }
+
+
+footer.sticky-footer {
+    padding: 1.5rem 0;
+    flex-shrink: 0;
+}
+
+footer.sticky-footer .footer-text {
+    line-height: 1;
+    font-size: 0.8rem;
+    text-align: center !important;
+}
+
+.margin-auto {
+    margin-top: auto !important;
+    margin-bottom: auto !important;
+}

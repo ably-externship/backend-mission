@@ -1,0 +1,26 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% load i18n %} 
+{% load account socialaccount %}
+{% block content %}
+<br>
+<div class="card border-info mb-3" style="max-width: 18rem; text-align: center;">
+    <div class="card-header"><h1>로그아웃</h1></div>
+    <div class="card-body">
+      <!-- <h5 class="card-title">Info card title</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+      <p>{% trans 'Are you sure you want to sign out?' %}</p>
+
+        <form method="post" action="{% url 'account_logout' %}">
+        {% csrf_token %}
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+        {% endif %}
+        <button type="submit" class="btn btn-outline-info btn-sm">로그아웃</button>
+        </form>
+    </div>
+</div>
+
+
+
+{% endblock %}
