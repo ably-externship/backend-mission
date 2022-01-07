@@ -169,4 +169,3 @@ LOGIN_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_EMAIL_VERIFICATION = "none"
 
-DEFAULT_AUTO_FIELD='django.db.models.AutoField'

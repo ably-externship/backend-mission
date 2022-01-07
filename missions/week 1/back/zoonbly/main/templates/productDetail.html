@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>{{product.name}}</p>
+<p>{{product.writer}}</p>
+<p>{{product.marcket}}</p>
+<p>{{product.pub_date}}</p>
+<p>{{product.price}}</p>
+<p>{{product.stock}}</p>
+<p>{{product.description}}</p>
+{% if product.image %}
+    <img src="{{ product.image.url }}" alt="사진" height="300">
+{% else %}
+    <p>상품 사진이 없습니다.</p>
+{% endif %}
+<hr>
+{% if user == product.writer %}
+    <a href="{%url 'main:productEdit' product.id %}" class="btn btn-primary btn-sm">수정하기</a>
+    <a href="{%url 'main:productDelete' product.id %}" class="btn btn-primary btn-sm">삭제하기</a>
+{% endif %}
+{% endblock %}
