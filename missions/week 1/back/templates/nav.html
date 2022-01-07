@@ -1,5 +1,10 @@
+<a href="{% url 'core:home' %}">Home</a>
 <ul>
-    <li>회원가입</li>
-    <li>로그인</li>
-    <li>로그아웃</li>
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'users:logout' %}">로그아웃</a></li>
+        <li>{{user}}님 안녕하세요</li>
+    {% else %}
+        <li><a href="{% url 'users:login' %}">로그인</a></li>
+        <li><a href="{% url 'users:signup' %}">회원가입</a></li>
+    {% endif %}
 </ul>
