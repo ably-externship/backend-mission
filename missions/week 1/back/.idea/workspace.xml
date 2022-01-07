@@ -2,19 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="811e5bc3-48f6-4608-b65c-d0a65489ef86" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/product/templates/detail.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product/templates/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/qna/templates/qna.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/css/main.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user/templates/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user/templates/signup.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/back/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cart/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/cart/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/order/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/order/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/back/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/qna/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/qna/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/qna/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/qna/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seller/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/seller/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seller/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/seller/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qna/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/qna/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,10 +38,20 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\82109\Desktop\상락\멋사\mission1\missions\week 1\back\templates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\82109\Desktop\상락\멋사\mission1\missions\week 1\back\product\templates" />
+      <recent name="C:\Users\82109\Desktop\상락\멋사\mission1\missions\week 1\back\product\templates\product" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="back" type="Python.DjangoServer" factoryName="Django server">
@@ -73,6 +87,8 @@
       <option name="presentableId" value="Default" />
       <updated>1641427381866</updated>
       <workItem from="1641427439802" duration="18354000" />
+      <workItem from="1641516079356" duration="18370000" />
+      <workItem from="1641546929208" duration="9289000" />
     </task>
     <servers />
   </component>
@@ -101,5 +117,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

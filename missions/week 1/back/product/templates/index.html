@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{%block contents %}
+
+    {% if products %}
+
+        {% for product in products %}
+            <div onclick="location.href='{% url 'detailProduct' product.id %}'">
+                <img src = "{{ product.image }}" height="280" width="180">
+                {{product.price}}
+                {{product.name}}
+            </div>
+
+        {% endfor %}
+    {% else %}
+        상품 없음
+    {% endif %}
+
+
+
+{% endblock contents %}
