@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div style="text-align: center; max-width: 500px margin: 4rem auto;">
+
+        <h1>
+            {{ target_product.name }}
+        </h1>
+        <h5>
+            {{ target_product.seller }}
+        </h5>
+        <hr>
+        <img style="width: 100%; border-radius: 1rem; margin: 2rem 0 "
+                src="{{ target_product.image.url }}" alt="">
+
+        <p>
+            {{ target_product.description }}
+        </p>
+
+        {% if target_product.seller == user %}
+        <a href="{% url 'product:delete' pk=target_product.pk %}"
+        class="btn btn-danger rounded-pill col-3">
+            <p>Delete Product</p>
+        </a>
+        {% endif %}
+        <hr>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div style="text-align: center; max-width: 500px margin: 4rem auto;">
+        <p>
+            {{ target_user.date_joined }}
+        </p>
+        <h2>
+            사용자 이름 : {{ target_user.username }}
+            <br>
+            사용자 이메일 : {{ target_user.email }}
+        </h2>
+
+        {% if target_user == user %}
+        <a href="{% url 'accounts:update' pk=user.pk%}">
+            <p>
+                Change Info
+            </p>
+        </a>
+        <a href="{% url 'accounts:delete' pk=user.pk%}">
+            <p>
+                Quit
+            </p>
+        </a>
+        {% endif %}
+    </div>
+
+{% endblock %}
