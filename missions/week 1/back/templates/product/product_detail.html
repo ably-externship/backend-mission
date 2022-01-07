@@ -1,4 +1,51 @@
 {% extends 'base.html' %}
 {% block content %}
-    상품 상세 페이지
+<div class="container mx-auto">
+    <div
+            id="carouselExampleCrossfade"
+            class="carousel slide carousel-fade relative"
+            data-bs-ride="carousel"
+    >
+        <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
+            {% for file in product.file %}
+            <button
+                    type="button"
+                    data-bs-target="#carouselExampleCrossfade"
+                    data-bs-slide-to="{{forloop.counter0}}"
+                    aria-label="Slide {{forloop.counter}}"
+                    {% if forloop.counter0 == 0 %}
+                    class="active"
+                    aria-current="true"
+                    {% endif %}
+            ></button>
+            {% endfor %}
+        </div>
+        <div class="carousel-inner relative w-full overflow-hidden">
+            {% for file in product.file %}
+            <div class="carousel-item float-left w-full
+            {% if forloop.counter0 == 0  %}
+                    active
+                    {% endif %}">
+                <img
+                        src="{{file.file_path}}"
+                        class="block w-full"
+                        alt="{{forloop.counter}}"
+                />
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div>
+        <p class="text-base">{{product.name}}</p>
+        <p class="text-lg font-bold">{{product.price}}원</p>
+    </div>
+    <hr/>
+    <div class="p-4">
+        <span  class="inline"><p class="text-lg">배송비 <a class="font-bold">전 상품 무료배송</a></p></span>
+    </div>
+    <hr/>
+    <div>
+        {{product.descriptions}}
+    </div>
+</div>
 {% endblock %}

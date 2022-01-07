@@ -1,4 +1,77 @@
 {% extends 'base.html' %}
 {% block content %}
-    상품 리스트 페이지
+<section class="section-prod-list">
+    <div class="container mx-auto">
+        <ul id="content" class="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {% if data %}
+            {% for product in data %}
+            <li>
+                <div onclick="location.href='/product/' + {{product.id}}">
+                    <img class="w-full block" src="{{product.file}}"/>
+                    <div>
+                        <p class="text-lg font-bold">{{product.price}}원</p>
+                    </div>
+                    <div>
+                        <p class="text-base ">{{product.company_name}}</p>
+                    </div>
+                    <div>
+                        <p class="text-base text-xs truncate">{{product.name}}</p>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+            {% else %}
+            <li>
+                No Data Found
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</section>
+{% block javascript %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        let pageNumber = 1;
+        const num_pages = '{{num_pages}}';
+        console.log(num_pages)
+        $(window).scroll(function () {
+            if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                if ( pageNumber != num_pages) {
+                    $.ajax({
+                        'url': '/product/ajax',
+                        'data': {page_num : pageNumber + 1},
+                        'method': 'GET',
+                        'success': function(data) {
+                            let appendTag = ''
+                            data.data.map(product => {
+                               appendTag  += '<li>'
+                               appendTag  += `<div onClick="location.href='/product/${product.id}'">`
+                               appendTag  += '<img class="w-full block" src=" '+ product.file +'"/>'
+                               appendTag  +=  '<div>'
+                               appendTag  +=  '<p class="text-lg font-bold">'+product.price+'원</p>'
+                               appendTag  +=  '</div>'
+                               appendTag  +=  '<div>'
+                               appendTag  +=  '<p class="text-base ">'+product.company_name+'</p>'
+                               appendTag  +=  '</div>'
+                               appendTag  +=  '<div>'
+                               appendTag  +=  '<p class="text-base text-xs truncate">'+product.name+'</p>'
+                               appendTag  +=   '</div>'
+                               appendTag  +=   '</div>'
+                               appendTag  += '</li>'
+                            })
+                            $("#content").append(appendTag)
+                            pageNumber += 1;
+                            if ( pageNumber == num_pages) {
+                                $("#content").append('<li><div class="justify-center"><div>마지막 상품입니다.<div></div></li>')
+                            }
+                            console.log(pageNumber)
+                        },
+                    })
+                }
+                }
+            }
+        );
+    })
+</script>
+{% endblock javascript %}
 {% endblock %}
