@@ -15,7 +15,7 @@ class LogInView(View):
             password = data['password']
             user = User.objects.get(email = data['email'])
 
-            if user.userinfo.is_deleted is True:
+            if user.userinfo.is_deleted:
                 return JsonResponse({'message' : 'Invalid User'}, status = 401)
 
             if not bcrypt.checkpw(password.encode('utf-8'), user.userinfo.password.encode('utf-8')):
