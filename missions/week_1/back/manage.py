@@ -1,7 +1,8 @@
 #!/usr/bin/env python
-"""Django's command-line utility for administrative tasks."""
 import os
 import sys
+from mbly.settings import ENV
+from db.sql import set_db
 
 
 def main():
@@ -19,4 +20,8 @@ def main():
 
 
 if __name__ == '__main__':
+    set_db(ENV)
+    sys.path.insert(0, '/Users/ryumyunggi/ably/backend-mission')
     main()
+
+
