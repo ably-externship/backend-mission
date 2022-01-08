@@ -3,6 +3,10 @@ from missions.week_1.back.crud.sql.products.product import ProductCrud
 from missions.week_1.back.api.product.models import ProductQuery
 
 
+class ProductBaseView(BaseView):
+    pass
+
+
 def get_products_view(request):
     products = ProductCrud.get_products(order_by='stars')
     data = {
