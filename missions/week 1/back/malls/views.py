@@ -80,7 +80,7 @@ def signup(request):
 
             username=request.POST.get("username")
             auth.login(request, user)
-            messages.success(request, f'Hi {username} 가입이 완료되었습니다.')
+            messages.success(request, f'반갑습니다, {username} 가입이 완료되었습니다.')
             return redirect('login_page')            
         else : 
             return render(request, 'signup.html', {'error' : '가입에 실패하였습니다'})
