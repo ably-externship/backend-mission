@@ -101,6 +101,12 @@ def shops(request, id=id):
     return render(request, 'shops.html', context)
 
 
+def item_page(request, name=None):
+    itemhttpForm = MallshttpForm
+    itemhttp = MallsItems.objects.filter(name=name)
+    context = itemhttp.httpobjects
+    render(request, 'item.html', context=context)
+
 def board_pagd(request):
     if request.method == 'POST':
         q_num = request.POST['q_num']

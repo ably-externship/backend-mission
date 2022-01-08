@@ -1,12 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User, UserManager, AbstractUser
+from django.utils import timezone 
 # Create your models here.
+
 
 class User(AbstractUser):
     pass
 
+
 class UserManager(UserManager):
     pass
+
 
 class MallsItems(models.Model):
     id = models.ForeignKey('MallsList', models.DO_NOTHING, db_column='id')
@@ -53,3 +57,29 @@ class MallsQuestion(models.Model):
     class Meta:
         managed = True
         db_table = 'malls_question'
+
+
+class Mallshttp(models.Model):
+    name = models.ForeignKey('MallsItems', models.DO_NOTHING, db_column='name')
+    httpobjects = models.CharField(max_length=10000)
+    
+    class Meta:
+        managed = True
+        db_table = 'malls_itemhttp'
+
+
+# class Post(models.Model): # Post 모델의 이름, models는 Post가 장고 모델임을 의미
+#     author = models.ForeignKey('malls.User', models.DO_NOTHING) # 작성자명
+#     title = models.CharField(max_length=200) # 제목, 길이제한 O
+#     text = models.TextField() # 내용, 길이제한 X
+#     created_date = models.DateTimeField(default=timezone.now) # 최초생성시각
+#     published_date = models.DateTimeField(blank=True, null=True) # 발행날짜
+
+#     def publish(self): # 발행
+#         self.published_date = timezone.now() # 현재시각 저장
+#         self.save()
+
+#     def __str__(self): # _ _ 2개
+#         return self.title
+
+
