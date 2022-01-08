@@ -14,6 +14,7 @@ class Question(TimeStampModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     question_category = models.ForeignKey(QuestionCategory, on_delete=models.SET_NULL, null=True)
+    title = models.CharField(max_length=100)
     content = models.TextField()
     answered = models.BooleanField(default=False)
     is_deleted = models.BooleanField(default=False)
