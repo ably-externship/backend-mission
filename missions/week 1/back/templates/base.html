@@ -3,9 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>ably-shop</title>
-    {% include "nav.html" %}
 </head>
 <body>
+    <header>
+        {% include "nav.html" %}
+        {% block search-bar %}
+            <form method="get" action="{% url 'products:search' %}">
+                <input name="name" placeholder="상품 이름을 검색해주세요."/>
+            </form>
+        {% endblock search-bar %}
+    </header>
+
     {% block content %}{% endblock %}
     {% include "footer.html" %}
 </body>

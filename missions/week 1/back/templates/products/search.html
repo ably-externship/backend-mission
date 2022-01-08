@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block search-bar %}
+{% endblock search-bar %}
+
+{% block content %}
+    <h2> 검색 </h2>
+    <form method='get' action="{% url "products:search" %}">
+        {{form.as_p}}
+        <button>Search</button>
+    </form>
+
+    <h3>검색결과 ({{ products.count }}개)</h3>
+
+    {% for product in products %}
+        <a href="{% url 'products:detail' product.pk %}">
+            <h3>{{product.name}}</h3>
+        </a>
+
+    {% endfor %}
+
+{% endblock content %}
