@@ -20,10 +20,19 @@
 <body style="margin: 0 auto; height: 100%; max-width:600px">
 <div class="container h-full">
     <nav class="flex justify-end flex-wrap bg-teal p-2">
-        {% if user.is_authenticated %}
-        <div class="flex items-center flex-no-shrink mr-1" onclick="location.href='/auth/logout'">
+        <div class="flex items-center flex-no-shrink mr-1">
             <button class="flex items-center px-3 py-2 border rounded text-teal-lighter border-teal-light hover:text-white hover:border-white"
-                    onclick="location.href='/auth/login'">
+                    onclick="location.href='/board'">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20">
+                    <path d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/>
+                </svg>
+            </button>
+        </div>
+
+        {% if user.is_authenticated %}
+        <div class="flex items-center flex-no-shrink mr-1" >
+            <button class="flex items-center px-3 py-2 border rounded text-teal-lighter border-teal-light hover:text-white hover:border-white"
+                    onclick="location.href='/auth/logout'">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 20 20"
                      stroke="currentColor">
                     <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>

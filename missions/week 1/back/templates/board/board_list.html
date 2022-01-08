@@ -1,4 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
-    질문 상세 페이지
+<div class="grid mx-auto gap-3 container">
+    <div>
+        <table class="table-auto w-full">
+            <thead>
+            <tr>
+                <th class="border border-gray-300 text-center">제목</th>
+                <th class="border border-gray-300 text-center">컨텐츠</th>
+                <th class="border border-gray-300 text-center">작성일</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if board_list %}
+            {% for board in board_list %}
+            <tr class="hover:bg-sky-300">
+                <td class="border border-gray-300 text-center">{{board.title}}</td>
+                <td class="border border-gray-300 text-center ">{{board.content}}</td>
+                <td class="border border-gray-300 text-right">{{board.create_date}}</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <button class="btn btn-primary w-full" onclick="location.href='write'">글쓰기</button>
+    </div>
+</div>
 {% endblock %}

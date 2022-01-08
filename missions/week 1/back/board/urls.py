@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.urls import path
 
-from .views import index, detail
+from .views import index, detail, write
 
 urlpatterns = [
     path('', index),
     path('<int:board_id>', detail),
+    path('write/', write)
 ]
 
