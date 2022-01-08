@@ -75,6 +75,14 @@
         </div>
     </nav>
     
+    <div class="container">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{message.tag}}"> {{ message }} </div>
+        {% endfor %}
+    {% endif %}
+    </div>
+
     {% block section %}
     <section id="top" class="position-relative">
         <div class="section-content overlay d-flex justify-content-center align-items-center">

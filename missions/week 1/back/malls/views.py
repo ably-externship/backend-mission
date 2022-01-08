@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib import auth
+from django.contrib import auth, messages
 from .forms import *
 from .models import *
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
@@ -48,11 +48,28 @@ def logout(request):
 
 
 
+# def signup(request):
+#     if request.method == "POST":
+#         form = CreateUserForm()
+#         if form.is_valid():
+#             form.save()
+#             username = request.POST.get('username')
+#             messages.success(request, f'Hi {username} 가입이 완료되었습니다.')
+#             return redirect('login.html')
+                
+#         else : 
+#             return render(request, 'signup.html', {'error' : '가입에 실패하였습니다'})
 
+#     else : 
+#         form = CreateUserForm()
+#         return render(request, 'signup.html', {'form':form} )
+
+
+
+# ---------------------------------------------------------------------
 
 def signup(request):
     if request.method == "POST":
-        # try : 
         if request.POST.get("password1") == request.POST.get("password2"):
             user = User.objects.create_user(
                 username=request.POST.get("username"), 
@@ -60,13 +77,41 @@ def signup(request):
                 password=request.POST.get("password1")
             )
             user.save()
+
+            username=request.POST.get("username")
             auth.login(request, user)
-            return redirect('login.html')
-            
-        # except Exception as e:
-        #     print(e)     
-        #     return render(request, 'signup.html', {'error' : '비밀번호 형식이 올바르지 않습니다'})
+            messages.success(request, f'Hi {username} 가입이 완료되었습니다.')
+            return redirect('login_page')            
+        else : 
+            return render(request, 'signup.html', {'error' : '가입에 실패하였습니다'})
     return render(request, 'signup.html')
+
+
+
+
+# ---------------------------------------------------------------------
+# def signup(request):
+#     form = UserCreationForm()
+#     return render(request, 'signup.html', {'form':form})
+
+
+# def signup(request):
+#     if request.method == "POST":
+#         # try : 
+#         if request.POST.get("password1") == request.POST.get("password2"):
+#             user = User.objects.create_user(
+#                 username=request.POST.get("username"), 
+#                 email=request.POST.get("email"),
+#                 password=request.POST.get("password1")
+#             )
+#             user.save()
+#             auth.login(request, user)
+#             return redirect('login.html')
+            
+#         # except Exception as e:
+#         #     print(e)     
+#         #     return render(request, 'signup.html', {'error' : '비밀번호 형식이 올바르지 않습니다'})
+#     return render(request, 'signup.html')
 
 
 
