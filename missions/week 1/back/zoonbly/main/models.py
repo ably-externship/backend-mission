@@ -19,3 +19,9 @@ class Question(models.Model):
     writer = models.ForeignKey(User, on_delete=models.CASCADE) #작성자
     created = models.DateTimeField() # 작성시간
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='questions') # 해당 상품
+
+class Answer(models.Model):
+    content = models.TextField() # 답변 내용
+    writer = models.ForeignKey(User, on_delete=models.CASCADE) # 작성자
+    created = models.DateTimeField() # 작성시간
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers') # 해당 질문

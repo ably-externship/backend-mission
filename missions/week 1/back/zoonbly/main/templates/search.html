@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+    {% if not products %}
+        <h1> 검색 결과가 없습니다. </h1>
+    {% else %}
+        <div class="container">
+            <div class="row">
+                {% for product in products %}
+                    <div class="col">
+                        <div class="card" style="width: 18rem; height: 30rem; align-items: center;">
+                            <div style="width:17rem; height:18rem; align-items: center;">
+                                <img src="{{product.image.url}}" class="card-img-top" alt="...">
+                            </div>
+                            <div class="card-body" style="width: 17rem;">
+                            <h5 class="card-title">{{product.name}}</h5>
+                            <p class="card-text">{{product.marcket}}</p>
+                            <p class="card-text">{{product.description}}</p>
+                            <a href="{%url 'main:productDetail' product.id %}" class="btn btn-primary btn-sm">MORE</a>
+                            </div>
+                        </div>
+                    </div>
+                
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

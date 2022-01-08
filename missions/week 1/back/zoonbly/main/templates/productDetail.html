@@ -33,5 +33,16 @@
             <a href="{%url 'main:questionDelete' product.id question.id %}" class="btn btn-primary btn-sm">삭제하기</a>
         {% endif %}
     </p>
+    {% for answer in answers %}
+    <p>{{answer.content}}</p>
+    {% endfor %}
+    {% if user == product.writer %}
+        <form action="{% url 'main:answerCreate' product.id question.id %}" method="post">
+            {%csrf_token%}
+            <p><textarea type="text" name="content" id="" cols="40" rows="1"></textarea></p>
+            <button type="submit" class="btn-primary btn-sm">답변 등록하기</button>
+        </form>
+    {% endif %}
+    <hr>
 {% endfor %}
 {% endblock %}

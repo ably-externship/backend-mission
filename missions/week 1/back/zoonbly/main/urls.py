@@ -14,4 +14,6 @@ urlpatterns = [
     path('questionEdit/<int:productId>/<int:questionId>', questionEdit, name="questionEdit"),
     path('questionUpdate/<int:productId>/<int:questionId>', questionUpdate, name="questionUpdate"),
     path('questionDelete/<int:productId>/<int:questionId>', questionDelete, name="questionDelete"),
+    path('answerCreate/<int:productId>/<int:questionId>', answerCreate, name="answerCreate"),
+    path('search/', search, name='search'),
 ]

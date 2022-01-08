@@ -1,12 +1,17 @@
+from django.core import paginator
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Product, Question
+from .models import Product, Question, Answer
 from django.utils import timezone
+from django.core.paginator import Paginator
 
 # Create your views here.
 
 def home(request):
     products = Product.objects.all().order_by('-pub_date')
-    return render(request, 'home.html', {'products':products})
+    paginator = Paginator(products, 4)
+    page = int(request.GET.get('page', 1))
+    product_list = paginator.get_page(page)
+    return render(request, 'home.html', {'product_list':product_list})
 
 def productNew(request):
     return render(request, 'productNew.html')
@@ -27,7 +32,10 @@ def productCreate(request):
 def productDetail(request, id):
     product = get_object_or_404(Product, pk = id)
     all_questions = product.questions.all().order_by('-created')
-    return render(request, 'productDetail.html', {'product':product, 'questions': all_questions})
+    all_answers = []
+    for question in all_questions:
+        all_answers += list(Answer.objects.all())
+    return render(request, 'productDetail.html', {'product':product, 'questions': all_questions, 'answers':all_answers})
 
 def productEdit(request, id):
     edit_product = Product.objects.get(pk = id)
@@ -77,3 +85,22 @@ def questionDelete(request, productId, questionId):
     delete_question.delete()
     return redirect('main:productDetail', productId)
 
+def answerCreate(request, productId, questionId):
+    new_answer = Answer()
+    new_answer.content = request.POST['content']
+    new_answer.writer = request.user
+    new_answer.created = timezone.now()
+    new_answer.question = get_object_or_404(Question, pk = questionId)
+    new_answer.save()
+    return redirect('main:productDetail', productId)
+
+def search(request):
+    products = Product.objects.all().order_by('-pub_date')
+    word = request.POST.get('word', "")
+
+    if word:
+        products = products.filter(name__icontains=word)
+        return render(request, 'search.html', {'products' : products, 'word':word})
+
+    else:
+        return render(request, 'search.html')

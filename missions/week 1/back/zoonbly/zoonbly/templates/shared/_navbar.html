@@ -44,9 +44,10 @@
             {% endif %}
 
           <hr>
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+          <form class="d-flex" action="{% url 'main:search' %}" method="post">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" placeholder="상품 검색하기" aria-label="Search" name="word" value="{{word}}">
+            <button class="btn btn-primary" type="submit">Search</button>
           </form>
         </div>
       </div>
