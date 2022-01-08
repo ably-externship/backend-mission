@@ -4,6 +4,7 @@ from account.views import (
     AccountCreateView,
     find_username_view,
     reset_password_view,
+    change_password_view,
 )
 
 
@@ -15,4 +16,6 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('find_username/', find_username_view, name='find_username'),
     path('reset_password/', reset_password_view, name='reset_password'),
+    path('change_password/', change_password_view, name='change_password'),
+
 ]

@@ -1,12 +1,13 @@
 import secrets
 
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-from account.forms import AccountCreateForm, FindusernameForm, ResetpasswordForm
+from account.forms import AccountCreateForm, FindusernameForm, ResetpasswordForm, ChangePasswordForm
 from account.models import User
 
 
@@ -79,12 +80,15 @@ def reset_password_view(request):
                 return HttpResponse('입력한 이메일에 해당하는 유저가 없습니다.')
 
             token = secrets.token_urlsafe()
-            
-            url = 'http://127.0.0.1:8000/change_password/reset=' + token
+            find_user.tmp_token = token
+            find_user.save()
+
+            url = f'http://127.0.0.1:8000/accounts/change_password/?reset_token={token}'
 
             subject = '비밀번호 재설정 이메일 입니다.'
             content = '안녕하세요.' \
-                      '비밀번호 변경 URL 입니다.'
+                      '비밀번호 변경 URL 입니다.' \
+                      f'URL : {url}'
 
             send_mail(
                 subject,
@@ -102,3 +106,42 @@ def reset_password_view(request):
             'target_email': target_email,
         }
     )
+
+
+def change_password_view(request):
+    if request.method == 'GET':
+        token = request.GET.get('reset_token')
+
+        try:
+            user = User.objects.get(tmp_token=token)
+        except User.DoesNotExist:
+            return HttpResponse('잘못된 접근입니다.')
+
+        return render(
+            request,
+            'account/change_password_form.html',
+            context={
+                'token': token,
+                'user': user,
+                'form': ChangePasswordForm()
+            }
+        )
+    elif request.method == 'POST':
+        token = request.POST.get('token')
+
+        try:
+            user = User.objects.get(tmp_token=token)
+        except User.DoesNotExist:
+            return HttpResponse('잘못된 접근입니다.')
+
+        form = ChangePasswordForm(request.POST)
+        if form.is_valid():
+            user.set_password(form.cleaned_data['password1'])
+        else:
+            messages.info(request, '비밀번호 변경, 확인이 서로 다릅니다.')
+            return redirect(request.META['HTTP_REFERER'])
+        user.tmp_token = None
+        user.save()
+
+        return redirect('product:list')
+

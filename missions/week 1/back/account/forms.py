@@ -41,3 +41,16 @@ class FindusernameForm(Form):
 
 class ResetpasswordForm(Form):
     email = forms.EmailField(label='이메일')
+
+
+class ChangePasswordForm(Form):
+    password1 = forms.CharField(label='변경 비밀번호', widget=forms.PasswordInput())
+    password2 = forms.CharField(label='변경 비밀번호 확인', widget=forms.PasswordInput())
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        if cleaned_data['password1'] != cleaned_data['password2']:
+            raise forms.ValidationError('패스워드 변경과 확인이 다릅니다.')
+
+        return cleaned_data
