@@ -22,10 +22,10 @@
               <span>MBLY</span>
             </a>
 
-            <div class="flex-grow flex items-center px-3">
-                <input type="text" placeholder="찾으실 물건을 입력">
-                <button>검색</button>
-            </div>
+            <form class="flex-grow flex items-center px-3" action="" method="get">
+                <input class="text-black border-black" type="text" name="search" value="{{search}}" placeholder="찾으실 물건을 입력">
+                <span><i class="fas fa-search px-2 py-2"></i></span>
+            </form>
 
 
 
@@ -58,6 +58,10 @@
 
           </div>
         </header>
+
+        <div class="top-bn-box-1 img-box con">
+            <img src="http://cdn.thescoop.co.kr/news/photo/202106/50977_72210_530.jpg" alt="">
+        </div>
 
 
         {% block contents %}

@@ -5,6 +5,9 @@ from qna.models import Product_qna
 
 def index(request):
     products=Product.objects.all()
+    search=request.GET.get('search','')
+    if search:
+        products=products.filter(name__contains=search)
     context={'products':products}
     return render(request, 'index.html', context)
 
