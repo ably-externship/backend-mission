@@ -13,3 +13,9 @@ class Product(models.Model):
     description = models.TextField() #설명
     stock = models.IntegerField() #재고
     image = models.ImageField(upload_to = "product/", blank=True, null=True) # 상품 이미지
+
+class Question(models.Model):
+    content = models.TextField() # 질문 내용
+    writer = models.ForeignKey(User, on_delete=models.CASCADE) #작성자
+    created = models.DateTimeField() # 작성시간
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='questions') # 해당 상품

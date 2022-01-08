@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h5>질문 수정하기</h5>
+<form action="{% url 'main:questionUpdate' product.id question.id %}" method="post">
+    {%csrf_token%}
+    <p><textarea type="text" name="content" id="" cols="40" rows="2">{{question.content}}</textarea></p>
+    <button type="submit">질문 수정하기</button>
+</form>
+{% endblock %}

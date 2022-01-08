@@ -18,4 +18,20 @@
     <a href="{%url 'main:productEdit' product.id %}" class="btn btn-primary btn-sm">수정하기</a>
     <a href="{%url 'main:productDelete' product.id %}" class="btn btn-primary btn-sm">삭제하기</a>
 {% endif %}
+<hr>
+<h5>QnA</h5>
+<form action="{% url 'main:questionCreate' product.id %}" method="post">
+    {%csrf_token%}
+    <p><textarea type="text" name="content" id="" cols="40" rows="2"></textarea></p>
+    <button type="submit" class="btn-primary btn-sm">질문 등록하기</button>
+</form>
+<hr>
+{% for question in questions %}
+    <p>{{question.writer}}  |  {{question.content}}  |  
+        {% if user == question.writer %}
+            <a href="{%url 'main:questionEdit' product.id question.id %}" class="btn btn-primary btn-sm">수정하기</a>
+            <a href="{%url 'main:questionDelete' product.id question.id %}" class="btn btn-primary btn-sm">삭제하기</a>
+        {% endif %}
+    </p>
+{% endfor %}
 {% endblock %}

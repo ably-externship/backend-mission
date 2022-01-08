@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Product
+from .models import Product, Question
 from django.utils import timezone
 
 # Create your views here.
@@ -26,7 +26,8 @@ def productCreate(request):
 
 def productDetail(request, id):
     product = get_object_or_404(Product, pk = id)
-    return render(request, 'productDetail.html', {'product':product})
+    all_questions = product.questions.all().order_by('-created')
+    return render(request, 'productDetail.html', {'product':product, 'questions': all_questions})
 
 def productEdit(request, id):
     edit_product = Product.objects.get(pk = id)
@@ -50,3 +51,29 @@ def productDelete(request, id):
     delete_product = Product.objects.get(pk = id)
     delete_product.delete()
     return redirect('main:home')
+
+def questionCreate(request, productId):
+    new_question = Question()
+    new_question.content = request.POST['content']
+    new_question.writer = request.user
+    new_question.created = timezone.now()
+    new_question.product = get_object_or_404(Product, pk = productId)
+    new_question.save()
+    return redirect('main:productDetail', productId)
+
+def questionEdit(request, productId, questionId):
+    product = get_object_or_404(Product, pk = productId)
+    edit_question = Question.objects.get(pk = questionId)
+    return render(request, 'questionEdit.html', {'product':product, 'question':edit_question})
+
+def questionUpdate(request, productId, questionId):
+    update_question = Question.objects.get(pk = questionId)
+    update_question.content = request.POST['content']
+    update_question.save()
+    return redirect('main:productDetail', productId)
+
+def questionDelete(request, productId, questionId):
+    delete_question = Question.objects.get(pk = questionId)
+    delete_question.delete()
+    return redirect('main:productDetail', productId)
+
