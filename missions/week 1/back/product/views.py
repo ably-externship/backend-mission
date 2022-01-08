@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
@@ -7,12 +8,13 @@ from .models import Product
 
 
 def index(request):
-    return render(request, 'product/product_list.html', make_response_data(1))
+    return render(request, 'product/product_list.html', make_response_data(1, ''))
 
 
 def ajax(request):
     page_num = request.GET['page_num']
-    return JsonResponse(make_response_data(int(page_num)), safe=False)
+    q = request.GET['q']
+    return JsonResponse(make_response_data(int(page_num), q), safe=False)
 
 
 def detail(request, product_id):
@@ -24,9 +26,9 @@ def detail(request, product_id):
     except Product.DoesNotExist:
         return redirect('/404/')
 
-def make_response_data(page_size):
+def make_response_data(page_size, q):
     product_list = []
-    products = Product.objects.select_related('market_pk').all()
+    products = Product.objects.select_related('market_pk').filter(Q(category__contains=q)|Q( name__contains=q))
     paginator = Paginator(products, per_page=6)
 
     paging_product_list = paginator.page(page_size)
