@@ -10,10 +10,10 @@ class ProductCrud(ProductBaseCrud):
     @classmethod
     def get_products(
             cls,
-            page=1,
-            display_cnt=10,
-            order_by='stars',
-            sort_order='DESC'
+            page: int = 1,
+            display_cnt: int = 10,
+            order_by: str = 'stars',
+            sort_order: str = 'DESC'
     ):
         skip = (page - 1) * display_cnt
         sql_query = cls.get_find_sql_query(
@@ -23,7 +23,7 @@ class ProductCrud(ProductBaseCrud):
             limit=5
         )
         db = SqlDb(cls.db_name)
-        result = db.executeAll(sql_query)
+        result = db.execute_all(sql_query)
 
         return result
 
@@ -40,7 +40,7 @@ class ProductCrud(ProductBaseCrud):
             limit=5
         )
         db = SqlDb(cls.db_name)
-        result = db.executeAll(sql_query)
+        result = db.execute_all(sql_query)
 
         return result
 
