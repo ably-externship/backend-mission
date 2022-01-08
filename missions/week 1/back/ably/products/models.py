@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.deletion import DO_NOTHING
 
 from core.models import TimeStampModel
 from accounts.models import Seller
@@ -67,3 +68,17 @@ class ProductOption(models.Model):
 
     class Meta:
         db_table = 'product_options'
+
+class ProductList(models.Model):
+    category = models.ForeignKey(ProductCategory, on_delete=DO_NOTHING)
+    subcategory = models.ForeignKey(ProductSubcategory, on_delete=DO_NOTHING)
+    product = models.ForeignKey(Product, on_delete=DO_NOTHING)
+    product_name = models.CharField(max_length=100)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    discount_price = models.DecimalField(max_digits=10, decimal_places=2)
+    main_image_url = models.URLField(max_length=2000)
+    seller_name = models.CharField(max_length=30)
+
+    class Meta:
+        managed = False
+        db_table = 'product_lists'
