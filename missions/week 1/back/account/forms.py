@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.forms import Form
 
 from account.models import User
 
@@ -32,3 +33,7 @@ class AccountUpdateForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
         fields = ['username', 'email']
+
+
+class FindusernameForm(Form):
+    email = forms.EmailField(label='이메일')

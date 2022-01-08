@@ -12,6 +12,11 @@
             <form action="" method="post">
                 {% csrf_token %}
                 {% bootstrap_form form %}
+                <a href="{% url 'account:find_username' %}">
+                    <p>
+                        아이디 찾기
+                    </p>
+                </a>
                 <a href="{% url 'account:password_reset' %}">
                     <p>
                         비밀번호 찾기

@@ -6,7 +6,7 @@ from account.views import (
     AccountCreateView,
     AccountDeleteView,
     UserPasswordResetView,
-    UserPasswordResetDoneView,
+    UserPasswordResetDoneView, find_username_view,
 )
 
 
@@ -21,4 +21,5 @@ urlpatterns = [
     path('delete/<int:pk>', AccountDeleteView.as_view(), name='delete'),
     path('password_reset/', UserPasswordResetView.as_view(), name='password_reset'),
     path('password_reset_done/', UserPasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('find_username', find_username_view, name='find_username'),
 ]

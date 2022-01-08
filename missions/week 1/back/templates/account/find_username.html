@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+    <form action="{% url 'account:find_username' %}" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="입력">
+    </form>
+
+{% endblock %}
