@@ -57,21 +57,10 @@
                     <div class="card my-3 position-relative rounded-3 shops-first-card">
                         <img src="{{ mall_list.img_url }}" class="card-img-top embed-responsive-item" alt="img">
 
-                        <h4 class="fas fa-link fa-sm m-2 mt-3">
-                            <a id="shopname" href="{{ mall_list.url }}" class="card-title text-decoration-none"
+                        <h4 class="fas fa-external-link-square-alt fa-sm m-2 mt-3 mb-3">
+                            <a id="shopname" href="{% url 'shop' id=mall_list.id %}" class="card-title text-decoration-none"
                                 style="color: black;"> {{ mall_list.shop }}</a>
                         </h4>
-
-                        <div class="card-text mx-3 position-relative">
-                            <button class="shop_btn mb-2" data-toggle="collapse fa fa-fire" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-                                aria-expanded="false" aria-controls="collapseExample"> Info </button>
-                        </div>
-
-                        <div class="collapse" id="collapseExample">
-                            <div class="card-block m-2">
-                                {{ mall_list.description }}
-                            </div>
-                        </div>
                     </div>
 
                 </div>
@@ -99,3 +88,15 @@
 
 </section>
 {% endblock %}
+
+<!-- 
+<div class="card-text mx-3 position-relative">
+    <button class="shop_btn mb-2" data-toggle="collapse fa fa-fire" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+        aria-expanded="false" aria-controls="collapseExample"> Info </button>
+</div>
+
+<div class="collapse" id="collapseExample">
+    <div class="card-block m-2">
+        {{ mall_list.description }}
+    </div>
+</div> -->

@@ -243,5 +243,22 @@
     object-fit: cover;
 }
 
+#shops .shop-card-img-top{
+    height: 7rem;
+    object-fit: cover;
+}
+
+#shops .shopsbox {
+    height: 33vh;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 767px) {
+    #shops .shopsbox {
+        height: 26vh;
+        overflow: hidden;
+    }
+
+}
 
   

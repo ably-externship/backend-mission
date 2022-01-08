@@ -87,33 +87,18 @@ def signup(request):
     return render(request, 'signup.html')
 
 
-
-
-# ---------------------------------------------------------------------
-# def signup(request):
-#     form = UserCreationForm()
-#     return render(request, 'signup.html', {'form':form})
-
-
-# def signup(request):
-#     if request.method == "POST":
-#         # try : 
-#         if request.POST.get("password1") == request.POST.get("password2"):
-#             user = User.objects.create_user(
-#                 username=request.POST.get("username"), 
-#                 email=request.POST.get("email"),
-#                 password=request.POST.get("password1")
-#             )
-#             user.save()
-#             auth.login(request, user)
-#             return redirect('login.html')
-            
-#         # except Exception as e:
-#         #     print(e)     
-#         #     return render(request, 'signup.html', {'error' : '비밀번호 형식이 올바르지 않습니다'})
-#     return render(request, 'signup.html')
-
-
+def shops(request, id=id):
+    malllistForm = MallslistForm
+    mlists = MallsList.objects.get(id=id)
+    itemlistForm = MallsitemForm
+    ilists = MallsItems.objects.filter(id=id)
+    context = {
+        'malllistForm': malllistForm,
+        'mlists': mlists,
+        'itemlistForm': itemlistForm,
+        'ilists': ilists,
+    }
+    return render(request, 'shops.html', context)
 
 
 def board_pagd(request):

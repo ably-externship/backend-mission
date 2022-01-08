@@ -54,4 +54,9 @@ class MallsquestionForm(ModelForm):
 class MallslistForm(ModelForm):
     class Meta:
         model = MallsList
-        fields = ['shop', 'kind', 'date', 'description', 'url', 'img_url']
+        fields = ['id','shop', 'kind', 'date', 'description', 'url', 'img_url']
+
+class MallsitemForm(ModelForm):
+    class Meta:
+        model = MallsItems
+        fields = ['id', 'num', 'name', 'amount', 'price', 'useyn', 'kind' , 'description', 'image_url', 'url', 'regdate']
