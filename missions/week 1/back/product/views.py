@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from .models import Product
@@ -16,11 +16,13 @@ def ajax(request):
 
 
 def detail(request, product_id):
-    product = Product.objects.select_related('market_pk').get(id=product_id)
-    product.file = product.files.all()
-    context = {'product': product}
-    return render(request, 'product/product_detail.html', context)
-
+    try:
+        product = Product.objects.select_related('market_pk').get(id=product_id)
+        product.file = product.files.all()
+        context = {'product': product}
+        return render(request, 'product/product_detail.html', context)
+    except Product.DoesNotExist:
+        return redirect('/404/')
 
 def make_response_data(page_size):
     product_list = []
