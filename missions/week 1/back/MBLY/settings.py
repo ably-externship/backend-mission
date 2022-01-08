@@ -175,3 +175,5 @@ LOGIN_REDIRECT_URL = '/main'
 
 # 로그아웃시 이동하는 URL
 LOGOUT_REDIRECT_URL = '/main'
+
+AUTH_USER_MODEL = 'malls.User'

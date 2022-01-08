@@ -162,6 +162,10 @@
 }
 
 /* Login section */
+#login {
+    height: 65vh;
+}
+
 #login .loginbox{
     width: 80%; 
     height: 80%;
@@ -188,6 +192,12 @@
     color: rgb(0, 0, 0);
 }
 
+#login .go_home_btn{
+    width: 20%;
+    position: relative;
+    left: 40%;
+}
+
 @media screen and (max-width: 767px) {
     #login .loginbox input{
         display: block;
@@ -202,7 +212,7 @@
 
 /* Event section */
 #event {
-    height: 30vh;
+    height: 25vh;
 }
 
 #event .eventbox{
@@ -212,3 +222,26 @@
     overflow: hidden;
 }
 
+
+
+/* main.html shops section */
+#shops .shops-first-card .overlay{
+    left: 0;
+    top: 0;
+    background-color: rgba(0,0,0,0.2);
+}
+
+#shops .shop_btn{
+    background-color: black;
+    border-radius: 15px;
+    font-size: 8px;
+    color: white;
+}
+
+#shops .card-img-top{
+    height: 6rem;
+    object-fit: cover;
+}
+
+
+  

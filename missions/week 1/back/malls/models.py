@@ -1,14 +1,22 @@
 from django.db import models
-from django.contrib.auth.models import User
-
+from django.contrib.auth.models import User, UserManager, AbstractUser
 # Create your models here.
+
+class User(AbstractUser):
+    pass
+
+class UserManager(UserManager):
+    pass
+
 class MallsItems(models.Model):
     id = models.ForeignKey('MallsList', models.DO_NOTHING, db_column='id')
     num = models.PositiveIntegerField()
     name = models.CharField(primary_key=True, max_length=200)
     amount = models.IntegerField()
     price = models.PositiveIntegerField()
+    # default 'y' 판매 : 'y', 판매중단 : 'n'
     useyn = models.CharField(max_length=50)
+    #  	top : 1, bottom : 2, dress : 3, bag : 4, shoes : 5, acc : 6
     kind = models.CharField(max_length=1, blank=True, null=True)
     description = models.CharField(max_length=500, blank=True, null=True)
     image_url = models.CharField(max_length=200)
@@ -43,5 +51,5 @@ class MallsQuestion(models.Model):
     date = models.DateField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'malls_question'

@@ -3,15 +3,28 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from .forms import *
 from .models import *
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 # Create your views here.
 def index(request):
     return render(request, 'index.html')
 
-def main(request):
-    return render(request, 'main.html')
-    
 
+def main(request):
+    if request.method == 'POST':
+        return redirect('main_page')
+    else:
+        malllistForm = MallslistForm
+        mlists = MallsList.objects.all()
+        context = {
+            'malllistForm': malllistForm,
+            'mlists': mlists,
+        }
+        return render(request, 'main.html', context)
+
+
+
+#  로그인 로그아웃 회원가입
 def login(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -20,31 +33,43 @@ def login(request):
         
         if user is not None:
             auth.login(request, user)
-            return redirect('main_page')
+            return redirect('login_page')
             
         else:
             return render(request, 'login.html', {'error' : 'username or password is incorrect'})
     else:
         return render(request, 'login.html')
 
+
+
 def logout(request):
     auth.logout(request)
     return redirect('main_page')
 
 
+
+
+
 def signup(request):
     if request.method == "POST":
-        if request.POST["password1"] == request.POST["password2"]:
+        # try : 
+        if request.POST.get("password1") == request.POST.get("password2"):
             user = User.objects.create_user(
-                uesrname=request.POST["username"], 
-                password=request.PPOST["password1"],
-                email=request.POST['email'],
+                username=request.POST.get("username"), 
+                email=request.POST.get("email"),
+                password=request.POST.get("password1")
             )
+            user.save()
             auth.login(request, user)
-            return redirect('main_page')
-        
-        return render(request, 'signup.html')
+            return redirect('login.html')
+            
+        # except Exception as e:
+        #     print(e)     
+        #     return render(request, 'signup.html', {'error' : '비밀번호 형식이 올바르지 않습니다'})
     return render(request, 'signup.html')
+
+
+
 
 def board_pagd(request):
     if request.method == 'POST':
@@ -53,6 +78,7 @@ def board_pagd(request):
         content = request.POST['content']
         user = request.POST['user']
         date = request.POST['date']
+        
 
         question = MallsQuestion(
             q_num = q_num,
