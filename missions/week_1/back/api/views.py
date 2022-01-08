@@ -1,3 +1,4 @@
+import json
 from django.views import View
 from django.shortcuts import render
 
@@ -19,7 +20,8 @@ class BaseView(View):
         elif method == 'DELETE':
             print('DELETE')
         elif method == 'POST':
-            print('POST')
+            body = json.loads(request.body)
+            parameter = cls.query_dict_to_dict(body)
 
         return parameter
 
