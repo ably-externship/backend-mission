@@ -37,3 +37,7 @@ class AccountUpdateForm(UserCreationForm):
 
 class FindusernameForm(Form):
     email = forms.EmailField(label='이메일')
+
+
+class ResetpasswordForm(Form):
+    email = forms.EmailField(label='이메일')

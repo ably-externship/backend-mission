@@ -1,12 +1,17 @@
 # Django 로딩
 import os
+
+
 import django
 
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
-
 django.setup()
 
+
+import secrets
+url = secrets.token_urlsafe()
+print(len(url))
 # from account.models import User
 
 # print(User.objects.all())

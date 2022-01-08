@@ -14,8 +14,6 @@ urlpatterns = [
   path('product/', include('product.urls')),
   path('comment/', include('comment.urls')),
 
-  path('password_reset_confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-  path('password_reset_complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
 ]
 
