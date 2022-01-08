@@ -28,13 +28,16 @@ class SqlDb(metaclass=Singleton):
     def execute(self, query, args={}):
         self._cursor.execute(query, args)
 
-    def executeOne(self, query, args={}):
+    def execute_one(self, query, args={}):
         self._cursor.execute(query, args)
         row = self._cursor.fetchone()
         return row
 
-    def executeAll(self, query, args={}):
-        self._cursor.execute(query, args)
+    def execute_all(self, query, args={}):
+        if args:
+            self._cursor.execute(query, args)
+        else:
+            self._cursor.execute(query)
         row = self._cursor.fetchall()
         return row
 

@@ -22,7 +22,7 @@ class BaseCrud:
         if where:
             sql += f'WHERE {where} '
         if like:
-            sql += f'LIKE {like} '
+            sql += f"LIKE '%{like}%' "
         if order_by:
             sql += f'ORDER BY {order_by} {sort} '
         sql += f'LIMIT {skip}, {limit}'

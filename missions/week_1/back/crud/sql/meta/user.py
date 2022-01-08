@@ -7,13 +7,25 @@ class UserCrud(MetaBaseCrud):
     table_name = 'user'
 
     @classmethod
+    def get_user(cls, user_id):
+        sql = cls.get_find_sql_query(
+            where='user_id',
+            like=user_id
+        )
+        db = SqlDb(cls.db_name)
+        user = db.execute_all(sql)
+
+        if user:
+            return user
+        return {}
+
+    @classmethod
     def create_user(cls, register_form):
         sql = cls.get_insert_sql_query(register_form)
         db = SqlDb(cls.db_name)
         values = register_form.values()
-        values = tuple(values)
         try:
-            db.execute(sql, values)
+            db.execute(sql, tuple(values))
             db.commit()
         except BaseException as e:
             print(e.args)
