@@ -155,6 +155,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'v49011591@gmail.com' # ex) bum752@gmail.com
-EMAIL_HOST_PASSWORD = 'cpvqpsmaybvewmlc'
+EMAIL_HOST_PASSWORD = ''
 SERVER_EMAIL = 'v49011591@gmail.com'
 DEFAULT_FROM_MAIL = '' # ex) bum752
