@@ -1,9 +1,7 @@
-import json
-
 from django.http import JsonResponse
 from django.views import View
 
-from products.models import Product, ProductHistory
+from products.models import Product, ProductOption
 
 class ProductDetailView(View):
     def get(self, request, product_id):
@@ -17,7 +15,11 @@ class ProductDetailView(View):
             
             if not product_detail.is_displayed or product_detail.is_deleted:
                 return JsonResponse({'message' : 'Not Found'}, status = 404)
-
+            
+            product_options = ProductOption.objects\
+                .select_related('color', 'size')\
+                .filter(product_id = product_id)
+            
             product_info = {
                 'id' : product.id,
                 'name' : product_detail.name,
@@ -35,7 +37,7 @@ class ProductDetailView(View):
                         'is_sold_out' : option.is_sold_out,
                         'extra_price' : option.extra_price
                     }
-                    for option in product.productoption_set.all()
+                    for option in product_options
                 ]
             }
 
