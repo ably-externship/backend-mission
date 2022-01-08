@@ -44,8 +44,23 @@
         <span  class="inline"><p class="text-lg">배송비 <a class="font-bold">전 상품 무료배송</a></p></span>
     </div>
     <hr/>
-    <div>
-        {{product.descriptions}}
+    <div id="descriptionArea">
     </div>
 </div>
+
+{% block javascript %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        const description = `{{product.descriptions}}`
+        const descriptionArray = description.split("\n");
+
+        let descriptTag = '';
+        descriptionArray.map(data => {
+            descriptTag += '<p class="text-sm">'+ data+'</p>';
+        })
+
+        $("#descriptionArea").append(descriptTag);
+    })
+</script>
+{% endblock javascript %}
 {% endblock %}
