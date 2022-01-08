@@ -8,7 +8,7 @@ def get_products_view(request):
     data = {
         'products': products
     }
-    return BaseView.response(request, 'product_list.html', data)
+    return BaseView.response(request, 'page/product_list.html', data)
 
 
 def search_products_view(request):
@@ -26,4 +26,4 @@ def search_products_view(request):
     data = {
         'products': search_products
     }
-    return BaseView.response(request, 'product_list.html', data)
+    return BaseView.response(request, 'page/product_list.html', data)
