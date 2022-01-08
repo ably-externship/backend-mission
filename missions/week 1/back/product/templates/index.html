@@ -3,15 +3,19 @@
 {%block contents %}
 
     {% if products %}
-
-        {% for product in products %}
-            <div onclick="location.href='{% url 'detailProduct' product.id %}'">
-                <img src = "{{ product.image }}" height="280" width="180">
-                {{product.price}}
-                {{product.name}}
-            </div>
-
-        {% endfor %}
+        <div class="list-box-1 con">
+            <ul class="row">
+                {% for product in products %}
+                <li class="cell">
+                    <div class="img-box" onclick="location.href='{% url 'detailProduct' product.id %}'">
+                        <img src = "{{ product.image }}">
+                    </div>
+                    <div class="prod-price">{{product.price}}원</div>
+                    <div class="prod-name">{{product.name}}</div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
     {% else %}
         상품 없음
     {% endif %}

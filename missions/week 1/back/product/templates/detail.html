@@ -13,6 +13,19 @@
         상품 없음
     {% endif %}
 
+    {# 질문  #}
+
+    <div>
+        <p>상품 질문</p>
+        <input id='name' onchange='printName()'/>
+        <div id='result'></div>
+    </div>
+    <script>
+        function printName()  {
+          const name = document.getElementById('name').value;
+          document.getElementById("result").innerText = name;
+        }
+    </script>
 
     {% if qnas %}
         {% for qna in qnas %}
