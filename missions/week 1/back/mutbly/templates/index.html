@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block contents %}
+<div class="row mt-5">
+	<div class="col-12 text-center">
+		<h1>멋블리</h1>
+	</div>
+</div>
+<div class="row mt-5">
+	<div class="col-12 text-center">
+		{{ error }}
+	</div>
+</div>
+<div class = "row mt-5">
+    <div class = "col-12">
+        <table class = "table table-dark">
+            <thead class = "thead thead-dark">
+                <td scope = "col">No.</td>
+                <td scope = "col">상품명</td>
+                <td scope = "col">가격</td>
+                <td scope = "col">등록 날짜</td>
+            </thead>
+            <tbody class = "text-light">
+                {% for product in product_list %}
+                <tr>
+                    <td scope = "col">{{product.id}}</td>
+                    <td>
+						<a href="{% url 'mutbly:detail' product.id %}">{{ product.name }}</a>
+					</td>
+                    <td>{{ product.price }}원</td>
+                    <td>{{ product.add_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
