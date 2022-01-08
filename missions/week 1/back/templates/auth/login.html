@@ -10,13 +10,22 @@
 {% bootstrap_messages %}
 
 {# Display a form #}
-<form action="/auth/" method="post" class="form">
-  {% csrf_token %}
-  {% bootstrap_form form %}
-  {% buttons %}
-    <button type="submit" class="btn btn-primary">
-      Submit
-    </button>
-  {% endbuttons %}
+<form action="" method="post" class="form">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+    <div class="gap-5">
+        <div class="p-1">
+            <button type="submit" class="btn btn-primary w-full">
+                로그인
+            </button>
+        </div>
+        <div class="p-1">
+            <input type="button" value="회원 가입" class="btn btn-primary w-full" onclick="location.href='/auth/sign-up'">
+        </div>
+    </div>
+    {% endbuttons %}
 </form>
+
+
 {% endblock %}

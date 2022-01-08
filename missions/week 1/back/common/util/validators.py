@@ -20,4 +20,3 @@ def validate_phone(value):
     else:
         raise PhoneNumberValidException()
 
-

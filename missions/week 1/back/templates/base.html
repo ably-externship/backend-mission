@@ -20,13 +20,25 @@
 <body style="margin: 0 auto; height: 100%; max-width:600px">
 <div class="container h-full">
     <nav class="flex justify-end flex-wrap bg-teal p-2">
-        <div class="flex items-center flex-no-shrink text-white mr-1">
-            <button class="flex items-center px-3 py-2 border rounded text-teal-lighter border-teal-light hover:text-white hover:border-white">
-                <svg class="h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title>
-                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+        {% if user.is_authenticated %}
+        <div class="flex items-center flex-no-shrink mr-1" onclick="location.href='/auth/logout'">
+            <button class="flex items-center px-3 py-2 border rounded text-teal-lighter border-teal-light hover:text-white hover:border-white"
+                    onclick="location.href='/auth/login'">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 20 20" stroke="currentColor">
+                    <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
                 </svg>
             </button>
         </div>
+        {% else %}
+        <div class="flex items-center flex-no-shrink text-white mr-1">
+            <button class="flex items-center px-3 py-2 border rounded text-teal-lighter border-teal-light hover:text-white hover:border-white"
+                    onclick="location.href='/auth/login'">
+                <svg xmlns="http://www.w3.org/2000/svg" svg class="h-3 w-3" viewBox="0 0 20 20">
+                    <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                </svg>
+            </button>
+        </div>
+        {% endif %}
     </nav>
     {% block content %}
     {% endblock %}

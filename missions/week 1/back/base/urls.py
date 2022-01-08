@@ -18,13 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 
 from product.urls import urlpatterns as product_url
-#from accounts.urls import urlpatterns as auth_url
+from users.urls import urlpatterns as auth_url
 from board.urls import urlpatterns as board_url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('product/', include(product_url)),
-    #path('auth/', include(auth_url)),
+    path('auth/', include(auth_url)),
     path('board/', include(board_url)),
 ]
 

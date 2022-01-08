@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'product.apps.ProductConfig',
     'product_option.apps.ProductOptionConfig',
     'bootstrap5',
+    'users.apps.UsersConfig'
 ]
 
 MIDDLEWARE = [
@@ -146,4 +147,4 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-#AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = 'users.User'
