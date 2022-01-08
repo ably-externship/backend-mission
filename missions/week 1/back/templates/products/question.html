@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form method='post' action="{% url "products:question" product.pk %}">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button>질문하기</button>
+    </form>
+{% endblock content %}

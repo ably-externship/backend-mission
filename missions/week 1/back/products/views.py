@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views.generic import ListView, DetailView
 from .models import Product
-from .forms import SearchForm
+from .forms import SearchForm, QuestionForm
 
 
 class ProductListView(ListView):
@@ -28,3 +29,18 @@ def search(request):
     else:
         form = SearchForm()
     return render(request, 'products/search.html', {'form': form})
+
+
+def question(request, pk):
+    product = Product.objects.get(id=pk)
+    if request.method == 'POST':
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.user = request.user
+            question.product = product
+            question.save()
+            return redirect(question)
+    else:
+        form = QuestionForm()
+    return render(request, 'products/question.html', {'form': form, 'product': product})

@@ -6,6 +6,18 @@ class LoginForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
 
+    def clean(self):
+        email = self.cleaned_data.get("email")
+        password = self.cleaned_data.get("password")
+        try:
+            user = User.objects.get(email=email)
+            if user.check_password(password):
+                return self.cleaned_data
+            else:
+                self.add_error("password", forms.ValidationError("비밀번호가 틀렸습니다."))
+        except User.DoesNotExist:
+            self.add_error("email", forms.ValidationError("이미 존재하는 이메일입니다."))
+
 
 class SignupForm(forms.ModelForm):
     class Meta:

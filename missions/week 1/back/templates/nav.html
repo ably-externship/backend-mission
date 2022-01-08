@@ -1,10 +1,38 @@
+
 <a href="{% url 'core:home' %}">Home</a>
-<ul>
-    {% if user.is_authenticated %}
-        <li><a href="{% url 'users:logout' %}">로그아웃</a></li>
-        <li>{{user}}님 안녕하세요</li>
-    {% else %}
-        <li><a href="{% url 'users:login' %}">로그인</a></li>
-        <li><a href="{% url 'users:signup' %}">회원가입</a></li>
-    {% endif %}
-</ul>
+{% if user.is_authenticated %}
+    <li>{{user}}님 안녕하세요</li>
+    <li><a href="{% url 'users:logout' %}">로그아웃</a></li>
+{% else %}
+    <li><a href="{% url 'users:login' %}">로그인</a></li>
+    <li><a href="{% url 'users:signup' %}">회원가입</a></li>
+{% endif %}
+
+{#<nav class="navbar navbar-expand-sm bg-light">#}
+{#    <ul class="navbar-nav">#}
+{##}
+{#        <a href="{% url 'core:home' %}">Home</a>#}
+{#        {% if user.is_authenticated %}#}
+{#            <li class="nav-item">{{user}}님 안녕하세요</li>#}
+{#            <li class="nav-item"><a class="nav-link" href="{% url 'users:logout' %}">로그아웃</a></li>#}
+{#        {% else %}#}
+{#            <li class="nav-item"><a class="nav-link" href="{% url 'users:login' %}">로그인</a></li>#}
+{#            <li class="nav-item"><a class="nav-link" href="{% url 'users:signup' %}">회원가입</a></li>#}
+{#        {% endif %}#}
+{#    </ul>#}
+{#</nav>#}
+
+
+{##}
+{#<nav class="navbar navbar-light bg-light">#}
+{#  <div class="container-fluid">#}
+{#    <a class="navbar-brand" href="{% url 'core:home' %}">HOME</a>#}
+{#      {% block search-bar %}#}
+{#            <form class="d-flex" method="get" action="{% url 'products:search' %}">#}
+{#                <input class="form-control me-2" type="search" name="name" placeholder="상품 이름을 검색해주세요." aria-label="Search"/>#}
+{#                <button class="btn btn-outline-success" type="submit">검색</button>#}
+{#            </form>#}
+{#        {% endblock search-bar %}#}
+{#  </div>#}
+{#</nav>#}
+{##}

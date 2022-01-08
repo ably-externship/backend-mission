@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-    <div>
-        {{ product.name }}
-        {{ product.market }}
-        {{ product.price }}
-        {{ product.color }}
-        {{ product.size }}
-        {{ product.category }}
-        {{ product.stock }}
+    <div class="card" style="width: 18rem;">
+        <img src="https://picsum.photos/100/100" class="card-img-top" alt="not found image">
+        <div class="card-body">
+            <h5 class="card-title text-center">{{ product.name }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted text-center">{{ product.market }}</h6>
+            <p class="card-text text-center">사이즈 {{ product.size }} / 색깔 {{ product.color }}</p>
+            <p class="card-text text-center">가격 {{ product.price }} / 수량 {{ product.stock }}</p>
+            <a href="{% url 'products:question' product.pk %}" class="card-link center">질문하기</a>
+        </div>
     </div>
 {% endblock content %}

@@ -1,4 +1,6 @@
 from django.db import models
+from django.urls import reverse
+
 from core import models as core_models
 
 
@@ -31,3 +33,18 @@ class Product(core_models.DateTimeModel):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("products:detail", kwargs={"pk": self.pk})
+
+
+class Question(core_models.DateTimeModel):
+    user = models.ForeignKey('accounts.User', on_delete=models.CASCADE, related_name='questions')
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='questions')
+    content = models.TextField()
+
+    def __str__(self):
+        return f'{self.user.email}, {self.product.name}, {self.content}'
+
+    def get_absolute_url(self):
+        return reverse("products:detail", kwargs={"pk": self.product_id})
