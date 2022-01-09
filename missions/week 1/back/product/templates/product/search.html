@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{%block contents%}
+
+    {% if not products %}
+
+        <h1>검색 결과가 없습니다</h1>
+
+    {% else %}
+
+        {% for product in products.all %}
+        <div class="container"> 
+            <div class="card">
+                <div class="card-body">
+                    <h1>{{ product.title }}</h1>
+                    <p>{{ product.reg_date | date:"Y-m-d" }}</p>
+                    <p>{{ product.description }}<a href="{% url 'product:detail' product.id %}"> ...자세히 보기</a></p> 
+                </div>
+            </div>
+        </div>
+        <br>
+        {% endfor %}
+
+    {% endif %}
+
+{% endblock %}

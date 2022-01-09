@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{%block contents %}
+
+    {% if products %}
+        <div class="container">
+            <div class="row">
+                {% for product in products %}
+                    <div class="col-xs-5 gap-3 border"> 
+                        <a href="{% url 'product:detail' product.id %}">
+                            <img src = "{{product.image}}" height="180" width="150">
+                            <br>
+                            {{product.price}}
+                            {{product.name}}
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    {% else %}
+        상품 없음
+    {% endif %}
+
+    {% if is_paginated %}
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+            {% else %}
+                <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&raquo;</span></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+
+{% endblock contents %}
+
+{% comment %} <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My test page</title>
+  </head>
+  <body>
+    {% if product_list %}
+    <ul>
+    {% for product in product_list %}
+        <li><a href="{% url 'product:detail' product.id %}">
+            {{ product.name }} 
+            {{ product.quantity }} 
+        </a></li>
+    {% endfor %}
+    </ul>
+    {% else %}
+        <p>There are no products.</p>
+    {% endif %}
+  </body>
+</html>
+ {% endcomment %}
+

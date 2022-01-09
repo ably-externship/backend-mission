@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{%block contents %}
+
+    {% if product %}
+
+        <img src = "{% static '{{ product.image }}' %}" height="280" width="180"> 
+        {{ product.name }}
+        {{ product.price }}
+    {% else %}
+        상품 없음
+    {% endif %}
+
+    {# Q & A  #}
+    <br>
+    댓글 달기: 
+    <form action="{% url 'product:create' product.id %}" method="POST">
+        {% csrf_token %}
+        {{ inquiry_form }}
+        <input type="submit" value="submit">
+    </form>
+    <br>
+    {% if inquirys %}
+        {% for inquiry in inquirys %}
+            <div>
+                {{inquiry.user}}
+                <br>
+                {{inquiry.content}}
+            </div>
+
+        {% endfor %}
+    {% else %}
+        댓글 없음
+    {% endif %}
+
+{% endblock contents %}
