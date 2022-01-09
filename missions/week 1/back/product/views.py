@@ -6,6 +6,8 @@ from .models import Product
 from qna.models import Product_qna
 from user.models import User
 
+
+
 # 상품리스트
 def index(request):
     products=Product.objects.all()
@@ -25,15 +27,15 @@ def index(request):
 
     return render(request, 'index.html', context)
 
+
 # 상세보기
 def detailProduct(request, product_id):
-    print("@@@@@@@@@@@")
     product = get_object_or_404(Product, pk=product_id)
     qnas = Product_qna.objects.filter(product_id=product_id)
     return render(request, 'detail.html', {'product': product, 'qnas': qnas})
 
-# 질문
-# @login_required
+
+# QnA 질문
 def createQna(request, product_id):
     if request.method == 'POST':
         product = get_object_or_404(Product, pk=product_id)

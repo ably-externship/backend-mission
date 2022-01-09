@@ -163,3 +163,27 @@ html, body {
 .qna-content{
 
 }
+
+@media ( min-width:801px ) {
+    .list-box-1 > ul > li {
+        width:25%;
+    }
+}
+
+@media ( max-width:800px ) and ( min-width:601px ) {
+    .list-box-1 > ul > li {
+        width:33.3333%;
+    }
+}
+
+@media ( max-width:600px ) and ( min-width:401px ) {
+    .list-box-1 > ul > li {
+        width:50%;
+    }
+}
+
+@media ( max-width:400px ) {
+    .list-box-1 > ul > li {
+        width:100%;
+    }
+}
