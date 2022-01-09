@@ -2,20 +2,50 @@
 
 {%block contents %}
 
+    <!-- 에이블리 표지-->
+    <div class="top-bn-box-1 img-box con">
+        <img src="http://cdn.thescoop.co.kr/news/photo/202106/50977_72210_530.jpg" alt="">
+    </div>
+
+    <!-- 상품 리스트 -->
     {% if products %}
-        <div class="list-box-1 con">
-            <ul class="row">
-                {% for product in products %}
-                <li class="cell">
-                    <div class="img-box" onclick="location.href='{% url 'detailProduct' product.id %}'">
-                        <img src = "{{ product.image }}">
-                    </div>
-                    <div class="prod-price">{{product.price}}원</div>
-                    <div class="prod-name">{{product.name}}</div>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
+            <div class="list-box-1 con">
+                <ul class="row">
+                    {% for product in page_obj %}
+                    <li class="cell">
+                        <div class="img-box" onclick="location.href='{% url 'detailProduct' product.id %}'">
+                            <img src = "{{ product.image }}">
+                        </div>
+                        <div class="prod-name">{{product.name}}</div>
+                        <div class="prod-price text-red-600 text-xl text-right">{{product.price}}원</div>
+
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        <!-- 페이징 -->
+        <nav>
+              <div class="paging-center con">
+                  <ul class="pagination my">
+                      {% if page_obj.has_previous %}
+                          <a class="page-link text-black" href="?page={{ page_obj.previous_page_number }}">이전으로</a>
+                        </li>
+                      {% endif %}
+                        <li class="page-item active" aria-current="page">
+                          <a class="page-link" href="#">{{ page_obj.number }}</a>
+                        </li>
+
+                      {% if page_obj.has_next %}
+                        <a class="page-link text-black" href="?page={{ page_obj.next_page_number }}">다음으로</a>
+                      {% endif %}
+
+                  </ul>
+              </div>
+
+        </nav>
+
+
     {% else %}
         상품 없음
     {% endif %}

@@ -110,26 +110,56 @@ html, body {
     margin: 0 -10px;
 }
 
-/*@media ( min-width:801px ) {*/
-/*    .list-box-1 > ul > li {*/
-/*        width:20%;*/
-/*    }*/
-/*}*/
+/* 디테일 박스1 */
+.detail-box-1 > ul > li{
+    width:50%;
+    padding:0 10px;
+    margin-top: 20px;
+}
 
-/*@media ( max-width:800px ) and ( min-width:601px ) {*/
-/*    .list-box-1 > ul > li {*/
-/*        width:33.3333%;*/
-/*    }*/
-/*}*/
+.qna-boxlist-1 > ul > li{
+    padding:0 10px;
+    margin-top: 20px;
+}
 
-/*@media ( max-width:600px ) and ( min-width:401px ) {*/
-/*    .list-box-1 > ul > li {*/
-/*        width:50%;*/
-/*    }*/
-/*}*/
 
-/*@media ( max-width:400px ) {*/
-/*    .list-box-1 > ul > li {*/
-/*        width:100%;*/
-/*    }*/
-/*}*/
+/* 페이징 */
+.paging-center{
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.my.pagination > .active > a,
+.my.pagination > .active > span,
+.my.pagination > .active > a:hover,
+.my.pagination > .active > span:hover,
+.my.pagination > .active > a:focus,
+.my.pagination > .active > span:focus {
+    background: white;
+    border-color: black;
+    color : black
+}
+
+.qna-input-1 {
+    background: white;
+    border-color: black;
+    color : black
+}
+
+.footer {
+    background-color: #2a2a2a;
+    overflow: auto;
+    margin: 0 auto;
+    padding: 50px 20px 100px 20px;
+}
+
+.qna-title {
+  border-style: solid;
+  border-color: red;
+}
+
+.qna-content{
+
+}
