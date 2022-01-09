@@ -21,7 +21,7 @@
 ## 수행인증영상URL(유튜브)
 -
 
-## 
+## 프로젝트 
 - 상품 상세 이미지 slide 적용을 위한 라이브러리 추가
    https://tailwind-elements.com/docs/standard/components/carousel/
 - tailwind-cdd JIT모드
