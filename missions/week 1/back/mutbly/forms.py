@@ -32,7 +32,7 @@ class RegisterForm(forms.Form):
 			else:
 				user = User(
 					email=email,
-					password=make_password(password),
+					password=password,
 				)
 				user.save()
 
