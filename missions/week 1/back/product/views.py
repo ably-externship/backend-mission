@@ -33,7 +33,7 @@ class ProductDeleteView(DeleteView):
     template_name = 'product/delete.html'
 
 
-PRODUCT_PAGE_SIZE = 2
+PRODUCT_PAGE_SIZE = 5
 
 
 def product_list_view(request):

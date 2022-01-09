@@ -4,7 +4,7 @@ from django.db.models import Manager
 
 class Product(models.Model):
     name = models.CharField(max_length=200, null=True, verbose_name='상품명')
-    price = models.IntegerField(verbose_name='가격')
+    price = models.CharField(max_length=100, verbose_name='가격')
     size = models.CharField(max_length=200, null=True, verbose_name='사이즈')
     count = models.IntegerField(verbose_name='재고')
     description = models.TextField(max_length=200, verbose_name='설명')
