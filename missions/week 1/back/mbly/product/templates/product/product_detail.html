@@ -25,11 +25,47 @@
           </div>
         </div>
       </div>
+
       {% block question_list %}
       {% endblock question_list %}
+      {{ object.question_set.count }}개의 Q&A가 있습니다.
+      <a href="{% url 'product:question_add' object.id %}" class="btn btn-primary btn-lg active " style ="float:right" role="button" aria-pressed="true"> 문의하기 </a>
+      {% if object.question_set %}
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">번호</th>
+              <th scope="col">질문</th>
+              <th scope="col">작성자</th>
+              <th scope="col">등록일자</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for question in object.question_set.all %}
+              <tr>
+                  <th scope = 'row'>{{ forloop.revcounter }}</th>
+                  <td>
+                      <a href = "{% url 'product:question_detail' question.id %}">
+                      {{ question.subject }}</a>
+                    </td>
+                  <td>{{ question.author }}</td>
+                  <td>{{ question.create_date }}</td>
+                  <td>{% if question.author == request.user %}
+                    <a href ="{% url 'product:question_update' question.id %}" class="btn btn-warning btn-sm">수정</a>
+                    <a href ="{% url 'product:question_delete' question.id %}" class="btn btn-danger btn-sm">삭제</a>
+                      {% endif %}
+                  </td>
+              </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+    
     {% else %}
     <h1>상품이 없습니다.</h1>
     {% endif %}
 
+   
 </div> 
 {% endblock content %}

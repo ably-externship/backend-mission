@@ -23,8 +23,14 @@ class Question(models.Model):
     content = models.TextField()
     create_date = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['-create_date'] # 역순 정렬
+
 class Answer(models.Model):
     author = models.ForeignKey(User,on_delete = models.CASCADE,null = True)
     question = models.ForeignKey(Question,on_delete=models.CASCADE)
     content = models.TextField()
     create_date = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-create_date'] # 역순 정렬
