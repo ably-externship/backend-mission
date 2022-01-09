@@ -1,0 +1,178 @@
+[
+  {
+    "model": "product.productdetail",
+    "fields": {
+      "color": "red",
+      "size": "55",
+      "main_image": null,
+      "detail_image": null,
+      "stock": 10,
+      "product_id": "1"
+    }
+  },
+  {
+    "model": "product.productdetail",
+    "fields": {
+      "color": "red",
+      "size": "free",
+      "main_image": null,
+      "detail_image": null,
+      "stock": 11,
+      "product_id": "1"
+    }
+  },
+  {
+    "model": "product.productdetail",
+    "fields": {
+      "color": "ivory",
+      "size": "55",
+      "main_image": null,
+      "detail_image": null,
+      "stock": 10,
+      "product_id": "1"
+    }
+  },
+  {
+    "model": "product.productdetail",
+    "fields": {
+      "color": "ivory",
+      "size": "free",
+      "main_image": null,
+      "detail_image": null,
+      "stock": 10,
+      "product_id": "1"
+    }
+  },
+  {
+    "model": "product.productdetail",
+    "fields": {
+      "color": "gray",
+      "size": "free",
+      "main_image": null,
+      "detail_image": null,
+      "stock": 10,
+      "product_id": "2"
+    }
+  },
+  {
+    "model": "product.productdetail",
+    "fields": {
+      "color": "darkblue",
+      "size": "M",
+      "main_image": null,
+      "detail_image": null,
+      "stock": 10,
+      "product_id": "3"
+    }
+  },
+  {
+    "model": "product.productdetail",
+    "fields": {
+      "color": "darkblue",
+      "size": "L",
+      "main_image": null,
+      "detail_image": null,
+      "stock": 10,
+      "product_id": "3"
+    }
+  },
+  {
+    "model": "product.productdetail",
+    "fields": {
+      "color": "black",
+      "size": "free",
+      "main_image": null,
+      "detail_image": null,
+      "stock": 10,
+      "product_id": "4"
+    }
+  },
+  {
+    "model": "product.productdetail",
+    "fields": {
+      "color": "white",
+      "size": "235",
+      "main_image": null,
+      "detail_image": null,
+      "stock": 10,
+      "product_id": "5"
+    }
+  },
+  {
+    "model": "product.productdetail",
+    "fields": {
+      "color": "white",
+      "size": "240",
+      "main_image": null,
+      "detail_image": null,
+      "stock": 10,
+      "product_id": "5"
+    }
+  },
+  {
+    "model": "product.productdetail",
+    "fields": {
+      "color": "black",
+      "size": "270",
+      "main_image": null,
+      "detail_image": null,
+      "stock": 10,
+      "product_id": "6"
+    }
+  },
+  {
+    "model": "product.productdetail",
+    "fields": {
+      "color": "black",
+      "size": "275",
+      "main_image": null,
+      "detail_image": null,
+      "stock": 10,
+      "product_id": "6"
+    }
+  },
+  {
+    "model": "product.productdetail",
+    "fields": {
+      "color": "brown",
+      "size": "270",
+      "main_image": null,
+      "detail_image": null,
+      "stock": 10,
+      "product_id": "7"
+    }
+  },
+  {
+    "model": "product.productdetail",
+    "fields": {
+      "color": "brown",
+      "size": "275",
+      "main_image": null,
+      "detail_image": null,
+      "stock": 10,
+      "product_id": "7"
+    }
+  },
+  {
+    "model": "product.productdetail",
+    "fields": {
+      "color": "black",
+      "size": "255",
+      "main_image": null,
+      "detail_image": null,
+      "stock": 10,
+      "product_id": "8"
+    }
+  },
+  {
+    "model": "product.productdetail",
+    "fields": {
+      "color": "black",
+      "size": "260",
+      "main_image": null,
+      "detail_image": null,
+      "stock": 10,
+      "product_id": "8"
+    }
+  }
+]

@@ -1,0 +1,18 @@
+{% extends 'product/base.html' %}
+{% load static %}
+{% block content %}
+<div id="frame" style="width:500px;height:400px;margin:auto;">
+    {% if message %}
+        {{ message }}
+    {% endif %}
+    <form action="{% url 'user:login' %}" method="post">
+        {% csrf_token %}
+        <div style="text-align:center">
+            <input type="text" name="user_id" id="user_id" placeholder="아이디"><br>
+            <input type="password" name="user_pw" id="user_pw" placeholder="비밀번호"><br>
+            <input class="btn btn-info" type="submit" value="로그인">
+        </div>
+
+    </form>
+</div>
+{% endblock %}

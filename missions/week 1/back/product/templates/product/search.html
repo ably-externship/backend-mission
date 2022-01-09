@@ -1,0 +1,48 @@
+{% extends 'product/base.html' %}
+{% load static %}
+{% block content %}
+<form method="POST" action="{% url 'product:search' %}">
+    {% csrf_token %}
+    <select name="classification">
+        <option value="product" selected >상품</option>
+        <option value="brand">브랜드</option>
+    </select>
+    <input type="text" placeholder="검색어를 입력해주세요" name="search_word">
+    <input type="submit" value="검색">
+</form>
+<hr>
+{% if search_list.paginator.count == 0 %}
+<p> 검색 결과가 없습니다. </p>
+{% else %}
+<p> 검색 결과가 {{ search_list.paginator.count }} 건 입니다.</p>
+<div id='wrap'>
+  {% for item in search_list %}
+    <div class="product" style="width:20%; height:20%; border-radius:5px; background-color:gray;">
+        {% if classification == 'product' %}
+        <span class="cost"> {{ item.product_price }}</span>
+        <br><span class="shop_name">{{ item.shop_id.shop_name }}</span>
+        <br><span class="product_name">{{ item.product_name }}</span>
+        {% else %}
+        <span class="shop_name"> {{ item.shop_name }} </span>
+        {% endif %}
+    </div>
+  {% endfor %}
+</div>
+<!--Pagination-->
+<div style="text-align:center">
+    <div class="pagination">
+        <div style="width:30%; margin:5px;">
+            {% for page in search_list.paginator.page_range %}
+                {% if page == search_list.number %}
+                    <span style="font-weight:bold;">{{ page }}</span>
+                {% else %}
+                    <a href="?page={{ page }}">{{ page }}</a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+{% endblock %}
