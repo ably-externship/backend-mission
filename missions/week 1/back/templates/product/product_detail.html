@@ -1,0 +1,80 @@
+{% extends 'base/base.html' %}
+
+{% load humanize %}
+
+{% block body %}
+
+<div class="container">
+    <!--navbar-->
+    {% include 'base/navbar.html' %}
+    <div class="row mb-5">
+        <div class="col-lg-7 my-5 text-center">
+            {% for image in images %}
+            <figure>
+                <img src="{{ image.image }}" class="w-100 h-100">
+            </figure>
+            {% endfor %}
+        </div>
+        <div class="col-lg-5 my-5 text-center">
+            <h4>{{ product.name }}</h4>
+            <p>{{ product.price|intcomma }}</p>
+            <div class="d-grid gap-1 col-6 mx-auto">
+                {% if product.stock != 0 %}
+                <button class="btn btn-secondary" type="button">구매하기</button>
+                <button class="btn btn-secondary" type="button">장바구니 담기</button>
+                {% else %}
+                <button class="btn btn-secondary disabled" type="button">품절</button>
+                <button class="btn btn-secondary" type="button">알림신청 받기</button>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+    <!--    comment-->
+    <hr/>
+    <h2 class="text-center">QnA</h2>
+    {% if comments.exists %}
+    {% for comment in comments %}
+    <div class="row my-4">
+        <div class="mx-auto">
+            <h5>
+                {{ comment.author.username }} &nbsp;&nbsp;&nbsp;<small class="text-muted">{{ comment.created_at }}</small>
+            </h5>
+            <p>{{ comment.content }}</p>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <div class="row my-3 ">
+        <div class="mx-auto text-center">
+            <label for="content">내용 : </label>
+            <input type="hidden" id="pk" value="{{ product.pk }}">
+            <input type="text" id="content" name="content">
+        </div>
+        <div class="col-6 mx-auto my-2 text-center">
+            <button class="btn btn-primary" type="button" id="commentCreateButton">등록하기</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<!--Jquery-->
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+<script>
+$(document).ready(function(){
+        $('#commentCreateButton').click(function(){
+            $.post('/apis/v1/comment/create/', {'content': $('#content').val(), 'pk': $('#pk').val()}, function(){
+                window.location.reload();
+            });
+        });
+    });
+
+
+
+</script>
+{% endblock %}
