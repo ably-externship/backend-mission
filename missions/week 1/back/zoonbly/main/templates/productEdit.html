@@ -17,7 +17,11 @@
             {% if product.image %}
                 <p>{{product.image_name}}</p>
             {% endif %}
-            <p>상품 설명 : <textarea type="text" name="description" id="" cols="30" rows="5">{{product.description}}</textarea></p>
+            <p>상품 설명 <textarea type="text" name="description" id="" cols="30" rows="5">{{product.description}}</textarea></p>
+            {% if product.detailImage %}
+                <p>{{product.detailImage_name}}</p>
+            {% endif %}
+            <p>상품 상세 사진 <input type="file" name="detailImage" onchange="filecheck(this)" class="btn btn-outlione-primary"></p>
             <button type="submit" class="btn btn-outline-primary">수정하기</button>
         </form>
     </div>

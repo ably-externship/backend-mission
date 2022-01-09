@@ -26,6 +26,7 @@ def productCreate(request):
     new_product.stock = request.POST['stock']
     new_product.description = request.POST['description']
     new_product.image = request.FILES['image']
+    new_product.detailImage = request.FILES['detailImage']
     new_product.save()
     return redirect('main:productDetail', new_product.id)
 
@@ -34,7 +35,7 @@ def productDetail(request, id):
     all_questions = product.questions.all().order_by('-created')
     all_answers = []
     for question in all_questions:
-        all_answers += list(Answer.objects.all())
+        all_answers += list(Answer.objects.filter(question = question))
     return render(request, 'productDetail.html', {'product':product, 'questions': all_questions, 'answers':all_answers})
 
 def productEdit(request, id):
@@ -52,6 +53,8 @@ def productUpdate(request, id):
     update_product.description = request.POST['description']
     if request.FILES.get('image'):
         update_product.image = request.FILES.get('image')
+    if request.FILES.get('detailImage'):
+        update_product.detailImage = request.FILES.get('detailImage')
     update_product.save()
     return redirect('main:productDetail', update_product.id)
 
@@ -100,7 +103,11 @@ def search(request):
 
     if word:
         products = products.filter(name__icontains=word)
-        return render(request, 'search.html', {'products' : products, 'word':word})
+        paginator = Paginator(products, 4)
+        page = int(request.GET.get('page', 1))
+        product_list = paginator.get_page(page)
+        return render(request, 'search.html', {'product_list' : product_list, 'word':word})
 
     else:
         return render(request, 'search.html')
+

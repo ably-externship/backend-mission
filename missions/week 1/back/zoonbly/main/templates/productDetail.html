@@ -12,12 +12,23 @@
             </div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item">{{product.marcket}}</li>
-              <li class="list-group-item">{{product.price}}</li>
-              <li class="list-group-item">{{product.stock}}</li>
+              <li class="list-group-item">가격 : {{product.price}}</li>
+              <li class="list-group-item">재고 : {{product.stock}}</li>
             </ul>
             <div class="card-body">
               <a href="#" class="btn btn-outline-primary card-link">구매하기</a>
               <a href="#" class="btn btn-outline-primary card-link">장바구니</a>
+            </div>
+        </div>
+        <br>
+        <p>
+            <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              상품 상세 정보
+            </button>
+        </p>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                <img src="{{ product.detailImage.url }}" alt="사진" alt="..." style=" width : 24rem; object-fit:cover;">
             </div>
         </div>
         <hr>
@@ -57,7 +68,7 @@
     {% if user == product.writer %}
         <form action="{% url 'main:answerCreate' product.id question.id %}" method="post">
             {%csrf_token%}
-            <p><textarea type="text" name="content" id="" cols="40" rows="1"></textarea></p>
+            <p><textarea type="text" name="content" class="form-control" id="exampleFormControlTextarea1" cols="30" rows="1"></textarea></p>
             <button type="submit" class="btn-primary btn-sm">답변 등록하기</button>
         </form>
     {% endif %}
