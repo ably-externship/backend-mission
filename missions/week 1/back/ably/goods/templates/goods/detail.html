@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load humanize %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'goods/style.css' %}" type="text/css" />
+{% endblock %}
+
+{% block content %}
+    <h1 class="tw-font-bold">상품 정보</h1>
+    {% if product %}
+        <div class="prod-detail tw-mx-auto tw-mt-4">
+            <img src="{{ product.image }}" alt="{{ product.name }}" class="tw-block tw-w-full"
+                 onerror="this.src='{% static 'assets/img/no.png' %}'"
+            >
+            <p class="tw-text-center tw-mt-3">{{ product.seller }}</p>
+            <p class="tw-text-center tw-mt-3">{{ product.name }}</p>
+            <p class="tw-text-center tw-mt-3">{{ product.price|intcomma }}원</p>
+
+            <div class="tw-con tw-px-3 tw-mx-auto">
+                <h2 class="tw-text-gray-600 tw-font-bold tw-mt-4">상품 옵션</h2>
+                <p class="tw-mt-2">색상: {{ product.color }}</p>
+                <p class="tw-mt-2">사이즈: {{ product.size }}</p>
+            </div>
+
+        </div>
+
+        {% if user.is_authenticated %}
+        <div class="container tw-mt-6">
+            <h1 class="tw-font-bold">질문</h1>
+            <form method="post" action="{% url 'goods:question_create' product.id %}" class="tw-mt-2">
+                {% csrf_token %}
+                <div class="form-group">
+                    <textarea class="form-control" rows="3" placeholder="내용을 적어주세요." name="content"></textarea>
+                </div>
+                <input type="hidden" value="{{ product.id }}" name="product_id">
+                <button type="submit" class="btn btn-secondary btn-sm tw-mt-2 tw-bg-gray-500" style="float: right">
+                    질문 작성하기
+                </button>
+            </form>
+        </div>
+        {% endif %}
+    {% else %}
+        <p>No Product.</p>
+    {% endif %}
+
+    <div class="tw-mt-4 tw-flex">
+        <a href="{% url 'goods:index' %}" class="tw-bg-yellow-500 tw-text-white tw-p-3 tw-rounded">목록</a>
+    </div>
+{% endblock %}

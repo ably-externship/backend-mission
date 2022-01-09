@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load humanize %}
+{% load django_bootstrap5 %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'goods/style.css' %}" type="text/css" />
+{% endblock %}
+
+{% block content %}
+    <section class="section">
+        <form method="post" action="{% url 'goods:search' %}" class="form">
+            {% csrf_token %}
+
+            {% bootstrap_form form layout='inline' %}
+
+            {% bootstrap_button button_type="submit" content="검색" button_class="tw-bg-blue-500 text-white" layout='inline' %}
+        </form>
+
+        <div class="tw-container tw-mx-auto tw-mt-2">
+<!--            <h1>Goods</h1>-->
+            {% if products %}
+                <ul class="prod-list tw-grid tw-gap-5
+                 sm:tw-grid-cols-2 md:tw-grid-cols-3 lg:tw-grid-cols-4 xl:tw-grid-cols-5 2xl:tw-grid-cols-6">
+                    {% for product in products %}
+                        <a href="{% url 'goods:detail' product.id %}" class="tw-block">
+                            <li class="prod-list__item">
+                                <img src="{{ product.image }}" alt="{{ product.name }}" class="tw-block tw-w-full tw-rounded tw-aspect-[3/4] tw-object-cover"
+                                     onerror="this.src='{% static 'assets/img/no.png' %}'"
+                                >
+                                <p class="tw-text-center tw-mt-3 tw-text-gray-600 tw-text-base sm:tw-text-lg">{{ product.seller }}</p>
+                                <p class="tw-text-center tw-mt-2 tw-font-bold tw-text-3xl">{{ product.name }}</p>
+                                <p class="tw-text-center tw-mt-4 tw-text-sm sm:tw-text-base">{{ product.price|intcomma }}</p>
+                            </li>
+                        </a>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No Products</p>
+            {% endif %}
+        </div>
+
+        {% if keyword %}
+            <div class="tw-mt-4 tw-flex justify-content-center">
+                <a href="{% url 'goods:index' %}" class="tw-bg-yellow-500 tw-text-white tw-p-3 tw-rounded">전체 상품 보기</a>
+            </div>
+        {% else %}
+            <!-- 페이징처리 시작 -->
+            <ul class="pagination justify-content-center tw-mt-6">
+                <!-- 이전페이지 -->
+                {% if products.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ products.previous_page_number }}">이전</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+                </li>
+                {% endif %}
+                <!-- 페이지리스트 -->
+                {% for page_number in products.paginator.page_range %}
+                    {% if page_number == products.number %}
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+                <!-- 다음페이지 -->
+                {% if products.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ products.next_page_number }}">다음</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+                </li>
+                {% endif %}
+            </ul>
+            <!-- 페이징처리 끝 -->
+        {% endif %}
+
+    </section>
+{% endblock %}
