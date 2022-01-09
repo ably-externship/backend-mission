@@ -1,10 +1,10 @@
-footer{ position:fixed; 
+/* footer{
     left:0px; 
     bottom:0px; 
     height:60px; 
     width:100%; 
     background:#e3f2fd;
-    }
+    } */
 
 
 footer.sticky-footer {

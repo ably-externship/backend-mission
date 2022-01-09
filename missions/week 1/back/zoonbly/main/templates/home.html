@@ -2,35 +2,10 @@
 {% load static %}
 {% block content %}
 <br>
-    <!-- <h1>Home</h1>
-    <div class="container">
-        <div class="row">
-            {% for product in products %}
-                <div class="col">
-                    <div class="card" style="width: 18rem; height: 30rem; align-items: center;">
-                        <div style="width:17rem; height:18rem; align-items: center;">
-                            <img src="{{product.image.url}}" class="card-img-top" alt="...">
-                        </div>
-                        <div class="card-body" style="width: 17rem;">
-                          <h5 class="card-title">{{product.name}}</h5>
-                          <p class="card-text">{{product.marcket}}</p>
-                          <p class="card-text">{{product.description}}</p>
-                          <a href="{%url 'main:productDetail' product.id %}" class="btn btn-primary btn-sm">MORE</a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div> -->
     <div class="container">
         <div class="row" style="margin-bottom: 2rem;">
             <div class="card bg-light text-black">
                 <img src="{% static 'images/banner.jpg' %}" class="card-img" alt="...">
-                <!-- <div class="card-img-overlay">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <p class="card-text">Last updated 3 mins ago</p>
-                </div> -->
               </div>
         </div>
         <hr>
