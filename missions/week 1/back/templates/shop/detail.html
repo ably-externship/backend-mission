@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load humanize %}
+<br>
+<br>
+<br>
+<br>
+    <div class="row" style="margin-left:3px;">
+        <!-- 상품 카테고리 시작 -->
+        <div class="col-2" style="min-width:123px;">
+            <div class="list-group" style="margin-left:3px;">
+                <a href="/" class="list-group-item">모든 상품</a>
+                {% for category in categories %}
+                    <a href="{{category.get_absolute_url}}" class="list-group-item {% if selected_category.slug == category.slug %}active{% endif %}">{{category.name}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <!-- 상품 카테고리 끝 -->
+
+        <!-- 상품 세부 정보 시작  -->
+        <div class="col-4">
+            <img src="{{product.image.url}}" width="380px;">
+        </div>
+        <div class="col" style="margin-top:25px; margin-left:35px;">
+            <div style="display: flex; align-items: center; width:500px; margin-bottom:10px;">
+                <span style="font-size:16px;color:#555555;">상품명</span>
+                <span style="font-size:16px;color:#555555; margin-left:50px;">{{product.name}}</span>
+            </div>
+            <div style="display: flex; align-items: center; width:300px; margin-bottom:10px;">
+                <span style="font-size:16px;color:#555555;">마켓</span>
+                <span style="font-size:16px;color:#555555; margin-left:65px;">{{product.market}}</span>
+            </div>
+            <div style="display: flex; align-items: center; width:300px; margin-bottom:20px;">
+                <span style="font-size:16px;color:#555555;">판매가</span>
+                <span style="font-size:16px;color:#555555; margin-left:50px;">{{product.price|intcomma}} KRW</span>
+            </div>
+            <div style="display: flex; align-items: center; width:500px; margin-bottom:10px;">
+                <span style="font-size:16px;color:#555555; margin-bottom:10px;">소개</span>
+                <span style="font-size:16px;color:#555555; margin-left:65px; margin-bottom:10px;">{{product.description}}</span>
+            </div>
+            <!-- 상품 세부 정보 끝 -->
+
+            <!-- 옵션 선택, 장바구니 시작 -->
+            <div style="display: flex; align-items: center; width:300px; margin-bottom:20px;">
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>옵션을 선택해주세요.</option>
+                    {% for inventory in inventories %}
+                        {% if inventory.stock == 0 %}
+                        <option value="{{forloop.counter}}">{{inventory.color}} -- {{inventory.size}}  (품절)</option>
+                        {% else %}
+                        <option value="{{forloop.counter}}">{{inventory.color}} -- {{inventory.size}} ({{inventory.stock}}개 남음)</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <button type="button" class="btn btn-outline-secondary" style="margin-right:5px;">Add To Cart</button>
+                <button type="button" class="btn btn-outline-secondary">To WishList</button>
+            </div>
+        </div>
+        <!-- 옵션 선택, 장바구니 끝 -->
+
+        <div style="display: flex; align-items: center;">
+            <hr style="border:1px silver;width: 100%;">
+        </div>
+
+        <!--  상품 문의 시작    -->
+        <span style="font-size:16px;color:#555555; text-align:center;">상품 문의</span>
+        <div style="margin-left:50px;">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">No.</th>
+                  <th scope="col">ID</th>
+                  <th scope="col">문의 내용</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for question in page_obj.object_list %}
+                <tr>
+                  <th scope="row">{{ forloop.counter }}</th>
+                  <td>{{ question.user.username }}</td>
+                  <td>{{ question.comment }}</td>
+                  <td><a href="{% url 'shop:question_delete' question.id %}"><span class="material-icons-outlined" style="font-size:13px; color:grey;">close</span></td></a>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        </div>
+        <!--  상품 문의 끝  -->
+
+        <!-- 페이징처리 시작 -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center"">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{page_obj.previous_page_number}}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% for page_number in page_obj.paginator.page_range %}
+                    {% if page_number == page_obj.number %}
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{page_obj.next_page_number}}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        <!-- 페이징처리 끝 -->
+
+        <!-- 문의 입력란 시작 -->
+        <div style="margin-left:50px;">
+            <form action="" method="POST">
+            {% csrf_token %}
+            <div class="input-group mb-3" style="margin-left:120px; width:800px;">
+              <form action="" method="POST">
+                  <input type="text" name="body" class="form-control" placeholder="문의 내용을 입력해주세요." aria-label="문의 내용을 입력해주세요." aria-describedby="button-addon2">
+                  <button class="btn btn-outline-secondary" type="submit" id="button-addon1">등록</button>
+            </div>
+            </form>
+        </div>
+        <!-- 문의 입력란 끝 -->
+    </div>
+{% endblock %}

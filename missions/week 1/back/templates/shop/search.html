@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load humanize %}
+
+<br>
+<br>
+<div class="row" style="margin-left:3px;">
+    {% if not products %}
+    <div class="alert alert-info" role="alert">
+    <h4 style="margin-left:30px; padding-top:10px;">검색 결과가 없습니다. 😅 </h4>
+    </div>
+    <!-- 상품 카테고리 시작 -->
+    <div class="col-2" style="min-width:123px;">
+        <div class="list-group" style="margin-left:3px;">
+            <a href="/" class="list-group-item">모든 상품</a>
+            {% for category in categories %}
+                <a href="{{category.get_absolute_url}}" class="list-group-item {% if selected_category.slug == category.slug %}active{% endif %}">{{category.name}}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- 상품 카테고리 끝 -->
+    {% else %}
+    <div class="alert alert-info" role="alert">
+    '{{q}}'에 대한 검색 결과 입니다.
+    </div>
+    <!-- 상품 카테고리 시작 -->
+    <div class="col-2" style="min-width:123px;">
+        <div class="list-group" style="margin-left:3px;">
+            <a href="/" class="list-group-item">모든 상품</a>
+            {% for category in categories %}
+                <a href="{{category.get_absolute_url}}" class="list-group-item {% if selected_category.slug == category.slug %}active{% endif %}">{{category.name}}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- 상품 카테고리 끝 -->
+
+    <!--  상품 박스 시작  -->
+    {% for product in products %}
+        <div class="col-4" style="float:left; width:250px; margin:20px;">
+            <div class="item_body">
+                <div class="item_box">
+                    <a href="{{product.get_absolute_url}}"><img class="item_img" src="{{product.image.url}}"></a>
+                    <div class="item_first_row">
+                        <div class="price_tag">
+                            <b>{{product.price|intcomma}}</b>
+                        </div>
+                        <div class="item_icon">
+                            <span class="favorite_icon material-icons-outlined icons" style="color: red;" >
+                                    favorite_border
+                            </span>
+                        </div>
+                    </div>
+                    <div class="item_second_row">
+                        <b>{{product.market}}</b>
+                    </div>
+                    <div class="item_third_row">
+                        {{product.name}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <!--  상품 박스 끝  -->
+    {% endif %}
+</div>
+{% endblock %}

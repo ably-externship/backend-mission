@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div style="font-size: 14px;text-align: center;width: 100%;min-height: 100vh;display: flex; flex-direction: row; align-items: center; justify-content: center">
+    <div>
+        <div class="mb-3" style="background-color: white; width: 350px; height: 420px; border-radius: 15px; border: 1px solid rgba(0, 0, 0, 0.18);">
+            <div style="display: flex;align-items: center; justify-content:center;">
+                    <img style="height: 40px; object-fit: contain; margin: 30px 0" src="{% static "design/logo_black.png" %}">
+            </div>
+            <div class="form-floating mb-2 floating_form">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{message.tags}}" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <form action="" method="post">
+            {% csrf_token %}
+                <div class="form-floating mb-2 floating_form">
+                    <input type="text" name="username" class="floating_input form-control" placeholder="아이디">
+                    <label for="floatingEmail" class="floating_label">아이디</label>
+                </div>
+                <div class="form-floating mb-3 floating_form">
+                    <input type="password" class="floating_input form-control" name="password" id="floatingPassword" placeholder="Password">
+                    <label for="floatingPassword" class="floating_label">비밀번호</label>
+                </div>
+                <div class="floating_form mb-3">
+                    <button id="button_login" type="submit" value="Login" class="btn btn-primary" style="width: 100%"> 로그인</button>
+                </div>
+            </form>
+            <div class="mb-2" style="display: flex; align-items: center; justify-content: space-between">
+                <hr style="border:1px silver;margin-left: 30px;width: 80px">
+                    계정이 없으신가요?
+                <hr style="border:1px silver;margin-right: 30px;width: 80px">
+            </div>
+            <div style="font-weight: bold; color: royalblue">
+                <a href="{% url 'join' %}" style="font-weight: bold; color: cornflowerblue; text-decoration: none; cursor: pointer">가입하기</a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %}
