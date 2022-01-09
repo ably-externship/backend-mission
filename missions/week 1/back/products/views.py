@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import ListView, DetailView
@@ -37,6 +38,8 @@ def question(request, pk):
         form = QuestionForm(request.POST)
         if form.is_valid():
             question = form.save(commit=False)
+            if request.user.is_anonymous:
+                return redirect(reverse('users:login'))
             question.user = request.user
             question.product = product
             question.save()

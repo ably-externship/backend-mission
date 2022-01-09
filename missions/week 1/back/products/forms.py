@@ -13,11 +13,3 @@ class QuestionForm(forms.ModelForm):
         labels = {
             "content": "질문내용"
         }
-
-    # def save(self, *args, **kwargs):
-    #     user = super().save(commit=False)
-    #     email = self.cleaned_data.get("email")
-    #     password = self.cleaned_data.get("password")
-    #     user.username = email
-    #     user.set_password(password)
-    #     user.save()

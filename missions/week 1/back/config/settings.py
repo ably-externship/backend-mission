@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # third party apps
     'django_seed',
+    "bootstrap5",
     # local apps
     'core',
     'accounts',

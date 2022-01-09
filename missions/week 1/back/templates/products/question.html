@@ -1,8 +1,17 @@
 {% extends 'base.html' %}
+{% load bootstrap5 %}
 {% block content %}
-    <form method='post' action="{% url "products:question" product.pk %}">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button>질문하기</button>
-    </form>
+    <div class="container">
+        <div class="row">
+            <div style="text-align: center; max-width:500px; margin:4rem auto">
+                <form method='post' action="{% url "products:question" product.pk %}">
+                    {% csrf_token %}
+                    {{ product.name }} 제품에 대해 궁금하신 내용을 알려주세요.
+                    {% bootstrap_form form %}
+
+                    <button class="btn btn-success">작성완료</button>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
