@@ -1,0 +1,66 @@
+{% extends "main.html" %}
+
+{% block section %}
+<section id="shops">
+    <div class="container-fluid">
+        <div class="row m-2 mt-3">
+            <div class="col-md-10 col-sm-12">
+                <form class="d-flex m-2 form-post" id="search_box" name="search_box" method="GET" action="{% url 'search_page' %}" >
+                    <input  name="q" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-warning" type="submit">Search</button>
+                </form>
+            </div>
+        </div>          
+        <div class="m-3">
+            <div class="card position-relative  rounded-3" >
+                <img src="{{ mlists.img_url }}" class="shop-card-img-top embed-responsive-item" alt="img">
+
+                <h4 class="fas fa-link fa-sm m-2 mt-4 mb-3">
+                    <a id="shopname" href="{{ mlists.url }}" class="card-title text-decoration-none"
+                        style="color: black;">
+                        {{ mlists.shop }}</a>
+                </h4>
+                <div class="card-text mx-3 position-relative">
+                    <button class="shop_btn mb-2" data-toggle="collapse fa fa-fire" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
+                        aria-controls="collapseExample"> Info </button>
+                </div>
+
+                <div class="collapse" id="collapseExample">
+                    <div class="card-block m-2">
+                        {{ mlists.description }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mx-2 ">
+            {% for item_list in ilists %}
+            <div class="col-4 col-md-3 col-lg-2"  >
+                <div class="card my-3 position-relative rounded-3 shops-first-card shopsbox" >
+                    <img src="{{ item_list.image_url }}" class="card-img-top embed-responsive-item" style="height: 15vh;" alt="img">
+
+                    <div class="fas fa-heart fa-sm m-2 mt-3"> 
+                        
+                        <a id="itemname" href="{% url 'item_page' id=mlists.id num=item_list.num %}" class="btn-sm btn-warning  text-decoration-none " style="font-size:xx-small;"
+                            style="color: black;"> link </a>
+                        <p class="card-text text-decoration-none px-4">  </p>
+                    </div>
+                    <div class="card-text m-2 mb-3">
+                        {{ item_list.name }}
+                    </div>
+                    
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
+
+
+<!-- 하트 <i class="fas fa-heart"></i> -->
+<!-- 빈하트 <i class="far fa-heart"></i> -->

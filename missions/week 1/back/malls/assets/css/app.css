@@ -1,0 +1,264 @@
+/* Global */
+.section-content{
+    padding: 4rem 0;
+}
+.button {border-radius: 15px;}
+
+/* Top Section */
+#top{
+    background-image:url('../images/bg_top.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 80vh;
+}
+
+#top .overlay{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(0,0,0,0.40);
+}
+
+#top .divider{
+    width: 10%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-top: 2px solid #fff;
+}
+
+#top .welcome{
+    padding-left: 4rem;
+    padding-right: 8rem;
+    color: #fff;
+}
+
+@media screen and (max-width: 767px) {
+    #top {
+        height: 60vh;
+    }
+    #top .welcome{
+        padding-right: 2rem;
+        padding-left: 2rem;
+    }  
+
+    #intro {
+        padding-right: 1rem;
+        padding-left: 1rem;
+    } 
+}
+
+@media screen and (max-width: 360px) {
+    #top {
+        height: 90vh;
+    }
+    #top .welcome{
+        padding-right: 2rem;
+        padding-left: 2rem;
+    }   
+}
+
+/* Intro Section */
+#intro .intro-first-card{
+    background-position: center;
+    background-repeat: no-repeat;   
+    background-size: cover;
+    height: 12rem;
+}
+
+#intro .col-6{
+    font-family: 'Poppins', sans-serif
+}
+
+#intro .col-6:nth-of-type(1) .intro-first-card{
+    background-image: url('../images/home_1.jpg');
+}
+#intro .col-6:nth-of-type(2) .intro-first-card{
+    background-image: url('../images/home_2.jpg');
+}
+#intro .col-6:nth-of-type(3) .intro-first-card{
+    background-image: url('../images/home_3.jpg');
+}
+#intro .col-6:nth-of-type(4) .intro-first-card{
+    background-image: url('../images/home_4.jpg');
+}
+
+#intro .intro-first-card .overlay{
+    left: 0;
+    top: 0;
+    background-color: rgba(0,0,0,0.2);
+}
+
+#intro .intro-first-card .overlay a{
+    transition: hover 0.4s ease;
+}
+
+#intro .intro-first-card .overlay a:hover{
+    color: #ffff81;
+}
+
+#intro .intro-second{
+    padding: 1em;
+}
+
+
+
+
+/* slide1 Section */
+#slide1 {
+    background-position: center;
+    background-repeat: no-repeat;   
+    background-size: cover;
+}
+
+#slide1 .carousel-item {
+    height: 30rem;
+    font-size: 12px;
+    font-family: 'Poppins', sans-serif;
+}
+
+#slide1 .divider{
+    width: 10%;
+    margin: 2rem auto;
+    border-top: 0.5rem solid rgb(255, 155, 109);
+}
+
+#slide1 .services-col .card{
+    transition: 0.4s ease;
+}
+
+#slide1 .services-col .card:hover{
+    transform: translateY(-0.8rem);
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,0.2), 0 4px 15px 0 rgba(0,0,0,0.15);
+}
+
+#slide1 .services-col img{
+    height: 13rem;
+    object-fit: cover;
+    object-position: center;
+}
+#slide1 .button {
+    background-color: rgb(255, 155, 109);
+    color: #fff;
+}
+
+@media screen and (max-width: 500px) {
+    #intro .text_sm{
+        font-size: 18px;
+    }
+    #slide1 .text_sm{
+        font-size: 18px;
+    }
+    #slide1 .media {
+        height: 20rem;
+        font-family: 'Poppins', sans-serif;
+    }
+    #slide1 .btn {
+        font-size: 8px;
+    }
+
+}
+
+/* Login section */
+#login {
+    height: 65vh;
+}
+
+#login .loginbox{
+    width: 80%; 
+    height: 80%;
+    margin: 0 auto; 
+}
+
+#login .loginbox label{
+    display: block;
+    font-size: 18px; color: #333;
+    margin-bottom: 5px; 
+}
+
+#login .loginbox input{
+    display: block;
+    width: 50%; height: 50px;
+    margin-bottom: 25px; /* 동위선택자와의 간격 조정 */
+    border: none; background-color: #ededed;
+    padding: 0 20px; /* 앞상하 뒷좌우 */
+    box-sizing: border-box; /* 패딩수치를 인사이드 처리 */
+}
+
+#login .li_button{
+    background-color: rgba(255, 255, 255, 0);
+    color: rgb(0, 0, 0);
+}
+
+#login .go_home_btn{
+    width: 20%;
+    position: relative;
+    left: 40%;
+}
+
+@media screen and (max-width: 767px) {
+    #login .loginbox input{
+        display: block;
+        width: 100%; height: 50px;
+        margin-bottom: 25px; /* 동위선택자와의 간격 조정 */
+        border: none; background-color: #ededed;
+        padding: 0 20px; /* 앞상하 뒷좌우 */
+        box-sizing: border-box; /* 패딩수치를 인사이드 처리 */
+    }
+
+}
+
+/* Event section */
+#event {
+    height: 25vh;
+}
+
+#event .eventbox{
+    width: 80%; 
+    height: 80%;
+    margin: 0 auto; 
+    overflow: hidden;
+}
+
+
+
+/* main.html shops section */
+#shops .shops-first-card .overlay{
+    left: 0;
+    top: 0;
+    background-color: rgba(0,0,0,0.2);
+}
+
+#shops .shop_btn{
+    background-color: black;
+    border-radius: 15px;
+    font-size: 8px;
+    color: white;
+}
+
+#shops .card-img-top{
+    height: 6rem;
+    object-fit: cover;
+}
+
+#shops .shop-card-img-top{
+    height: 7rem;
+    object-fit: cover;
+}
+
+#shops .shopsbox {
+    height: 33vh;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 767px) {
+    #shops .shopsbox {
+        height: 26vh;
+        overflow: hidden;
+    }
+
+}
+
+  
