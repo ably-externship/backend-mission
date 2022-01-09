@@ -42,6 +42,7 @@ def createQna(request, product_id):
         title = request.POST.get('title')
         content = request.POST.get('content')
     conn_user = request.user
+    print(conn_user)
     user = User.objects.get(username=conn_user)
     Product_qna.objects.create(product_id=product_id, user_id=user.id,content=content,title=title)
 
