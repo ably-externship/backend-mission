@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-import os
+import os, json
+from django.core.exceptions import ImproperlyConfigured
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,8 +22,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
+
+secret_file = os.path.join(BASE_DIR, 'secrets.json')
+
+with open(secret_file) as f:
+    secrets = json.loads(f.read())
+
+def get_secret(setting, secrets=secrets):
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = "Set the {} environment variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^0qq=m6k@7n91vh9aje3zakhzine+2m!mfz8cb9jdqb(b**47r'
+SECRET_KEY = get_secret("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -152,3 +166,18 @@ MEDIA_URL = ''
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+# 구글 이메일 연동
+EMAIL_HOST = 'smtp.gmail.com' # 메일을 호스트하는 서버
+
+EMAIL_PORT = '587' # gmail과의 통신하는 포트
+
+EMAIL_HOST_USER = get_secret("EMAIL_HOST_USER") # 발신할 이메일
+
+EMAIL_HOST_PASSWORD = get_secret("EMAIL_HOST_PASSWORD") # 발신할 메일의 비밀번호
+
+EMAIL_USE_TLS = True # TLS 보안 방법
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER # 사이트와 관련한 자동응답을 받을 이메일 주소

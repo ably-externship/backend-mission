@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="kr">
+    <head>
+        <meta charset="UTF-8">
+
+        {% load static %}
+        <link rel="stylesheet" href="{% static "css/signin.css" %}">
+    </head>
+
+    <body>
+
+        <form class="signUp" method="POST" action="{% url 'password_reset'%}">
+            {% csrf_token %}
+            <h1 align="center">비밀번호 초기화 화면</h1>
+            <input name="email" type="email" class="signUpInput" placeholder="이메일" autofocus required value="">
+            <div>
+                <input type="submit" name="email_submit" value="메일 전송" class="signUpButton">
+            </div>
+        </form>
+
+    </body>
+</html>

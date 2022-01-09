@@ -14,14 +14,14 @@
     <body>
          <form class="signUp" method="POST" action="{% url 'signup'%}">
              {% csrf_token %}
-             <h1 align="center">회원가입</h1>
+             <h1 align="center">회원가입 화면</h1>
              <input class="signUpInput" name="username" type="username" placeholder="아이디" required value="">
              <input class="signUpInput" name="password1" type="password" placeholder="비밀번호" required value="">
              <input class="signUpInput" name="password2" type="password" placeholder="비밀번호 확인" required value="">
              <input class="signUpInput" name="email" type="email" placeholder="이메일" required value="">
 {#             <input name="phone" type="phone" placeholder="핸드폰 번호" required value="">#}
              <div>
-                <input class="signUpButton" type="submit" value="signup" >
+                <input class="signUpButton" type="submit" value="회원가입" >
              </div>
 
         </form>
