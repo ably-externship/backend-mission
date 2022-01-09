@@ -16,12 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from mutbly.views import index, RegisterView, LoginView
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('',index),
     path('admin/', admin.site.urls),
     path('register/', RegisterView.as_view()),
-    path('login/', LoginView.as_view()),
+    # path('login/', LoginView.as_view()),
     path('mutbly/', include('mutbly.urls')),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+	path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('accounts/profile/', index)
 
 ]

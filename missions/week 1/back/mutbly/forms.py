@@ -36,7 +36,6 @@ class RegisterForm(forms.Form):
 				)
 				user.save()
 
-
 class LoginForm(forms.Form):
 	email = forms.EmailField(
 		error_messages={

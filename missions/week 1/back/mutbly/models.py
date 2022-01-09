@@ -18,18 +18,7 @@ class Product(models.Model):
 		verbose_name = '상품'
 		verbose_name_plural = '상품'
 
-
-class Question(models.Model):
-	# name = models.ForeignKey(Product, on_delete=models.CASCADE)
-	content = models.TextField()
-	create_date = models.DateTimeField()
-
-# class Answer(models.Model):
-# 	name = models.ForeignKey(Question, on_delete=models.CASCADE)
-
-
 class User(models.Model):
-	name = models.CharField(max_length=100, verbose_name='이름')
 	email = models.EmailField(verbose_name='E-mail')
 	password = models.CharField(max_length=20, verbose_name='비밀번호')
 
@@ -37,7 +26,7 @@ class User(models.Model):
 		return self.email
 
 	class Meta:
-		# db_table = 'user_db'
+		db_table = 'mutbly_user'
 		verbose_name = '사용자'
 		verbose_name_plural = '사용자'
 

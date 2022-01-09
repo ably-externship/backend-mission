@@ -21,32 +21,22 @@ def index(request):
 	context = {'product_list' : page_obj, 'page' : page, 'kw' : kw}
 	return render(request, 'index.html', context)
 
-def detail(request, product_id):
-	product = get_object_or_404(Product, pk=product_id)
-	context = {'detail':detail}
-	return render(request, 'product_detail.html', context)
-
 
 class RegisterView(FormView):
 	template_name = 'register.html'
 	form_class = RegisterForm
-	success_url = '/'
+	success_url = '/mutbly'
 
 
 class LoginView(FormView):
 	template_name = 'login.html'
 	form_class = LoginForm
-	success_url = '/'
+	success_url = '/mutbly'
 
 	def form_valid(self, form):
 		self.request.session['user'] = form.email
 		return super().form_valid(form)
 
-class ProductListView(ListView):
-	model = Product
-	template_name = 'index.html'
-	form_class = RegisterForm
-	success_url = '/'
 
 class ProductDetailView(DetailView):
 	template_name = 'product_detail.html'
