@@ -1,18 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2> 검색 </h2>
-    <form method='get' action="{% url "products:search" %}">
-        {{form.as_p}}
-        <button>Search</button>
-    </form>
+    <div class="container">
+        <div class="row">
+          <div style="text-align: center; max-width:500px; margin:4rem auto">
+            <h3>검색결과 ({{ products.count }}개)</h3>
+            {% for product in products %}
+                    <div class="card mx-auto" style="width: 18rem;">
+                        <img src="https://picsum.photos/id/{{ forloop.counter }}/100/100" class="card-img-top" alt="not found image">
+                        <div class="card-body">
+                            <a class="card-title text-center" href="{% url 'products:detail' product.pk %}">{{product.name}} / ${{product.price}}</a>
+                            <h6 class="card-subtitle mb-2 text-muted text-center">{{ product.market }}</h6>
+                        </div>
+                    </div>
+            {% endfor %}
+          </div>
+        </div>
+    </div>
 
-    <h3>검색결과 ({{ products.count }}개)</h3>
 
-    {% for product in products %}
-        <a href="{% url 'products:detail' product.pk %}">
-            <h3>{{product.name}}</h3>
-        </a>
-
-    {% endfor %}
 
 {% endblock content %}
