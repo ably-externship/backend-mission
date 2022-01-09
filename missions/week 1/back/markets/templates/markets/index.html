@@ -1,0 +1,52 @@
+{% extends 'common/base.html' %}
+{% block title %}멋블리{% endblock %}
+{% block head %}
+    <style>
+        #products .card {
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <form method="get" action="{% url 'search' %}" class="form mb-3">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="상품 검색" name="query">
+            <input class="btn btn-outline-secondary" type="submit" value="🔍">
+        </div>
+    </form>
+    <h4>상품 리스트</h4>
+    <div id="products" class="row row-cols-2 row-cols-md-6">
+        {% for product in products %}
+            <div class="col p-2">
+                <div class="card" onclick="location.href={% url 'detail' product.id %}">
+                    <img src="https://picsum.photos/id/{{ product.id }}/200/220">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.discounted_price }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ product.market.name }}</h6>
+                        <p class="card-text">{{ product.name }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <nav>
+        <ul class="pagination">
+            {% if products.has_previous %}
+                <li class="page-item">
+                    <a href="/?page={{ products.previous_page_number }}"
+                       class="page-link">{{ products.previous_page_number }}</a>
+                </li>
+            {% endif %}
+            <li class="page-item active">
+                <a href="/?page={{ products.number }}"
+                   class="page-link">{{ products.number }}</a>
+            </li>
+            {% if products.has_next %}
+                <li class="page-item">
+                    <a href="/?page={{ products.next_page_number }}"
+                       class="page-link">{{ products.next_page_number }}</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endblock %}

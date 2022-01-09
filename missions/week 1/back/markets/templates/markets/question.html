@@ -1,0 +1,14 @@
+{% extends 'common/base.html' %}
+{% block title %}상품 문의 - {{ product.name }} - 멋블리{% endblock %}
+{% load django_bootstrap5 %}
+{% block content %}
+    <div>
+        <a class="text-decoration-none" href="{% url 'detail' product.id %}">&lt; 상품</a>
+    </div>
+    <h4>상품 문의</h4>
+    <form method="post" action="{% url 'question_submit' product.id %}" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% bootstrap_button button_type="submit" content="문의" %}
+    </form>
+{% endblock %}
