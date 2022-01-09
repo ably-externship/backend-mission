@@ -1,21 +1,37 @@
 {% extends 'base.html' %}
-
 {% load static %}
-
-{%block contents %}
+{% block contents %}
 
     {% if product %}
-        }
-        <img src = "{% static '{{ product.image }}' %}" height="180" width="150"> 
-        {{ product.name }}
-        {{ product.price }}
+        <div class="container dark-grey-text mt-5">
+            <div class="row wow fadeIn">
+                <div class="col-md-6 mb-4">
+                    <img src="{% static product.image %}" height="180" width="150" class="img-fluid"> 
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="p-3">
+                        <p class="lead">
+                            <span class="font-weight-bold"> {{ product.name }} </span>
+                        </p>
+                        <p class="lead">
+                            <span> {{ product.price }}₩ </span>
+                        </p>
+                        <p class="lead font-weight-bold">Description</p>
+                        <p>
+                            {{ product.description }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>   
+        <hr> 
     {% else %}
         상품 없음
     {% endif %}
 
     {# Q & A  #}
     <br>
-    댓글 달기: 
+    질문: 
     <form action="{% url 'product:create' product.id %}" method="POST">
         {% csrf_token %}
         {{ inquiry_form }}
@@ -32,7 +48,7 @@
 
         {% endfor %}
     {% else %}
-        댓글 없음
+        질문 없음
     {% endif %}
 
 {% endblock contents %}
