@@ -16,7 +16,8 @@
             <input name="password" type="password" class="signUpInput" placeholder="비밀번호" required value="">
             <div>
                 <input type="submit" value="로그인" class="signUpButton">
-                <input type="button" value="회원가입" class="signUpButton" onclick="location.href='signup'">
+                <a href="{%url 'signup'%}">회원가입</a>
+{#                <input type="button" value="회원가입" class="signUpButton" onclick="location.href='signup'">#}
                 <a href="{%url 'forgot_id'%}">아이디 찾기</a>
                 <a href="{%url 'password_reset'%}">비밀번호 초기화</a>
             </div>
