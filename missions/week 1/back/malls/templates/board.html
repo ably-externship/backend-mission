@@ -1,10 +1,29 @@
 {% extends "main.html" %}
 
 {% block section %}
-<div class="m-5">
-    <h2 class="text-center" style="font-weight: bold;"> 질문게시판 </h2>
-</div>
 
+    {% block thing %}
+    <div class="m-5">
+        <div class="d-flex justify-content-center align-items-center position-relative">
+            <div class="btn text-decoration-none">
+                <a href="{% url 'board_page' %}" class="text-decoration-none" > ( 질문 및 후기 남기기 ) </a>
+            </div>
+        </div>
+        
+        <form method="POST" action="" class="">
+            {% csrf_token %}
+            <div class="form-control-lg" id="questionform" name="questionform">
+                {{ questionform }} </div>
+                <div class="col-sm-3 col-md-12 mt-3">
+                    <input class="btn btn-warning" type="submit" value="질문하기">
+                </div>
+        </form>
+
+    
+    
+        <h2 class="text-center" style="font-weight: bold;"> 질문게시판 </h2>
+    </div>
+    {% endblock %}
 <div class="container">
     <div class="my-3 text-center">
         <table class="table table-hover">
@@ -64,11 +83,11 @@
                         <textarea type="text" class="form-control" id="content1" placeholder="내용을 입력하세요."
                             row="12"></textarea>
                     </div>
+
+                    
                     <!-- 질문 남기는 버튼, form, post 구현하고 영상찍기 -->
                 {% endif %}
-
-
-
+                
                 {% if True %}
                 <div class="card-block position-relative rounded-3" style="height: 13vh; background-color: none;">
                     <div class="d-flex justify-content-center align-items-center position-absolute h-100 w-100">
@@ -100,6 +119,7 @@
     </div>
 
 </section>
-
-
+   
 {% endblock %}
+
+
