@@ -1,0 +1,45 @@
+{% extends 'page/base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+{% endblock css %}
+{% block content %}
+
+    <div class="row">
+        <div class="card">
+            상품 리스트
+        </div>
+    </div>
+    <div class="row">
+        <div class="card">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <th>순위</th>
+                    <th>사진</th>
+                    <th>상품명</th>
+                    <th>가격</th>
+                    <th>⭐️</th>
+                    <th>회사</th>
+                    <th>재고</th>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>
+                                <img src="{% static 'img/1.jpeg' %}" width="40" height="40">
+                            </td>
+                            <td><a style="text-decoration: none; color: black" href="api/v1/product/detail/{{product.id}}"/>{{product.name}}</td>
+                            <td>{{product.price}}</td>
+                            <td>{{product.stars}}</td>
+                            <td>{{product.company}}</td>
+                            <td>{{product.inventory}}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock content %}
