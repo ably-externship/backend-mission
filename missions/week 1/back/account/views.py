@@ -35,7 +35,8 @@ def find_username_view(request):
             try:
                 find_user = User.objects.get(email=target_email)
             except User.DoesNotExist:
-                return HttpResponse('입력한 이메일에 해당하는 유저가 없습니다.')
+                messages.info(request, '입력한 이메일에 해당하는 유저가 없습니다.')
+                return redirect(request.META['HTTP_REFERER'])
 
             # 이메일 발송
             subject = '멋블리 아이디 찾기 결과 안내'
@@ -77,7 +78,8 @@ def reset_password_view(request):
             try:
                 find_user = User.objects.get(email=target_email)
             except User.DoesNotExist:
-                return HttpResponse('입력한 이메일에 해당하는 유저가 없습니다.')
+                messages.info(request, '입력한 이메일에 해당하는 유저가 없습니다.')
+                return redirect(request.META['HTTP_REFERER'])
 
             token = secrets.token_urlsafe()
             find_user.tmp_token = token

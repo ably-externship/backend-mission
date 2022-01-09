@@ -1,10 +1,18 @@
 {% extends 'base.html' %}
-
+{% load bootstrap5 %}
 {% block content %}
 <div style="text-align: center; max-width: 500px; margin: 4rem auto">
+    <div style="color:red">
+        {% if messages %}
+            {% for msg in messages %}
+                {{ msg.message }}
+            {% endfor %}
+        {% endif %}
+    </div>
+    <br>
     <form action="{% url 'account:find_username' %}" method="POST">
         {% csrf_token %}
-        {{ form }}
+        {% bootstrap_form form %}
         <input type="submit" value="입력">
     </form>
 </div>
