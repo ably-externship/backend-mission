@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    {{item.id}}
+    {{item.prodname}}
+    {{item.price}}
+
+    <a href="{% url 'qna' category=category id=item.id %}">QnA</a>
+</div>
+{% endblock %}

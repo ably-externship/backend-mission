@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div>
+    <div>
+        <input name="query" type="text">
+        <button onclick="search('{{category}}')" >검색</button>
+    </div>
+    {% for item in prod_list %}
+    <div>
+        <span> {{item.prodname}} </span>
+        <span> {{item.price}} </span>
+        <a onclick="detailInfo(this)" category="{{category}}" id="{{item.id}}"><span> ...more </span></a>
+    </div>
+    {% endfor %}
+</div>
+<script>
+    function search(cate){
+        var query = $("input[name=query]").val();
+        $.ajax({
+            type:'POST',
+            url:'search/',
+            data:{
+                'query':query,
+                'category':cate,
+            },
+            success:function(data){
+                console.log(data);
+            }
+        });
+    }
+    function detailInfo(item){
+        var category = $(item).attr('category');
+        var id = $(item).attr('id');
+        var url = '/'+ category + '/product/'+ id;
+        window.location.href=url;
+    }
+</script>
+
+{% endblock %}
