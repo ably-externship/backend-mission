@@ -18,6 +18,14 @@ class AccountCreateForm(UserCreationForm):
         model = User
         fields = ['username', 'email']
 
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if username:
+            qs = User.objects.filter(username=username)
+            if qs.exists():
+                raise forms.ValidationError("이미 등록된 아이디 입니다.")
+            return username
+
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if email:
@@ -25,17 +33,6 @@ class AccountCreateForm(UserCreationForm):
             if qs.exists():
                 raise forms.ValidationError("이미 등록된 이메일 주소 입니다.")
             return email
-
-
-class AccountUpdateForm(UserCreationForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.fields['username'].disabled = True
-
-    class Meta(UserCreationForm.Meta):
-        model = User
-        fields = ['username', 'email']
 
 
 class FindusernameForm(Form):

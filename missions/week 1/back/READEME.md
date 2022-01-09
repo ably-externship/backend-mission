@@ -14,3 +14,9 @@ docker-compose up -d
 ```bash
 python manage.py migrate
 ```
+
+### 서버실행
+
+```bash
+python manage.py runserver
+```

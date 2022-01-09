@@ -7,7 +7,6 @@ from account.views import (
     change_password_view,
 )
 
-
 app_name = "account"
 
 urlpatterns = [

@@ -66,11 +66,3 @@ def product_list_view(request):
         }
     )
 
-
-class ProductListview(ListView):
-    context_object_name = 'product_list'
-    template_name = 'product/list.html'
-    paginate_by = 2
-
-    def get_queryset(self):
-        return Product.objects.all()

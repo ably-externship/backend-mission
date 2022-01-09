@@ -12,4 +12,4 @@ class Product(models.Model):
 
     seller = models.CharField(max_length=200, null=True, verbose_name='입점사')
 
-    objects = Manager()
+

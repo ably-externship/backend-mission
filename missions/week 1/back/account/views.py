@@ -1,7 +1,5 @@
 import secrets
-
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -29,6 +27,7 @@ def find_username_view(request):
         )
 
     elif request.method == 'POST':
+        # email 로 아이디 찾기
         form = FindusernameForm(request.POST)
         if form.is_valid():
             target_email = form.cleaned_data['email']
@@ -84,7 +83,7 @@ def reset_password_view(request):
             token = secrets.token_urlsafe()
             find_user.tmp_token = token
             find_user.save()
-
+            # 1회성 패스워드 리셋 URL
             url = f'http://127.0.0.1:8000/accounts/change_password/?reset_token={token}'
 
             subject = '비밀번호 재설정 이메일 입니다.'
