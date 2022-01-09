@@ -3,17 +3,14 @@
 {% block section %}
 <section id="shops">
     <div class="container-fluid">
-
-
         <div class="row m-2 mt-3">
             <div class="col-md-10 col-sm-12">
-                <form class="d-flex m-2">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <form class="d-flex m-2 form-post" id="search_box" name="search_box" method="GET" action="{% url 'search_page' %}" >
+                    <input  name="q" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-warning" type="submit">Search</button>
                 </form>
             </div>
-        </div>        
-
+        </div>          
         <div class="m-3">
             <div class="card position-relative  rounded-3" >
                 <img src="{{ mlists.img_url }}" class="shop-card-img-top embed-responsive-item" alt="img">
@@ -45,7 +42,7 @@
 
                     <div class="fas fa-heart fa-sm m-2 mt-3"> 
                         
-                        <a id="itemname" href="{{ item_list.url }}" class="btn-sm btn-warning  text-decoration-none " style="font-size:xx-small;"
+                        <a id="itemname" href="{% url 'item_page' id=mlists.id num=item_list.num %}" class="btn-sm btn-warning  text-decoration-none " style="font-size:xx-small;"
                             style="color: black;"> link </a>
                         <p class="card-text text-decoration-none px-4">  </p>
                     </div>
@@ -58,7 +55,6 @@
             </div>
             {% endfor %}
         </div>
-
     </div>
 </section>
 

@@ -28,7 +28,6 @@ class MallsItems(models.Model):
     regdate = models.DateField()
 
     class Meta:
-        managed = False
         db_table = 'malls_items'
 
 
@@ -41,7 +40,6 @@ class MallsList(models.Model):
     img_url = models.CharField(max_length=200)
 
     class Meta:
-        managed = False
         db_table = 'malls_list'
 
 
@@ -55,7 +53,6 @@ class MallsQuestion(models.Model):
     date = models.DateField()
 
     class Meta:
-        managed = True
         db_table = 'malls_question'
 
 
@@ -64,9 +61,7 @@ class Mallshttp(models.Model):
     httpobjects = models.CharField(max_length=10000)
     
     class Meta:
-        managed = True
         db_table = 'malls_itemhttp'
-
 
 # class Post(models.Model): # Post 모델의 이름, models는 Post가 장고 모델임을 의미
 #     author = models.ForeignKey('malls.User', models.DO_NOTHING) # 작성자명

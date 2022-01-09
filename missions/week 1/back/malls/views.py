@@ -66,7 +66,6 @@ def logout(request):
 
 
 
-# ---------------------------------------------------------------------
 
 def signup(request):
     if request.method == "POST":
@@ -87,6 +86,7 @@ def signup(request):
     return render(request, 'signup.html')
 
 
+# ---------------------------------------------------------------------
 def shops(request, id=id):
     malllistForm = MallslistForm
     mlists = MallsList.objects.get(id=id)
@@ -98,14 +98,26 @@ def shops(request, id=id):
         'itemlistForm': itemlistForm,
         'ilists': ilists,
     }
+
     return render(request, 'shops.html', context)
 
 
-def item_page(request, name=None):
-    itemhttpForm = MallshttpForm
-    itemhttp = MallsItems.objects.filter(name=name)
-    context = itemhttp.httpobjects
-    render(request, 'item.html', context=context)
+def item_page(request, id, num):
+    context = MallsItems.objects.filter(num=num)
+    return render(request, 'item.html', {'context' : context})
+
+def search_page(request):
+    if request.method == 'POST':
+        query = request.POST.get('query')
+
+    else:
+        query = request.GET['q']
+
+    item_name_search = MallsItems.objects.filter(name__contains =query)
+    item_d_search = MallsItems.objects.filter(description__contains =query)
+    item_search = item_name_search.union(item_d_search, all=True)
+    return render(request, 'search.html', {'query' : query, 'item_search': item_search} )
+
 
 def board_pagd(request):
     if request.method == 'POST':
@@ -115,7 +127,6 @@ def board_pagd(request):
         user = request.POST['user']
         date = request.POST['date']
         
-
         question = MallsQuestion(
             q_num = q_num,
             subject=subject,
