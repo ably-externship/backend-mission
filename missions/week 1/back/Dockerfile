@@ -1,12 +1,10 @@
-FROM alpine:3.8
-
-RUN apk add --no-cache python3-dev openssl-dev libffi-dev gcc && pip3 install --upgrade pip
-ENV PYTHONUNBUFFERED 1
+FROM python:3.10
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
 COPY ./requirements/common.txt /common.txt
 COPY ./requirements/dev.txt /requirements.txt
 RUN pip install -r /requirements.txt
-
-RUN mkdir /app
-WORKDIR /app
-COPY ./app /app
+COPY . .
+EXPOSE 8000
+CMD ["python","manage.py", "runserver", "0.0.0.0:8000"]
