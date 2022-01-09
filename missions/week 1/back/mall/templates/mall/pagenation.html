@@ -1,0 +1,33 @@
+<div id="paging">
+    <ul class="pagination justify-content-center" style="margin-top: 2rem;">
+        {% if page_products.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page=1">&laquo;</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_products.previous_page_number }}">{{ page_products.previous_page_number }}</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="?page=1">&laquo;</a>
+        </li>
+        {% endif %}
+        <li class="page-item active">
+            <span class="page-link">{{ page_products.number }}</span>
+        </li>
+
+        {% if page_products.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_products.next_page_number }}">{{ page_products.next_page_number }}</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_products.next_page_number }}">&raquo;</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link">&raquo;</a>
+        </li>
+        {% endif %}
+    </ul>
+    </ul>
+</div>

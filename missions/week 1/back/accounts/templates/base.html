@@ -1,0 +1,29 @@
+{% load static %}
+<html>
+    <head>
+        <title>Project Lion</title>
+        <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+        <!-- 합쳐지고 최소화된 최신 CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <!-- 부가적인 테마 -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    </head>
+    <body>
+        <div class="page-header">
+            <h1><a href="/">LBLY</a></h1>
+            <div>
+                <span><a href="accounts/signup/">회원가입</a></span>
+                <span><a href="accounts/login/">로그인</a></span>
+                <span><a href="accounts/logout/">로그아웃</a></span>
+            </div>
+        </div>
+        <div class="content container">
+            <div class="row">
+                <div class="col-md-8">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

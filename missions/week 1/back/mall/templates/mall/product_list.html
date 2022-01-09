@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class='product'>
+        {% for product in page_products %}
+        <div class="post">
+            <div class="image">
+                <img src="{{ product.image.url }}" style="width: 180px; height: 150px;" alt=""> <br>
+            </div>
+            <h1><a href="{% url 'product_detail' pk=product.pk %}">{{ product.title }}</a></h1>
+            <p>{{ product.price }}</p>
+            <p>{{ product.creator }}</p>   
+        </div>
+        {% endfor %}
+    </div>
+    {% include './pagenation.html'%}
+{% endblock %}

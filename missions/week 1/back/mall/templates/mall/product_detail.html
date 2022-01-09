@@ -1,0 +1,15 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class='product'>
+        <div class="image">
+            <img src="{{ product.image.url }}" style="width: 180px; height: 150px;" alt=""> <br>
+        </div>
+        <p>{{ product.title }}</p>
+        <p>{{ product.created_date }}</p>
+        <p>{{ product.price }}</p>
+        <p>{{ product.context }}</p>
+        <p>{{ product.creator }}</p>   
+    </div>
+{% endblock %}
