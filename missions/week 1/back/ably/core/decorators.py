@@ -12,7 +12,7 @@ def login_required(func):
             if not access_token:
                 return JsonResponse({'message' : 'Unauthorized Access'}, status=401)
             
-            payload = jwt.decode(access_token, SECRET_KEY, algorithm=ALGORITHM)
+            payload = jwt.decode(access_token, SECRET_KEY, algorithms = ALGORITHM)
             user = User.objects.get(id = payload['id'])
             
             if user.userinfo.is_deleted:
