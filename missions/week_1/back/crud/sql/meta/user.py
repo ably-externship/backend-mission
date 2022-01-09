@@ -21,11 +21,14 @@ class UserCrud(MetaBaseCrud):
 
     @classmethod
     def create_user(cls, register_form):
-        sql = cls.get_insert_sql_query(register_form)
+        sql_query = cls.get_insert_sql_query(register_form)
         db = SqlDb(cls.db_name)
         values = register_form.values()
         try:
-            db.execute(sql, tuple(values))
+            db.execute(sql_query, tuple(values))
             db.commit()
+            return True, None
         except BaseException as e:
             print(e.args)
+            error_message = e.args
+            return False, error_message

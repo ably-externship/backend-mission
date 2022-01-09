@@ -3,3 +3,6 @@ djangorestframework
 mysqlclient
 pymysql
 bcrypt
+djangorestframework-jwt
+PyJWT
+django-bootstrap-v5
