@@ -118,7 +118,7 @@ def search_page(request):
     item_name_search = MallsItems.objects.filter(name__contains =query)
     item_d_search = MallsItems.objects.filter(description__contains =query)
     item_search = item_name_search.union(item_d_search, all=True)
-    return render(request, 'search.html', {'query' : query, 'item_search': item_search} )
+    return render(request, 'search.html', {'query' : 1, 'item_search': item_search} )
 
 
 def board_page(request):
