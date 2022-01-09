@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-hc#0_=nlpki#zdp-*%4vn7$k@em4eniig^vrvs=4cenymr6_*u'
+SECRET_KEY = '#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -88,7 +88,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'mutbly_base',
         'USER': 'root',
-        'PASSWORD': '1234',
+        'PASSWORD': '#',
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {
