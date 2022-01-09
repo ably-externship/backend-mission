@@ -48,20 +48,12 @@ class MallsQuestion(models.Model):
     subject = models.CharField(max_length=30)
     content = models.CharField(max_length=1000)
     reply = models.CharField(max_length=1000, blank=True, null=True)
-    user = models.ForeignKey(User, models.DO_NOTHING)
+    user = models.ForeignKey('MallsUser', models.DO_NOTHING, blank=True, null=True)
     rep = models.CharField(max_length=1)
     date = models.DateField()
 
     class Meta:
         db_table = 'malls_question'
-
-
-class Mallshttp(models.Model):
-    name = models.ForeignKey('MallsItems', models.DO_NOTHING, db_column='name')
-    httpobjects = models.CharField(max_length=10000)
-    
-    class Meta:
-        db_table = 'malls_itemhttp'
 
 # class Post(models.Model): # Post 모델의 이름, models는 Post가 장고 모델임을 의미
 #     author = models.ForeignKey('malls.User', models.DO_NOTHING) # 작성자명
@@ -76,5 +68,23 @@ class Mallshttp(models.Model):
 
 #     def __str__(self): # _ _ 2개
 #         return self.title
+
+
+class MallsUser(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    password = models.CharField(max_length=128)
+    last_login = models.DateTimeField(blank=True, null=True)
+    is_superuser = models.IntegerField()
+    username = models.CharField(unique=True, max_length=150)
+    first_name = models.CharField(max_length=150)
+    last_name = models.CharField(max_length=150)
+    email = models.CharField(max_length=254)
+    is_staff = models.IntegerField()
+    is_active = models.IntegerField()
+    date_joined = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'malls_user'
 
 

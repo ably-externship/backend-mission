@@ -119,13 +119,14 @@ def search_page(request):
     return render(request, 'search.html', {'query' : query, 'item_search': item_search} )
 
 
-def board_pagd(request):
+def board_page(request, num=1):
     if request.method == 'POST':
         q_num = request.POST['q_num']
         subject = request.POST['subject']
         content = request.POST['content']
         user = request.POST['user']
         date = request.POST['date']
+        rep =  request.POST['rep']
         
         question = MallsQuestion(
             q_num = q_num,
@@ -133,15 +134,19 @@ def board_pagd(request):
             content=content,
             user=user,
             date=date,
+            rep=rep,
         )
         question.save()
-        return redirect('main_page')
-    else:
-        questionForm = MallsquestionForm
+        return redirect('board_page')
+        
+    else :   
+        questionform = MallsquestionForm
         question = MallsQuestion.objects.all()
-        context = {
-            'questionForm': questionForm,
-            'question': question,
-        }
-        return render(request, 'main.html', context)
+        return render(request, 'board.html', {'questionform': questionform,'question': question})
 
+
+def board_page_num(request, num):
+    q_num = num
+    question_num = MallsQuestion.objects.filter(q_num=q_num)
+    question = MallsQuestion.objects.all()
+    return render(request, 'board.html', {'question_num': question_num, 'question': question})

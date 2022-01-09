@@ -61,7 +61,4 @@ class MallsitemForm(ModelForm):
         model = MallsItems
         fields = ['id', 'num', 'name', 'amount', 'price', 'useyn', 'kind' , 'description', 'image_url', 'url', 'regdate']
 
-class MallshttpForm(ModelForm):
-    class Meta:
-        model = Mallshttp
-        fields = ['name','httpobjects']
+        
