@@ -3,7 +3,11 @@
 {% block content %}
     
     {% for onepiece in onepieces %}
-        <h1>{{onepiece}}</h1>
+        <h1>
+            <a href="{% url 'clothes:onepiece_detail' onepiece.pk %}">
+                {{onepiece}}
+            </a>
+        </h1>
     {% endfor %}
     
     {% if onepieces.has_previous %}

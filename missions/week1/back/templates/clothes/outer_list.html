@@ -3,7 +3,11 @@
 {% block content %}
     
     {% for outer in outers %}
-        <h1>{{outer}}</h1>
+        <h1>
+            <a href="{% url 'clothes:outer_detail' outer.pk %}">
+                {{outer}}
+            </a>
+        </h1>
     {% endfor %}
     
     {% if outers.has_previous %}

@@ -146,3 +146,57 @@ class OnepiecesAdmin(admin.ModelAdmin):
         return color_list if len(color_list) < 5 else color_list[:5]
 
     color.short_description = "색상"
+
+
+@admin.register(models.Upper_comment)
+class UpperCommentAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (
+            "Clothes Info",
+            {
+                "fields": (
+                    "upper",
+                    "content",
+                    "Author",
+                ),
+            },
+        ),
+    )
+    list_display = ("Author", "content", "created")
+    raw_id_fields = ("Author",)
+
+
+@admin.register(models.Outer_comment)
+class OuterCommentAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (
+            "Clothes Info",
+            {
+                "fields": (
+                    "outer",
+                    "content",
+                    "Author",
+                ),
+            },
+        ),
+    )
+    list_display = ("Author", "content", "created")
+    raw_id_fields = ("Author",)
+
+
+@admin.register(models.Onepiece_comment)
+class OnepieceCommentAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (
+            "Clothes Info",
+            {
+                "fields": (
+                    "onepiece",
+                    "content",
+                    "Author",
+                ),
+            },
+        ),
+    )
+    list_display = ("Author", "content", "created")
+    raw_id_fields = ("Author",)

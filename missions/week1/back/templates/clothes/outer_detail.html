@@ -1,1 +1,25 @@
-<h1>outer</h1>
+{% extends 'base.html' %}
+
+{% block content %}
+    <ul>
+        <h1>{{outer.name}}</h1>
+        <h2>{{outer.description}}</h2>
+        <h2>가격:{{outer.price}}</h2>
+        <div>
+            <label for="color">컬러</label>
+            <select>
+                {% for color in outer.colors.all %}
+                    <option>{{color}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="size">사이즈</label>
+            <select id="size">
+                {% for size in outer.size_outer.all %}
+                    <option>{{size}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </ul>
+{% endblock content %}

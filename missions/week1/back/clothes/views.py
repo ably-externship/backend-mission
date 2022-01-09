@@ -1,9 +1,10 @@
+from re import template
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage
-from math import ceil
-from . import forms
+from django.views.generic import View, DetailView, FormView
 import random
-from . import models
+from . import models, forms
 
 
 def all_clothes(request):
@@ -86,9 +87,8 @@ def Onepieces_views(request):
         return redirect("/")
 
 
-def Upper_detail(request, pk):
-    upper = models.Upper.objects.get(pk=pk)
-    return render(request, "clothes/upper_detail.html", context={"upper": upper})
+class Upper_detail(DetailView):
+    model = models.Upper
 
 
 def Outer_detail(request, pk):
@@ -103,5 +103,16 @@ def Onepiece_detail(request, pk):
     )
 
 
-def search(request):
-    pass
+class SearchFormView(FormView):
+    form_class = forms.SearchForm
+    template_name = "clothes/search.html"
+
+    def form_valid(self, form):
+        word = "%s" % self.request.GET["word"]
+        clothes_list = models.Upper.filter(
+            Q(title__icontains=word) | Q(content__icontains=word)
+        ).distinct()
+        context = {}
+        context["object_list"] = clothes_list
+        context["search_word"] = word
+        return context

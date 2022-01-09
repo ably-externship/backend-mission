@@ -1,7 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{{upper.name}}</h1>
-    <h2>{{upper.description}}</h2>
+    <ul>
+        <h1>{{upper.name}}</h1>
+        <h2>{{upper.description}}</h2>
+        <h2>가격:{{upper.price}}</h2>
+        <div>
+            <label for="color">컬러</label>
+            <select>
+                {% for color in upper.colors.all %}
+                    <option>{{color}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="size">사이즈</label>
+            <select id="size">
+                {% for size in upper.size_upper.all %}
+                    <option>{{size}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </ul>
+
 {% endblock content %}
 

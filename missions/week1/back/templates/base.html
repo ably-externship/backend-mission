@@ -11,7 +11,7 @@
         {% include "partials/nav.html" %}
         {% block search-bar %}
             <form method="get" action='{% url 'clothes:search' %}'>
-                <input name="clothes" placeholder="원하는 옷 검색!"/>
+                <button>원하는 옷 검색</button>
             </form>
         {% endblock search-bar %}
     </header>

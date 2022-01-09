@@ -120,3 +120,51 @@ class Onepieces(clothes):
 
     class Meta:
         verbose_name_plural = "원피스"
+
+
+class Upper_comment(core_models.TimeStampedModel):
+    upper = models.ForeignKey(
+        Upper, related_name="upper_comments", on_delete=models.CASCADE
+    )
+    content = models.TextField()
+    Author = models.ForeignKey(
+        "users.User", related_name="upper_comments", on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return self.content
+
+    class Meta:
+        verbose_name_plural = "상의 질문"
+
+
+class Outer_comment(core_models.TimeStampedModel):
+    outer = models.ForeignKey(
+        Outers, related_name="outer_comments", on_delete=models.CASCADE
+    )
+    content = models.TextField()
+    Author = models.ForeignKey(
+        "users.User", related_name="outer_comments", on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return self.content
+
+    class Meta:
+        verbose_name_plural = "아우터 질문"
+
+
+class Onepiece_comment(core_models.TimeStampedModel):
+    onepiece = models.ForeignKey(
+        Onepieces, related_name="onepiece_comments", on_delete=models.CASCADE
+    )
+    content = models.TextField()
+    Author = models.ForeignKey(
+        "users.User", related_name="onepiece_comments", on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return self.content
+
+    class Meta:
+        verbose_name_plural = "원피스 질문"
