@@ -2,40 +2,20 @@ from django.db import models
 
 
 class User(models.Model):
-    user_id = models.CharField(max_length=20)
-    pwd = models.CharField(max_length=20)
-    name = models.CharField(max_length=5)
-    birth = models.DateField()
-    sex = models.IntegerField()
-    phone = models.IntegerField()
-    email = models.CharField(max_length=60)
-    address = models.IntegerField()
-    maritial_status = models.IntegerField(blank=True, null=None)
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
+    id = models.CharField(verbose_name='아이디')
+    user_id = models.CharField(verbose_name='아이디')
+    name = models.CharField(verbose_name='이름')
+    phone = models.IntegerField(verbose_name='핸드폰 번호')
+    email = models.EmailField(verbose_name='이메일')
+    password = models.CharField(max_length=64, verbose_name='비밀번호')
+    created_dt = models.DateTimeField(auto_now_add=True, verbose_name='등록날짜')
+    updated_dt = models.DateTimeField(auto_now_add=True, verbose_name='등록날짜')
 
     class Meta:
-        managed = False
-        db_table = 'customer'
+        db_table = 'user'
+        app_label = 'api.user'
+        verbose_name = '고객'
+        verbose_name_plural = '고객'
 
-
-class Employee(models.Model):
-    employee_id = models.CharField(max_length=20)
-    pwd = models.CharField(max_length=20)
-    name = models.CharField(max_length=5)
-    birth = models.DateField()
-    sex = models.IntegerField()
-    phone = models.IntegerField()
-    email = models.CharField(max_length=60)
-    address = models.IntegerField()
-    department_id = models.IntegerField()
-    salary = models.IntegerField()
-    job_id = models.IntegerField()
-    hire_date = models.DateField()
-    maritial_status = models.IntegerField(blank=True, null=None)
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
-
-    class Meta:
-        managed = False
-        db_table = 'employee'
+    def __str__(self):
+        return self.user_id

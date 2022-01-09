@@ -1,45 +1,37 @@
-from datetime import datetime
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from ..views import BaseView
-from missions.week_1.back.crud.sql.meta.user import UserCrud
+from .forms import RegisterForm, LoginForm
+from django.views.generic.edit import FormView
+from django.urls import reverse_lazy, reverse
+
+
+def index(request):
+    return render(request, 'index.html', {'email': request.session.get('user')})
+
+
+def logout(request):
+    if request.session.get('user'):
+        del(request.session['user'])
+    return redirect('api/v1/user/login')
 
 
 class UserBaseView(BaseView):
     pass
 
 
-def login_view(request):
-    return render(request, 'page/login', {})
+class LoginView(FormView):
+    template_name = 'page/login.html'
+    form_class = LoginForm
+    success_url = 'http://localhost:8000/api/v1/product/list'
+
+    def form_valid(self, form):
+        self.request.session['user'] = form.id
+
+        return super().form_valid(form)
 
 
-def register_view(request):
-    return render(request, 'page/registration.html', {})
-
-
-def create_user(request):
-    parameter = BaseView.get_parameter(request)
-
-    password = UserBaseView.make_password(parameter.get('password'))
-    now = datetime.now()
-    register = {
-        'user_id': parameter.get('id'),
-        'password': password,
-        'email': parameter.get('email'),
-        'name': parameter.get('name'),
-        'sex': int(parameter.get('sex') or 0),
-        'phone': parameter.get('phone'),
-        'address': parameter.get('address'),
-        'maritial_status': parameter.get('maritial_status'),
-        'created_at': now,
-        'updated_at': now
-    }
-
-    UserCrud.create_user(register)
-
-    return render(request, 'page/login.html', {})
-
-
-class LogoutView(UserBaseView):
-    pass
-
+class RegisterView(FormView):
+    template_name = 'page/registration.html'
+    form_class = RegisterForm
+    success_url = 'login'
 

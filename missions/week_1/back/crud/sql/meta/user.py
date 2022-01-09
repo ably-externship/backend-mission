@@ -27,5 +27,8 @@ class UserCrud(MetaBaseCrud):
         try:
             db.execute(sql_query, tuple(values))
             db.commit()
+            return True, None
         except BaseException as e:
             print(e.args)
+            error_message = e.args
+            return False, error_message

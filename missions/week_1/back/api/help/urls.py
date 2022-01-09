@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 app_name = 'help'
 
 urlpatterns = [
-    path('', views.get_help_list),
+    path('', views.help_list_view),
+    path('form', views.help_form_view),
     path('create', csrf_exempt(views.create_help))
 ]
