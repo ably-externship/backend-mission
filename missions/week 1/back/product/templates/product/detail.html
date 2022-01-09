@@ -3,7 +3,7 @@
 {% block contents %}
 
     {% if product %}
-        <div class="container dark-grey-text mt-5">
+        <div class="container dark-grey-text mt-5" style="width:500px">
             <div class="row wow fadeIn">
                 <div class="col-md-6 mb-4">
                     <img src="{% static product.image %}" height="180" width="150" class="img-fluid"> 
@@ -41,7 +41,7 @@
     {% if inquirys %}
         {% for inquiry in inquirys %}
             <div>
-                {{inquiry.user}}
+                {{inquiry.user}} {{inquiry.created_at}}
                 <br>
                 {{inquiry.content}}
             </div>

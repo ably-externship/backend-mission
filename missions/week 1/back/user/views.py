@@ -1,11 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import authenticate
+from django.contrib.auth.forms import AuthenticationForm
 from user.forms import UserForm
-from django.contrib.auth.models import User
 from django.contrib.auth import login as auth_login
-
-import jwt
 
 
 def register(request):
