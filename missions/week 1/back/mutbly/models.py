@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 class Item(models.Model):
   name = models.CharField(max_length=256)
   photo = models.ImageField(upload_to="image")
+  price = models.IntegerField(default=0)
   description = models.TextField()
   created_at = models.DateTimeField(default=timezone.now)
   
@@ -21,7 +22,16 @@ class Item(models.Model):
     
     
 class Quantity (models.Model):
+  ITEM_SIZE = [
+    ('XS', 'XS'), 
+    ('S', 'S'),
+    ('M', 'M'),
+    ('L', 'L'),
+    ('XL', 'XL'), 
+  ]
+  
   item = models.ForeignKey(Item, null=True, on_delete=models.CASCADE, related_name='quantities')
+  size = models.CharField(max_length=2, choices=ITEM_SIZE, default="XS")
   color = models.CharField(max_length=256)
   quantity = models.IntegerField()
 

@@ -1,0 +1,84 @@
+{%extends 'mutbly/base.html'%}
+
+  {% block content %}
+    {% load static%}
+    <link rel="stylesheet" href="{% static 'mutbly/css/show_item.css'%}" >
+
+    <div class = "item-info">
+
+    <div>
+      <h1 class = "item-name">{{item.name}}<h1>
+    </div>
+    <p>{{item.description}}</p>
+
+    <div >
+      <img class = "item-photo" src = "{{item.photo.url}}" /> 
+    </div>
+
+    <div class = "sub-title">
+    <p>가격 <p>  
+    <p>₩{{item.price}}</p>
+    
+    </div>
+
+    <div class = "sub-title">
+      옵션
+    </div>
+    <br/>
+    <div class = "option-dropdown">
+      <select id ="dropdown-choice" name = "dropdown-choice" style= "width : 47%" >
+        <option  value="none">=== 선택 ===</option>
+        {% for item_choice in item_choices %}
+          <option id = "dorpdown-option" value="{{item_choice.color}}">{{item_choice.color}} - {{item_choice.size}} - {{item_choice.quantity}}개</option>
+        {% endfor %}
+      </select>
+    </div>
+    <br/>
+    <br/>
+    <div class = "sub-title">
+      질문
+    </div>
+    
+
+
+    {% if user.is_authenticated %}
+      <br/>
+      <div class = "ask-question">
+        <form class ="search" method="POST" action="{% url 'question_create' item.id %}">
+          {% csrf_token %}
+          <input class = "post-question" type="text" placeholder="질문을 적어주세요" name="asked">
+          <button type = "submit" class="ask-btn">
+            Ask
+          </button>
+        </form>
+      </div>
+
+    {% else %}
+      <br/>
+    {% endif %}
+
+    <div>
+      {% for item_question in item_questions %}
+        <br/>
+        <br/>
+        {{item_question.author}}
+        {{item_question.content}}
+        <span id = "question-time">{{item_question.created_at}}</span>
+      {% endfor %}
+    </div>
+  </div>
+  <br/>
+  <br/>
+  <br/>
+
+
+
+  <a href="#" class="float">
+    <button type = "submit" class="buy-btn"> 구매하기 </button>
+  </a>
+
+  <br/>
+  <br/>
+    {% endblock content %}
+    
+  

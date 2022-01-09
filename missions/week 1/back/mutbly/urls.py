@@ -16,9 +16,26 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 import mutbly.views
+import accounts.views
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('', mutbly.views.index, name='index'),
+    path('items/<int:id>/', mutbly.views.show, name = 'show'),
+    path('search/', mutbly.views.search, name='search'),
+    path('items/<int:id>/questions/', mutbly.views.QuestionView.create, name='question_create'),
+    path('items/<int:id>/questions/<int:cid>', mutbly.views.QuestionView.delete, name='question_delete'),
+    path('accounts/signup/', accounts.views.signup, name='signup'),
+    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
+    path('accounts/forgot_id/', accounts.views.forgot_id, name='find_id'),
+    path('accounts/password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    # path('search')
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

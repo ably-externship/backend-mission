@@ -1,0 +1,30 @@
+
+<nav class="navbar">
+  <ul>
+
+    <li class = "logo"><a class="navbar-brand" href="{% url 'index' %}">Mutbly</a></li>
+
+    {% if user.is_authenticated %}
+    <span class = "welcome-message">
+      {{user.get_username}}님, 안녕하세요 :) 
+    </span>
+      <li class = "authentication"><a class="login" href={% url 'logout' %}>로그아웃</a></li>
+    {% else %}
+      <li class = "authentication"><a class="login" href={% url 'login' %}>로그인</a></li>
+      <li class = "authentication"><a class="login" href= {% url 'signup' %}>회원가입/</a></li>
+    {% endif %}
+    
+  </ul>
+  
+</nav>
+
+<br>
+<br>
+
+  <form class ="search" method="POST" action="{% url 'search'%}">
+    {% csrf_token %}
+    <input class = "search-bar" type="search" placeholder="search" name="searched">
+    <button class="search-btn">
+      Search
+    </button>
+  </form>
