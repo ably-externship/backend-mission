@@ -7,7 +7,8 @@ class Product(models.Model):
 	description = models.CharField(max_length=300, verbose_name='상품설명')
 	stock = models.IntegerField(verbose_name='재고수량')
 	add_date = models.DateField(auto_now_add=True, verbose_name='등록일')
-	image = models.ImageField(blank=True)
+	image = models.ImageField(upload_to='photos')
+
 
 	def __str__(self):
 		return self.name
@@ -23,8 +24,6 @@ class Question(models.Model):
 	subject = models.CharField(max_length=200)
 	content = models.TextField()
 	create_date = models.DateTimeField()
-
-	# class Meta :
 
 
 
