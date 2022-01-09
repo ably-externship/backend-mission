@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 <br>
 <div class="container">
     <div class="clearfix">
-        <img src="{{ product.image.url }}" alt="사진" class="col-md-6 float-md-end mb-3 ms-md-3 img-thumbnail" alt="..." style="height: 27rem; object-fit:cover;">
+        {% if product.image == '0' %}
+            <img src="{% static 'images/noImage.png' %}" alt="사진" class="col-md-6 float-md-end mb-3 ms-md-3 img-thumbnail" alt="..." style="height: 27rem; object-fit:cover;">
+        {% else %}
+            <img src="{{ product.image.url }}" alt="사진" class="col-md-6 float-md-end mb-3 ms-md-3 img-thumbnail" alt="..." style="height: 27rem; object-fit:cover;">
+        {% endif %}
         <div class="card" style="width: 20rem;">
             <div class="card-body">
               <h5 class="card-title">{{product.name}}</h5>
@@ -28,7 +32,11 @@
         </p>
         <div class="collapse" id="collapseExample">
             <div class="card card-body">
-                <img src="{{ product.detailImage.url }}" alt="사진" alt="..." style=" width : 24rem; object-fit:cover;">
+                {% if product.detailImage == '0' %}
+                    <img src="{% static 'images/noImage.png' %}" alt="사진" alt="..." style=" width : 24rem; object-fit:cover;">
+                {% else %}
+                    <img src="{{ product.detailImage.url }}" alt="사진" alt="..." style=" width : 24rem; object-fit:cover;">
+                {% endif %}
             </div>
         </div>
         <hr>

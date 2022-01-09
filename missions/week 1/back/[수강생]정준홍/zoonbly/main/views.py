@@ -25,8 +25,15 @@ def productCreate(request):
     new_product.price = request.POST['price']
     new_product.stock = request.POST['stock']
     new_product.description = request.POST['description']
-    new_product.image = request.FILES['image']
-    new_product.detailImage = request.FILES['detailImage']
+    if request.FILES.get('image'):
+        new_product.image = request.FILES.get('image')
+    else:
+        new_product.image = 0
+    
+    if request.FILES.get('detailImage'):
+        new_product.detailImage = request.FILES['detailImage']
+    else:
+        new_product.detailImage = 0
     new_product.save()
     return redirect('main:productDetail', new_product.id)
 

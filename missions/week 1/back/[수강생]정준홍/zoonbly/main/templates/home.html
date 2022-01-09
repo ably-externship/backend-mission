@@ -14,7 +14,11 @@
                 {% for product in product_list %}
                     <div class="card" style="width: 18rem; height: 30rem; align-items: center; margin-left: 2rem; margin-bottom: 2rem;">
                         <div style="width:17rem; height:18rem; align-items: center;">
-                            <img src="{{product.image.url}}" class="card-img-top" alt="...">
+                            {% if product.image == '0' %}
+                                <img src="{% static 'images/noImage.png' %}" class="card-img-top" alt="...">
+                            {% else %}
+                                <img src="{{product.image.url}}" class="card-img-top" alt="...">
+                            {% endif %}
                         </div>
                         <div class="card-body" style="width: 17rem;">
                         <h5 class="card-title">{{product.name}}</h5>
