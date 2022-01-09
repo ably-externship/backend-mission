@@ -154,3 +154,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # python manage.py makemigrations
 # python manage.py inspectdb
 # python manage.py migrate
+
+# 관리자 및 유저 아이디
+#  id     pw
+# admin admin
+# admin3 admin3
+# admin4 admin4
