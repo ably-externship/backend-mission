@@ -16,7 +16,7 @@ from project.settings import LOGIN_URL
 class IndexView(generic.ListView):
     template_name = 'product/index.html'
     context_object_name = 'products'
-    paginate_by = 2
+    paginate_by = 6
 
     def get_queryset(self):
         """Return products ordered by price."""
