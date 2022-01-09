@@ -28,15 +28,15 @@
    bg-[#0d6efd]
 - 메일 전송 관련 설정
   1. 메일 전송 설정 commons.py
-      EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-      EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-      EMAIL_USE_TLS = True
-      EMAIL_HOST = 'smtp.gmail.com'
-      EMAIL_PORT = 587
-      EMAIL_HOST_USER = 'v49011591@gmail.com'
-      EMAIL_HOST_PASSWORD = 'cpvqpsmaybvewmlc'
-      SERVER_EMAIL = 'v49011591@gmail.com'
-      DEFAULT_FROM_MAIL = ''
+      EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'\n
+      EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'\n
+      EMAIL_USE_TLS = True\n
+      EMAIL_HOST = 'smtp.gmail.com'\n
+      EMAIL_PORT = 587\n
+      EMAIL_HOST_USER = 'v49011591@gmail.com'\n
+      EMAIL_HOST_PASSWORD = 'cpvqpsmaybvewmlc'\n
+      SERVER_EMAIL = 'v49011591@gmail.com'\n
+      DEFAULT_FROM_MAIL = ''\n
   2. Gmail APP 계정 설정
     참고 : https://greensul.tistory.com/31
     
