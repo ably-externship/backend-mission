@@ -7,7 +7,7 @@ class Product(models.Model):
 	description = models.CharField(max_length=300, verbose_name='상품설명')
 	stock = models.IntegerField(verbose_name='재고수량')
 	add_date = models.DateField(auto_now_add=True, verbose_name='등록일')
-	image = models.ImageField(upload_to='photos')
+	image = models.ImageField(upload_to='static/photos')
 
 
 	def __str__(self):
@@ -21,10 +21,11 @@ class Product(models.Model):
 
 class Question(models.Model):
 	# name = models.ForeignKey(Product, on_delete=models.CASCADE)
-	subject = models.CharField(max_length=200)
 	content = models.TextField()
 	create_date = models.DateTimeField()
 
+# class Answer(models.Model):
+# 	name = models.ForeignKey(Question, on_delete=models.CASCADE)
 
 
 class User(models.Model):

@@ -11,12 +11,13 @@
                 <li class="list-group-item">가격 : {{ product.price}} 원</li>
                 <li class="list-group-item">등록날짜 : {{ product.register_date}}</li>
                 <li class="list-group-item">{{ product.description|safe }}</li>
-                <img src="https://i0.wp.com/www.onehandinmypocket.nl/wp-content/uploads/2019/01/img_8577.jpg?resize=1000%2C562&ssl=1" alt=""></img>
+                <img src="{% static product.image  %}" alt="Product Image"></img>
             </ul>
         </div>
     </div>
-
-    <div class="row">
+</div>
+<div>
+    <div class="row mt-5" style="float:center">
         <div class="col">
             <a href="/mutbly/">목록보기</a>
         </div>

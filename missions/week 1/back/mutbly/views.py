@@ -13,7 +13,7 @@ def index(request):
 	product_list = Product.objects.order_by('-add_date')
 	if kw:
 		product_list = product_list.filter(
-			Q(subject__icontains=kw) | Q(content__icontains=kw)
+			Q(name__icontains=kw) | Q(description__icontains=kw)
 		).distinct()
 
 	paginator = Paginator(product_list, 3)
