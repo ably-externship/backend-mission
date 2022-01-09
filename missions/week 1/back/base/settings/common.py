@@ -149,12 +149,11 @@ INTERNAL_IPS = [
 
 AUTH_USER_MODEL = 'users.User'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'v49011591@gmail.com' # ex) bum752@gmail.com
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_PASSWORD = 'cpvqpsmaybvewmlc' #cpvqpsmaybvewmlc
 SERVER_EMAIL = 'v49011591@gmail.com'
 DEFAULT_FROM_MAIL = '' # ex) bum752

@@ -14,9 +14,9 @@
             {% if board_list %}
             {% for board in board_list %}
             <tr class="hover:bg-sky-300">
-                <td class="border border-gray-300 text-center">{{board.title}}</td>
-                <td class="border border-gray-300 text-center ">{{board.content}}</td>
-                <td class="border border-gray-300 text-right">{{board.create_date}}</td>
+                <td class="border border-gray-300 text-center truncate">{{board.title}}</td>
+                <td class="border border-gray-300 text-center truncate">{{board.content}}</td>
+                <td class="border border-gray-300 text-right truncate">{{board.create_date}}</td>
             </tr>
             {% endfor %}
             {% endif %}
