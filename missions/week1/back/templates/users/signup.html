@@ -1,0 +1,13 @@
+{%extends "base.html" %}
+
+{%block page_title%}
+    Sign up
+{%endblock page_title%}
+
+{% block content %}
+    <form method="POST" action = "{% url 'users:signup' %}">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button>회원가입</button>
+    </form>
+{%endblock content%}

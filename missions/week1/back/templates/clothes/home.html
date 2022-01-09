@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block page_name %}
+    home
+{% endblock page_name %}
+
+{% block content %}
+    {% for clothes in clothes_set %}
+        {% if clothes in uppers %}
+            <a href = "clothes/uppers/int:{{clothes.pk}}/">
+                <h1>{{clothes}}</h1>
+            </a>
+        {% elif clothes in outers %}
+            <a href = "clothes/outers/int:{{clothes.pk}}/">
+                <h1>{{clothes}}</h1>
+            </a>
+        {% elif clothes in onepieces %}
+            <a href = "clothes/onepieces/int:{{clothes.pk}}/">
+                <h1>{{clothes}}</h1>
+            </a>
+        {% endif %}
+    {% endfor %}
+{% endblock content %}

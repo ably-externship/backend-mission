@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+    {% for upper in uppers %}
+        <h1>
+            <a href="{% url 'clothes:upper_detail' upper.pk %}">
+                {{upper}}
+            </a>
+        </h1>
+    {% endfor %}
+    
+    {% if uppers.has_previous %}
+        <a href="?page={{uppers.previous_page_number}}">이전</a>
+    
+    {% endif %}
+    
+    Page {{uppers.number}} / {{uppers.paginator.num_pages}}
+    
+    {% if uppers.has_next %}
+        <a href = "?page={{uppers.next_page_number}}">다음</a>
+    {% endif %}
+
+
+{% endblock content %}

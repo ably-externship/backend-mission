@@ -1,0 +1,15 @@
+<a href="{% url "core:home" %}">subbly</a>
+<ul>
+    <li>
+        {% if user.is_authenticated %}
+            <a href="{% url 'users:logout' %}">로그아웃</a>
+        {% else %}
+            <a href ="{% url 'users:login' %}">로그인</a>
+            <a href="{% url 'users:signup' %}">회원가입</a>
+        {% endif %}
+        <a href="{% url 'clothes:upper_list' %}">상의</a>
+        <a href="{% url 'clothes:outer_list' %}">아우터</a>
+        <a href="{% url 'clothes:onepiece_list' %}">원피스</a>
+    </li>
+</ul>
+

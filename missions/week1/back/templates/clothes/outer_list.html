@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+    {% for outer in outers %}
+        <h1>{{outer}}</h1>
+    {% endfor %}
+    
+    {% if outers.has_previous %}
+        <a href="?page={{outers.previous_page_number}}">이전</a>
+    
+    {% endif %}
+    
+    Page {{outers.number}} / {{outers.paginator.num_pages}}
+    
+    {% if outers.has_next %}
+        <a href = "?page={{outers.next_page_number}}">다음</a>
+    {% endif %}
+
+
+{% endblock content %}

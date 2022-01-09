@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+    {% for onepiece in onepieces %}
+        <h1>{{onepiece}}</h1>
+    {% endfor %}
+    
+    {% if onepieces.has_previous %}
+        <a href="?page={{onepieces.previous_page_number}}">이전</a>
+    
+    {% endif %}
+    
+    Page {{onepieces.number}} / {{onepieces.paginator.num_pages}}
+    
+    {% if onepieces.has_next %}
+        <a href = "?page={{onepieces.next_page_number}}">다음</a>
+    {% endif %}
+
+
+{% endblock content %}
