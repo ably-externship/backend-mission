@@ -2,17 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="811e5bc3-48f6-4608-b65c-d0a65489ef86" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/static/js/qna.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/css/signin.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/back/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product/templates/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qna/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/qna/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qna/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/qna/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/pants1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/shoes1.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/user/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/templates/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/user/templates/signup.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +33,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/static/css" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -40,6 +41,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\82109\Desktop\상락\멋사\mission1\missions\week 1\back\static\css" />
+      <recent name="C:\Users\82109\Desktop\상락\멋사\mission1\missions\week 1\back\user\templates" />
       <recent name="C:\Users\82109\Desktop\상락\멋사\mission1\missions\week 1\back\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -83,6 +86,8 @@
       <workItem from="1641427439802" duration="18354000" />
       <workItem from="1641516079356" duration="18370000" />
       <workItem from="1641546929208" duration="27333000" />
+      <workItem from="1641647725738" duration="13599000" />
+      <workItem from="1641688836700" duration="3531000" />
     </task>
     <servers />
   </component>

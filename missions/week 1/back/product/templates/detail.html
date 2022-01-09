@@ -5,37 +5,125 @@
 {%block contents %}
 
     {% if product %}
+    <div class="detail-box-1 con">
+        <ul class="row ">
 
-        <img src = "{% static '{{ product.image }}' %}" height="280" width="180">
-        {{ product.name }}
-        {{ product.price }}
+            <li class="cell">
+                <div class="detail-img-1">
+                    <img src = "/static/img/{{ product.image }}">
+                </div>
+            </li>
+            <li class="cell">
+                <div class="detail-inf-1">
+                    <h3>{{ product.name }}</h3>
+
+                    <h2 class="text-right">
+                        {{ product.price }}원
+                    </h2>
+
+                    <p class="text-gray-500 m-8">
+                        {{ product.description }}
+                    </p>
+
+                    사이즈를 선택하세요
+                    <select>
+                        <option >{{ product.size }}</option>
+                    </select>
+                </div>
+                <div class="buy-Button">
+                    <div>
+                        <input type="submit" value="구매하기" class="signUpButton m-1">
+                    </div>
+                    <div class="object-right-bottom">
+                        <input type="submit" value="장바구니" class="signUpButton m-1 object-right-bottom">
+                    </div>
+                </div>
+
+            </li>
+        </ul>
+
+
+        <div>
+
+
+        </div>
     {% else %}
-        상품 없음
+    상품 없음
     {% endif %}
+    </div>
+
+    <div class="top-bn-box-1 img-box con">
+        <img src="https://thumbnail8.coupangcdn.com/thumbnails/remote/q89/image/retail/images/2019/04/19/17/4/0a65530f-8c6c-4a85-8313-fd121832ea22.jpg" alt="">
+    </div>
+
 
     {# 질문  #}
+    <div class="qna-boxlist-1 con">
+        <div>
+            <h3 class="font-bold">Q&A</h3>
+        </div>
 
-    <div>
-        <p>상품 질문</p>
-        <input id='name' onchange='printName()'/>
-        <div id='result'></div>
+        <!-- qna 표 -->
+        <div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">등록일</th>
+                  <th scope="col">제목</th>
+                  <th scope="col">내용</th>
+                </tr>
+              </thead>
+                {% if qnas %}
+              <tbody>
+              {% for qna in qnas %}
+                <tr>
+                  <th scope="row">{{qna.datetime}}</th>
+                  <td>{{qna.title}}</td>
+                  <td>{{qna.content}}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+                {% else %}
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>질문이 없습니다</td>
+                  <td></td>
+                </tr>
+              </tbody>
+                {% endif %}
+            </table>
+
+        </div>
+        <br>
+        <div><h3 class="font-bold">질문하기</h3></div>
+        <p>
+        구매하시려는 상품에 대해 궁금하신 점이 있으신 경우 문의해주세요.
+        </p>
+{#        <form class="" method="POST" action="{% url 'login'%}">#}
+        <form class="qna-input-1" method="POST" action="{% url 'createQna' product.id %}">
+            {% csrf_token %}
+            <div><input class="qna-title outline-black rounded-md m-2" name="title" type="text" placeholder="제목" autofocus required value=""></div>
+            <div><textarea class="qna-content outline-black rounded-md m-2" name="content" type="textarea" placeholder="내용" required value=""></textarea></div>
+            <div><input class="border-black m-2" type="submit" value="등록하기" ></div>
+        </form>
+        <br>
+
     </div>
-    <script>
-        function printName()  {
-          const name = document.getElementById('name').value;
-          document.getElementById("result").innerText = name;
-        }
-    </script>
 
-    {% if qnas %}
-        {% for qna in qnas %}
-            <div>
-                {{qna.content}}
-            </div>
 
-        {% endfor %}
-    {% else %}
-        댓글 없음
-    {% endif %}
+{#    <div>#}
+{#        <p>상품 질문</p>#}
+{#        <input id='name' onchange='printName()'/>#}
+{#        <div id='result'></div>#}
+{#    </div>#}
+{#    <script>#}
+{#        function printName()  {#}
+{#          const name = document.getElementById('name').value;#}
+{#          document.getElementById("result").innerText = name;#}
+{#        }#}
+{#    </script>#}
+
+
 
 {% endblock contents %}

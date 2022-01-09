@@ -1,17 +1,24 @@
 <!doctype html>
 <html lang="kr">
     <head>
+        <meta charset="UTF-8">
+
+        {% load static %}
+        <link rel="stylesheet" href="{% static "css/signin.css" %}">
     </head>
+
     <body>
+
         <form class="signUp" method="POST" action="{% url 'login'%}">
             {% csrf_token %}
-            <h1 class="signUpTitle">로그인창</h1>
-            <input name="username" type="username" class="signUpInput" placeholder="아이디를 입력하시오" autofocus required value="">
-            <input name="password" type="password" class="signUpInput" placeholder="비밀번호를 입력하시오" required value="">
+            <h1 align="center">로그인창</h1>
+            <input name="username" type="text" class="signUpInput" placeholder="아이디" autofocus required value="">
+            <input name="password" type="password" class="signUpInput" placeholder="비밀번호" required value="">
             <div>
                 <input type="submit" value="login" class="signUpButton">
                 <a href="{%url 'signup'%}">회원가입</a>
             </div>
         </form>
+
     </body>
 </html>

@@ -1,18 +1,27 @@
 <!doctype html>
 <html lang="kr">
     <head>
+        <meta charset="UTF-8">
+
+        <!-- static 로딩 -->
+        {% load static %}
+        <link rel="stylesheet" href="{% static "css/signin.css" %}">
+
+        <!-- 테일윈드 -->
+{#        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">#}
+
     </head>
     <body>
-         <form method="POST" action="{% url 'signup'%}">
+         <form class="signUp" method="POST" action="{% url 'signup'%}">
              {% csrf_token %}
-             <h1>회원가입</h1>
-             <input name="username" type="username" placeholder="아이디" required value="">
-             <input name="password1" type="password" placeholder="사용하실 비밀번호를 입력하시오" required value="">
-             <input name="password2" type="password" placeholder="비밀번호를 다시 한번 입력하시오" required value="">
-             <input name="email" type="email" placeholder="이메일" required value="">
+             <h1 align="center">회원가입</h1>
+             <input class="signUpInput" name="username" type="username" placeholder="아이디" required value="">
+             <input class="signUpInput" name="password1" type="password" placeholder="비밀번호" required value="">
+             <input class="signUpInput" name="password2" type="password" placeholder="비밀번호 확인" required value="">
+             <input class="signUpInput" name="email" type="email" placeholder="이메일" required value="">
 {#             <input name="phone" type="phone" placeholder="핸드폰 번호" required value="">#}
              <div>
-                <input type="submit" value="signup" >
+                <input class="signUpButton" type="submit" value="signup" >
              </div>
 
         </form>
