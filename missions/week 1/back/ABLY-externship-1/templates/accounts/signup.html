@@ -1,0 +1,22 @@
+{% extends "core/layout.html" %}
+{% load bootstrap5 %}
+
+{% block content %}
+<div class="topmargin">
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-8 offset-sm-2">
+            <form action="" method="POST" enctype="multypart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% buttons %}
+                    <button type="submit" class="btn btn-primary col-sm-6 offset-sm-3">
+                        회원가입
+                    </button>
+                {% endbuttons %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

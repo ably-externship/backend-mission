@@ -1,0 +1,108 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title> MBLY </title>
+  <link rel="stylesheet" href="{% static 'bootstrap-5.0.2-dist/css/bootstrap.css' %}">
+  <script src="{% static 'bootstrap-5.0.2-dist/js/bootstrap.js' %}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <style>
+    body {
+      font-size:30px;
+    
+    }
+    .topmargin {
+      border: 50px solid;
+      color: white;
+    }
+    .bottommargin{
+      border: 50px solid;
+      color: white;
+    }
+    .middlemargin{
+      border: 8px solid;
+      color: white;
+    }
+    .itemalign {
+      padding: 0;
+      margin: 0;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      flex-flow:row wrap;
+      display: flex;
+      justify-content: space-around;
+    }
+    .textalign {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+    .err-msg {
+      margin-top: 500px !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid sticky-top bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container-fluid">
+        <form class="d-flex">
+          <input class="form-control form-control-lg" name="search" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-secondary" type="submit" >Search</button>
+        </form>
+        <a class="navbar-brand center" href="#">MBLY</a>
+      </div>
+    </nav>
+    <div>
+      <div class="container-fluid">
+        <div class="row">
+            <ul class="nav row">
+                <li class="nav-item col text-center">
+                  <a class="nav-link" href="#" style="color: black;">핫딜</a>
+                </li>
+                <li class="nav-item col text-center">
+                  <a class="nav-link" href="#" style="color: black;">랭킹</a>
+                </li>
+                <li class="nav-item col text-center">
+                  <a class="nav-link" href="#" style="color: black;">원데이</a>
+                </li>
+                <li class="nav-item col text-center">
+                  <a class="nav-link" href="#" style="color: black;">브랜드</a>
+                </li>
+                <li class="nav-item col text-center">
+                  <a class="nav-link" href="#" style="color: black;">스포츠</a>
+                </li>
+                <li class="nav-item col text-center">
+                  <a class="nav-link" href="#" style="color: black;">라이프</a>
+                </li>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% block content %}
+  
+  {% endblock %}
+        <div class="container-fluid bg-light fixed-bottom">
+          <div class="row">
+              <ul class="nav row">
+                  <li class="nav-item col text-center">
+                    <a class="nav-link" href="#" style="color: black;">홈</a>
+                  </li>
+                  <li class="nav-item col text-center">
+                    <a class="nav-link" href="#" style="color: black;">모아보기</a>
+                  </li>
+                  <li class="nav-item col text-center">
+                    <a class="nav-link" href="#" style="color: black;">장바구니</a>
+                  </li>
+                  <li class="nav-item col text-center">
+                    <a class="nav-link" href="#" style="color: black;">마이페이지</a>
+                  </li>
+              </ul>
+          </div>
+        </div>
+</body>
+</html>
