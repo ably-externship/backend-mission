@@ -1,0 +1,53 @@
+{% load bootstrap4 %}
+{% block content %}
+<script src="https://cdn.tailwindcss.com"></script>
+<div class="text-gray-900 text-7xl w-20 m-10">
+    <a href="../main">
+        <div>✓</div>
+    </a>
+</div>
+<div>
+    <div class="w-full text-center text-6xl font-semibold my-18">회원가입
+    </div>
+    <div class="w-4/5 text-5xl">
+        <form action="" method="POST" class="w-full mx-20 text-5xl">
+            {% csrf_token %}
+            <div class="flex flex-col space-y-6 mb-10">
+                <label for="id" class="font-gray-900 ">아이디</label>
+                <input type="text" placeholder="아이디" name="id"
+                    class="w-full h-24 rounded-2xl border-4 border-gary-900 pl-10">
+            </div>
+
+            <div class="flex flex-col space-y-6 mb-10">
+                <label for="pw" class="font-gray-900 ">비밀번호</label>
+                <input type="text" placeholder="비밀번호" name="pw"
+                    class="w-full h-24 rounded-2xl border-4 border-gary-900 pl-10">
+            </div>
+            <div class="flex flex-col space-y-6 mb-10">
+                <label for="name" class="font-gray-900">이름</label>
+                <input type="text" placeholder="이름" name="name"
+                    class="w-full h-24 rounded-lg border-4 border-gary-900 pl-10">
+            </div>
+            <div class="flex flex-col space-y-6 mb-10">
+                <label for="id_num" class="font-gray-900 ">주민등록번호</label>
+                <input type="text" placeholder="주민등록번호" name="id_num"
+                    class="w-full h-24 rounded-2xl border-4 border-gary-900 pl-10">
+            </div>
+            <div class="flex flex-col space-y-6 mb-10">
+                <label for="phone" class="font-gray-900 ">전화번호</label>
+                <input type="text" placeholder="전화번호" name="phone"
+                    class="w-full h-24 rounded-2xl border-4 border-gary-900 pl-10">
+            </div>
+
+            <div class="flex flex-col space-y-6 mb-10">
+                <label for="email" class="font-gray-900 ">이메일</label>
+                <input type="text" placeholder="이메일" name="email"
+                    class="w-full h-24 rounded-2xl border-4 border-gary-900 pl-10"></div>
+
+            <button type="submit" class='bg-indigo-300 text-white text-5xl rounded-2xl w-full h-28 drop-shadow-md p-4'>
+                Join
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
