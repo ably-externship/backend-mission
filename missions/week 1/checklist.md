@@ -21,7 +21,7 @@
 ## 수행인증영상URL(유튜브)
 -
 
-## 프로젝트 
+## 라이브러리 활용 및 Django 설정
 - 상품 상세 이미지 slide 적용을 위한 라이브러리 추가
    https://tailwind-elements.com/docs/standard/components/carousel/
 - tailwind-cdd JIT모드
@@ -42,5 +42,6 @@
 ## TODO
   * 기능을 구현하는데에만 집중하여 코드 리팩토링 미흡
   * 상품 카테고리 DB 추가
-  * 에러 처리에 대한 방법 확인 
+  * 에러 처리에 대한 방법 확인
+  * docker 이미지는 생성하였는데 build가 안되는 현상 확인(config관련 문제인것 같음)
 
