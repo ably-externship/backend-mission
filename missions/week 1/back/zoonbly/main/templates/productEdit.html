@@ -1,18 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h5>상품 수정하기</h5>
-<form action="{% url 'main:productUpdate' product.id %}" method="post" enctype="multipart/form-data">
-    {%csrf_token%}
-    <p>상품명 : <input type="text" name="name" value="{{product.name}}"></p>
-    <p>마켓명 : <input type="text" name="marcket" value="{{product.marcket}}"></p>
-    <p>상품 가격 : <input type="number" name="price" value="{{product.price}}"></p>
-    <p>재고 수량 : <input type="number" name="stock" value="{{product.stock}}"></p>
-    <p>상품 사진 : <input type="file" name="image" onchange="filecheck(this)"></p>
-    {% if product.image %}
-        <p>{{product.image_name}}</p>
-    {% endif %}
-    <p>상품 설명 : <textarea type="text" name="description" id="" cols="30" rows="10">{{product.description}}</textarea></p>
-    <button type="submit">수정하기</button>
-</form>
+
+<br>
+<div class="row justify-content-around">
+  <div class="card border-info mb-3" style="max-width: 18rem; text-align: center;">
+    <div class="card-header"><h3>상품 수정</h3></div>
+    <div class="card-body">
+        <form action="{% url 'main:productUpdate' product.id %}" method="post" enctype="multipart/form-data">
+            {%csrf_token%}
+            <p>상품명 <input type="text" name="name" value="{{product.name}}"></p>
+            <p>마켓명 <input type="text" name="marcket" value="{{product.marcket}}"></p>
+            <p>상품 가격 <input type="number" name="price" value="{{product.price}}"></p>
+            <p>재고 수량 <input type="number" name="stock" value="{{product.stock}}"></p>
+            <p>상품 사진 <input type="file" name="image" onchange="filecheck(this)"></p>
+            {% if product.image %}
+                <p>{{product.image_name}}</p>
+            {% endif %}
+            <p>상품 설명 : <textarea type="text" name="description" id="" cols="30" rows="5">{{product.description}}</textarea></p>
+            <button type="submit" class="btn btn-outline-primary">수정하기</button>
+        </form>
+    </div>
+  </div>
+</div>
 {% endblock %}

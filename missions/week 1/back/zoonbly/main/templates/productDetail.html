@@ -1,40 +1,58 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<p>{{product.name}}</p>
-<p>{{product.writer}}</p>
-<p>{{product.marcket}}</p>
-<p>{{product.pub_date}}</p>
-<p>{{product.price}}</p>
-<p>{{product.stock}}</p>
-<p>{{product.description}}</p>
-{% if product.image %}
-    <img src="{{ product.image.url }}" alt="사진" height="300">
-{% else %}
-    <p>상품 사진이 없습니다.</p>
-{% endif %}
+<br>
+<div class="container">
+    <div class="clearfix">
+        <img src="{{ product.image.url }}" alt="사진" class="col-md-6 float-md-end mb-3 ms-md-3 img-thumbnail" alt="..." style="height: 27rem; object-fit:cover;">
+        <div class="card" style="width: 20rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{product.name}}</h5>
+              <p class="card-text">{{product.description}}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">{{product.marcket}}</li>
+              <li class="list-group-item">{{product.price}}</li>
+              <li class="list-group-item">{{product.stock}}</li>
+            </ul>
+            <div class="card-body">
+              <a href="#" class="btn btn-outline-primary card-link">구매하기</a>
+              <a href="#" class="btn btn-outline-primary card-link">장바구니</a>
+            </div>
+        </div>
+        <hr>
+        {% if user == product.writer %}
+            <a href="{%url 'main:productEdit' product.id %}" class="btn btn-primary btn-sm">수정하기</a>
+            <a href="{%url 'main:productDelete' product.id %}" class="btn btn-primary btn-sm">삭제하기</a>
+        {% endif %}
+        <!-- <p>{{product.name}}</p>
+        <p>{{product.writer}}</p>
+        <p>{{product.marcket}}</p>
+        <p>{{product.pub_date}}</p>
+        <p>{{product.price}}</p>
+        <p>{{product.stock}}</p>
+        <p>{{product.description}}</p> -->
+    </div>
 <hr>
-{% if user == product.writer %}
-    <a href="{%url 'main:productEdit' product.id %}" class="btn btn-primary btn-sm">수정하기</a>
-    <a href="{%url 'main:productDelete' product.id %}" class="btn btn-primary btn-sm">삭제하기</a>
-{% endif %}
-<hr>
-<h5>QnA</h5>
+
+<h5>문의</h5>
 <form action="{% url 'main:questionCreate' product.id %}" method="post">
     {%csrf_token%}
-    <p><textarea type="text" name="content" id="" cols="40" rows="2"></textarea></p>
+    <p><textarea type="text" name="content" class="form-control" id="exampleFormControlTextarea1" cols="30" rows="2"></textarea></p>
     <button type="submit" class="btn-primary btn-sm">질문 등록하기</button>
 </form>
 <hr>
 {% for question in questions %}
     <p>{{question.writer}}  |  {{question.content}}  |  
         {% if user == question.writer %}
-            <a href="{%url 'main:questionEdit' product.id question.id %}" class="btn btn-primary btn-sm">수정하기</a>
-            <a href="{%url 'main:questionDelete' product.id question.id %}" class="btn btn-primary btn-sm">삭제하기</a>
+            <a href="{%url 'main:questionEdit' product.id question.id %}" class="btn btn-outline-primary btn-sm">수정하기</a>
+            <a href="{%url 'main:questionDelete' product.id question.id %}" class="btn btn-outline-primary btn-sm">삭제하기</a>
         {% endif %}
     </p>
     {% for answer in answers %}
-    <p>{{answer.content}}</p>
+    {% if question == answer.question %}
+        <p>{{answer.content}}</p>
+    {% endif %}
     {% endfor %}
     {% if user == product.writer %}
         <form action="{% url 'main:answerCreate' product.id question.id %}" method="post">
@@ -45,4 +63,5 @@
     {% endif %}
     <hr>
 {% endfor %}
+
 {% endblock %}

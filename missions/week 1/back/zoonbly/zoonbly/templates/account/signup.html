@@ -4,23 +4,24 @@
 {% load account socialaccount %}
 {% block content %}
 <br>
-<div class="card border-info mb-3" style="max-width: 18rem; text-align: center;">
+<div class="row justify-content-around">
+  <div class="card border-info mb-3" style="max-width: 18rem; text-align: center;">
     <div class="card-header"><h1>회원가입</h1></div>
     <div class="card-body">
       <!-- <h5 class="card-title">Info card title</h5>
       <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
       <p>계정이 있으신가요?<br><button type="button" class="btn btn-outline-info btn-sm"><a href="{{ login_url }}">로그인</a></button></p>
         <hr>
-        <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+        <form class="signup form-control" id="signup_form" method="post" action="{% url 'account_signup' %}">
         {% csrf_token %}
         {{ form.as_p }}
         {% if redirect_field_value %}
         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
-        <button type="submit" class="btn btn-outline-info btn-sm">회원가입 &raquo;</button>
+        <button type="submit" class="btn btn-outline-primary btn-sm">회원가입 &raquo;</button>
         </form>
     </div>
+  </div>
 </div>
-
 
 {% endblock %}
