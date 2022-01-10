@@ -12,4 +12,5 @@ class Product(models.Model):
 
     seller = models.CharField(max_length=200, null=True, verbose_name='입점사')
 
-
+    def __str__(self):
+        return f'<입점사:{self.seller}> {self.name}'

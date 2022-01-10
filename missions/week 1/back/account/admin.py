@@ -13,3 +13,5 @@ class Product_admin(admin.ModelAdmin):
     pass
 
 
+
+
