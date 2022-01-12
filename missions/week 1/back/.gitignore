@@ -3,7 +3,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,python,windows
 
 
-secrets.json
+
 
 
 ### Django ###
@@ -271,3 +271,5 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/django,python,windows
+
+secrets.json
