@@ -50,6 +50,9 @@ INSTALLED_APPS += [
     'apis',
     # 가격 자릿수 , 추가
     'django.contrib.humanize',
+
+    # 소셜 로그인
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -100,9 +103,6 @@ DATABASES = {
         }
     }
 }
-
-# pip install mysqlclient
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -159,3 +159,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # admin admin
 # admin3 admin3
 # admin4 admin4
+
+
+## 1주차 pip list
+# pip install mysqlclient
+# pip install pymysql
+
+## 2주차 pip list
+# pip install social-auth-app-django (소셜 로그인을 위한 OAuth2.0 REST API 라이브러리)
+# pip install django-allauth

@@ -85,6 +85,26 @@ class UserLogoutView(BaseView):
         return self.response()
 
 
+# # 아이디 찾기
+# class UserForgotView(BaseView):
+#     def post(self, request):
+#         email = request.POST.get('email', '')
+#         # 이메일을 입력하였는지 확인
+#         if not email:
+#             return self.response(message='이메일을 입력해 주세요.', status=400)
+#
+#         # 이메일이 유효한지 검증
+#         try:
+#             validate_email(email)
+#         except ValidationError:
+#             return self.response(message='잘못된 이메일 방식입니다.', status=400)
+#
+#         # 입력한 이메일과 일치하는 username 찾기
+#         try:
+#             user = User.oobjects.get(email=email)
+#             if user is not None:
+
+
 # 질문 생성 뷰
 @method_decorator(login_required, name='dispatch')
 class CommentCreateView(BaseView):
@@ -95,6 +115,9 @@ class CommentCreateView(BaseView):
         Comment.objects.create(product_id=pk, author=request.user, content=content)
 
         return self.response({})
+
+
+
 
 
 
