@@ -3,8 +3,8 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,python,windows
 
 
-#.gitignore
-secrets.josn
+# .gitignore
+secrets.json
 
 
 ### Django ###
