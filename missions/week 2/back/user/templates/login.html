@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="kr">
+    <head>
+        <meta charset="UTF-8">
+
+        {% load static %}
+        <link rel="stylesheet" href="{% static "css/signin.css" %}">
+    </head>
+
+    <body>
+
+        <form class="signUp" method="POST" action="{% url 'login'%}">
+            {% csrf_token %}
+            <h1 align="center">로그인 화면</h1>
+            <input name="username" type="text" class="signUpInput" placeholder="아이디" autofocus required value="">
+            <input name="password" type="password" class="signUpInput" placeholder="비밀번호" required value="">
+            <div>
+                <input type="submit" value="로그인" class="signUpButton">
+                <a href="{%url 'signup'%}">회원가입</a>
+{#                <input type="button" value="회원가입" class="signUpButton" onclick="location.href='signup'">#}
+                <a href="{%url 'forgot_id'%}">아이디 찾기</a>
+                <a href="{%url 'password_reset'%}">비밀번호 초기화</a>
+            </div>
+        </form>
+
+    </body>
+</html>
