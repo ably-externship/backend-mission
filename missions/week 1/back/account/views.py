@@ -1,6 +1,6 @@
-
 import secrets
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -147,3 +147,8 @@ def change_password_view(request):
 
         return redirect('product:list')
 
+
+@login_required
+def profile_edit(request):
+    return render(request, 'account')
+    pass
