@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
+import secrets
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,7 +30,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 # Application definition
 
 INSTALLED_APPS = [
@@ -44,13 +48,28 @@ INSTALLED_APPS = [
     # library
     'bootstrap5',
 
+    # kakao login 관련
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.kakao',
+
     # local app
-    'account',
+    'account.apps.AccountConfig',
     'product',
     'comment',
 ]
 
-AUTH_USER_MODEL = 'account.User'
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = 'base'  # 로그인 후 리디렉션할 페이지
+ACCOUNT_LOGOUT_REDIRECT_URL = "base"  # 로그아웃 후 리디렉션 할 페이지
+ACCOUNT_LOGOUT_ON_GET = True  # 로그아웃 버튼 클릭 시 자동 로그아웃
+
+
+
+AUTH_USER_MODEL = 'local_account.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -143,8 +162,8 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = None
-LOGOUT_REDIRECT_URL = reverse_lazy('account:login')
+
+
 
 
 
