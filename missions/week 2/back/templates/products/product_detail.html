@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="d-flex justify-content-center">
-                <div class="card">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-1" align="center">
+                <div class="card" style="width: 500px">
                     <img src="https://picsum.photos/100/100" class="card-img-top" alt="not found image">
                     <div class="card-body">
                         <h5 class="card-title text-center">{{ product.name }}</h5>
@@ -10,12 +12,12 @@
                             <span class="badge rounded-pill bg-info text-dark card-text text-center">{{ product.get_size_display }}</span>
                             <span class="badge rounded-pill bg-info text-dark card-text text-center" >{{ product.get_color_display }}</span>
                         </p>
-
                         <p class="card-text text-center">{{ product.price }}원</p>
                         <p class="card-text text-center">수량 {{ product.stock }}</p>
                         <a href="{% url 'products:question' product.pk %}" class="card-link center">질문하기</a>
                     </div>
                 </div>
             </div>
-
+        </div>
+    </div>
 {% endblock content %}

@@ -1,34 +1,46 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="container mx-auto">
-        <div class="row gap-3 mx-auto">
-            {% for product in products %}
-                    <div class="card" style="width: 18rem;">
-                        <img src="https://picsum.photos/id/{{ forloop.counter }}/100/100" class="card-img-top" alt="not found image">
-                        <div class="card-body">
-                            <a class="card-title text-center" href="{% url 'products:detail' product.pk %}">{{product.name}} / ${{product.price}}</a>
-                            <h6 class="card-subtitle mb-2 text-muted text-center">{{ product.market }}</h6>
-                        </div>
+
+<div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          {% for product in products %}
+            <div class="col">
+              <div class="card shadow-sm">
+                  {% if product.stock != 0 %}
+                    <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="https://picsum.photos/id/{{ forloop.counter }}/200/100" />
+                  {% else %}
+                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">매진</text></svg>
+                  {% endif %}
+                <div class="card-body">
+                  <p class="card-text">{{ product.name }}</p>
+                  <p class="card-text text-muted">{{ product.market }}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <a href="{% url 'products:detail' product.pk %}" class="btn btn-sm btn-outline-secondary">자세히 보기</a>
                     </div>
-            {% endfor %}
-
-            <div class="mx-auto text-center">
-                {% if page_obj.has_previous %}
-                <a href="?page={{page_obj.previous_page_number}}">
-                    <i>이전</i>
-                </a>
-                {% endif %}
-                    <span>
-                        Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
-                    </span>
-                {% if page_obj.has_next  %}
-                    <a href="?page={{page_obj.next_page_number}}">
-                        <i>다음</i>
-                    </a>
-                {% endif %}
+                    <small class="text-muted">₩{{ product.price}}</small>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
+          {% endfor %}
+      </div>
     </div>
-
-
+    <div class="mx-auto text-center mt-5">
+        {% if page_obj.has_previous %}
+        <a href="?page={{page_obj.previous_page_number}}">
+            <i>이전 </i>
+        </a>
+        {% endif %}
+            <span>
+                Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
+            </span>
+        {% if page_obj.has_next  %}
+            <a href="?page={{page_obj.next_page_number}}">
+                <i> 다음</i>
+            </a>
+        {% endif %}
+    </div>
+  </div>
 {% endblock content %}

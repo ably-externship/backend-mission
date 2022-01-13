@@ -1,21 +1,20 @@
-<nav class="navbar navbar-expand-sm bg-light" style="text-align: center; max-width:800px; margin:4rem auto";">
-
-    <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link" href="{% url 'core:home' %}">Home</a></li>
-        {% if user.is_authenticated %}
-
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'users:logout' %}"> 로그아웃</a>
-            </li>
-        {% else %}
-            <li class="nav-item"><a class="nav-link" href="{% url 'users:login' %}">로그인</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'users:signup' %}">회원가입</a></li>
-        {% endif %}
-    </ul>
-        <form method="get" action="{% url 'products:search' %}">
-            <input name="name" placeholder="상품 이름을 검색해주세요."/>
-            <button class="btn btn-outline-success" type="submit">검색</button>
-        </form>
+<nav class="py-2 bg-light border-bottom">
+    <div class="container d-flex flex-wrap">
+      <ul class="nav me-auto">
+        <li class="nav-item"><a href="{% url 'core:home' %}" class="nav-link link-dark px-2 active" aria-current="page">Home</a></li>
+          {% if user.is_authenticated %}
+            <li class="nav-item"><a href="#" class="nav-link link-dark px-2">장바구니</a></li>
+          {% endif %}
+      </ul>
+      <ul class="nav">
+          {% if user.is_authenticated %}
+              <li class="nav-item">
+                  <a class="nav-link link-dark px-2" href="{% url 'users:logout' %}"> 로그아웃</a>
+              </li>
+          {% else %}
+              <li class="nav-item"><a class="nav-link link-dark px-2" href="{% url 'users:login' %}">로그인</a></li>
+              <li class="nav-item"><a class="nav-link link-dark px-2" href="{% url 'users:signup' %}">회원가입</a></li>
+          {% endif %}
+      </ul>
+    </div>
 </nav>
-
-
