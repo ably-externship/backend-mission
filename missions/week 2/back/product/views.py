@@ -2,7 +2,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import ListView, CreateView, DetailView, DeleteView
+from django.views.generic import CreateView, DetailView, DeleteView
 from django.views.generic.edit import FormMixin
 
 from comment.forms import CommentCreationForm
@@ -65,4 +65,3 @@ def product_list_view(request):
             'product_list': page_obj.object_list,
         }
     )
-

@@ -14,7 +14,7 @@ class Product(models.Model):
         return f'<입점사:{self.seller}> {self.name}'
 
 
-class Productreal(models.Model):
+class ProductReal(models.Model):
     size = models.CharField(max_length=200, null=True, verbose_name='사이즈')
     color = models.CharField(max_length=100, null=True, verbose_name='색상')
 
