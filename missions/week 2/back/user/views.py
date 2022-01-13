@@ -5,6 +5,7 @@ from django.contrib.auth.views import PasswordResetView
 from django.contrib import messages
 from django.conf import settings
 from django.core.mail import EmailMessage
+import requests
 
 # 회원가입
 def signup(request):
@@ -24,6 +25,8 @@ def signup(request):
 
 # 로그인
 def login(request):
+    print("333", request.session.modified)
+
     if request.method=="POST":
         username=request.POST['username']
         password=request.POST['password']
@@ -37,6 +40,53 @@ def login(request):
             return render(request, 'login.html', {'error' : 'username or password is incorrect'})
     else:
         return render(request,'login.html')
+
+
+def index(request):
+    print('1111',request)
+    _context = {'check':False}
+    if request.session.get('access_token'):
+        _context['check'] = True
+    return render(request, 'login.html', _context)
+
+def kakaoLoginLogic(request):
+    _restApiKey = '043437c8945b496dc9d65e0d6d94135d' # 입력필요
+    _redirectUrl = 'http://127.0.0.1:8000/kakaoLoginLogicRedirect'
+    _url = f'https://kauth.kakao.com/oauth/authorize?client_id={_restApiKey}&redirect_uri={_redirectUrl}&response_type=code'
+    return redirect(_url)
+
+def kakaoLoginLogicRedirect(request):
+    _qs = request.GET['code']
+    _restApiKey = '043437c8945b496dc9d65e0d6d94135d' # 입력필요
+    _redirect_uri = 'http://127.0.0.1:8000/kakaoLoginLogicRedirect'
+    _url = f'https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={_restApiKey}&redirect_uri={_redirect_uri}&code={_qs}'
+    _res = requests.post(_url)
+    _result = _res.json()
+    request.session['access_token'] = _result['access_token']
+    request.session.modified = True
+    print("222",request.session.modified)
+    return render(request, 'loginSuccess.html')
+
+def kakaoLogout(request):
+    print("444", request.session.modified)
+    _token = request.session['access_token']
+    # _url = 'https://kapi.kakao.com/v1/user/logout'
+    # _header = {
+    #   'Authorization': f'bearer {_token}'
+    # }
+    _url = 'https://kapi.kakao.com/v1/user/unlink'
+    _header = {
+      'Authorization': f'bearer {_token}',
+    }
+    _res = requests.post(_url, headers=_header)
+    _result = _res.json()
+    if _result.get('id'):
+        print("5555",request.session['access_token'])
+        del request.session['access_token']
+        print("6666",request.session)
+        return render(request, 'loginoutSuccess.html')
+    else:
+        return render(request, 'logoutError.html')
 
 # 로그아웃
 def logout(request):

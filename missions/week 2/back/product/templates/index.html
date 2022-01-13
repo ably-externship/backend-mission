@@ -14,7 +14,7 @@
                     {% for product in page_obj %}
                     <li class="cell">
                         <div class="img-box" onclick="location.href='{% url 'detailProduct' product.id %}'">
-                            <img src = "{{ product.image }}">
+                            <img src = "/static/img/{{ product.image }}">
                         </div>
                         <div class="prod-name">{{product.name}}</div>
                         <div class="prod-price text-red-600 text-xl text-right">{{product.price}}원</div>

@@ -103,7 +103,7 @@
 {#        <form class="" method="POST" action="{% url 'login'%}">#}
         <form class="qna-input-1" method="POST" action="{% url 'createQna' product.id %}">
             {% csrf_token %}
-            <div><input class="qna-title outline-black rounded-md m-2" name="title" type="text" placeholder="제목" autofocus required value=""></div>
+            <div><input class="qna-title outline-black rounded-md m-2" name="title" type="text" placeholder="제목" required value=""></div>
             <div><textarea class="qna-content outline-black rounded-md m-2" name="content" type="textarea" placeholder="내용" required value=""></textarea></div>
             <div><input class="border-black m-2" type="submit" value="등록하기" ></div>
         </form>

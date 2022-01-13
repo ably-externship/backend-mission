@@ -7,6 +7,12 @@ urlpatterns = [
     path('login/',views.login,name="login"),
     path('logout/',views.logout,name="logout"),
 
+    # 카카오톡
+    path('kakaoLoginLogic/', views.kakaoLoginLogic),
+    path('kakaoLoginLogicRedirect/', views.kakaoLoginLogicRedirect),
+    path('kakaoLogout/', views.kakaoLogout),
+
+
     # 아이디 찾기
     path('forgot_id/',views.ForgotIDView, name="forgot_id"),
 
