@@ -79,3 +79,15 @@ input {
     -webkit-box-shadow: none;
     box-shadow: none;
 }
+
+.kakao_btn{
+    width: 280px;
+    height: 54px;
+    /*border-color: white;*/
+    background-color: white;
+}
+
+.kakao_img{
+    width: 280px;
+    height: 54px;
+}

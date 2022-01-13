@@ -25,7 +25,12 @@ def index(request):
 
     context={'products':products, 'page_obj':page_obj}
 
+    # 카카오톡 토큰
+    if request.session.get('access_token'):
+        context['check'] = True
+
     return render(request, 'index.html', context)
+
 
 
 # 상세보기

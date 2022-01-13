@@ -31,10 +31,19 @@
                 <span><i class="fas fa-search px-2 py-2"></i></span>
             </form>
 
-
-
-            <ul class="flex menu-1 my">
-                {% if user.is_authenticated %}
+              <ul class="flex menu-1 my">
+                {% if check %}
+                  <li class="menu-1__li-icon ">
+                    <a href="#" class="h-full flex items-center text-black px-2">
+                      <span><i class="far fa-user"></i></span>
+                    </a>
+                  </li>
+                    <li>
+                       <a href="{%url 'kakaoLogout'%}" class="h-full flex items-center px-2 text-black no-underline">
+                        <span>로그아웃</span>
+                       </a>
+                    </li>
+                {% elif user.is_authenticated %}
                   <li class="menu-1__li-icon ">
                     <a href="#" class="h-full flex items-center text-black px-2">
                       <span><i class="far fa-user"></i></span>
@@ -60,6 +69,34 @@
             </ul>
 
 
+
+<!--            <ul class="flex menu-1 my">-->
+<!--                {% if user.is_authenticated %}-->
+<!--                  <li class="menu-1__li-icon ">-->
+<!--                    <a href="#" class="h-full flex items-center text-black px-2">-->
+<!--                      <span><i class="far fa-user"></i></span>-->
+<!--                    </a>-->
+<!--                  </li>-->
+<!--                    <li>-->
+<!--                       <a href="{%url 'logout'%}" class="h-full flex items-center px-2 text-black no-underline">-->
+<!--                        <span>로그아웃</span>-->
+<!--                       </a>-->
+<!--                    </li>-->
+<!--                {% else %}-->
+<!--                  <li>-->
+<!--                    <a href="{%url 'login'%}" class="h-full flex items-center px-2 text-black no-underline">-->
+<!--                      <span>로그인</span>-->
+<!--                    </a>-->
+<!--                  </li>-->
+<!--                  <li>-->
+<!--                    <a href="{%url 'signup'%}" class="h-full flex items-center px-2 text-black no-underline">-->
+<!--                      <span>가입하기</span>-->
+<!--                    </a>-->
+<!--                  </li>-->
+<!--                {% endif %}-->
+<!--            </ul>-->
+
+
           </div>
         </header>
 
@@ -67,10 +104,13 @@
         {% block contents %}
         {% endblock contents %}
 
-        <div class="footer">
-            <a>footer</a>
-        </div>
+<!--        <div class="footer">-->
+<!--            <a>footer</a>-->
+<!--        </div>-->
 
     </div>
     </body>
+    <footer class="footer">
+        <a>footer</a>
+    </footer>
 </html>

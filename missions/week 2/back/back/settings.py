@@ -66,7 +66,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -182,3 +182,9 @@ EMAIL_USE_TLS = True # TLS 보안 방법
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER # 사이트와 관련한 자동응답을 받을 이메일 주소
 
+
+# 카카오 key user.view에서 사용
+SOCIAL_OUTH_CONFIG = {
+    'KAKAO_REST_API_KEY': get_secret('KAKAO_REST_API_KEY'),
+    "KAKAO_REDIRECT_URI": get_secret('KAKAO_REDIRECT_URI')
+}
