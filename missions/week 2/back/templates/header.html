@@ -1,0 +1,25 @@
+<div class="header">
+    <div>
+        <h1 style="font-family: 'Nanum Pen Script', cursive;">멋블리</h1>
+    </div>
+    <div>
+        <a href="{% url 'product:list' %}">
+            <span>쇼핑하기</span>
+        </a>
+    </div>
+    <div style="margin-top: 1rem;">
+        {% if not user.is_authenticated %}
+        <a style="margin-right:1rem;" href="{% url 'account:signup' %}">
+            <span>SignUp</span>
+        </a>
+        <a style="margin-right:1rem;" href="{% url 'account:login' %}?next={{ request.path }}">
+            <span>login</span>
+        </a>
+        {% else %}
+
+        <a style="margin-right:1rem;" href="{% url 'account:logout' %}?next={{ request.path }}">
+            <span>logout</span>
+        </a>
+        {% endif %}
+    </div>
+</div>

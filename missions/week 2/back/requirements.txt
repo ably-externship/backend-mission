@@ -1,0 +1,4 @@
+django==3.2.9
+mysqlclient==2.1.0
+django-bootstrap-v5
+pillow

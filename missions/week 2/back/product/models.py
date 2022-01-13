@@ -1,12 +1,9 @@
 from django.db import models
-from django.db.models import Manager
 
 
 class Product(models.Model):
     name = models.CharField(max_length=200, null=True, verbose_name='상품명')
     price = models.CharField(max_length=100, verbose_name='가격')
-    size = models.CharField(max_length=200, null=True, verbose_name='사이즈')
-    color = models.CharField(max_length=100, null=True, verbose_name='색상')
     count = models.IntegerField(verbose_name='재고')
     description = models.TextField(max_length=200, verbose_name='설명')
     image = models.ImageField(upload_to='product/', null=True, verbose_name='사진')
@@ -17,3 +14,9 @@ class Product(models.Model):
         return f'<입점사:{self.seller}> {self.name}'
 
 
+class Productreal(models.Model):
+    size = models.CharField(max_length=200, null=True, verbose_name='사이즈')
+    color = models.CharField(max_length=100, null=True, verbose_name='색상')
+
+    def __str__(self):
+        return f'옵션: {self.size} , {self.color}'
