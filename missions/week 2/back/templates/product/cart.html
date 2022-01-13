@@ -8,7 +8,7 @@
     <div class="row mt-5" style="top: 100px;">
         <table class="table mt-5">
             <thead>
-            <tr>
+            <tr class="text-center">
                 <th scope="col">Product</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Price</th>
@@ -18,17 +18,20 @@
             {% if carts.exists %}
             {% for cart in carts %}
             <tr>
-                <th scope="col">{{ cart.product.name }}</th>
-                <th scope="col">{{ cart.quantity }}</th>
-                <th scope="col">{{ cart.product.price }}</th>
+                <th scope="col">
+                    <img src="{{ cart.product.product_img }}" style="width:100px; height: 130px;">
+                    {{ cart.product.name }}
+                </th>
+                <th scope="col" class="text-center">{{ cart.quantity }}</th>
+                <th scope="col" class="text-center">{{ cart.price_total }}</th>
             </tr>
             {% endfor %}
-            <tr>
+            {% endif %}
+            <tr class="text-center">
                 <th scope="col">total</th>
                 <th scope="col">:</th>
                 <th scope="col">{{ total }}</th>
             </tr>
-            {% endif %}
             </tbody>
         </table>
     </div>

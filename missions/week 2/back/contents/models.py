@@ -87,11 +87,13 @@ class Cart(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
-    quantity = models.PositiveSmallIntegerField(null=True, default=1,
-                                                validators=[MinValueValidator(1), MaxValueValidator(100)])
+    quantity = models.PositiveSmallIntegerField(null=True, default=1, validators=[MinValueValidator(1), MaxValueValidator(100)])
 
     def __str__(self):
         return '{} - {}'.format(self.product.name, self.user.username)
+
+    def price_total(self):
+        return self.product.price * self.quantity
 
 
 

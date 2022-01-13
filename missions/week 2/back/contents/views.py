@@ -104,16 +104,26 @@ class SearchView(ProductListView):
 
 
 # Cart
-class CartView(TemplateView):
+class CartView(ListView):
     template_name = 'product/cart.html'
     ordering = '-created_at'
+    model = Cart
 
     def get_context_data(self, **kwargs):
         context = super(CartView, self).get_context_data(**kwargs)
 
         user_id = self.request.user.id
+        cart = Cart.objects.filter(user_id=user_id)
+        total_price = 0
 
-        context['carts'] = Cart.objects.filter(user_id=user_id)
+        for cart in cart:
+            total_price += cart.product.price * cart.quantity
+
+        if cart is not None:
+            context['total'] = total_price
+
+        context['carts'] = Cart.objects.filter(user__id=user_id)
+
 
         return context
 

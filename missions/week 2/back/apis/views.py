@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from django.contrib.auth.models import User
-from contents.models import Comment, Cart
+from contents.models import Comment, Cart, Product
 
 # csrf 비활성화, 비로그인 사용자 접근제한
 from django.utils.decorators import method_decorator
@@ -122,19 +122,19 @@ class CommentCreateView(BaseView):
 class CartAddView(BaseView):
     def post(self, request):
         product_id = request.POST.get('pk', '')
-        print(product_id)
+        product = Product.objects.get(pk=product_id)
 
         try:
-            cart = Cart.objects.get(product__id=product_id, user__id=request.user.id)
+            cart = Cart.objects.get(product_id=product_id, user_id=request.user.id)
             if cart:
-                if cart.product.id == product_id:
+                if cart.product.id == product.id:
                     cart.quantity += 1
                     cart.save()
         except Cart.DoesNotExist:
             user = User.objects.get(id=request.user.id)
             cart = Cart.objects.create(
                 user=user,
-                product=product_id,
+                product_id=product_id,
                 quantity=1
             )
             cart.save()
