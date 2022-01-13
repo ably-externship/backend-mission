@@ -6,8 +6,10 @@
 *.log
 *.pot
 *.pyc
+# Byte-compiled / optimized / DLL files
 __pycache__/
-__pycache__/
+*.py[cod]
+
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
