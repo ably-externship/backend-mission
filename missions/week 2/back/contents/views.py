@@ -104,10 +104,9 @@ class SearchView(ProductListView):
 
 
 # Cart
-class CartView(ListView):
+class CartView(TemplateView):
     template_name = 'product/cart.html'
     ordering = '-created_at'
-    model = Cart
 
     def get_context_data(self, **kwargs):
         context = super(CartView, self).get_context_data(**kwargs)
@@ -123,7 +122,6 @@ class CartView(ListView):
             context['total'] = total_price
 
         context['carts'] = Cart.objects.filter(user__id=user_id)
-
 
         return context
 

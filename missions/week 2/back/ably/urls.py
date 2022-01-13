@@ -41,6 +41,7 @@ urlpatterns = [
     path('product/category/<str:slug>/', CategoryView.as_view(), name='category_product_list'),
     path('product/brand/<str:slug>/', BrandView.as_view(), name='brand_product_list'),
 
+    # cart
     path('cart/', CartView.as_view(), name='cart'),
 
     # search

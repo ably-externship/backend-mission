@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="container">
-  {% include 'base/navbar.html' %}
+    {% include 'base/navbar.html' %}
     <div class="row mt-5" style="top: 100px;">
         <table class="table mt-5">
             <thead>
@@ -18,22 +18,58 @@
             {% if carts.exists %}
             {% for cart in carts %}
             <tr>
-                <th scope="col">
-                    <img src="{{ cart.product.product_img }}" style="width:100px; height: 130px;">
-                    {{ cart.product.name }}
-                </th>
-                <th scope="col" class="text-center">{{ cart.quantity }}</th>
-                <th scope="col" class="text-center">{{ cart.price_total }}</th>
+                <div class="btn-toolbar" role="toolbar">
+                    <div class="btn-group me-2" role="group">
+                        <th scope="col">
+                            <img src="{{ cart.product.product_img }}" style="width:100px; height: 130px;">
+                            {{ cart.product.name }}
+                        </th>
+                        <th scope="col" class="text-center align-middle">{{ cart.quantity }}
+                            <input type="hidden" id="pk" value="{{ cart.product.id }}">
+                            <button type="button" class="plusButton btn btn-secondary" id="plusButton" data-product-id="{{ cart.product.id }}">+</button>
+                            <button type="button" class="minusButton btn btn-secondary" id="minusButton" data-product-id="{{ cart.product.id }}">-</button>
+                            <button type="button" class="btn btn-danger">X</button>
+                        </th>
+                        <th scope="col" class="text-center align-middle">{{ cart.price_total|intcomma }}</th>
+                    </div>
+                </div>
             </tr>
             {% endfor %}
             {% endif %}
-            <tr class="text-center">
+            <tr class="text-center align-middle">
                 <th scope="col">total</th>
                 <th scope="col">:</th>
-                <th scope="col">{{ total }}</th>
+                <th scope="col">{{ total|intcomma }}</th>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
+{% endblock %}
+
+{% block script %}
+<!--Jquery-->
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+<script>
+$(document).ready(function(){
+        $('body').delegate('.plusButton', 'click', function(e){
+            var productId = $(e.currentTarget).data('product-id');
+            $.post("{% url 'apis_v1_cart_plus' %}", {pk: productId}, function(){
+                location.reload();
+            }).fail(function(data){
+                alert(data.responseJSON.message);
+            });
+        });
+        $('body').delegate('.minusButton', 'click', function(e){
+            var productId = $(e.currentTarget).data('product-id');
+            $.post("{% url 'apis_v1_cart_minus' %}", {pk: productId}, function(){
+                location.reload();
+            }).fail(function(data){
+                alert(data.responseJSON.message);
+            });
+        });
+    });
+</script>
 {% endblock %}
