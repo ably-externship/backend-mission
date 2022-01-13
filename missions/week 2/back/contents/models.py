@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 
@@ -80,6 +81,17 @@ class Comment(BaseModel):
 
     def __str__(self):
         return '{} : {} ({})'.format(self.author, self.content, self.product)
+
+
+class Cart(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    quantity = models.PositiveSmallIntegerField(null=True, default=1,
+                                                validators=[MinValueValidator(1), MaxValueValidator(100)])
+
+    def __str__(self):
+        return '{} - {}'.format(self.product.name, self.user.username)
 
 
 

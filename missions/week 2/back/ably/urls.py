@@ -18,7 +18,7 @@ from django.urls import path, include
 from django.views.generic.base import TemplateView
 from django.shortcuts import redirect
 
-from contents.views import HomeView, ProductListView, ProductDetailView, SearchView, CategoryView, BrandView
+from contents.views import HomeView, ProductListView, ProductDetailView, SearchView, CategoryView, BrandView, CartView
 
 
 # NonUserTemplateView 를 사용하는 이유는 로그인과 회원가입 페이지에서 사용자의 접근을 막기위함
@@ -40,6 +40,8 @@ urlpatterns = [
     path('product/<int:pk>/', ProductDetailView.as_view(), name='product_detail'),
     path('product/category/<str:slug>/', CategoryView.as_view(), name='category_product_list'),
     path('product/brand/<str:slug>/', BrandView.as_view(), name='brand_product_list'),
+
+    path('cart/', CartView.as_view(), name='cart'),
 
     # search
     path('product/search/<str:q>/', SearchView.as_view(), name="search"),

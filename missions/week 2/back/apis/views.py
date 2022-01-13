@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from django.contrib.auth.models import User
-from contents.views import Comment
+from contents.models import Comment, Cart
 
 # csrf 비활성화, 비로그인 사용자 접근제한
 from django.utils.decorators import method_decorator
@@ -115,6 +115,32 @@ class CommentCreateView(BaseView):
         Comment.objects.create(product_id=pk, author=request.user, content=content)
 
         return self.response({})
+
+
+# 장바구니 담기 뷰
+@method_decorator(login_required, name='dispatch')
+class CartAddView(BaseView):
+    def post(self, request):
+        product_id = request.POST.get('pk', '')
+        print(product_id)
+
+        try:
+            cart = Cart.objects.get(product__id=product_id, user__id=request.user.id)
+            if cart:
+                if cart.product.id == product_id:
+                    cart.quantity += 1
+                    cart.save()
+        except Cart.DoesNotExist:
+            user = User.objects.get(id=request.user.id)
+            cart = Cart.objects.create(
+                user=user,
+                product=product_id,
+                quantity=1
+            )
+            cart.save()
+
+        return self.response({})
+
 
 
 

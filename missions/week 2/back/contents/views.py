@@ -7,7 +7,7 @@ from django.core.paginator import Paginator
 # 검색기능 query filter를 사용하기 위해 추가
 from django.db.models import Q
 
-from .models import Product, Category, Brand, Image, Comment
+from .models import Product, Category, Brand, Image, Comment, Cart
 
 
 # Create your views here.
@@ -101,4 +101,20 @@ class SearchView(ProductListView):
         context['search_info'] = f'Search: {q} ({self.get_queryset().count()})'
 
         return context
+
+
+# Cart
+class CartView(TemplateView):
+    template_name = 'product/cart.html'
+    ordering = '-created_at'
+
+    def get_context_data(self, **kwargs):
+        context = super(CartView, self).get_context_data(**kwargs)
+
+        user_id = self.request.user.id
+
+        context['carts'] = Cart.objects.filter(user_id=user_id)
+
+        return context
+
 
