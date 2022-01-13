@@ -17,6 +17,7 @@
             <tbody>
             {% if carts.exists %}
             {% for cart in carts %}
+            {% if cart.product.id in product_ids %}
             <tr>
                 <div class="btn-toolbar" role="toolbar">
                     <div class="btn-group me-2" role="group">
@@ -28,12 +29,13 @@
                             <input type="hidden" id="pk" value="{{ cart.product.id }}">
                             <button type="button" class="plusButton btn btn-secondary" id="plusButton" data-product-id="{{ cart.product.id }}">+</button>
                             <button type="button" class="minusButton btn btn-secondary" id="minusButton" data-product-id="{{ cart.product.id }}">-</button>
-                            <button type="button" class="btn btn-danger">X</button>
+                            <button type="button" class="deleteButton btn btn-danger" id="deleteButton" data-product-id="{{ cart.product.id }}">X</button>
                         </th>
                         <th scope="col" class="text-center align-middle">{{ cart.price_total|intcomma }}</th>
                     </div>
                 </div>
             </tr>
+            {% endif %}
             {% endfor %}
             {% endif %}
             <tr class="text-center align-middle">
@@ -65,6 +67,14 @@ $(document).ready(function(){
         $('body').delegate('.minusButton', 'click', function(e){
             var productId = $(e.currentTarget).data('product-id');
             $.post("{% url 'apis_v1_cart_minus' %}", {pk: productId}, function(){
+                location.reload();
+            }).fail(function(data){
+                alert(data.responseJSON.message);
+            });
+        });
+        $('body').delegate('.deleteButton', 'click', function(e){
+            var productId = $(e.currentTarget).data('product-id');
+            $.post("{% url 'apis_v1_cart_delete' %}", {pk: productId}, function(){
                 location.reload();
             }).fail(function(data){
                 alert(data.responseJSON.message);

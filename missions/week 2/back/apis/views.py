@@ -161,6 +161,7 @@ class CartPlusView(BaseView):
         return self.response({})
 
 
+# 장바구니 상품 수량 감소 뷰
 @method_decorator(login_required, name='dispatch')
 class CartMinusView(BaseView):
     def post(self, request):
@@ -173,6 +174,23 @@ class CartMinusView(BaseView):
                 if cart.product.id == product.id:
                     cart.quantity -= 1
                     cart.save()
+        except IntegrityError:
+            return self.response(message='잘못된 요청입니다.', status=400)
+
+        return self.response({})
+
+
+# 장바구니 상품 삭제 뷰
+@method_decorator(login_required, name='dispatch')
+class CartDeleteView(BaseView):
+    def post(self, request):
+        product_id = request.POST.get('pk', '')
+        product = Product.objects.get(pk=product_id)
+
+        try:
+            cart = Cart.objects.get(user_id=request.user.id, product_id=product_id)
+            if cart.product.id == product.id:
+                cart.delete()
         except IntegrityError:
             return self.response(message='잘못된 요청입니다.', status=400)
 

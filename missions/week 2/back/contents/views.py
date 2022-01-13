@@ -121,7 +121,11 @@ class CartView(TemplateView):
         if cart is not None:
             context['total'] = total_price
 
-        context['carts'] = Cart.objects.filter(user__id=user_id)
+        cart_product = Cart.objects.filter(user_id=user_id).all()
+        context['products'] = cart_product
+        context['product_ids'] = list(cart_product.values_list('product_id', flat=True))
+
+        context['carts'] = Cart.objects.select_related('product').filter(user__in=[self.request.user])
 
         return context
 
