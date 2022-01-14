@@ -1,10 +1,13 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=\, initial-scale=1.0">
     <title>{% block page_name %}{% endblock page_name %}</title>
+    <link rel="stylesheet" href='{% static 'tailwind.output.css' %}'>
+    <link rel="stylesheet" href='{% static 'common.css' %}'>
 </head>
 <body>
     <header>
@@ -16,7 +19,7 @@
         {% endblock search-bar %}
     </header>
     {% block content %}{% endblock content %}
-    <footer>
+    <footer class= t-bg-red-500>
         &copy; Subbly
     </footer>
 </body>
