@@ -60,6 +60,8 @@ INSTALLED_APPS = [
     'product',
     'qna',
     'seller',
+    # 'product_review',
+    'deliver',
 ]
 
 MIDDLEWARE = [

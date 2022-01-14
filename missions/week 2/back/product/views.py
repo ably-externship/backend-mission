@@ -3,6 +3,7 @@ from django.core.paginator import Paginator # 페이징
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .models import Product
+from .models import Product_options
 from qna.models import Product_qna
 from user.models import User
 
@@ -36,8 +37,9 @@ def index(request):
 # 상세보기
 def detailProduct(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
+    option = Product_options.objects.filter(product_id=product_id)
     qnas = Product_qna.objects.filter(product_id=product_id)
-    return render(request, 'detail.html', {'product': product, 'qnas': qnas})
+    return render(request, 'detail.html', {'product': product, 'qnas': qnas, 'options' : option})
 
 
 # QnA 질문
