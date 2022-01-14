@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block contents %}
+{% load bootstrap4 %}
+
+<div class='wrapper' style='text-align: center;'>
+    <h1> 회원가입 </h1>
+    <form method='post' action="{% url 'register' %}">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% comment %} {{ form }} {% endcomment %}
+        <input type='submit' class='btn btn-primary' value='Sign Up'>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %}
+
+    {% if product %}
+        <div class="container dark-grey-text mt-5" style="width:500px">
+            <div class="row wow fadeIn">
+                <div class="col-md-6 mb-4">
+                    <img src="{% static product.image %}" height="180" width="150" class="img-fluid"> 
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="p-3">
+                        <p class="lead">
+                            <span class="font-weight-bold"> {{ product.name }} </span>
+                        </p>
+                        <p class="lead">
+                            <span> {{ product.price }}₩ </span>
+                        </p>
+                        <p class="lead font-weight-bold">Description</p>
+                        <p>
+                            {{ product.description }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>   
+        <hr> 
+    {% else %}
+        상품 없음
+    {% endif %}
+
+    <form action="{% url 'cart:add_cart' product.id %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="담기">
+    </form>
+
+    {# Q & A  #}
+    <br>
+    질문: 
+    <form action="{% url 'product:create' product.id %}" method="POST">
+        {% csrf_token %}
+        {{ inquiry_form }}
+        <input type="submit" value="submit">
+    </form>
+    <br>
+    {% if inquirys %}
+        {% for inquiry in inquirys %}
+            <div>
+                {{inquiry.user}} {{inquiry.created_at}}
+                <br>
+                {{inquiry.content}}
+            </div>
+
+        {% endfor %}
+    {% else %}
+        질문 없음
+    {% endif %}
+
+{% endblock contents %}
