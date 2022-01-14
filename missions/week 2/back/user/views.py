@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
+from .models import Account
 from django.contrib import auth
 from django.contrib.auth.views import PasswordResetView
 from django.contrib import messages
@@ -12,6 +13,12 @@ import requests
 def signup(request):
     if request.method =="POST":
         if request.POST["password1"] == request.POST["password2"]:
+            Account.objects.create(
+                                    username=request.POST["username"],
+                                    # phone=request.POST["phone"],
+                                    email=request.POST["email"],
+                                    password=request.POST["password1"],)
+
             user = User.objects.create_user(
                                             username=request.POST["username"],
                                             # phone=request.POST["phone"],

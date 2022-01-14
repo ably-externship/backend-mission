@@ -1,5 +1,5 @@
 from django.db import models
-from user.models import User
+from user.models import Account
 from product.models import Product
 
 # Product_qna table
@@ -10,7 +10,7 @@ class Product_qna(models.Model):
     reg_date = models.DateTimeField(auto_now=True, verbose_name='등록일') # 등록날짜
     update_date = models.DateTimeField(auto_now=True, verbose_name='등록일')  # 갱신날짜
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_qna') # user_id
+    user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='product_qna') # user_id
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_qna') # product_id
 
 

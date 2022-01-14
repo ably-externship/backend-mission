@@ -1,5 +1,6 @@
+from django.contrib.auth.models import User
 from django.db import models
-from user.models import User
+from user.models import Account
 
 # Deliver table
 class Deliver(models.Model):
@@ -8,7 +9,7 @@ class Deliver(models.Model):
     address = models.TextField(max_length=255, verbose_name='주소') # 주소
     adrress_detail = models.TextField(max_length=255, verbose_name='상세주소') # 상세주소
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='deliver') # user_id
+    user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='deliver') # user_id
 
 
 

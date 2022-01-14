@@ -1,5 +1,5 @@
 from django.db import models
-from user.models import User
+from user.models import Account
 from product.models import Product
 
 
@@ -9,7 +9,7 @@ class Order(models.Model):
     datetime = models.DateTimeField(auto_now=True, verbose_name='주문시간')  # 주문시간
     status = models.CharField(max_length=128, verbose_name='주문상태')  # 주문상태
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='order')  # user_id
+    user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='order')  # user_id
 
 
 # Order_detail table

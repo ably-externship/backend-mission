@@ -1,7 +1,7 @@
 from django.db import models
 
 # User table
-class User(models.Model):
+class Account(models.Model):
 
     first_name = None
     last_name = None

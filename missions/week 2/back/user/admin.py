@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import User
+from .models import Account
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ('email',)
 
-admin.site.register(User,UserAdmin)
+admin.site.register(Account,UserAdmin)
