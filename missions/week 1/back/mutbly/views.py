@@ -9,7 +9,6 @@ from django.core.paginator import Paginator
 def index(request):
   if request.method == 'GET':
     # items = Item.objects.all()
-    
     p = Paginator(Item.objects.all(),3)
     page = request.GET.get('page')
     print(page)
