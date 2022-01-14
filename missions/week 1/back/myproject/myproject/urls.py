@@ -15,14 +15,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-import myapp.views
+
+import product.views
+import account.views
+import board.views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('bottom/', myapp.views.post_view_bottom, name='bottom'),
-    path('top/', myapp.views.post_view_top, name='top'),
-    path('detail/', myapp.views.post_view_detail, name='detail'),
-    path('join/', myapp.views.join, name='join'),
-    path('main/', myapp.views.main, name='main'),
-    path('login/', myapp.views.login, name='login'),
+    path("admin/", admin.site.urls),
+    # 상품들 나열된 페이지
+    path("", product.views.test_view, name="test"),
+    path("bottom/", product.views.bottom_view, name="bottom"),
+    # 상품 디테일 페이지
+    path("bottom/detail/", product.views.detail_view, name="detail"),
+    # 회원가입
+    path("signup/", account.views.signup, name="signup"),
+    # 로그인
+    path("login/", account.views.login, name="login"),
+    # path("d/", account.views.login, name="login"),
+    #
+    path("board/", board.views.board, name="board"),
 ]

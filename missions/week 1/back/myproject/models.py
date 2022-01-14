@@ -13,28 +13,29 @@ class AuthGroup(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'auth_group'
+        db_table = "auth_group"
 
 
 class AuthGroupPermissions(models.Model):
+    id = models.BigAutoField(primary_key=True)
     group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
-    permission = models.ForeignKey('AuthPermission', models.DO_NOTHING)
+    permission = models.ForeignKey("AuthPermission", models.DO_NOTHING)
 
     class Meta:
         managed = False
-        db_table = 'auth_group_permissions'
-        unique_together = (('group', 'permission'),)
+        db_table = "auth_group_permissions"
+        unique_together = (("group", "permission"),)
 
 
 class AuthPermission(models.Model):
     name = models.CharField(max_length=255)
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING)
+    content_type = models.ForeignKey("DjangoContentType", models.DO_NOTHING)
     codename = models.CharField(max_length=100)
 
     class Meta:
         managed = False
-        db_table = 'auth_permission'
-        unique_together = (('content_type', 'codename'),)
+        db_table = "auth_permission"
+        unique_together = (("content_type", "codename"),)
 
 
 class AuthUser(models.Model):
@@ -51,36 +52,40 @@ class AuthUser(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'auth_user'
+        db_table = "auth_user"
 
 
 class AuthUserGroups(models.Model):
+    id = models.BigAutoField(primary_key=True)
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
     group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
 
     class Meta:
         managed = False
-        db_table = 'auth_user_groups'
-        unique_together = (('user', 'group'),)
+        db_table = "auth_user_groups"
+        unique_together = (("user", "group"),)
 
 
 class AuthUserUserPermissions(models.Model):
+    id = models.BigAutoField(primary_key=True)
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
     permission = models.ForeignKey(AuthPermission, models.DO_NOTHING)
 
     class Meta:
         managed = False
-        db_table = 'auth_user_user_permissions'
-        unique_together = (('user', 'permission'),)
+        db_table = "auth_user_user_permissions"
+        unique_together = (("user", "permission"),)
 
 
-class Brand(models.Model):
-    brand_name = models.CharField(primary_key=True, max_length=20)
-    brand_code = models.CharField(max_length=20, blank=True, null=True)
+class Board(models.Model):
+    title = models.CharField(max_length=20)
+    content = models.TextField()
+    writer = models.CharField(max_length=20)
+    id = models.CharField(max_length=20, blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'brand'
+        db_table = "board"
 
 
 class DjangoAdminLog(models.Model):
@@ -89,12 +94,14 @@ class DjangoAdminLog(models.Model):
     object_repr = models.CharField(max_length=200)
     action_flag = models.PositiveSmallIntegerField()
     change_message = models.TextField()
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
+    content_type = models.ForeignKey(
+        "DjangoContentType", models.DO_NOTHING, blank=True, null=True
+    )
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
 
     class Meta:
         managed = False
-        db_table = 'django_admin_log'
+        db_table = "django_admin_log"
 
 
 class DjangoContentType(models.Model):
@@ -103,18 +110,19 @@ class DjangoContentType(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'django_content_type'
-        unique_together = (('app_label', 'model'),)
+        db_table = "django_content_type"
+        unique_together = (("app_label", "model"),)
 
 
 class DjangoMigrations(models.Model):
+    id = models.BigAutoField(primary_key=True)
     app = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
     applied = models.DateTimeField()
 
     class Meta:
         managed = False
-        db_table = 'django_migrations'
+        db_table = "django_migrations"
 
 
 class DjangoSession(models.Model):
@@ -124,53 +132,30 @@ class DjangoSession(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'django_session'
+        db_table = "django_session"
 
 
-class MyappUser(models.Model):
-    id = models.CharField(primary_key=True, max_length=20)
-    pw = models.CharField(max_length=20, blank=True, null=True)
-    name = models.CharField(max_length=10, blank=True, null=True)
-    id_num = models.CharField(max_length=14, blank=True, null=True)
-    phone = models.CharField(max_length=14, blank=True, null=True)
-    email = models.CharField(max_length=40, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'myapp_user'
-
-
-class Sangpum(models.Model):
-    obj_name = models.CharField(max_length=14)
-    obj_color = models.CharField(max_length=14)
-    obj_size = models.CharField(max_length=4)
-    brand_code = models.CharField(max_length=20, blank=True, null=True)
-    price = models.CharField(max_length=20, blank=True, null=True)
-    discount_price = models.CharField(max_length=20, blank=True, null=True)
-    obj_code = models.CharField(max_length=4, blank=True, null=True)
+class Product(models.Model):
+    name = models.CharField(max_length=20)
+    price = models.CharField(max_length=20)
+    color = models.CharField(max_length=20)
+    size = models.CharField(max_length=20)
+    description = models.CharField(max_length=200)
+    brand = models.CharField(max_length=40)
+    id = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'sangpum'
-
-
-class Type(models.Model):
-    type_code = models.CharField(primary_key=True, max_length=4)
-    type_name = models.CharField(max_length=20, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'type'
+        db_table = "product"
 
 
 class User(models.Model):
+    username = models.CharField(max_length=20)
     id = models.CharField(primary_key=True, max_length=20)
-    pw = models.CharField(max_length=20, blank=True, null=True)
-    name = models.CharField(max_length=10, blank=True, null=True)
-    id_num = models.CharField(max_length=14, blank=True, null=True)
-    phone = models.CharField(max_length=14, blank=True, null=True)
-    email = models.CharField(max_length=40, blank=True, null=True)
+    password1 = models.CharField(max_length=20)
+    password2 = models.CharField(max_length=20)
+    email = models.CharField(max_length=50)
 
     class Meta:
         managed = False
-        db_table = 'user'
+        db_table = "user"
