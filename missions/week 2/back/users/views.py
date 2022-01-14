@@ -1,10 +1,12 @@
+import json
+import requests
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.core.mail import EmailMessage
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.crypto import get_random_string
-from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 from base.settings.common import KAKAO_OAUTH_CONFIG
@@ -49,6 +51,7 @@ def email_duplicate_check(request):
     except User.DoesNotExist:
         return JsonResponse({'data': True})
 
+
 @csrf_exempt
 def find_id(request):
     if request.method == 'POST':
@@ -60,6 +63,7 @@ def find_id(request):
             return JsonResponse({'data': False})
     return render(request, 'auth/find_id.html')
 
+
 @csrf_exempt
 def password_reset(request):
     if request.method == 'POST':
@@ -68,9 +72,9 @@ def password_reset(request):
             user = User.objects.get(username=email)
             reset_password = get_random_string(length=10)
             email = EmailMessage('패스워드 초기화 안내'
-                      , '회원님의 초기화 패스워드는 '+ reset_password + '입니다'
-                      , 'v49011591@gmail.com'
-                      , [user.username])
+                                 , '회원님의 초기화 패스워드는 ' + reset_password + '입니다'
+                                 , 'v49011591@gmail.com'
+                                 , [user.username])
             email.send()
             user.set_password(reset_password)
             user.save()
@@ -80,9 +84,31 @@ def password_reset(request):
     return render(request, 'auth/password_reset.html')
 
 
-class KakaoSignInView(View):
-    def get(self, request):
+def kakao_sign_view(request):
+    app_key = KAKAO_OAUTH_CONFIG['KAKAO_REST_API_KEY']
+    redirect_uri = KAKAO_OAUTH_CONFIG['KAKAO_REDIRECT_URI']
+    kakao_auth_api = 'https://kauth.kakao.com/oauth/authorize?response_type=code'
+    return redirect(f'{kakao_auth_api}&client_id={app_key}&redirect_uri={redirect_uri}')
+
+
+def kakao_login_callback(request):
+    if request.method == 'GET':
+        code = request.GET['code']
         app_key = KAKAO_OAUTH_CONFIG['KAKAO_REST_API_KEY']
         redirect_uri = KAKAO_OAUTH_CONFIG['KAKAO_REDIRECT_URI']
-        kakao_auth_api = 'https://kauth.kakao.com/oauth/authorize?response_type=code'
-        return redirect(f'{kakao_auth_api}&client_id={app_key}&redirect_uri={redirect_uri}')
+        token_api = 'https://kauth.kakao.com/oauth/token'
+        data = {
+            'grant_type': 'authorization_code',
+            'client_id': app_key,
+            'redirection_uri': redirect_uri,
+            'code': code
+        }
+
+        token_response = requests.post(token_api, data=data)
+
+        access_token = token_response.json().get('access_token')
+
+        user_info_response = requests.get('https://kapi.kakao.com/v2/user/me', headers={'Authorization': f'Bearer ${access_token}'})
+        user_info = user_info_response
+
+        return "AA"

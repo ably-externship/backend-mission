@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'market_sns.apps.MarketSnsConfig',
     'product.apps.ProductConfig',
     'product_option.apps.ProductOptionConfig',
+    'product_category.apps.ProductCategoryConfig',
     'users.apps.UsersConfig'
 ]
 
