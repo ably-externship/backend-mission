@@ -63,7 +63,7 @@ def product_list_view(request):
     # 5. 템플릿을 통해 렌더링 한다. 필요한 파라미터들은 context 에 싣어서 함께 전달한다
     return render(
         request,
-        'product/list_original.html',
+        'product/list.html',
         context={
             'paginator': paginator,
             'page_obj': page_obj,

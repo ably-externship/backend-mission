@@ -10,8 +10,10 @@
             seller : {{ target_product.seller }}
         </h5>
         <hr>
-        <img style="width:50%; border-radius: 1rem; margin: 2rem 0 "
+
+        <img style="width:40%; border-radius: 1rem; margin: 2rem 0 "
                 src="{{ target_product.image.url }}" alt="">
+
         <form action="{% url 'product:add_cart' %}" method="post" class="size-color-select-form">
             {% csrf_token %}
             <p>사이즈/색상 선택</p>
