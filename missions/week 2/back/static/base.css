@@ -2,8 +2,6 @@
     font-family: 'Nanum Pen Script', cursive;
     font-size: 50px;
 }
-
-
 .footer {
     text-align:center;
     margin-top: 2rem;
@@ -50,7 +48,5 @@ html > body {
 }
 
 
-.size-color-select-form {
-    max-width:300px;
-    margin: 4rem auto;
-}
+
+

@@ -3,7 +3,11 @@ from product.views import (
     ProductCreateView,
     ProductDetailView,
     ProductDeleteView,
-    product_list_view, add_cart_view, cart_items_view,
+    product_list_view,
+    add_cart_view,
+    cart_items_view,
+    cart_change_view,
+    cart_delete_view
 )
 
 app_name = 'product'
@@ -14,5 +18,7 @@ urlpatterns = [
     path('detail/<int:pk>', ProductDetailView.as_view(), name='detail'),
     path('delete/<int:pk>', ProductDeleteView.as_view(), name='delete'),
     path('add_cart/', add_cart_view, name='add_cart'),
-    path('cart_items/', cart_items_view, name='cart_items')
+    path('cart_items/', cart_items_view, name='cart_items'),
+    path('cart_change/', cart_change_view, name='cart_change'),
+    path('cart_delete/', cart_delete_view, name='cart_delete'),
 ]
