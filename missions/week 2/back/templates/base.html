@@ -38,15 +38,26 @@
                       <span><i class="far fa-user"></i></span>
                     </a>
                   </li>
-                    <li>
+                  <li class="menu-1__li-icon ">
+                    <a href="{%url 'cart'%}" class="h-full flex items-center text-black px-2">
+                      <span><i class="fas fa-shopping-cart"></i></span>
+                    </a>
+                  </li>
+                  <li>
                        <a href="{%url 'kakaoLogout'%}" class="h-full flex items-center px-2 text-black no-underline">
                         <span>로그아웃</span>
                        </a>
-                    </li>
+                  </li>
+
                 {% elif user.is_authenticated %}
                   <li class="menu-1__li-icon ">
                     <a href="#" class="h-full flex items-center text-black px-2">
                       <span><i class="far fa-user"></i></span>
+                    </a>
+                  </li>
+                  <li class="menu-1__li-icon ">
+                    <a href="{%url 'cart'%}" class="h-full flex items-center text-black px-2">
+                      <span><i class="fas fa-shopping-cart"></i></span>
                     </a>
                   </li>
                     <li>
@@ -110,7 +121,7 @@
 
     </div>
     </body>
-    <footer class="footer">
-        <a>footer</a>
-    </footer>
+<!--    <footer class="footer">-->
+<!--        <a>footer</a>-->
+<!--    </footer>-->
 </html>

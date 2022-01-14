@@ -30,7 +30,7 @@ def index(request):
     # 카카오톡 토큰
     if request.session.get('access_token'):
         context['check'] = True
-    print("0000",request.user)
+    # print("0000",request.user)
 
     return render(request, 'index.html', context)
 
@@ -52,10 +52,10 @@ def createQna(request, product_id):
         title = request.POST.get('title')
         content = request.POST.get('content')
     conn_user = request.user
-    print('1111',conn_user)
+    # print('1111',conn_user)
 
     user = Account.objects.get(username=conn_user)
-    print('2222',user)
+    # print('2222',user)
     Product_qna.objects.create(product_id=product_id, user_id=user.id,content=content,title=title)
 
     return HttpResponseRedirect(reverse('detailProduct',args=(product_id,)))

@@ -24,7 +24,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('',include('user.urls')),
     path('',include('product.urls')),
+    path('',include('cart.urls')),
     path('',include('user.urls')),
+
 ]
 
 # 이미지 URL 설정

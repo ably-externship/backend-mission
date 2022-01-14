@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{%block contents %}
+
+카트 리스트 화면
+             {% for product in products %}
+
+                  {{product}}
+
+
+              {% endfor %}
+
+{% endblock contents %}

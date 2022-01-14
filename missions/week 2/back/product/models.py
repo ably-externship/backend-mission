@@ -1,6 +1,5 @@
 from django.db import models
 from seller.models import Seller
-from cart.models import Cart
 
 # Product table
 class Product(models.Model):
@@ -37,9 +36,8 @@ class Product(models.Model):
     reg_date = models.DateTimeField(auto_now=True, verbose_name='등록일') # 등록날짜
     update_date = models.DateTimeField(auto_now=True, verbose_name='등록일')  # 갱신날짜
 
-    seller = models.ForeignKey(Seller, on_delete=models.CASCADE, related_name='product')  # seller_id
-    cart = models.ManyToManyField(Cart,related_name='carts',blank=True,null=True)  # cart_id
-
+    seller = models.ForeignKey('seller.Seller', on_delete=models.CASCADE, related_name='product')  # seller_id
+    # cart = models.ManyToManyField('cart.Cart', related_name='product', blank=True, null=True)  # cart_id
 
 
 

@@ -79,7 +79,10 @@ ROOT_URLCONF = 'back.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [ os.path.join(BASE_DIR,'templates') ], # 추가
+        'DIRS': [
+            os.path.join(BASE_DIR,'templates'),
+            os.path.join(BASE_DIR, 'cart','templates')
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
