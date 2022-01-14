@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    검색
+{% endblock page_title %}
+
+{% block search-bar %}{% endblock search-bar %}
+
+{% block content %}
+    <h2>검색!</h2>
+    <form method="GET" action="{% url 'clothes:search' %}">
+        {{form.as_p}}
+        <button>검색</button>
+    </form>
+    {% if object_list %}
+        {% for clothes in clothes_list %}
+            {{clothes.title}}
+        {% endfor %}
+    {% elif search_word %}
+        {{search_word}}가 없습니다
+    {% endif %}
+{% endblock content %}
+
+
