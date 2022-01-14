@@ -1,5 +1,7 @@
 {% extends 'base/base.html' %}
 
+{% load socialaccount %}
+
 {% block body %}
 <div id="login">
     <div class="container">
@@ -25,6 +27,13 @@
                 <a href="{% url 'register' %}" class="form-control btn btn-outline-secondary">Register here!</a>
             </div>
         </div>
+        <br>
+        <div class="row text-center">
+            <a href="{% provider_login_url 'kakao' method='oauth2' %}">
+                <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMDExMTFfMjg1%2FMDAxNjA1MDY5NTU0MTQ2.BnwMyokysAj_hGJdpGChM2Jjxx0uytXMuQV33tmZz2Qg.OlgP3ZZErZ7VGOYkTz884Pqh_cRB19e8TK_kpsr52xEg.PNG.evenple1%2F%25C4%25AB%25C4%25AB%25BF%25C0%25C5%25E5-%25B7%25CE%25B0%25ED-1.png&type=sc960_832"
+                     style="width: 30px; height: 30px;">
+            </a>
+        </div>
 
     </div>
 </div>
@@ -46,5 +55,7 @@
         });
 });
 });
+
+
 </script>
 {% endblock %}

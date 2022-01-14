@@ -33,6 +33,13 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -51,9 +58,20 @@ INSTALLED_APPS += [
     # 가격 자릿수 , 추가
     'django.contrib.humanize',
 
-    # 소셜 로그인
-    'social_django',
+    # 카카오톡 소셜 로그인 관련 부분
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.kakao',
 ]
+
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = '/'  # 로그인 후 리다이렉트 될 경로
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_ON_GET = True
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

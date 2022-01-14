@@ -19,6 +19,7 @@ from django.views.generic.base import TemplateView
 from django.shortcuts import redirect
 
 from contents.views import HomeView, ProductListView, ProductDetailView, SearchView, CategoryView, BrandView, CartView
+from apis.views import KaKaoSignInView, KaKaoSignInCallBackView
 
 
 # NonUserTemplateView 를 사용하는 이유는 로그인과 회원가입 페이지에서 사용자의 접근을 막기위함
@@ -50,4 +51,12 @@ urlpatterns = [
     # user
     path('login/', NonUserTemplateView.as_view(template_name='user/login.html'), name='login'),
     path('register/', NonUserTemplateView.as_view(template_name='user/register.html'), name='register'),
+
+    # kakao
+    # path('user/login/kakao/', KaKaoSignInView.as_view(), name='kakao_login'),
+    # path('user/login/kakao/callback/', KaKaoSignInCallBackView.as_view(), name='kakao_callback'),
+
+    # 소셜로그인 관련 url
+    # path('user/', include('allauth.urls')),
+    path('social/', include('allauth.urls')),
 ]
