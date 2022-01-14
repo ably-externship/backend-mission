@@ -28,6 +28,7 @@
               <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
                 {% if user.is_authenticated %}
                   <li><a class="dropdown-item" href="{% url 'account_logout' %}">로그아웃</a></li>
+                  <li><a class="dropdown-item" href="{% url 'cart:cart' %}">장바구니</a></li>
                 {% else %}
                 <li><a class="dropdown-item" href="{% url 'account_login' %}">로그인</a></li>
                 <li><a class="dropdown-item" href="{% url 'account_signup' %}">회원가입</a></li>

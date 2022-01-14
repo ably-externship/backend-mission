@@ -12,7 +12,7 @@
         <div class="row">
             {% if product_list %}
                 {% for product in product_list %}
-                    <div class="card" style="width: 18rem; height: 30rem; align-items: center; margin-left: 2rem; margin-bottom: 2rem;">
+                    <div class="card shadows" style="width: 18rem; height: 30rem; align-items: center; margin-left: 2rem; margin-bottom: 2rem;">
                         <div style="width:17rem; height:18rem; align-items: center;">
                             {% if product.image == '0' %}
                                 <img src="{% static 'images/noImage.png' %}" class="card-img-top" alt="...">
@@ -46,7 +46,7 @@
                     {% for page in product_list.paginator.page_range %}
                         {% if page >= product_list.number|add:-2 and page <= product_list.number|add:2 %}
                         <span class="btn btn-outline-primary btn-sm {% if page == product_list.number %}current{% endif %}">
-                            <a href="?page={{ page }}" style="margin-right: 10px;">{{page}}</a>
+                            <a href="?page={{ page }}">{{page}}</a>
                         </span>
                         {% elif page >= product_list.number|add:-3 and page <= product_list.number|add:3 %}
                             ..

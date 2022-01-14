@@ -9,11 +9,12 @@ class Product(models.Model):
     writer = models.ForeignKey(User, on_delete=models.CASCADE) #작성자
     marcket = models.CharField(max_length=200) # 마켓명
     pub_date = models.DateTimeField() # 등록날짜
-    price = models.IntegerField() # 가격
+    price = models.PositiveIntegerField() # 가격
+    cartNum = models.PositiveIntegerField() # 장바구니 담은 수
     description = models.TextField() #설명
     stock = models.IntegerField() #재고
-    image = models.ImageField(upload_to = "product/", blank=True, null=True) # 상품 이미지
-    detailImage = models.ImageField(upload_to = "product/", blank=True, null=True) # 상품 상세 이미지
+    image = models.ImageField(upload_to = "product/image", blank=True, null=True) # 상품 이미지
+    detailImage = models.ImageField(upload_to = "product/detailimage", blank=True, null=True) # 상품 상세 이미지
 
     def summary(self):
         return self.description[:30]
