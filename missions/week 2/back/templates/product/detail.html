@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load bootstrap5 %}
 {% block content %}
     <div style="text-align: center; max-width: 500px margin: 4rem auto;">
 
@@ -10,12 +10,15 @@
             seller : {{ target_product.seller }}
         </h5>
         <hr>
-        <img style="width: 50%; border-radius: 1rem; margin: 2rem 0 "
+        <img style="width:50%; border-radius: 1rem; margin: 2rem 0 "
                 src="{{ target_product.image.url }}" alt="">
-
-        <p>
-            size : {{ target_Productreal.size }}
-        </p>
+        <form action="{% url 'product:add_cart' %}" method="post" class="size-color-select-form">
+            {% csrf_token %}
+            <p>사이즈/색상 선택</p>
+            {% bootstrap_form purchases_form %}
+            <input type="submit" value="장바구니 담기" class="btn btn-dark rounded-pill col-6 mt-3">
+        </form>
+        <br>
         <p>
             {{ target_product.description }}
         </p>

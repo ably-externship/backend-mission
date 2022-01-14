@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="cart_item_body t-bg-[#ff0000] t-h-[100px] t-p-[200px]">
+    {% for cart in cart_items %}
+    <p>상품명 : {{ cart.product.name }} // 색상 : {{ cart.product_option.color }} // 사이즈 : {{ cart.product_option.size }} //
+        수량 : {{ cart.quantity }} </p>
+    {% endfor%}
+    </div>
+
+{% endblock %}
+

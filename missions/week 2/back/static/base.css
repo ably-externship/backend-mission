@@ -47,3 +47,9 @@ a:hover {
 html > body {
   font-family: "GmarketSansMedium";
 }
+
+
+.size-color-select-form {
+    max-width:300px;
+    margin: 4rem auto;
+}
