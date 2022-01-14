@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load static%}
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>Mutbly</title>
+    
+    <link rel="stylesheet" href="{% static 'mutbly/css/base.css'%}" >
+  </head>
+
+    <body >
+
+      
+        {% include "mutbly/navbar.html" %}
+
+    
+        <br>
+        {% block content %}
+        {% endblock content %}
+
+    </body>
+
+
+</html>
+
