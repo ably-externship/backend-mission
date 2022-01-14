@@ -5,7 +5,7 @@
 <br>
 <div class = "item-list">
 {% for item in items %}
-    <br>
+    {% comment %} <br>
     <a href="/items/{{item.id}}/">
       <div class = 'item-box'>
         <img id = "item-img" src = "{{item.photo.url}}" width="30%" />
@@ -21,9 +21,63 @@
         </div>
       </div>
     </a>
+  <br/> {% endcomment %}
+  <a href="/items/{{item.id}}/">
+  <div class="card" style="width: 18rem;">
+    <img class="card-img-top" src = "{{item.photo.url}}" alt="{{item.name}}"/>
+    <div class="card-body">
+      <h5 class="card-title">{{item.name}}</h5>
+      <p class="card-text">{{item.description}}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">{{item.price}}</li>
+    </ul>
+    {% comment %} <div class="card-body">
+      <a href="#" class="card-link">Card link</a>
+      <a href="#" class="card-link">Another link</a>
+    </div> {% endcomment %}
+  </div>
   <br/>
+  <br/>
+</a>
+
   
+
+
+
+
+
+
+
+
+
+
+
+
+
 {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <br/>
   <br/>
   </div>

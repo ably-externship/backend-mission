@@ -1,4 +1,4 @@
-
+{% comment %} 
 <nav class="navbar">
   <ul>
 
@@ -27,4 +27,24 @@
     <button class="search-btn">
       Search
     </button>
-  </form>
+  </form> {% endcomment %}
+
+
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'index' %}"> Qbly </a>
+      {% if user.is_authenticated %}
+        <span class = "welcome-message"> {{user.get_username}}님, 안녕하세요😀 </span>
+        <!--TODO : MYPAGE로 변경-->
+        <li class = "authentication"><a class="login" href={% url 'logout' %}>로그아웃</a></li>
+      {% else %}
+        <li class = "authentication"><a class="login" href={% url 'login' %}>로그인</a></li>
+        <li class = "authentication"><a class="login" href= {% url 'signup' %}>회원가입</a></li>
+      {% endif %}
+      <form class="d-flex" method="POST" action="{% url 'search'%}">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searched">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
