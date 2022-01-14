@@ -6,12 +6,13 @@ from core import models as core_models
 
 class Product(core_models.DateTimeModel):
     market = models.ForeignKey('markets.Market', on_delete=models.CASCADE, related_name='products')
+    category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=30)
     price = models.PositiveIntegerField(default=0)
-    category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True)
-    is_delete = models.BooleanField(default=False)
+
     is_sold_out = models.BooleanField(default=False)
     is_hidden = models.BooleanField(default=False)
+    is_delete = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

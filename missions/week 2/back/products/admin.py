@@ -4,7 +4,7 @@ from .models import Product, Question
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'market', 'price', 'color', 'size', 'category', 'stock')
+    list_display = ('id', 'name', 'market', 'category')
 
 
 @admin.register(Question)
