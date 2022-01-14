@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand
 from django_seed import Seed
 from faker import Faker
 
-from products.models import Product
+from products.models import Product, Category, ProductOption
 from markets.models import Market
 
 
@@ -19,22 +19,32 @@ class Command(BaseCommand):
         fake = Faker(["ko_KR"])
         number = options.get("number")
         all_markets = Market.objects.all()
-        colors = ['white', 'black', 'red', 'green', 'blue']
-        sizes = ['s', 'm', 'l']
-        categories = ['neat', 'hood', 'mtm', 'shirt']
+        all_categories = Category.objects.all()
+
         seeder = Seed.seeder()
         seeder.add_entity(
             Product,
             number,
             {
                 "market": lambda x: random.choice(all_markets),
+                "category": lambda x: random.choice(all_categories),
                 "name": lambda x: fake.unique.bs(),
                 "price": lambda x: random.randint(10000, 1000000),
-                "color": lambda x: random.choice(colors),
-                "size": lambda x: random.choice(sizes),
-                "category": lambda x: random.choice(categories),
-                "stock": lambda x: random.randint(0, 1000),
             },
         )
         seeder.execute()
+
+        # create options
+        colors = ['white', 'black', 'red', 'green', 'blue']
+        sizes = ['s', 'm', 'l', 'xl']
+        products = Product.objects.all()
+
+        for product in products:
+            color = random.choice(colors)
+            size = random.choice(sizes)
+            ProductOption.objects.create(
+                product=product,
+                color=color,
+                size=size
+            )
         self.stdout.write(self.style.SUCCESS(f"{number} products created"))

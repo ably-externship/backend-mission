@@ -26,6 +26,7 @@ class ProductOption(core_models.DateTimeModel):
     color = models.CharField(max_length=10)
     size = models.CharField(max_length=10)
     stock = models.PositiveIntegerField(default=1)  # 재고
+    add_price = models.IntegerField(default=0)
     is_sold_out = models.BooleanField(default=False)
 
 
