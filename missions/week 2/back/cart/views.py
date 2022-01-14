@@ -11,27 +11,24 @@ from .models import Product
 
 def cart(request):
 
-    # products = Cart.objects.get(pk=this_object_id)
-    # print(products)
-
-    # print(request.__dict__)
-    # print(request.session.)
     if request.method == "GET":
         user = User.objects.get(email=request.user)
         cart = Cart.objects.get(user=user)
 
-        ##
+        # 파이썬에서 데이터 가공 -> DB에서로 수정 필요
         cart_item = CartItem.objects.filter(cart=cart)
         products = Product.objects.all()
-        context = []
+
+        selected_products = []
         for item in cart_item:
             for product in products:
                 if item.product.id == product.id:
-                    if product.id not in context:
-                        context.append(product)
-        ##
+                    if product.id not in selected_products:
+                        selected_products.append(product)
+        #
+
     ctx = {
-        'products': context,
+        'products': selected_products,
         'cart_items': cart_item
     }
 
