@@ -2,10 +2,11 @@
 {% load static %}
 
 {% block content %}
-<table class="table">
+<table class="table table-image">
     <thead>
     <tr>
-        <th scope="col">#</th>
+        <th scope="col">번호</th>
+        <th scope="col">사진</th>
         <th scope="col">상품명</th>
         <th scope="col">색상</th>
         <th scope="col">사이즈</th>
@@ -14,9 +15,10 @@
     </thead>
     <tbody>
     {% for cart in cart_items %}
-    {{ cart.id }}
     <tr id="table_row{{cart.id}}">
         <th id="id{{cart.id}}">{{ cart.id }}</th>
+        <th id="{{cart.id}}"><img class="img-fluid " style=" width:40px; border-radius: 1rem; "
+                                  src="{{ cart.product.image.url }}" alt=""></th>
         <td id="name{{cart.id}}"><p>{{ cart.product.name }}</td>
         <td id="color{{cart.id}}">{{ cart.product_option.color }}</td>
         <td id="size{{cart.id}}">{{ cart.product_option.size }}</td>
@@ -32,7 +34,36 @@
 </table>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
-// 변경저장
+
+//수량변경
+{% for cart in cart_items %}
+        $('#decreaseQuantity'+{{cart.id}}).click(function(e){
+
+                var stat = $('#numberUpDown'+{{cart.id}}).text();
+                var num = parseInt(stat,10);
+                num--;
+
+            if(num<=0){
+                alert('더이상 줄일수 없습니다.');
+                num =1;
+            }
+        $('#numberUpDown'+{{cart.id}}).text(num);
+        });
+        $('#increaseQuantity'+{{cart.id}}).click(function(e){
+            e.preventDefault();
+                var stat = $('#numberUpDown'+{{cart.id}}).text();
+                var num = parseInt(stat,10);
+                num++;
+
+            if(num>100){
+                alert('더이상 늘릴수 없습니다.');
+                num=100;
+            }
+        $('#numberUpDown'+{{cart.id}}).text(num);
+        });
+ {% endfor%}
+
+ // 변경저장
     let change =null;
 {% for cart in cart_items %}
      change = document.querySelector('#change'+{{cart.id}});
@@ -71,45 +102,47 @@
         });
 {% endfor%}
 
-//수량변경
-{% for cart in cart_items %}
-        $('#decreaseQuantity'+{{cart.id}}).click(function(e){
 
-                var stat = $('#numberUpDown'+{{cart.id}}).text();
-                var num = parseInt(stat,10);
-                num--;
-
-                alert(stat);
-            if(num<=0){
-                alert('더이상 줄일수 없습니다.');
-                num =1;
-            }
-        $('#numberUpDown'+{{cart.id}}).text(num);
-        });
-        $('#increaseQuantity'+{{cart.id}}).click(function(e){
-            e.preventDefault();
-                var stat = $('#numberUpDown'+{{cart.id}}).text();
-                var num = parseInt(stat,10);
-                num++;
-
-            if(num>100){
-                alert('더이상 늘릴수 없습니다.');
-                num=100;
-            }
-        $('#numberUpDown'+{{cart.id}}).text(num);
-        });
- {% endfor%}
 //삭제
+{% for cart in cart_items %}
+     $('#delete'+{{cart.id}}).click(function(e){
 
-$(function(){
-     $('#delete1').click(function(e){
-        e.preventDefault();
-        var row = $('#table_row1');
-                alert('삭제');
+        let id = $('#id'+{{cart.id}}).text();
+        let name = $('#name'+{{cart.id}}).text();
+        let color = $('#color'+{{cart.id}}).text();
+        let size = $('#size'+{{cart.id}}).text();
+        let quantity = $('#numberUpDown'+{{cart.id}}).text();
+
+        let param = {
+            'id': id,
+            'name' : name,
+            'color' : color,
+            'size' : size,
+            'quantity' : quantity,
+
+                }
+
+        var row = $('#table_row'+{{cart.id}});
         row.remove();
-     });
-});
 
+        $.ajax({
+                url : '{% url 'product:cart_delete' %}',
+                type : 'POST',
+                headers: {
+                  'X-CSRFTOKEN' : '{{ csrf_token }}'
+                },
+                data : JSON.stringify(param),
+                success:function(data){
+                    alert('삭제 완료');
+                    console.log("data pass success",data);
+                },
+                error: function(){
+                    alert('삭제 실패');
+                }
+            });
+
+     });
+{% endfor%}
 </script>
 
 {% endblock %}

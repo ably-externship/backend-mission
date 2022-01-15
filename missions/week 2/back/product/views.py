@@ -1,4 +1,6 @@
 import json
+
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
@@ -72,7 +74,7 @@ def product_list_view(request):
         }
     )
 
-
+@login_required()
 def add_cart_view(request):
     product_option_id = request.POST.get('product_option')
     product_option_id = int(product_option_id)
@@ -93,6 +95,7 @@ def add_cart_view(request):
     return redirect('product:cart_items')
 
 
+@login_required
 def cart_items_view(request):
     cart_items = CartItem.objects.filter(user=request.user).order_by('id')
     return render(request, 'product/cart_items.html', context={'cart_items': cart_items})
@@ -112,4 +115,12 @@ def cart_change_view(request):
 
 
 def cart_delete_view(request):
-    return HttpResponse('삭제완료')
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        print(data)
+
+        cart_item = CartItem.objects.get(user=request.user, id=data.get('id'))
+        cart_item.delete()
+
+    return JsonResponse(data)
+
