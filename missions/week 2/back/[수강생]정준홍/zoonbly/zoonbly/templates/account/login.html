@@ -13,10 +13,7 @@
           <!-- <h5 class="card-title">Info card title</h5>
           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
             {% get_providers as socialaccount_providers %}
-                <p>계정이 없으신가요?<br>
-                <button type="button" class="btn btn-outline-info btn-sm"><a href="{{ signup_url }}">회원가입
-                </a></button></p>
-            
+
             {% if socialaccount_providers %}
             <!-- <p>{% blocktrans with site.name as site_name %}Please sign in with one
             of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
@@ -34,6 +31,9 @@
                 {% include "socialaccount/snippets/login_extra.html" %}
     
             {% endif %}
+                <p>계정이 없으신가요?<br>
+                <a type="button" class="btn btn-outline-primary btn-sm" href="{{ signup_url }}">회원가입
+                </a></p>
             <hr>
     
             <form class="login form-control" method="POST" action="{% url 'account_login' %}">

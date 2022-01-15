@@ -10,7 +10,7 @@
     <div class="card-body">
       <!-- <h5 class="card-title">Info card title</h5>
       <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-      <p>계정이 있으신가요?<br><button type="button" class="btn btn-outline-info btn-sm"><a href="{{ login_url }}">로그인</a></button></p>
+      <p>계정이 있으신가요?<br><a type="button" class="btn btn-outline-primary btn-sm" href="{{ login_url }}">로그인</a></p>
         <hr>
         <form class="signup form-control" id="signup_form" method="post" action="{% url 'account_signup' %}">
         {% csrf_token %}
