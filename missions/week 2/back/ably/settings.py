@@ -15,6 +15,8 @@ import pymysql
 
 pymysql.install_as_MySQLdb()
 
+DJANGO_ALLOWED_HOST = ['0.0.0.0', '127.0.0.1', 'localhost', '54.145.86.155']
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
