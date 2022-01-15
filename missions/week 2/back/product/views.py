@@ -13,6 +13,7 @@ from cart.forms import AddProductForm
 
 # 상품리스트
 def index(request):
+
     products=Product.objects.all()
 
     # 검색
@@ -31,7 +32,6 @@ def index(request):
     # 카카오톡 토큰
     if request.session.get('access_token'):
         context['check'] = True
-    # print("0000",request.user)
 
     return render(request, 'index.html', context)
 
@@ -39,12 +39,25 @@ def index(request):
 
 # 상세보기
 def detailProduct(request, product_id):
+    # 카카오톡 토큰
+    context={}
+    if request.session.get('access_token'):
+        context['check'] = True
+
     product = get_object_or_404(Product, pk=product_id)
+    context['product']=product
+
     option = Product_options.objects.filter(product_id=product_id)
+    context['qnas']=option
 
     qnas = Product_qna.objects.filter(product_id=product_id)
-    add_to_cart = AddProductForm(initial={'quantity':1, "opt_size":""})
-    return render(request, 'detail.html', {'product': product, 'qnas': qnas, 'options' : option, 'add_to_cart':add_to_cart})
+    context['qnas']=qnas
+
+    context['add_to_cart']=AddProductForm(initial={'quantity':1, "opt_size":""})
+
+
+    return render(request, 'detail.html', context)
+
 
 
 # QnA 질문

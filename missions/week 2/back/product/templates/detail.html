@@ -31,15 +31,15 @@
                     <form action="{% url 'cart:product_add' product.id %}" method="post" class="">
                         {% csrf_token %}
                         {{add_to_cart}}
-                        <br>
-                        사이즈를 선택하세요
+<!--                        <br>-->
+<!--                        사이즈를 선택하세요-->
 
-                        <select name="options">
-                            {% for opt in options %}
-                            <option >{{opt.opt1_name}}</option>
+<!--                        <select name="options">-->
+<!--                            {% for opt in options %}-->
+<!--                            <option >{{opt.opt1_name}}</option>-->
 
-                            {% endfor %}
-                        </select>
+<!--                            {% endfor %}-->
+<!--                        </select>-->
 
                         <input type="submit" value="장바구니" class="signUpButton m-1">
                     </form>
@@ -130,11 +130,10 @@
         <p>
         구매하시려는 상품에 대해 궁금하신 점이 있으신 경우 문의해주세요.
         </p>
-{#        <form class="" method="POST" action="{% url 'login'%}">#}
         <form class="qna-input-1" method="POST" action="{% url 'createQna' product.id %}">
             {% csrf_token %}
-            <div><input class="qna-title outline-black rounded-md m-2" name="title" type="text" placeholder="제목" required value=""></div>
-            <div><textarea class="qna-content outline-black rounded-md m-2" name="content" type="textarea" placeholder="내용" required value=""></textarea></div>
+            <div><input class="qna-title rounded-md m-2" name="title" type="text" placeholder="제목" required value=""></div>
+            <div><textarea class="qna-content rounded-md m-2" name="content" type="textarea" placeholder="내용" required value=""></textarea></div>
             <div><input class="border-black m-2" type="submit" value="등록하기" ></div>
         </form>
         <br>
@@ -142,17 +141,6 @@
     </div>
 
 
-{#    <div>#}
-{#        <p>상품 질문</p>#}
-{#        <input id='name' onchange='printName()'/>#}
-{#        <div id='result'></div>#}
-{#    </div>#}
-{#    <script>#}
-{#        function printName()  {#}
-{#          const name = document.getElementById('name').value;#}
-{#          document.getElementById("result").innerText = name;#}
-{#        }#}
-{#    </script>#}
 
 
 

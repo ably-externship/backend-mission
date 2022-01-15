@@ -27,8 +27,15 @@ def remove(request, product_id):
     return redirect('cart:detail')
 
 def detail(request):
+    # 카카오톡 토큰
+    context={}
+    if request.session.get('access_token'):
+        context['check'] = True
+
     cart = Cart(request)
     for product in cart:
         product['quantity_form'] = AddProductForm(initial={'quantity':product['quantity'], 'is_update':True})
+    context['cart']=cart
 
-    return render(request, 'cart.html', {'cart':cart})
+
+    return render(request, 'cart.html', context)
