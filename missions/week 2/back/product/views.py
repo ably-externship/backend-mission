@@ -28,7 +28,8 @@ def detail(request, product_id):
 
 def make_response_data(page_size, q):
     product_list = []
-    products = Product.objects.select_related('market_pk').filter(Q(category__contains=q)|Q( name__contains=q))
+    #products = Product.objects.select_related('market_pk').select_related('category_fk').filter(Q(category__contains=q)|Q( name__contains=q))
+    products = Product.objects.select_related('market_pk').select_related('category_fk').filter(Q(name__contains=q))
     paginator = Paginator(products, per_page=6)
 
     paging_product_list = paginator.page(page_size)

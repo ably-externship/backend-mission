@@ -109,6 +109,16 @@ def kakao_login_callback(request):
         access_token = token_response.json().get('access_token')
 
         user_info_response = requests.get('https://kapi.kakao.com/v2/user/me', headers={'Authorization': f'Bearer ${access_token}'})
-        user_info = user_info_response
+        user_info = user_info_response.json()
 
-        return "AA"
+        id = user_info.get("id")
+
+        try:
+            user = User.objects.get(username=id)
+            login(request, user)
+            return redirect('/product')
+        except User.DoesNotExist:
+            user = User.objects.create_user(username=id)
+            login(request, user)
+            return redirect('/product')
+
