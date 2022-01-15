@@ -160,8 +160,9 @@ class CartPlusView(BaseView):
             cart = Cart.objects.get(user_id=request.user.id, product_id=product_id)
             if cart:
                 if cart.product.id == product.id:
-                    cart.quantity += 1
-                    cart.save()
+                    if cart.quantity < cart.product.stock:
+                        cart.quantity += 1
+                        cart.save()
         except IntegrityError:
             return self.response(message='잘못된 요청입니다.', status=400)
 
@@ -180,8 +181,9 @@ class CartMinusView(BaseView):
             cart = Cart.objects.get(user_id=request.user.id, product_id=product_id)
             if cart:
                 if cart.product.id == product.id:
-                    cart.quantity -= 1
-                    cart.save()
+                    if cart.quantity > 1:
+                        cart.quantity -= 1
+                        cart.save()
         except IntegrityError:
             return self.response(message='잘못된 요청입니다.', status=400)
 

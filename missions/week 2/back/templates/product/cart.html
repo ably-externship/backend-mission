@@ -27,8 +27,16 @@
                         </th>
                         <th scope="col" class="text-center align-middle">{{ cart.quantity }}
                             <input type="hidden" id="pk" value="{{ cart.product.id }}">
+                            {% if cart.quantity < cart.product.stock %}
                             <button type="button" class="plusButton btn btn-secondary" id="plusButton" data-product-id="{{ cart.product.id }}">+</button>
+                            {% else %}
+                            <button type="button" class="plusButton btn btn-secondary disabled" data-product-id="{{ cart.product.id }}">+</button>
+                            {% endif %}
+                            {% if cart.quantity != 1 %}
                             <button type="button" class="minusButton btn btn-secondary" id="minusButton" data-product-id="{{ cart.product.id }}">-</button>
+                            {% else %}
+                            <button type="button" class="minusButton btn btn-secondary disabled" data-product-id="{{ cart.product.id }}">-</button>
+                            {% endif %}
                             <button type="button" class="deleteButton btn btn-danger" id="deleteButton" data-product-id="{{ cart.product.id }}">X</button>
                         </th>
                         <th scope="col" class="text-center align-middle">{{ cart.price_total|intcomma }}</th>
@@ -75,6 +83,7 @@ $(document).ready(function(){
         $('body').delegate('.deleteButton', 'click', function(e){
             var productId = $(e.currentTarget).data('product-id');
             $.post("{% url 'apis_v1_cart_delete' %}", {pk: productId}, function(){
+                alert('장바구니에서 삭제되었습니다.');
                 location.reload();
             }).fail(function(data){
                 alert(data.responseJSON.message);
