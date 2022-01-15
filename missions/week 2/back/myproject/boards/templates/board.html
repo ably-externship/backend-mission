@@ -1,0 +1,56 @@
+{% load bootstrap4 %}
+{% block content %}
+
+<h1 class='text-base mx-4 font-bold text-right'>Q&A</h1>
+<div>
+    <form action="" method="POST" class='text-xs w-full'>
+        {% csrf_token %}
+        <div class='flex-col flex mb-2'>
+            <label for="title" class='mx-10 mb-1'>제목</label>
+            <input name="title" type="text" placeholder='제목'
+                class='w-3/4 h-8 mx-auto border-1 rounded-md border-gray-300 pl-2'>
+        </div>
+        <div class='flex-col flex mb-2'>
+            <label for="content" class='mx-10 mb-1'>내용</label>
+            <input name="content" type="text" placeholder='내용'
+                class='w-3/4 h-20 mx-auto border-1 rounded-md border-gray-300 pl-2 mx-auto'>
+        </div>
+        <div class='flex-col flex mb-2'>
+            <label for="writer" class='mx-10 mb-1'>작성자</label>
+            <input name="writer" type="text" placeholder='작성자'
+                class='w-3/4 h-8 mx-auto border-1 rounded-md border-gray-300 pl-2'>
+        </div>
+
+        <div class='w-3/4 mx-auto'>
+            <button class="mx-auto mb-4 w-full h-10 font-semibold rounded-md bg-gray-500 text-white text-xs"
+                type="submit" value=''>
+                제출하기
+            </button>
+        </div>
+        <!-- <button type="submit" class="btn btn-primary rounded-pill col-12">POST</button> -->
+    </form>
+</div>
+
+{% if board %}
+<table class='text-xs w-5/6 mx-auto text-center mb-4 divide-y divide-solid'>
+    <thead class=''>
+        <tr class='font-light flex flex-row w-full py-2 bg-gray-100 '>
+            <th class='basis-1/6'>번호</th>
+            <th class='basis-2/6'>제목</th>
+            <th class='basis-2/6'>내용</th>
+            <th class='basis-1/6'>작성자</th>
+        </tr>
+    </thead>
+    {% for board_list in board %}
+    <tbody>
+        <tr class='flex flex-row w-full py-2'>
+            <td class='basis-1/6'>{{ board_list.pk }}</td>
+            <td class='basis-2/6'>{{ board_list.title }}</td>
+            <td class='basis-2/6'>{{ board_list.content }}</td>
+            <td class='basis-1/6'>{{ board_list.writer }}</td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+{% endif %}
+{% endblock %}
