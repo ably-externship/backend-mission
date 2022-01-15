@@ -1,3 +1,9 @@
+##카카오
+GET /oauth/authorize?client_id=183b1738c1dcd7012baaf747c970ba3f&redirect_uri=http://localhost:8000&response_type=code HTTP/1.1
+Host: kauth.kakao.com
+PcfI1P6xGcD9MUpCwSEvSW8mDxv5l8a0dyU4wcloQ5C2knsgQkD4h6T5wwiCi9i3Kkr1aAo9dBEAAAF-V-aNXA
+
+
 ### 쇼핑몰 생성 처리
 POST http://localhost:8000/shop
 Content-Type: application/json
@@ -68,4 +74,4 @@ Content-Type: application/json
 ### 토큰 생성 처리
 GET  http://localhost:8000/user/login/test
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo1LCJ1c2VybmFtZSI6ImhhQG5hdmVyLmNvbSIsImV4cCI6MTY0MjA4ODAwNCwiZW1haWwiOiJoYUBuYXZlci5jb20iLCJvcmlnX2lhdCI6MTY0MTQ4MzIwNH0.uyB0Mo42yc_esSDqRdCPsRItxnm-0Pnc5awxlCswqWA
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQyMzg5OTk5LCJpYXQiOjE2NDIyMTcxOTksImp0aSI6ImIyMGYzMzIzYzllMjRjNThhYzBjZDk5MjhlZTZhZmY1IiwidXNlcl9pZCI6MX0.J3EbNr1BdmeitFaya8g9V8hTt3Ik8XsunwIc_M1_bsU

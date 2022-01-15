@@ -89,7 +89,7 @@ def shop_item_detail(request, shop, item):
 
         #img
         imgs = ProductImg.objects.filter(product=item)
-        return render(request, 'product_detail.html', {'product': product, 'optionGroups': optionGroups, 'optionItems': choices, 'imgs': imgs})
+        return render(request, 'product_detail.html', {'product': product, 'optionGroups': optionGroups, 'optionItems': choices, 'imgs': imgs, 'itemId':item})
 
 
 

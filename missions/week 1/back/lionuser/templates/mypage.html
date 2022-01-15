@@ -1,0 +1,142 @@
+<!doctype html>
+{% load static %}
+{#{% load humanize %}#}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>멋블리</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="{% static 'tailwind.css' %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link rel="stylesheet" href="{% static 'common.css' %}">
+    <script defer src="{% static 'common.js' %}"></script>
+
+    <script>
+
+        function deletebasketv2(basketId){
+
+         $.ajax({
+            type:"POST",
+            url:"/basket/basket/item/v2/{{ userId }}",
+            data:{basket: basketId},
+            success : function(response){
+                {#alert(response['access']);#}
+                alert(response['message']);
+                window.location.reload();
+            }
+    });}
+
+        function updatebasket(basketId){
+            console.log("4"+"khk");
+            console.log("#basketCountTo" +basketId);
+            var bas = "#basketCountTo" +basketId;
+            var countba = $("#basketCountTo" +basketId).val();
+
+            console.log(countba);
+
+          $.ajax({
+            type:"POST",
+            url:"/basket/item/{{ userId }}",
+
+            data:{count: $("#basketCountTo" +basketId).val(), basket: basketId},
+            success : function(response){
+                {#alert(response['access']);#}
+                alert(response['message']);
+                window.location.reload();
+            }
+    });}
+
+      </script>
+</head>
+{#{%block content %}#}
+{#{% with img_box_class="t-relative t-overflow-hidden t-rounded" %}#}
+{#{% with img_box_before_class="before:t-content-[''] before:t-absolute before:t-inset-0 before:t-bg-[#00000000] group-hover:before:t-bg-[#00000055] before:t-transition-all" %}#}
+{#{% with img_box_after_class="after:t-content-[attr(data-before)] after:t-hidden group-hover:after:t-block after:t-no-underline after:t-text-white after:t-border-2 after:t-border-white after:t-border-solid after:t-rounded after:t-p-2 after:t-whitespace-nowrap after:t-absolute after:t-top-[50%] after:t-left-[50%] after:t-translate-y-[-50%] after:t-translate-x-[-50%] after:t-transition-all" %}#}
+<body>
+<section class="section-prod-list">
+    <div class="container">
+    <header>
+
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
+        <div class="container">
+            <a class="navbar-brand"><i class="fab fa-pied-piper-hat"></i> 멋블리</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+            </div>
+                </div>
+    </nav>
+</header>
+
+        <div class="t-flex t-items-center">
+            <h5 class="t-font-bold"><i class="fas fa-tshirt"></i> </h5>
+            <h5 class="t-font-bold"><i class="fas fa-tshirt"></i> </h5>
+
+            <h1 class="t-font-bold"><i class="fas fa-tshirt"></i> 나의 장바구니</h1>
+
+            <div class="t-flex-grow"></div>
+
+                <h1>{{ user }}</h1>
+
+        </div>
+
+        <hr>
+
+        <ul class="t-grid t-grid-cols-1 sm:t-grid-cols-2 md:t-grid-cols-3 lg:sm:t-grid-cols-4 t-gap-[20px] t-mt-3">
+            {% for bsk in basket %}
+
+            <li class="t-flex t-flex-col t-group">
+
+
+                <div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+      <h3 class="t-text-center t-mt-2 t-no-underline t-text-black t-italic group-hover:t-underline"
+                   >
+                    {{bsk.product}}</h3>
+    <h5 class="card-title">{{bsk.option_1_type}}</h5>
+    <p class="card-text">{{bsk.option_1_name}}</p>
+      <h5 class="card-title">{{bsk.option_2_type}}</h5>
+    <p class="card-text">{{bsk.option_2_name}}</p>
+
+      <h5 class="card-title">수량 </h5>
+    <p class="card-text">{{bsk.count}}</p>
+      <h5 class="card-title">가격 </h5>
+    <p class="card-text">{{bsk.price}}</p>
+            <input id="basketCountTo{{ bsk.id }}"  type="text" class="form-control" placeholder="수량">
+
+          <button onclick="updatebasket('{{ bsk.id }}')" class="btn btn-primary">수정</button>
+
+    <button onclick="deletebasketv2('{{ bsk.id }}')" class="btn btn-primary">삭제</button>
+  </div>
+</div>
+            {% endfor %}
+
+
+
+
+
+            </li>
+        <a href="/product/items" class="btn btn-primary">아이템 전체 보기 </a>
+        </ul>
+    </div>
+</section>
+</body>
+{#{% endwith %}#}
+{#{% endwith %}#}
+{#{% endwith %}#}
+{##}
+{#{%endblock%}#}
+{##}

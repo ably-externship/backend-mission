@@ -8,6 +8,34 @@
                 width: 500px;
             }
         </style>
+
+    <script>
+
+        function createBasket(){
+
+            {% for og in optionGroups %}
+            {#alert({{  og.optionGroup }});#}
+            {% endfor %}
+        {% for og in optionGroups %}
+            var {{ og.optionGroup }} = $('#{{ og.optionGroup }}').val();
+            console.log({{ og.optionGroup }});
+        {% endfor %}
+
+
+          $.ajax({
+            type:"POST",
+            url:"/basket/{{ itemId }}",
+
+            data:{data: $('#basketCount').val(), size : $('#size').val(), color: $('#color').val()},
+            success : function(response){
+                {#alert(response['access']);#}
+                alert(response['message']);
+                $(location).attr('href', 'http://localhost:8000/basket/mypage')
+            }
+    });}
+
+      </script>
+
   {% endblock %}
 
 
@@ -50,13 +78,38 @@
 <!--                          <input type="{{ field.field.widget.input_type }}" class="form-control" id="{{ field.id_for_label }}"-->
 <!--                            placeholder="{{ field.label }}" name="{{ field.name }}" value="{% ifequal field.name 'product' %}{{ product.id }}{% endifequal %}"/>-->
 
-                        <button type="submit" class="btn btn-primary">주문</button>
+{#                        <button type="submit" class="btn btn-primary"></button>#}
                     </form>
                 </li>
             </ul>
 
         </div>      
     </div>
+
+    <div class="input-group mb-3">
+        {% for og in optionGroups %}
+
+          <label class="input-group-text" for="inputGroupSelect01">{{  og.optionGroup }}</label>
+
+          <select class="form-select" id="{{  og.optionGroup }}">
+
+            <option selected>Choose...</option>
+               {% for o in optionItems %}
+             {% for op in o %}
+                 {% ifequal op.productOptionGroup.id og.id %}
+            <option value="{{ op.optionItem }}">{{ op.optionItem }}</option>
+
+                   {% endifequal %}
+                                    {% endfor %}
+          {% endfor %}
+          </select>
+
+    {%  endfor %}
+      <input id="basketCount"  type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="수량">
+
+          <button onclick="createBasket()" class="btn btn-outline-secondary" type="button">장바구니넣기</button>
+    </div>
+
 
     <div class="row">
         <div class="col-12">

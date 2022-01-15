@@ -1,4 +1,4 @@
-from .views import LionUserAPI, LionLoginUser, RegisterUser,LoginUser, loginTest, register, login
+from .views import LionUserAPI, LionLoginUser, RegisterUser,LoginUser, loginTest, register, login,KakaoSignInView,kakaoTest, checkJwt
 
 from django.urls import path
 
@@ -9,11 +9,15 @@ urlpatterns = [
     path('login', login, name="register_page"),
 
     path('login/test', loginTest, name="login_test"),
+    path('login/kakao', kakaoTest, name="kakao_test"),
 
     path('lionregister', RegisterUser.as_view()),
     path('lionlogin', LoginUser.as_view()),
 
     path('lion', LionUserAPI.as_view()),  # create 회원가입
     path('lioncustomlogin', LionLoginUser.as_view()),
+
+    path('kakao', KakaoSignInView.as_view()),
+    path('check', checkJwt , name="check_jwt")
 
 ]

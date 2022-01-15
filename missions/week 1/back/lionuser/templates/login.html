@@ -15,6 +15,8 @@
             data:{username: $('#username').val(),password: $('#password').val()},
             success : function(response){
                 alert(response['access']);
+                console.log(response['access']);
+
                 alert(response['message']);
                 $(location).attr('href', 'http://localhost:8000')
             }
