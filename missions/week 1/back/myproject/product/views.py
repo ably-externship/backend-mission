@@ -1,6 +1,8 @@
 from django.shortcuts import render
 
 from django.core.paginator import Paginator
+from django.db.models import Q
+
 from .models import *
 
 # Create your views here.
@@ -30,3 +32,27 @@ def bottom_view(request):
             "posts": posts,
         },
     )
+
+
+def searchItem(request):
+    keyword = request.GET.get("search", "")
+    products = Product.objects.filter(
+        Q(name__icontains=keyword) | Q(description__icontains=keyword)
+    )
+
+    paginator = Paginator(products, 10)
+    page = request.GET.get("page")
+    posts = paginator.get_page(page)
+
+    return render(
+        request,
+        "search.html",
+        {
+            "products": products,
+            "posts": posts,
+        },
+    )
+
+
+def post_search(request):
+    return render(request, "search.html")

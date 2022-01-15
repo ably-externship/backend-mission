@@ -4,42 +4,31 @@ from django.contrib import auth
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 
+from django.views.decorators.csrf import csrf_exempt
+
 from .models import *
 from .forms import *
 
 
+@csrf_exempt
 def signup(request):
     if request.method == "POST":
-        id = request.POST["id"]
-        username = request.POST["username"]
-        password1 = request.POST["password1"]
-        password2 = request.POST["password2"]
-        email = request.POST["email"]
-
-        join = User(
-            id=id,
-            username=username,
-            password1=password1,
-            password2=password2,
-            email=email,
-        )
-        join.save()
-        return redirect("/")
-    else:
-        boardForm = BoardForm
-        join = User.objects.all()
-        context = {
-            "boardForm": boardForm,
-            "board": join,
-        }
-        return render(request, "signup.html", context)
+        if request.POST["password1"] == request.POST["password2"]:
+            user = User.objects.create_user(
+                username=request.POST["username"], password=request.POST["password1"]
+            )
+            auth.login(request, user)
+            return redirect("../")
+        return render(request, "signup.html")
+    return render(request, "signup.html")
 
 
+@csrf_exempt
 def login(request):
     if request.method == "POST":
-        id = request.POST["id"]
-        password1 = request.POST["password1"]
-        user = auth.authenticate(request, id=id, password1=password1)
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = auth.authenticate(request, username=username, password=password)
 
         # 로그인 성공
         if user is not None:
@@ -55,6 +44,7 @@ def login(request):
         return render(request, "login.html")
 
 
+@csrf_exempt
 def logout(request):
     if request.method == "POST":
         auth.logout(request)

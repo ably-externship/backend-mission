@@ -20,18 +20,20 @@ import product.views
 import account.views
 import board.views
 
+app_name = "account"
 urlpatterns = [
     path("admin/", admin.site.urls),
     # 상품들 나열된 페이지
-    path("", product.views.test_view, name="test"),
-    path("bottom/", product.views.bottom_view, name="bottom"),
+    # path("/", product.views.bottom_view, name="test"),
+    path("main/", product.views.bottom_view, name="product"),
     # 상품 디테일 페이지
-    path("bottom/detail/", product.views.detail_view, name="detail"),
+    path("detail/", product.views.detail_view, name="detail"),
     # 회원가입
     path("signup/", account.views.signup, name="signup"),
     # 로그인
     path("login/", account.views.login, name="login"),
-    # path("d/", account.views.login, name="login"),
+    path("login/", account.views.logout, name="logout"),
     #
     path("board/", board.views.board, name="board"),
+    path("search/", product.views.searchItem, name="search"),
 ]
