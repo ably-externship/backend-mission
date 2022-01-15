@@ -1,4 +1,5 @@
 from hashlib import new
+from math import prod
 from django.shortcuts import render, redirect, get_object_or_404
 from main.models import *
 from cart.models import Cart
@@ -18,8 +19,8 @@ def cart(request):
     return render(request, 'cart.html', {'cart_list': cart_list})
 
 def addCart(request, product_id):
-    new_cart = Cart()
     product = get_object_or_404(Product, pk=product_id)
+    new_cart = Cart()
     new_cart.user = request.user
     new_cart.product = product
     new_cart.amount = request.POST['amount']

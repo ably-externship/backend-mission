@@ -35,10 +35,10 @@
                             {%csrf_token%}
                             <div class="row">
                                 <div class="col" style="text-align: right;">
-                                    <p>수량 : <input type="number" name="amount" style="width: 3rem;"></p>
+                                    <p>수량 : <input type="number" name="amount" style="width: 3rem;" min="0"></p>
                                 </div>
-                                <div class="col">
-                                    <button type="submit" class="btn btn-outline-primary btn-sm"><i class="fas fa-shopping-cart"></i></button>
+                                <div class="col" style="text-align: left;">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-shopping-cart"></i></button>
                                 </div>
                             </div>
                         </form>

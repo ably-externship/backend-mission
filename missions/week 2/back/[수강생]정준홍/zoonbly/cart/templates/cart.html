@@ -14,11 +14,13 @@
                 {% for cart in cart_list %}
                     <div class="card shadows" style="width: 18rem; align-items: center; margin-left: 2rem; margin-bottom: 2rem;">
                         <div style="width:17rem; height:18rem; align-items: center; object-fit: cover;">
-                            {% if cart.product.image == '0' %}
-                                <img src="{% static 'images/noImage.png' %}" class="card-img-top" alt="...">
-                            {% else %}
-                                <img src="{{cart.product.image.url}}" class="card-img-top" alt="...">
-                            {% endif %}
+                            <a href="{%url 'main:productDetail' cart.product.id %}">
+                                {% if cart.product.image == '0' %}
+                                    <img src="{% static 'images/noImage.png' %}" class="card-img-top" alt="...">
+                                {% else %}
+                                    <img src="{{cart.product.image.url}}" class="card-img-top" alt="...">
+                                {% endif %}
+                            </a>
                         </div>
                         <div class="card-body" style="width: 17rem;">
                             <h5 class="card-title">{{cart.product.name}}</h5>
