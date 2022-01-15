@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load bootstrap5 %}
 
-{% load socialaccount %}
+
 
 {% block content %}
 
@@ -15,9 +15,8 @@
                 {% csrf_token %}
                 {% bootstrap_form form %}
 
-
-                    <img src="{% static '/img/kakao_login.png'>" alt="">
-                    카카오톡 로그인
+                <a href="{% url 'account:kakao_login' %}">
+                    <img src="/media/img/kakao_login.png" style="margin: 0.5rem auto">
                 </a>
                 <a href="{% url 'account:find_username' %}">
                     <p>

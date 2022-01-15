@@ -1,4 +1,6 @@
 import secrets
+
+import requests
 from django.contrib import messages
 
 from django.core.mail import send_mail
@@ -147,3 +149,58 @@ def change_password_view(request):
         user.save()
 
         return redirect('product:list')
+
+
+def oauth(request):
+    code = request.GET['code']
+    print('code = ' + str(code))
+
+    client_id = 'a37a43d7902878faaba209dbe6cee083'
+    redirect_uri = 'http://127.0.0.1:8000/oauth'
+
+    access_token_request_uri = 'https://kauth.kakao.com/oauth/token?grant_type=authorization_code&'
+
+    access_token_request_uri += 'client_id=' + client_id
+    access_token_request_uri += '&redirect_uri=' + redirect_uri
+    access_token_request_uri += '&code=' + code
+
+    print(access_token_request_uri)
+
+    access_token_request_uri_data = requests.get(access_token_request_uri)
+    json_data = access_token_request_uri_data.json()
+    access_token = json_data['access_token']
+
+    print('access_token = ' + str(access_token))
+
+    user_profile_info_uri = 'https://kapi.kakao.com/v2/user/me?access_token='
+    user_profile_info_uri += str(access_token)
+    print(user_profile_info_uri)
+
+    user_profile_info_uri_data = requests.get(user_profile_info_uri)
+    user_json_data = user_profile_info_uri_data.json()
+    user_email = user_json_data['kakao_account']['email']
+    user_nickname = user_json_data['kakao_account']['profile']['nickname']
+    print(user_nickname)
+    print(user_email)
+
+    try:
+        user = User.objects.get(email=user_email)
+
+    except User.DoesNotExist:
+        user = User.objects.create_user(username=user_nickname, email=user_email)
+        user.save()
+
+    return redirect('base')
+
+
+def kakao_login_view(request):
+    login_request_uri = 'https://kauth.kakao.com/oauth/authorize?'
+
+    client_id = 'a37a43d7902878faaba209dbe6cee083'
+    redirect_uri = 'http://127.0.0.1:8000/oauth'
+
+    login_request_uri += 'client_id=' + client_id
+    login_request_uri += '&redirect_uri=' + redirect_uri
+    login_request_uri += '&response_type=code'
+
+    return redirect(login_request_uri)
