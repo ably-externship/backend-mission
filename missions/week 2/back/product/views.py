@@ -62,15 +62,23 @@ def detailProduct(request, product_id):
 
 # QnA 질문
 def createQna(request, product_id):
+
+    # 카카오톡 토큰
+    context={}
+    if request.session.get('access_token'):
+        context['check'] = True
+        conn_user = 'test2'
+    else:
+        conn_user = request.user
+
+
     if request.method == 'POST':
         product = get_object_or_404(Product, pk=product_id)
         title = request.POST.get('title')
         content = request.POST.get('content')
-    conn_user = request.user
-    # print('1111',conn_user)
 
     user = Account.objects.get(username=conn_user)
-    # print('2222',user)
+
     Product_qna.objects.create(product_id=product_id, user_id=user.id,content=content,title=title)
 
     return HttpResponseRedirect(reverse('detailProduct',args=(product_id,)))
