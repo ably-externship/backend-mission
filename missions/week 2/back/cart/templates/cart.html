@@ -37,8 +37,8 @@
                             {% csrf_token %}
                             {{item.quantity_form.quantity}}
                             {{item.quantity_form.is_update}}
-                            <input type="submit" class="btn btn-primary" value="수정">
-                            <button type="button" class="btn btn-primary" onclick="location.href='{% url 'cart:product_remove' product.id%}'">삭제</button>
+                            <input type="submit" class="btn btn-primary bg-black border-black" value="수정">
+                            <button type="button" class="btn btn-primary bg-black border-black" onclick="location.href='{% url 'cart:product_remove' product.id%}'">삭제</button>
                         </form>
                     </td>
                     {{item.cart_id}}

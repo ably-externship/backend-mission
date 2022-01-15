@@ -50,6 +50,7 @@ a {
 
 .img-box > img {
     width:100%;
+    border-radius: 30px;
     display:block;
 }
 
@@ -191,6 +192,19 @@ html, body {
 
 @media ( max-width:400px ) {
     .list-box-1 > ul > li {
+        width:100%;
+    }
+}
+
+
+@media ( max-width:1000px ) and ( min-width:671px ) {
+    .detail-box-1 > ul > li {
+        width:50%;
+    }
+}
+
+@media ( max-width:670px ) {
+    .detail-box-1 > ul > li {
         width:100%;
     }
 }

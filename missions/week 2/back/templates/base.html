@@ -8,6 +8,7 @@
         {% load static %}
         <link rel="stylesheet" href="{% static "css/main.css" %}">
         <link rel="stylesheet" href="{% static "css/signin.css" %}">
+        <link rel="stylesheet" href="{% static "css/slider.css" %}">
 
         <!-- 폰트어썸 -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -36,13 +37,13 @@
               <ul class="flex menu-1 my">
                 {% if check %}
                   <li class="menu-1__li-icon ">
-                    <a href="#" class="h-full flex items-center text-black px-2">
-                      <span><i class="far fa-user"></i></span>
+                    <a href="{% url 'cart:detail' %}" class="h-full flex items-center text-black px-2">
+                      <span><i class="fas fa-shopping-cart"></i></span>
                     </a>
                   </li>
                   <li class="menu-1__li-icon ">
-                    <a href="{% url 'cart:detail' %}" class="h-full flex items-center text-black px-2">
-                      <span><i class="fas fa-shopping-cart"></i></span>
+                    <a href="#" class="h-full flex items-center text-black px-2">
+                      <span><i class="far fa-user"></i></span>
                     </a>
                   </li>
                   <li>
@@ -68,6 +69,11 @@
                        </a>
                     </li>
                 {% else %}
+                  <li class="menu-1__li-icon ">
+                    <a href="{% url 'cart:detail' %}" class="h-full flex items-center text-black px-2">
+                      <span><i class="fas fa-shopping-cart"></i></span>
+                    </a>
+                  </li>
                   <li>
                     <a href="{%url 'login'%}" class="h-full flex items-center px-2 text-black no-underline">
                       <span>로그인</span>

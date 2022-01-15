@@ -2,10 +2,38 @@
 
 {%block contents %}
 
+
     <!-- 에이블리 표지-->
-    <div class="top-bn-box-1 img-box con">
-        <img src="http://cdn.thescoop.co.kr/news/photo/202106/50977_72210_530.jpg" alt="">
-    </div>
+	<div class="slidebox top-bn-box-1 img-box con">
+        <input type="radio" name="slide" id="slide01" checked>
+        <input type="radio" name="slide" id="slide02">
+        <input type="radio" name="slide" id="slide03">
+        <ul class="slidelist">
+            <li class="slideitem">
+                <a>
+                    <label for="slide03" class="prev"></label>
+                    <img src="/static/img/표지1.jpg">
+                    <label for="slide02" class="next"></label>
+                </a>
+            </li>
+            <li class="slideitem">
+                <a>
+                    <label for="slide01" class="prev"></label>
+                    <img src="/static/img/표지2.jpg">
+                    <label for="slide03" class="next"></label>
+                </a>
+            </li>
+            <li class="slideitem">
+                <a>
+                    <label for="slide02" class="prev"></label>
+                    <img src="/static/img/표지3.jpg">
+                    <label for="slide01" class="next"></label>
+                </a>
+            </li>
+        </ul>
+	</div>
+
+
 
     <!-- 상품 리스트 -->
     {% if products %}
@@ -13,7 +41,7 @@
                 <ul class="row">
                     {% for product in page_obj %}
                     <li class="cell">
-                        <div class="img-box" onclick="location.href='{% url 'detailProduct' product.id %}'">
+                        <div class="img-box " onclick="location.href='{% url 'detailProduct' product.id %}'">
                             <img src = "/static/img/{{ product.image }}">
                         </div>
                         <div class="prod-name">{{product.name}}</div>
