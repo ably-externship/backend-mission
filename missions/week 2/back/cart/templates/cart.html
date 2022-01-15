@@ -3,13 +3,50 @@
 {% load static %}
 
 {%block contents %}
+    <table class="table table-striped con">
+        <thead>
+            <tr>
+                <th class="w-1/2" scope="col">상품정보</th>
+<!--                <th scope="col">옵션</th>-->
+                <th class="w-1/5" scope="col">수량</th>
+                <th class="w-2/12" scope="col">금액</th>
+                <th class="w-2/12" scope="col">총 금액</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart %}
+                {% with product=item.product %}
+                <tr>
+                    <th scope="row">
+                        <div class="cart-img float-left">
+                            <a href="{{product.get_absolute_url}}">
+                                <img src = "/static/img/{{ product.image }}" class="img-thumbnail">
+                            </a>
+                        </div>
+                        <div>
+                            {{product.name}}
+                        </div>
 
-카트 리스트 화면
-             {% for product in products %}
-
-                  {{product}}
-
-
-              {% endfor %}
-
-{% endblock contents %}
+                    </th>
+<!--                    <td>-->
+<!--                        {{item.quantity_form.opt_size}}-->
+<!--&lt;!&ndash;                        {{item.quantity_form.opt_price}}&ndash;&gt;-->
+<!--                    </td>-->
+                    <td>
+                        <form action="{% url 'cart:product_add' product.id %}" method="post">
+                            {% csrf_token %}
+                            {{item.quantity_form.quantity}}
+                            {{item.quantity_form.is_update}}
+                            <input type="submit" class="btn btn-primary" value="수정">
+                            <button type="button" class="btn btn-primary" onclick="location.href='{% url 'cart:product_remove' product.id%}'">삭제</button>
+                        </form>
+                    </td>
+                    {{item.cart_id}}
+                    <td class="num">{{item.price}}</td>
+                    <td class="num">{{item.total_price}}</td>
+                </tr>
+                {% endwith %}
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

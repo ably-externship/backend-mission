@@ -122,6 +122,13 @@ html, body {
     margin-top: 20px;
 }
 
+/* 장바구니 */
+
+.cart-img{
+    width: 40%;
+    height: 40%;
+}
+
 
 /* 페이징 */
 .paging-center{

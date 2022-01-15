@@ -80,8 +80,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR,'templates'),
-            os.path.join(BASE_DIR, 'cart','templates')
+            os.path.join(BASE_DIR,'templates')
+            # os.path.join(BASE_DIR, 'cart','templates')
             ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -172,7 +172,7 @@ MEDIA_URL = ''
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+CART_ID = 'cart_item'
 
 # 구글 이메일 연동
 EMAIL_HOST = 'smtp.gmail.com' # 메일을 호스트하는 서버

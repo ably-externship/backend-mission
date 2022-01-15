@@ -1,53 +1,34 @@
-from django.shortcuts import render
-from .models import Cart
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.http import require_POST
+
 from product.models import Product
 from user.models import Account
 
-def cart(request):
+from .forms import AddProductForm
+from .cart import Cart
 
-    conn_user = request.user
-    cart_id = Account.objects.get(username=conn_user).id  # cart_id, user_id
-    print('1111',cart_id)
-    print('2222',Product.cart.through.objects.all())
-    carts=Cart.product.through.objects.filter(cart_id=cart_id)
-    temp=Product.objects.all()
-    # print('~~~',temp.cart.all())
-    print('3333',carts.product_set.all())
-    # Cart 데이터의 product_id 저장하기
-    products=[]
-    product_id=[]
-    for cart in carts.values():
-        print(cart)
-        product_id.append(cart['product_id'])
-        # temp=Product.objects.filter(id=cart['product_id'])
-        # products.append(temp)
+@require_POST
+def add(request, product_id):
+    cart = Cart(request)
+    product = get_object_or_404(Product, id=product_id)
 
-    # products=Product.objects.filter(id=)
-    print('4444',product_id)
+    form = AddProductForm(request.POST)
 
-    products={}
+    if form.is_valid():
+        cd = form.cleaned_data
+        cart.add(product=product, quantity=cd['quantity'], is_update=cd['is_update'])
 
+    return redirect('cart:detail')
 
+def remove(request, product_id):
+    cart = Cart(request)
+    product = get_object_or_404(Product, id=product_id)
+    cart.remove(product)
+    return redirect('cart:detail')
 
-    # products=Product.objects.filter(id=product_id)
-    #
-    #
-    # print('4444',products)
+def detail(request):
+    cart = Cart(request)
+    for product in cart:
+        product['quantity_form'] = AddProductForm(initial={'quantity':product['quantity'], 'is_update':True})
 
-    # print('1111',products)
-
-    return render(request, 'cart.html')
-
-# def cart_id(request):
-#     cart = request.session.session_key
-#     if not cart:
-#         cart = request.session.create()
-#     return cart
-#
-#
-# def add_cart(request,product_id):
-#     product = Product.objects.get(id=product_id)
-#     try:
-#         cart = Cart.objects.get(product=product_id)
-#     except Cart.DoesNotExist:
-#         cart = Ca
+    return render(request, 'cart.html', {'cart':cart})

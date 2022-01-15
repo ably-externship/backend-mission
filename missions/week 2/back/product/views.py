@@ -7,6 +7,7 @@ from .models import Product_options
 from qna.models import Product_qna
 from user.models import Account
 from django.contrib.auth.models import User
+from cart.forms import AddProductForm
 
 
 
@@ -40,9 +41,10 @@ def index(request):
 def detailProduct(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     option = Product_options.objects.filter(product_id=product_id)
-    qnas = Product_qna.objects.filter(product_id=product_id)
 
-    return render(request, 'detail.html', {'product': product, 'qnas': qnas, 'options' : option})
+    qnas = Product_qna.objects.filter(product_id=product_id)
+    add_to_cart = AddProductForm(initial={'quantity':1, "opt_size":""})
+    return render(request, 'detail.html', {'product': product, 'qnas': qnas, 'options' : option, 'add_to_cart':add_to_cart})
 
 
 # QnA 질문
