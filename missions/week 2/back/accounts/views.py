@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import FormView
 
-from config.settings import env
+from config.settings.common import env
 from accounts.models import User
 from .forms import LoginForm, SignupForm
 
