@@ -1,0 +1,61 @@
+{% extends "main.html" %}
+
+{% block section %}
+<section id="shops">
+    <div class="container-fluid">
+        <div>
+            <p class="text-center my_search_text"> {{ query }} 검색결과입니다. </p>
+        </div>
+
+        {% if item_search %}
+        <div class="row m-2 mt-3">
+            <div class="col-md-10 col-sm-12">
+                <form class="d-flex m-2"  name="search_box" method="POST" >
+                    {% csrf_token %}
+                    <input id="query" name="query" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" value="{{ query }}">
+                    <input class="btn btn-warning" type="submit" value="Search">
+                </form>
+            </div>
+        </div>
+            
+
+        <div class="row mx-2 ">
+            <div class="card-text mx-3 position-relative">
+                <button class="shop_btn mb-3" data-toggle="collapse fa fa-fire" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"> 상품설명 보기
+                </button>
+            </div>
+            {% for item in item_search %}
+            <div class="col-4 col-md-3 col-lg-2" >
+
+                <div class="card position-relative  rounded-3 mb-3">
+                    <img src="{{ item.img_url }}" class="shop-card-img-top embed-responsive-item" alt="img">
+
+                    <h4 class="fas fa-link fa-sm m-2 mt-4 mb-3">
+                        <a id="shopname" href="{% url 'item_page' id=item.id.id num=item.num %}" class="card-title text-decoration-none" style="color: black;">
+                            사러가기 >> </a>
+                    </h4>
+                    <div class="card-block m-2">
+                        {{ item.name }}
+                    </div>
+                                   
+                    <div class="collapse" id="collapseExample">
+                        <div class="card-block m-2">
+                            {{ item.description }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+
+        {% else %}
+        <div class="card">
+            <h2 class="text-center my_search_text" > 검색결과가 없습니다. </h2>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

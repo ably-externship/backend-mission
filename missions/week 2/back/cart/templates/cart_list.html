@@ -1,0 +1,52 @@
+{% extends 'cart.html' %}
+
+{% block page_title %}
+Cart
+{% endblock page_title %}
+
+
+{% block section %}
+<div class="flex justify-center align-center" style="height: fit-content;">
+    <h1 class="m-5 text-xl font-bold mb-2"> 장바구니 </h1>
+    <div class="card m-4" style="height: fit-content;">
+
+        {% for item in cart_item %}
+        <div class="row container position-relative">
+            <div class="col-5 col-md-8 col-lg-6 mt-5 position-relative">
+                <img src="{{ item.product.img_url }}" alt="" style="height: 120px; width: fit-content; position: relative;">
+            
+                <div class="row align-items-center" style="height: fit-content; width: fit-content;">
+                    <div class="col-12 m-3" >
+                        <a href="{% url 'delete_cart' id=item.product.id.id num=item.product.num %}" class="btn-sm btn-dark"> 삭제버튼 </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-6 mt-3 position-relative" style="padding-left: 3vh;">
+                <p>상품명  : {{ item.product.name }}</p>
+                <p>가격 : {{ item.product.sale_price }}</p>
+                현재 선택 수량 :  <input type="number" name="edit_quantity" id="edit_quantity" value="{{ item.quantity }}" style="width: 80px;" readonly>
+                <form action="{% url 'edit_cart' id=item.product.id.id num=item.product.num %}" method="post">
+                    {% csrf_token %}
+                    원하는 수량 :  <input type="number" name="edit_quantity" id="edit_quantity" value="{{ item.quantity }}" style="width: 80px;">
+                    <input class="btn-sm btn-dark m-2 button" type="submit" value="수량 변경" > 
+                </form>
+            </div>
+
+        </div>
+        {% endfor %}
+
+        <p class="mx-4 text-lg"> 총 가격 : {{ total_price }}</p>
+        <div class="row align-items-center" style="height: fit-content; width: fit-content;">
+            <div class="col-12 mb-3 mx-4" >
+                <a href="{% url 'main_page' %}" class="btn btn-warning"> 쇼핑계속하기 </a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+{% endblock %}
