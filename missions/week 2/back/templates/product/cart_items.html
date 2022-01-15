@@ -16,10 +16,10 @@
     {% for cart in cart_items %}
     {{ cart.id }}
     <tr id="table_row{{cart.id}}">
-        <th id="id">{{ cart.id }}</th>
-        <td id="name"><p>{{ cart.product.name }}</td>
-        <td id="color">{{ cart.product_option.color }}</td>
-        <td id="size">{{ cart.product_option.size }}</td>
+        <th id="id{{cart.id}}">{{ cart.id }}</th>
+        <td id="name{{cart.id}}"><p>{{ cart.product.name }}</td>
+        <td id="color{{cart.id}}">{{ cart.product_option.color }}</td>
+        <td id="size{{cart.id}}">{{ cart.product_option.size }}</td>
         <td id="numberUpDown{{cart.id}}">{{ cart.quantity }}</td>
         <td><input type="button" class="btn btn-success" id="increaseQuantity{{cart.id}}" value="▲">
             <input type="button" class="btn btn-warning" id="decreaseQuantity{{cart.id}}" value="▼">
@@ -33,20 +33,26 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
 // 변경저장
-    let change = document.querySelector('#change1');
+    let change =null;
+{% for cart in cart_items %}
+     change = document.querySelector('#change'+{{cart.id}});
 
     change.addEventListener('click', e=> {
-        let id = document.querySelector('#id').value;
-        let name = document.querySelector('#name').value;
-        let color = document.querySelector('#color').value;
-        let size = document.querySelector('#size').value;
+        let id = $('#id'+{{cart.id}}).text();
+        let name = $('#name'+{{cart.id}}).text();
+        let color = $('#color'+{{cart.id}}).text();
+        let size = $('#size'+{{cart.id}}).text();
+        let quantity = $('#numberUpDown'+{{cart.id}}).text();
 
         let param = {
             'id': id,
             'name' : name,
             'color' : color,
             'size' : size,
+            'quantity' : quantity,
+
                 }
+
             $.ajax({
                 url : '{% url 'product:cart_change' %}',
                 type : 'POST',
@@ -56,14 +62,14 @@
                 data : JSON.stringify(param),
                 success:function(data){
                     alert('변경 완료');
-                    console.log("data pass success",param);
+                    console.log("data pass success",data);
                 },
                 error: function(){
                     alert('변경 실패');
                 }
             });
         });
-
+{% endfor%}
 
 //수량변경
 {% for cart in cart_items %}
@@ -72,6 +78,8 @@
                 var stat = $('#numberUpDown'+{{cart.id}}).text();
                 var num = parseInt(stat,10);
                 num--;
+
+                alert(stat);
             if(num<=0){
                 alert('더이상 줄일수 없습니다.');
                 num =1;

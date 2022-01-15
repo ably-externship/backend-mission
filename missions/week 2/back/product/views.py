@@ -1,5 +1,4 @@
 import json
-
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
@@ -102,12 +101,14 @@ def cart_items_view(request):
 def cart_change_view(request):
     if request.method == 'POST':
         data = json.loads(request.body)
-        # do something
         print(data)
-        context = {
-            'result': data,
-        }
-        return JsonResponse(context)
+        print(data.get('id'))
+
+        cart_item = CartItem.objects.get(user=request.user, id=data.get('id'))
+        cart_item.quantity = data.get('quantity')
+        cart_item.save()
+
+    return JsonResponse(data)
 
 
 def cart_delete_view(request):
