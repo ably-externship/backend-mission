@@ -76,6 +76,9 @@ class Cart(models.Model):
     product_option = models.ForeignKey(ProductOption, on_delete=models.CASCADE)
     quantity = models.PositiveSmallIntegerField()
 
+    class Meta:
+        db_table = 'carts'
+
 class ProductList(models.Model):
     category = models.ForeignKey(ProductCategory, on_delete=DO_NOTHING)
     subcategory = models.ForeignKey(ProductSubcategory, on_delete=DO_NOTHING)
