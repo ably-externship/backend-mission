@@ -1,8 +1,7 @@
-from django.db import models
-
-
-from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.db import models
+
+from core import models as core_models
 
 
 class UserManager(BaseUserManager):
@@ -44,3 +43,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
+
+class Cart(core_models.DateTimeModel):
+    user = models.ForeignKey('User', on_delete=models.CASCADE, related_name='carts')
+    product = models.ForeignKey('products.Product', on_delete=models.CASCADE, related_name='carts')
+    quantity = models.PositiveIntegerField(default=1)

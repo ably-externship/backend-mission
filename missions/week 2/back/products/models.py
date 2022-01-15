@@ -22,7 +22,7 @@ class Product(core_models.DateTimeModel):
 
 
 class ProductOption(core_models.DateTimeModel):
-    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='options')
     color = models.CharField(max_length=10)
     size = models.CharField(max_length=10)
     stock = models.PositiveIntegerField(default=1)  # 재고
