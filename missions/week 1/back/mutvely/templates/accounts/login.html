@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-<form method="POST">
+<div id="loginform">
+  <form method="POST">
     {% csrf_token %}
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">사용자 ID</label>
@@ -11,6 +12,35 @@
       <input name="password" type="password" class="form-control" id="exampleInputPassword1">
     </div>
     <button type="submit" class="btn btn-primary">로그인</button>
-</form>
+  </form>
+  <button onclick="kakaoLogin()"> <a href=""> 카카오 로그인</a> </button>
+</div>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<body>
+  <a href="javascript:kakaoLogin();"><img src="./kakao_login.png" alt="카카오계정 로그인" style="height: 100px;"/></a>
 
+  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script>
+  Kakao.init('b8a14b8a382e6d6521860f591f565aed');
+  function kakaoLogin() {
+    Kakao.Auth.login({
+      scope:"profile_nickname, account_email",
+      success: function (response) {
+        Kakao.API.request({
+          url: '/v2/user/me',
+          success: function (response) {
+            const kakao_account = response.kakao_account;
+        	  console.log(response)
+          },
+          fail: function (error) {
+            console.log(error)
+          },
+        })
+      },
+      fail: function (error) {
+        console.log(error)
+      },
+    })
+  }
+</script>
 {% endblock%}
