@@ -1,3 +1,54 @@
+/* base */
 a{
     text-decoration: none;
+    color: #50514F;
+}
+html, body{
+    min-height: 100%;
+}
+header{
+    height: 120px;
+    padding : 10px 30px;
+    background-color: #DFD3C3;
+    /* display:flex; */
+}
+#logo{
+    width : fit-content;
+}
+#account{
+    float:right;
+}
+body{
+    background-color: #F0ECE3;
+}
+.main-body{
+    width:80%;
+    margin:auto;
+}
+footer{
+    background-color: #DFD3C3;
+    height: 120px;
+}
+/* login.html */
+#loginform{
+    width: 400px;
+    margin:50px auto;
+}
+/* signup.html */
+#signupform{
+    width : 60%;
+    margin: 50px auto;
+    padding: 50px;
+    border: 1px solid #50514F;
+    border-radius: 10px;
+}
+/* item-list.html */
+.card-container{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+}
+.card{
+    width: 250px;
+    margin:10px;
 }

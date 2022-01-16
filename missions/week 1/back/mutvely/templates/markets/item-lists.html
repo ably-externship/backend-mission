@@ -1,18 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div>
+<div class="main-body">
     <div>
         <input name="query" type="text">
         <button onclick="search('{{category}}')" >검색</button>
     </div>
-    {% for item in prod_list %}
-    <div>
-        <span> {{item.prodname}} </span>
-        <span> {{item.price}} </span>
-        <a onclick="detailInfo(this)" category="{{category}}" id="{{item.id}}"><span> ...more </span></a>
+    <div class="card-container">
+        {% for item in prod_list %}
+        <div class="card" onclick="detailInfo(this)" category="{{category}}" id="{{item.id}}">
+            <img class="card-img-top" src="{{item.image}}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{item.price}}</h5>
+                <p class="card-text">{{item.prodname}}</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
 <script>
     function search(cate){
@@ -23,6 +30,7 @@
             data:{
                 'query':query,
                 'category':cate,
+                csrfmiddlewaretoken: getCookie('csrftoken'),
             },
             success:function(data){
                 console.log(data);

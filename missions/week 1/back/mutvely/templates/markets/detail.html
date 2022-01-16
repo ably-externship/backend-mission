@@ -1,10 +1,40 @@
 {% extends 'base.html' %}
 {% block content %}
-<div>
-    {{item.id}}
-    {{item.prodname}}
-    {{item.price}}
+<div class="main-body">
+    <div>
+        <img src="{{item.image}}" alt="">
+        <div id="info">
+            <h3> {{item.prodname}} </h3>
+            <table>
+                <tr>
+                    <th> 판매가 : </th>
+                    <td> {{item.price}} 원</td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <button onclick="putCart('{{item.id}}', '{{category}}')">장바구니</button>
+            <button>구매하기</button>
+        </div>
+    </div>
 
     <a href="{% url 'qna' category=category id=item.id %}">QnA</a>
 </div>
+<script>
+    function putCart(id, cate){
+        $.ajax({
+            type:'POST',
+            url:'/addCart/',
+            data:{
+                'id' : id,
+                'category':cate,
+                csrfmiddlewaretoken: getCookie('csrftoken'),
+            },
+            success:function(data){
+                if (data == 'done')
+                    alert('장바구니에 추가되었습니다.')
+            }
+        });
+    }
+</script>
 {% endblock %}
