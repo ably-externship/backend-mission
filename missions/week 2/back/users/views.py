@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect
 from django.utils.crypto import get_random_string
 from django.views.decorators.csrf import csrf_exempt
 
-from base.settings.common import KAKAO_OAUTH_CONFIG, KAKAO_USER_API, KAKAO_TOKEN_API,KAKAO_AUTH_API
+from base.settings.common import KAKAO_OAUTH_CONFIG, KAKAO_USER_API, KAKAO_TOKEN_API,KAKAO_AUTH_API, KAKAO_REDIRECT_URI
 from users.forms import CustomAuthenticationForm
 from users.models import User
 
@@ -87,7 +87,7 @@ def password_reset(request):
 
 def kakao_sign_view(request):
     app_key = KAKAO_OAUTH_CONFIG['KAKAO_REST_API_KEY']
-    redirect_uri = KAKAO_OAUTH_CONFIG['KAKAO_REDIRECT_URI']
+    redirect_uri = KAKAO_REDIRECT_URI
     kakao_auth_api = KAKAO_AUTH_API
     return redirect(f'{kakao_auth_api}&client_id={app_key}&redirect_uri={redirect_uri}')
 
@@ -114,7 +114,7 @@ def kakao_login_callback(request):
 # Kakao AccessToken을 가져오는 함수
 def get_kakao_token(code):
     app_key = KAKAO_OAUTH_CONFIG['KAKAO_REST_API_KEY']
-    redirect_uri = KAKAO_OAUTH_CONFIG['KAKAO_REDIRECT_URI']
+    redirect_uri = KAKAO_REDIRECT_URI
     token_api = KAKAO_TOKEN_API
     data = {
         'grant_type': 'authorization_code',

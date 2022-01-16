@@ -175,3 +175,4 @@ KAKAO_OAUTH_CONFIG = {
 KAKAO_AUTH_API = 'https://kauth.kakao.com/oauth/authorize?response_type=code'
 KAKAO_TOKEN_API = 'https://kauth.kakao.com/oauth/token'
 KAKAO_USER_API = 'https://kapi.kakao.com/v2/user/me'
+KAKAO_REDIRECT_URI= 'http://127.0.0.1:8000/auth/kakao/login/callback/'
