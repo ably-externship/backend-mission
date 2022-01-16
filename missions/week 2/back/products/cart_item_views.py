@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.views import View
 
 from core.decorators import login_required
-from products.models import Cart
+from products.models import CartItem
 
 """
 post/patch - request.body
@@ -29,7 +29,7 @@ delete - request.body
 }
 """
 
-class CartView(View):
+class CartItemView(View):
     @login_required
     def post(self, request):
         user = request.user

@@ -2,7 +2,6 @@ from tkinter import CASCADE
 from django.db import models
 from django.db.models.deletion import DO_NOTHING
 
-from core.models import TimeStampModel
 from accounts.models import Seller, User
 
 class ProductCategory(models.Model):
@@ -73,14 +72,14 @@ class ProductOption(models.Model):
     class Meta:
         db_table = 'product_options'
 
-class Cart(models.Model):
+class CartItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     product_option = models.ForeignKey(ProductOption, on_delete=models.CASCADE)
     quantity = models.PositiveSmallIntegerField()
 
     class Meta:
-        db_table = 'carts'
+        db_table = 'cart_items'
 
 class ProductList(models.Model):
     category = models.ForeignKey(ProductCategory, on_delete=DO_NOTHING)
