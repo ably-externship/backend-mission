@@ -84,7 +84,7 @@ def profile_update(request):
     is_profiled = UserProfile.objects.filter(user_id=request.user.id).exists()
 
     if request.method == 'POST':
-        # 프로필 처음 등록할 시---
+        # 프로필 처음 등록할 시
         if is_profiled == False:
             selected_user = User.objects.get(id=request.user.id)
             real_name = request.POST['realname']
@@ -98,11 +98,11 @@ def profile_update(request):
 
             return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
 
-        # 빈칸으로 등록할 때 기존 사항 유지---
+        # 빈칸으로 등록할 때 기존 사항 유지
         elif request.POST['realname']=="" or request.POST['phone']=="" or request.POST['address']=="":
             return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
 
-        # 등록된 프로필 수정 시---
+        # 등록된 프로필 수정 시
         else:
             selected_user = User.objects.get(id=request.user.id)
             real_name = request.POST['realname']
