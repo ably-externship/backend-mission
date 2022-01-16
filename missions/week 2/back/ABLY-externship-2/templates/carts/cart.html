@@ -1,0 +1,67 @@
+{% extends "carts/cart_layout.html" %}
+
+{% block content %}
+{% load static %}
+<div class="itemalign">
+    {% if cart %}
+        {% for item in cart %}
+            {% if item %}
+            <div class="d-flex container-fluid">
+                <div class="">
+                    <img src="{{ item.merchandise.basemerchandise.main_img }}" width=400px;/>
+                </div>
+                <div class="container-fluid">
+                    <div class="textalign"> <span>상품수량:</span> <span>{{ item.quantity }} 개</span> </div>
+                    <div class="textalign"> <span>상품색상:</span> <span>{{ item.color }}</span> </div>
+                    <div class="textalign"> <span>상품 단일금액:</span> <span>{{ item.price }} 원</span> </div>
+                    <div class="textalign"> <span>상품 합계금액:</span> <span>{{ item.total_price }} 원</span> </div>
+                    <div>
+                        <div class="middlemargin">
+                        </div>
+                        <form action="change/product/{{ item.merchandise.id }}" method="POST" enctype="multypart/form-data">
+                            {% csrf_token %}
+                                <div class="container-fluid">
+                                    {{ form }}
+                                </div>
+                                <button type="submit" class="btn btn-secondary col-sm-6 offset-sm-3">
+                                    상품 수량수정
+                                </button>
+                        </form>
+                    </div>
+                    <div class="middlemargin">
+                    </div>
+                    <div>
+                        <form action="http://127.0.0.1:8000/carts/exclude/product/{{ item.merchandise.id }}" method="POST" enctype="multypart/form-data">
+                            {% csrf_token %}
+                                <button type="submit" class="btn btn-secondary col-sm-6 offset-sm-3">
+                                    상품 일괄삭제
+                                </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="middlemargin">
+            </div>
+            {% endif %}
+        {% endfor %}
+        <div class="container-fluid">
+            <form action="http://127.0.0.1:8000/carts/clear" method="POST" enctype="multypart/form-data">
+                {% csrf_token %}
+                <button type="submit" class="btn-link btn-secondary btn-cart">
+                    상품 전체삭제
+                </button>
+            </form>
+        </div>
+        <div class="middlemargin">
+        </div>
+        <div class="text-center"> <span>총 주문금액:</span> <span>{{ cart.get_product_total }} 원</span> </div>
+    {% else %}
+    <div class="topmargin">
+    </div>
+    <div class="text-center"> 장바구니에 상품이 없습니다. </div>
+    {% endif %}
+</div>
+<div class="bottommargin">
+</div>
+
+{% endblock %}

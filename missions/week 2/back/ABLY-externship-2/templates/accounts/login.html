@@ -1,0 +1,43 @@
+{% extends "core/layout.html" %}
+{% load bootstrap5 %}
+
+{% block content %}
+<div class="container-fluid">
+    {% if messages %}
+    <div class="alert alert-warning container-fluid" role="alert">
+        {% for message in messages %}
+        <div class="offset-sm-4">
+            <p> {{ message }} <p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% if not messages %}
+    <div class="topmargin">
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-sm-8 offset-sm-2">
+            <div class="topmargin">
+            </div>
+            <form action="" method="POST" enctype="multypart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <div class="middlemargin">
+                </div>
+                {% buttons %}
+                    <button type="submit" class="btn btn-primary col-sm-8 offset-sm-2">
+                        로그인
+                    </button>
+                {% endbuttons %}
+                <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id={{ kakao_client_id }}&redirect_uri=http://127.0.0.1:8000/accounts/login/social/kakao" class="btn btn-warning col-sm-8 offset-sm-2" role="button">카카오 로그인</a>
+                <div class="middlemargin">
+                </div>
+                <a href="" class="link-dark offset-sm-1">아이디 찾기</a>
+                <a href="" class="link-dark offset-sm-1">비밀번호 찾기</a>
+                <a href="http://127.0.0.1:8000/accounts/signup" class="link-dark offset-sm-1">회원가입</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
