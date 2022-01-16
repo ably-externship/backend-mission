@@ -15,9 +15,13 @@ def login_required(func):
             payload = jwt.decode(access_token, SECRET_KEY, algorithms = ALGORITHM)
             user = User.objects.get(id = payload['id'])
             
-            if user.userinfo.is_deleted:
-                return JsonResponse({'message' : 'Invalid User'}, status = 401)
-
+            if user.is_social:
+                if user.socialuserinfo.is_deleted:
+                    return JsonResponse({'message' : 'Invalid User'}, status = 401)
+            else:
+                if user.userinfo.is_deleted:
+                    return JsonResponse({'message' : 'Invalid User'}, status = 401)
+            
             request.user = user
 
             return func(self, request, *arg, **kwargs)

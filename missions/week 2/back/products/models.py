@@ -2,6 +2,7 @@ from tkinter import CASCADE
 from django.db import models
 from django.db.models.deletion import DO_NOTHING
 
+from core.models import TimeStampModel
 from accounts.models import Seller, User
 
 class ProductCategory(models.Model):
@@ -81,6 +82,7 @@ class CartItem(models.Model):
     class Meta:
         db_table = 'cart_items'
 
+# view table
 class ProductList(models.Model):
     category = models.ForeignKey(ProductCategory, on_delete=DO_NOTHING)
     subcategory = models.ForeignKey(ProductSubcategory, on_delete=DO_NOTHING)
@@ -94,3 +96,22 @@ class ProductList(models.Model):
     class Meta:
         managed = False
         db_table = 'product_lists'
+
+# view table
+class CartItemList(models.Model):
+    user = models.ForeignKey(User, on_delete=DO_NOTHING)
+    product = models.ForeignKey(Product, on_delete=DO_NOTHING)
+    product_option = models.ForeignKey(ProductOption, on_delete=DO_NOTHING)
+    product_name = models.CharField(max_length=100)
+    main_image_url = models.URLField(max_length=2000)
+    color = models.CharField(max_length=10)
+    size = models.CharField(max_length=5)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    discount_price = models.DecimalField(max_digits=10, decimal_places=2)
+    extra_price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    quantity = models.PositiveSmallIntegerField()
+    is_sold_out = models.BooleanField(default=False)
+
+    class Meta:
+        managed = False
+        db_table = 'cart_item_lists'

@@ -4,6 +4,7 @@ from core.models import TimeStampModel
 
 class User(models.Model):
     email = models.CharField(max_length=100)
+    is_social = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'users'
