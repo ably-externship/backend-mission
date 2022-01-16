@@ -1,4 +1,6 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
 {% block content %}
     <div class="container">
         <div class="row">
@@ -7,20 +9,18 @@
                 <div class="card mb-4" style="width: 300px">
                     <img src="https://picsum.photos/100/100" class="card-img-top" alt="not found image">
                     <div class="card-body">
-                        <h5 class="card-title text-center">{{ product.name }}</h5>
+                        <h5 class="card-title text-center">{{ product }}</h5>
                         <h6 class="card-subtitle mb-2 text-muted text-center">{{ product.market }}</h6>
                         <p class="card-text text-center">
                             <span class="badge rounded-pill bg-info text-dark card-text text-center">{{ product.category.name }}</span>
                         </p>
-                        <p class="card-text text-center">{{ product.price }}원</p>
-                        <a href="{% url 'products:question' product.pk %}" class="card-link center">질문하기</a>
+                        <p class="card-text text-center">{{ cart.pk }}원</p>
                     </div>
                 </div>
             </div>
 
-            {# 상품 옵션 #}
             <div class="col-sm-4">
-                <form method="post" action="{% url 'carts:create' product.pk %}">
+                <form method="post" action="{% url 'carts:update' cart.pk product.pk %}">
                 {% csrf_token %}
                 <div class="input-group mb-3">
                   <label class="input-group-text" for="inputGroupSelect01">사이즈</label>
@@ -31,7 +31,6 @@
                         {% else %}
                             <option value="{{ option.size }}">{{ option.size }}</option>
                         {% endif %}
-                        <a href="{% url 'products:detail' product.pk %}" class="btn btn-sm btn-secondary btn-outline-secondary">장바구니 담기</a>
                     {% endfor %}
                   </select>
                 </div>
@@ -49,10 +48,11 @@
                     </div>
                     <div class="input-group mb-3">
                       <span class="input-group-text" id="inputGroup-sizing-default">수량</span>
-                      <input name='quantity' type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="1">
+                      <input name='quantity' type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{ cart.quantity }}">
                     </div>
-                    <input class="btn btn-sm btn-outline-secondary" type="submit" value="장바구니 담기">
+                    <input class="btn btn-sm btn-outline-secondary" type="submit" value="저장">
               </form>
+            </div>
             </div>
         </div>
     </div>

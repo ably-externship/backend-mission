@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="album py-5 bg-light">
+    <div class="container">
+    <h3 class="text-center mb-3">내 장바구니</h3>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          {% for cart in object_list %}
+              <div class="col-sm-8" align="center">
+                <div class="card mb-4" style="width: 100%">
+                    <img src="https://picsum.photos/id/{{ cart.id }}/200/100" class="card-img-top" alt="not found image">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ cart.product.name }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted text-center">{{ cart.product.category.name }}</h6>
+                        <p class="card-text text-center">
+                            <span class="badge rounded-pill bg-info text-dark card-text text-center">{{ cart.product_option.color }}</span>
+                            <span class="badge rounded-pill bg-info text-dark card-text text-center">{{ cart.product_option.size }}</span>
+                        </p>
+                        <p class="card-text text-center">{{ cart.quantity }}개</p>
+                        <div class="btn-group">
+                            <a href="{% url 'carts:update' cart.pk cart.product.pk %}" class="btn btn-sm btn-outline-secondary">수정하기</a>
+                            <a href="{% url 'carts:delete' cart.pk %}" class="btn btn-sm btn-outline-secondary">삭제하기</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          {% endfor %}
+      </div>
+    </div>
+</div>
+{% endblock %}

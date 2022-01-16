@@ -2,15 +2,15 @@
     <div class="container d-flex flex-wrap">
       <ul class="nav me-auto">
         <li class="nav-item"><a href="{% url 'core:home' %}" class="nav-link link-dark px-2 active" aria-current="page">Home</a></li>
-          {% if user.is_authenticated %}
-            <li class="nav-item"><a href="#" class="nav-link link-dark px-2">장바구니</a></li>
-          {% endif %}
+{#          {% if user.is_authenticated %}#}
+{#            <li class="nav-item"><a href="{% url 'carts:list' %}" class="nav-link link-dark px-2">장바구니</a></li>#}
+{#          {% endif %}#}
       </ul>
       <ul class="nav">
           {% if user.is_authenticated %}
-              <li class="nav-item">
-                  <a class="nav-link link-dark px-2" href="{% url 'users:logout' %}"> 로그아웃</a>
-              </li>
+              <li class="nav-item"><a href="#" class="nav-link link-dark px-2">{{ user.email }}</a></li>
+              <li class="nav-item"><a href="{% url 'carts:list' %}" class="nav-link link-dark px-2">장바구니</a></li>
+              <li class="nav-item"><a class="nav-link link-dark px-2" href="{% url 'users:logout' %}"> 로그아웃</a></li>
           {% else %}
               <li class="nav-item"><a class="nav-link link-dark px-2" href="{% url 'users:login' %}">로그인</a></li>
               <li class="nav-item"><a class="nav-link link-dark px-2" href="{% url 'users:signup' %}">회원가입</a></li>

@@ -42,9 +42,3 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
-
-
-class Cart(core_models.DateTimeModel):
-    user = models.ForeignKey('User', on_delete=models.CASCADE, related_name='carts')
-    product = models.ForeignKey('products.Product', on_delete=models.CASCADE, related_name='carts')
-    quantity = models.PositiveIntegerField(default=1)
