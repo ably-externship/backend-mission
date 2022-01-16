@@ -23,7 +23,7 @@ class SignUpView(View):
             validate_name(name)
             validate_phone_number(phone_number)
 
-            if User.objects.filter(email = email).exists():
+            if User.objects.filter(email = email, is_social=False).exists():
                 return JsonResponse({'message' : 'Email Already Exists'}, status = 400)
 
             if UserInfo.objects.filter(phone_number = phone_number).exists():
