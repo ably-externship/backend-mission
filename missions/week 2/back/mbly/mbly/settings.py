@@ -52,10 +52,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #installed
+    # 'account.apps.AccountConfig', # 충돌나므로 변경
     'account',
     'product',
+
     'market',
     'cart',
+
+    # #allauth #추가
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+
+    # #provider #추가
+    # 'allauth.socialaccount.providers.kakao',
     
 ]
 
@@ -157,3 +167,16 @@ LOGOUT_REDIRECT_URL = '/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# AUTHENTICATION_BACKENDS = (
+#     # 'allauth' specific authentication methods, such as login by e-mail
+#     'allauth.account.auth_backends.AuthenticationBackend',
+
+#     #Needed to login by username in Django admin, regardless of 'allauth'
+#     'django.contrib.auth.backends.ModelBackend',
+    
+# )
+
+SOCIAL_OUTH_CONFIG = {
+    "KAKAO_REST_API_KEY": secrets['KAKAO_REST_API_KEY'],
+    "KAKAO_REDIRECT_URI": secrets['KAKAO_REDIRECT_URI'],
+}
