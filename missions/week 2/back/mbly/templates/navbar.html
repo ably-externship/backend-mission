@@ -1,0 +1,21 @@
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href = '/'>Jinbly</a>
+    <form class ='d-flex justify-content-between' method = 'post' action ='{% url "product:search" %}' >
+      {% csrf_token %}
+      <label for="search_word"> </label>
+      <input class="form-control me-2" type="search" name ='search_word' id ='search_word' placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+    
+    <form class="d-flex">
+            {% if user.is_authenticated %}
+            <a class="btn btn-outline-success" href="{% url 'account:logout' %}">{{ user.username }}(로그아웃)</a>
+            {% else %}
+            <a class='btn btn-outline-success' href="{% url 'account:login' %}">login</a>
+            {% endif %}
+        
+    </form>
+  </div>
+</nav>
+    
