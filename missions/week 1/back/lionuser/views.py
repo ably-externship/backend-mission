@@ -1,4 +1,5 @@
 from django.http import HttpResponse, JsonResponse
+from django.views import View
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
@@ -8,7 +9,7 @@ from rest_framework.views import APIView
 from .forms import LoginForm, RegisterForm
 from django.views.generic.edit import FormView
 from django.contrib.auth.hashers import make_password
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from .models import Lionuser
 from .serializers import LionuserSerializer, UserSerializer, UserLoginSerializer, LionuserLoginSerializer
@@ -18,6 +19,9 @@ from rest_framework.decorators import api_view, permission_classes, authenticati
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.contrib.auth import get_user_model, authenticate
+
+import requests
+
 
 def register(request):
     if request.method == 'GET':
@@ -33,6 +37,11 @@ def login(request):
 @authentication_classes((JWTAuthentication,))
 def loginTest(request):
     if request.method == 'GET':
+        if request.user.is_authenticated:
+            print("User is logged in :)")
+            print(f"Username --> {request.user.username}")
+        else:
+            print("User is not logged in :(")
         return JsonResponse({"Success": "header에 jwt token으로 api 요청 성공"})
 
 
@@ -77,6 +86,8 @@ class LoginUser(APIView):
             return Response({'status': 403, 'errors': serializer.errors, 'message': '비밀번호가 틀렸습니다.'})
 
         refresh = RefreshToken.for_user(user)
+        print(refresh)
+        print(str(refresh.access_token))
         return Response({'status': 201, 'payload': serializer.data, 'refresh': str(refresh),
                          'access': str(refresh.access_token), 'message': 'your auth data post lionuser 로그인'})
 
@@ -101,6 +112,7 @@ class LionUserAPI(APIView):
         serializer = LionuserSerializer(data=request.data)
         if not serializer.is_valid():
             return Response({'status': 403, 'errors': serializer.errors, 'message': 'auth custom lion user post error'})
+
         serializer.save()
 
         user = Lionuser.objects.get(username=request.data['username'])
@@ -130,3 +142,78 @@ class LionLoginUser(APIView):
         refresh = RefreshToken.for_user(user)
         return Response({'status': 201, 'payload': serializer.data, 'refresh': str(refresh),
                          'access': str(refresh.access_token), 'message': 'your auth data post lion custom user 로그인'})
+
+
+
+class KakaoSignInView(APIView):
+    def get(self, request):
+        app_key = APP_KEY
+        redirect_url = "http://localhost:8000/user/login/kakao"
+        kakao_auth_api = "https://kauth.kakao.com/oauth/authorize"
+        print(f'{kakao_auth_api}?client_id={app_key}&response_type=code&redirect_uri={redirect_url}')
+
+        return redirect(f'{kakao_auth_api}?client_id={app_key}&response_type=code&redirect_uri={redirect_url}')
+
+def kakaoTest(request):
+    #DB error -> custom user
+
+    # accessToken 받기
+    # access token
+    k_access_token = str(request.GET.get('code', None))
+    print(k_access_token)
+
+    app_key = APP_KEY    app_key = "183b1738c1dcd7012baaf747c970ba3f"
+    redirect_url = "http://localhost:8000/user/login/kakao"
+    kakao_auth_token_api = "https://kauth.kakao.com/oauth/token?grant_type=authorization_code&"
+    client_secret = CLIENT_SECRET    client_secret = "saNjsXd1W6G7YwAjMJf5JKbjsayDJzkY"
+    print(f'{kakao_auth_token_api}client_id={app_key}&redirect_uri={redirect_url}&code={k_access_token}&client_secret={client_secret}')
+    url_k = f'{kakao_auth_token_api}client_id={app_key}&redirect_uri={redirect_url}&code={k_access_token}&client_secret={client_secret}'
+    response = requests.post(url_k)
+    print(response.status_code)
+    print(response.content)
+    print(response.json())
+    print(response.json()['access_token'])
+
+    access_token = response.json()['access_token']
+    #사용자 정보 가져오기
+    kakao_user_url = "https://kapi.kakao.com/v2/user/me"
+
+    headers = {"Authorization": f"Bearer {access_token}"}
+    print(headers)
+    print(headers)
+
+    kakao_user_info = requests.post(kakao_user_url, headers=headers).json()
+
+    #내 DB에 저장해서 jwt token발급
+    print(kakao_user_info['properties']['nickname'])
+    print(kakao_user_info['kakao_account']['email'])
+
+    #TODO: 중복체크
+    #user = Lionuser.objects.create(username=kakao_user_info['properties']['nickname'], email=kakao_user_info['kakao_account']['email']) #, first_name = "harim")
+    # #user.setType("카카오"), #TODO: 추후 사용자DB에 type 추가
+    # user.save()
+    #
+    user = Lionuser.objects.get(email=kakao_user_info['kakao_account']['email']) #
+    refresh = RefreshToken.for_user(user)
+    #if request.method == 'GET':
+
+    #header에 넣어서 , 요청 mypage
+    print("jwt token")
+    print(str(refresh.access_token))
+
+
+    return redirect('/user/check',{'status': 201, 'payload': user.username, 'refresh': str(refresh),
+                      'access': str(refresh.access_token), 'message': 'your kakao lionuser created'})
+    return render(request, 'product_detail.html', {'product': product})
+
+def checkJwt(request):
+    print(request)
+    print(request.method)
+    print(request.body)
+
+
+    #decode해서 mypage
+
+
+
+    return render(request, 'check_jwt.html')
