@@ -156,7 +156,7 @@ def oauth(request):
     print('code = ' + str(code))
 
     client_id = 'a37a43d7902878faaba209dbe6cee083'
-    redirect_uri = 'http://ec2-52-79-113-10.ap-northeast-2.compute.amazonaws.com/oauth'
+    redirect_uri = 'http://127.0.0.1:8000/oauth'
 
     access_token_request_uri = 'https://kauth.kakao.com/oauth/token?grant_type=authorization_code&'
 
@@ -197,7 +197,7 @@ def kakao_login_view(request):
     login_request_uri = 'https://kauth.kakao.com/oauth/authorize?'
 
     client_id = 'a37a43d7902878faaba209dbe6cee083'
-    redirect_uri = 'http://ec2-52-79-113-10.ap-northeast-2.compute.amazonaws.com/oauth'
+    redirect_uri = 'http://127.0.0.1:8000/oauth'
 
     login_request_uri += 'client_id=' + client_id
     login_request_uri += '&redirect_uri=' + redirect_uri
