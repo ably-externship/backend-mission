@@ -28,4 +28,4 @@ MIDDLEWARE = [
 
 ALLOWED_HOSTS = ['ec2-18-216-117-18.us-east-2.compute.amazonaws.com', '127.0.0.1', 'localhost', 'www.kj-dev.com']
 
-KAKAO_REDIRECT_URI= 'http://127.0.0.1:8000/auth/kakao/login/callback/'
+KAKAO_REDIRECT_URI= 'http://www.kj-dev.com:8000/auth/kakao/login/callback/'
