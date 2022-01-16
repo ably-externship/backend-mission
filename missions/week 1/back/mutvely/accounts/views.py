@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from markets.models import Cart
 
 def signin (request):
     if request.method == 'POST':
@@ -36,3 +37,12 @@ def signup (request):
 @login_required
 def mypage (request):
     return render(request, 'accounts/mypage.html')
+
+@login_required
+def cart(request):
+    user = request.user.id
+    myCart = Cart.objects.filter(user_id = user)
+    values = {
+        'myCart' : myCart
+    }
+    return render(request, 'accounts/cart.html', values)
