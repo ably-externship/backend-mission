@@ -12,18 +12,35 @@
     <div class="container px-4">
         <div class="row gx-5">
           <div class="col">
-           <div class="p-3 border bg-light">
+           <div class="p-3 border bg-light" >
                <img src = "{{ object.image.url }}" width="400px">
            </div>
           </div>
           <div class="col">
             <div class="p-3 border bg-light"> 상품명 : {{ object.name }}</div>
             <div class="p-3 border bg-light"> 가격 : {{ object.price }}</div>
-            <div class="p-3 border bg-light"> 재고 : {{ object.stock }}</div>
             <div class="p-3 border bg-light"> 설명 : {{ object.description }}</div>
-            <div class="p-3 border bg-light"> 등록일 : {{ object.registration_date }}</div>
+            <div class="p-3 border bg-light"> 등록일 : {{ object.reg_date }}</div>
+            <div style="margin-top: 10px;">
+            </div>
+
+            <!-- 옵션 시작 -->
+            <form action ="{% url 'cart:add' %}" >
+             
+              <select name = 'id'>
+                <option selected>선택</option>
+                {% for realproduct in object.realproduct_set.all %}
+                <option value ="{{ realproduct.id }}"> {{realproduct.option_1_type}} - {{realproduct.option_1_display_name}}, {{realproduct.option_1_type}} - {{ realproduct.option_2_display_name }}</option>
+                {% endfor %}
+              </select>
+              <button type = 'submit' class = 'btn btn-primary' style='margin-left: 30px;'>장바구니 추가</button>
+            
+            </form>
+            
           </div>
+         
         </div>
+       
       </div>
 
       {% block question_list %}

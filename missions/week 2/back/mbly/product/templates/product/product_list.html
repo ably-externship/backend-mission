@@ -18,7 +18,12 @@
                     </div>
                     <div class="card-body">
                         <h3 class="card-title h4">{{ product.name }}</h3>
-                        <a class="btn btn-outline-dark" href="{% url 'product:detail' product.id %}">상세이동</a>
+                        {% if product.is_sale %}
+                        <del>{{ product.price }}</del>
+                        <span>{{ product.sale_price }}</span>
+                        {% else %}
+                        <span>{{product.price}}</span>
+                        {% endif %}
                     </div>
                 <div class="card-footer">
                     <div class="small text-muted"></div>

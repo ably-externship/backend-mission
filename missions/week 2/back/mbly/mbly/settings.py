@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     #installed
     'account',
     'product',
+    'market',
+    'cart',
     
 ]
 
@@ -96,7 +98,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',# MYSQL 사용
         'NAME': 'ably',
         'USER': 'root',
-        'PASSWORD' : 'ab414881',
+        'PASSWORD' : 'wlsgh7608',
         'HOST' : 'localhost',
         'POST' : '3306',
     }
