@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<!--
+  This example requires Tailwind CSS v2.0+
+
+  This example requires some changes to your config:
+
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    theme: {
+      extend: {
+        gridTemplateRows: {
+          '[auto,auto,1fr]': 'auto auto 1fr',
+        },
+      },
+    },
+    plugins: [
+      // ...
+      require('@tailwindcss/aspect-ratio'),
+    ],
+  }
+  ```
+-->
+<div class="tw-bg-white">
+    {% if product %}
+  <div class="tw-pt-6">
+
+    {% if product.image %}
+    <!-- Image gallery -->
+    <div class="tw-mt-6 tw-max-w-2xl tw-mx-auto sm:tw-px-6 lg:tw-max-w-7xl lg:tw-px-8 lg:tw-grid lg:tw-grid-cols-3 lg:tw-gap-x-8">
+
+      <div class="tw-aspect-w-4 tw-aspect-h-5 sm:tw-rounded-lg sm:tw-overflow-hidden lg:tw-aspect-w-3 lg:tw-aspect-h-4">
+        <img src="{{ product.image }}" alt="{{ product.name }}" class="tw-w-full tw-h-full tw-object-center tw-object-cover">
+      </div>
+    </div>
+    {% endif %}
+    <!-- Product info -->
+    <div class="tw-max-w-2xl tw-mx-auto tw-pt-10 tw-pb-16 tw-px-4 sm:tw-px-6 lg:tw-max-w-7xl lg:tw-pt-16 lg:tw-pb-24 lg:tw-px-8 lg:tw-grid lg:tw-grid-cols-3 lg:tw-grid-rows-[auto,auto,1fr] lg:tw-gap-x-8">
+      <div class="lg:tw-col-span-2 lg:tw-border-r lg:tw-border-gray-200 lg:tw-pr-8">
+        <h1 class="tw-text-2xl tw-font-extrabold tw-tracking-tight tw-text-gray-900 sm:tw-text-3xl">
+            {{ product.name }}
+        </h1>
+      </div>
+
+      <!-- Options -->
+      <div class="tw-mt-4 lg:tw-mt-0 lg:tw-row-span-3">
+        <h2 class="tw-sr-only">Product information</h2>
+        <p class="tw-text-3xl tw-text-gray-900">{{ product.price|intcomma }}원</p>
+
+          <div class="tw-mt-10">
+            <h3 class="tw-text-sm tw-text-gray-900 tw-font-medium">Color: {{ product.color }}</h3>
+              <h3 class="tw-text-sm tw-text-gray-900 tw-font-medium">Size: {{ product.size }}</h3>
+          </div>
+      </div>
+
+
+        {% if user.is_authenticated %}
+        <form action="{% url 'products:add' product.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="tw-mt-10 tw-w-full tw-bg-indigo-600 tw-border tw-border-transparent tw-rounded-md tw-py-3 tw-px-8 tw-flex tw-items-center tw-justify-center tw-text-base tw-font-medium tw-text-white hover:tw-bg-indigo-700 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-offset-2 focus:tw-ring-indigo-500">Add to bag</button>
+        </form>
+        {% endif %}
+
+
+      <div class="tw-py-10 lg:tw-pt-6 lg:tw-pb-16 lg:tw-col-start-1 lg:tw-col-span-2 lg:tw-border-r lg:tw-border-gray-200 lg:tw-pr-8">
+        <!-- Description and details -->
+        <div>
+          <h3 class="tw-sr-only">Description</h3>
+
+          <div class="tw-space-y-6">
+            <p class="tw-text-base tw-text-gray-900">{{ product.description }}</p>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+      {% if user.is_authenticated %}
+      <div class="container">
+          <form action="{% url 'products:question' product.id %}" method="post">
+              {% csrf_token %}
+              <div class="d-flex align-items-center">
+                  <div class="form-group py-3 mb-3 border-bottom w-100 me-3">
+                      <textarea class="form-control" rows="3" placeholder="내용을 적어주세요." name="content"></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-outline-secondary btn-sm flex-shrink-0" style="float: right;">질문 작성하기</button>
+              </div>
+          </form>
+      </div>
+      {% endif %}
+
+      <div class="container">
+          {% for question in questions %}
+          <div class="card mb-4">
+              <div class="card-body">
+                  <p>
+                      작성자: {{ question.user }}
+                  </p>
+                  <p>
+                      {{ question.content }}
+                  </p>
+                  <p style="float: right;">
+                      {{ question.created_at }}
+                  </p>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
+    {% else %}
+    No Product.
+    {% endif %}
+</div>
+{% endblock %}

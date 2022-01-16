@@ -351,3 +351,5 @@ fabric.properties
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 
 # End of https://www.toptal.com/developers/gitignore/api/pycharm,python,django
+/missions/week 2/back/ably/my.cnf
+/missions/week 2/back/ably/my_settings.py

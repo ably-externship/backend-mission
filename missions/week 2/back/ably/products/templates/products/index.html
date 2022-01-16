@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load humanize %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'products/style.css' %}" type="text/css">
+{% endblock %}
+
+{% block content %}
+<!--
+  This example requires Tailwind CSS v2.0+
+
+  This example requires some changes to your config:
+
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      require('@tailwindcss/aspect-ratio'),
+    ],
+  }
+  ```
+-->
+<div class="tw-bg-white">
+  <div class="tw-max-w-2xl tw-mx-auto tw-py-16 tw-px-4 sm:tw-py-24 sm:tw-px-6 lg:tw-max-w-7xl lg:tw-px-8">
+    <h2 class="tw-text-2xl tw-font-extrabold tw-tracking-tight tw-text-gray-900">쇼핑몰 상품 리스트</h2>
+
+    {% if products %}
+    <div class="tw-mt-6 tw-grid tw-grid-cols-1 tw-gap-y-10 tw-gap-x-6 sm:tw-grid-cols-2 lg:tw-grid-cols-4 xl:tw-gap-x-8">
+      {% for product in products %}
+      <div class="tw-group tw-relative">
+        <div class="tw-w-full tw-min-h-80 tw-bg-gray-200 tw-aspect-w-1 tw-aspect-h-1 tw-rounded-md tw-overflow-hidden group-hover:tw-opacity-75 lg:tw-h-80 lg:tw-aspect-none">
+          <img src="{{ product.image }}" alt="{{ product.name }}" class="tw-w-full tw-h-full tw-object-center tw-object-cover lg:tw-w-full lg:tw-h-full">
+        </div>
+        <div class="tw-mt-4 tw-flex tw-justify-between">
+          <div>
+            <h3 class="tw-text-sm tw-text-gray-700">
+              <a href="{% url 'products:detail' product.id %}">
+                <span aria-hidden="true" class="absolute inset-0"></span>
+                {{ product.name }}
+              </a>
+            </h3>
+            <p class="tw-mt-1 tw-text-sm tw-text-gray-500">{{ product.color }} | {{ product.size }}</p>
+          </div>
+          <p class="tw-text-sm tw-font-medium tw-text-gray-900">{{ product.price|intcomma }}원</p>
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- More products... -->
+    </div>
+
+    <!-- 페이징처리 시작 -->
+    <ul class="pagination justify-content-center tw-mt-6">
+        <!-- 이전페이지 -->
+        {% if products.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ products.previous_page_number }}">이전</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+        </li>
+        {% endif %}
+        <!-- 페이지리스트 -->
+        {% for page_number in products.paginator.page_range %}
+            {% if page_number == products.number %}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% endif %}
+        {% endfor %}
+        <!-- 다음페이지 -->
+        {% if products.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ products.next_page_number }}">다음</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+        </li>
+        {% endif %}
+    </ul>
+    <!-- 페이징처리 끝 -->
+
+    {% else %}
+    <p>아직 상품이 없습니다.</p>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,4 @@
+Django
+mysqlclient
+django-allauth
+requests
