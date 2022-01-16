@@ -9,5 +9,7 @@
   {% comment %} {{form.as_p}} {% endcomment %}
   <input type='submit' class='btn btn-primary' value='Sign In'>
 </form>
-
+<a href="{% url 'user:login_kakao' %}">
+  <i class="fas fa-comment mr-2"></i> Login with Kakao
+</a>
 {% endblock contents %}
