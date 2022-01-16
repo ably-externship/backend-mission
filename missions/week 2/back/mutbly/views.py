@@ -1,10 +1,15 @@
+from itertools import product
 from django.shortcuts import render, redirect
+from django.template import context
 from .models import Item, Quantity, Question
 from django.core.paginator import Paginator
+from django.http import JsonResponse
+import json
 # from .models import Post
 
 
-
+  
+  
 
 def index(request):
   if request.method == 'GET':
@@ -13,8 +18,6 @@ def index(request):
     page = request.GET.get('page')
     print(page)
     items = p.get_page(page)
-    
-
   return render(request, 'mutbly/index.html', {'items' : items})
 
 def show(request, id):
@@ -44,3 +47,22 @@ class QuestionView:
     question = Question.objects.get(id = cid)
     question.delete()
     return redirect(f'/items/{id}')
+  
+  
+# def cart(request) :
+#   context = {}
+#   return render(request, 'mutbly/cart.html', context)
+  
+  
+def updateItem(request):
+  print(request)
+  data = json.loads(request.body)
+  itemId = data['itemId']
+  action = data['action']
+  
+  print('Action:', action)
+  print('itemId:', itemId)
+  
+  user = request.user
+  item = Item.objects.get(id=itemId)
+  return JsonResponse('Item was added', safe=False)

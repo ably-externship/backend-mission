@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{% static 'mutbly/css/item-list.css'%}" >
 
 <br>
-<div class = "item-list">
+<div class = "row">
 {% for item in items %}
     {% comment %} <br>
     <a href="/items/{{item.id}}/">
@@ -22,24 +22,36 @@
       </div>
     </a>
   <br/> {% endcomment %}
-  <a href="/items/{{item.id}}/">
-  <div class="card" style="width: 18rem;">
-    <img class="card-img-top" src = "{{item.photo.url}}" alt="{{item.name}}"/>
-    <div class="card-body">
-      <h5 class="card-title">{{item.name}}</h5>
-      <p class="card-text">{{item.description}}</p>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">{{item.price}}</li>
-    </ul>
-    {% comment %} <div class="card-body">
-      <a href="#" class="card-link">Card link</a>
-      <a href="#" class="card-link">Another link</a>
+  <a href="/items/{{item.id}}/"style="height: 31rem; width: 16rem;"> 
+    <div class="box-element" id = "item-view" style="height: 31rem; width: 16rem;">
+			<div class="card" style="height: 30rem; width: 15rem;">
+        <img class="card-img-top" style ="overflow:hidden;"src = "{{item.photo.url}}" alt="{{item.name}}"/>
+        <div class="card-body">
+          <h5 class="card-title">{{item.name}}</h5>
+          <p class="card-text">{{item.description}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">{{item.price}}</li>
+        </ul>
+      </div>
+		</div>
+    <br/>
+    <br/>
+    <br/>
+
+    {% comment %} <div class="col-lg-4">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src = "{{item.photo.url}}" alt="{{item.name}}"/>
+        <div class="card-body">
+          <h5 class="card-title">{{item.name}}</h5>
+          <p class="card-text">{{item.description}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">{{item.price}}</li>
+        </ul>
+      </div>
     </div> {% endcomment %}
-  </div>
-  <br/>
-  <br/>
-</a>
+  </a>
 
   
 
@@ -76,7 +88,13 @@
 
 
 
-
+<br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  
 
   <br/>
   <br/>

@@ -22,17 +22,35 @@
     </div>
 
     <div class = "sub-title">
-      옵션
+      옵션(색상-사이즈-재고수량)
     </div>
     <br/>
-    <div class = "option-dropdown">
-      <select id ="dropdown-choice" name = "dropdown-choice" style= "width : 47%" >
-        <option  value="none">=== 선택 ===</option>
-        {% for item_choice in item_choices %}
+    <center>
+    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" style= "width : 47%">
+      <option selected>색상과 사이즈를 골라주세요</option>
+      {% for item_choice in item_choices %}
           <option id = "dorpdown-option" value="{{item_choice.color}}">{{item_choice.color}} - {{item_choice.size}} - {{item_choice.quantity}}개</option>
         {% endfor %}
-      </select>
-    </div>
+    </select>
+    </center>
+    <br/>
+    <br/>
+    <div class = "sub-title">
+
+
+    <form method="POST" action="{% url 'cart:add_cart' item.id %}">
+      {% csrf_token %}
+        수량
+      </div>
+      <br/>
+      <center>
+      <input class="form-select form-select-lg mb-3" name = "order_quantity" type ="number" aria-label=".form-select-lg example" style= "width : 47%">
+      </input>
+      <button type = "submit"  id = "add-cart" class="cart-btn" data-action="add"> 장바구니 </button>
+    </form>
+
+
+    </center>
     <br/>
     <br/>
     <div class = "sub-title">
@@ -47,6 +65,7 @@
         <form class ="search" method="POST" action="{% url 'question_create' item.id %}">
           {% csrf_token %}
           <input class = "post-question" type="text" placeholder="질문을 적어주세요" name="asked">
+          
           <button type = "submit" class="ask-btn">
             Ask
           </button>
@@ -77,9 +96,9 @@
     <button type = "submit" class="buy-btn"> 구매하기 </button>
   </a>
 
-  <a href="#" class="float" id = "cart">
-    <button type = "submit" class="cart-btn"> 장바구니 </button>
-  </a>
+  {% comment %} <a href="#" class="float" id = "cart"> {% endcomment %}
+  
+  {% comment %} </a> {% endcomment %}
 
   <br/>
   <br/>

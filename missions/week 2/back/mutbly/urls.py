@@ -26,6 +26,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('cart/', include('cart.urls', namespace='cart')),
     path('', mutbly.views.index, name='index'),
     path('items/<int:id>/', mutbly.views.show, name = 'show'),
     path('search/', mutbly.views.search, name='search'),
@@ -36,6 +37,8 @@ urlpatterns = [
     path('accounts/forgot_id/', accounts.views.forgot_id, name='find_id'),
     path('accounts/password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
     # path('search')
+    path('update_item/', mutbly.views.updateItem, name='update_item'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
