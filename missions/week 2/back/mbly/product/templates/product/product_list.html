@@ -19,11 +19,12 @@
                     <div class="card-body">
                         <h3 class="card-title h4">{{ product.name }}</h3>
                         {% if product.is_sale %}
-                        <del>{{ product.price }}</del>
                         <span>{{ product.sale_price }}</span>
+                        <del>{{ product.price }}</del>
                         {% else %}
                         <span>{{product.price}}</span>
                         {% endif %}
+                        <a class="invisible btn btn-outline-dark" href="{% url 'product:detail' product.id %}">상세이동</a>
                     </div>
                 <div class="card-footer">
                     <div class="small text-muted"></div>

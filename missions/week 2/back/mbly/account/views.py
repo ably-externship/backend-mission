@@ -61,6 +61,7 @@ def kakao_callback(request):
 
     kakao_response = requests.get(url,headers=headers)
     kakao_response = json.loads(kakao_response.text)
+    print(kakao_response)
     email = kakao_response['kakao_account']['email']
     isexist = User.objects.filter(email =email ).exists()
     if isexist:
@@ -70,7 +71,7 @@ def kakao_callback(request):
     else:
         # 존재 X
         new_user = User(
-            name = email,
+            username = 'kakao_'+str(kakao_response['id']),
             email = email
         )
         new_user.save()
