@@ -1,0 +1,118 @@
+{% extends 'product/base.html' %}
+{% load static %}
+{% block style %}
+    image {
+        max-width: 90%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    #total {
+        font-size: 3rem;
+
+    }
+
+{% endblock %}
+{% block script %}
+        // 클릭시 숨겨놓은 항목 보여주기
+        function divOnOff(element) {
+            var panel = element.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        };
+
+        function count(type)  {
+          // 결과를 표시할 element
+          const resultElement = document.getElementById('result');
+
+          // 현재 화면에 표시된 값
+          // let number = resultElement.innerText;
+          let number = resultElement.value;
+
+          // 더하기/빼기
+          if(type === 'plus') {
+              if(parseInt(number) === 999) {
+                number = 999;
+                alert('최대 수량을 초과하셨습니다.');
+                }
+                else{
+                number = parseInt(number) + 1;
+                }
+          }else if(type === 'minus')  {
+          if(parseInt(number) === 1) {
+            alert('최소 수량입니다.');
+            number = 1;
+            }
+            else{
+            number = parseInt(number) - 1;
+            }
+          }
+
+          // 결과 출력
+          //resultElement.innerText = number;
+          resultElement.value = number;
+        }
+{% endblock %}
+{% block content %}
+<h2 class="text-center">장바구니 목록</h2>
+<div class="container">
+    {% if message %}
+        <h1 class="text-center">{{ message }}</h1>
+    {% else %}
+    <div class="row">
+        <div class="col-sm-12 col-md-8">
+        {% for item in product_list %}
+            <div class="row g-0 border rounded overflow-hidden flex-md-row m-4 shadow-sm h-md-250 position-relative">
+            <div class="col-auto d-lg-block m-3">
+              <image class="bd-placeholder-img" width="200" height="250" src="../../static/image_dir/main_image/{{ item.product_id.product_id}}.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/></image>
+            </div>
+              <div class="col p-4 d-flex flex-column position-static">
+              <strong class="d-inline-block mb-2 text-success">{{ item.product_id.shop_id.shop_name }}</strong>
+              <h3 class="mb-0">{{ item.product_id.product_name }}</h3>
+              <h4 class="mb-auto">{{ item.product_id.product_price }}</h4>
+              <hr>
+              <div class="mb-1 text-muted">옵션&nbsp;:&nbsp;{{ item.product_detail_id.color }}&nbsp;{{ item.product_detail_id.size }} &nbsp;</div>
+              <div class="mb-1 text-muted">수량&nbsp;:&nbsp;{{ item.count }}&nbsp;개</div>
+              <a href="{% url 'product:item_delete' item.id %}">삭제</a>
+              <a href="javascript:void(0);" name="{{ item.user_id }}" onclick="divOnOff(this);">옵션 변경</a>
+              <div class="mb-3" style="display: none;">
+                  <form method="POST" action="{% url 'product:detail_change' item.id %}">
+                    {% csrf_token %}
+                    <span> 옵션 :</span>
+                    <select class="form-select" name="option">
+                        <option value="default" selected>---선택---</option>
+                        {% for option in item.product_id.productdetail_set.all %}
+                            <option value="{{ option.id }}" {% if option.stock == 0 %}disabled{% endif %}>{{ option.color }} {{ option.size }}  남은수량: {{ option.stock }}</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <span> 수량 :</span>
+                    <input type='button' class="btn btn-outline-dark" onclick='count("minus")' value='-'/>
+                    <input type='text' class="form-control w-50 d-inline-block" id='result' name="cnt" value="{{ item.count }}" />
+                    <input type='button' class="btn btn-outline-dark" onclick='count("plus")' value='+'/>
+                    <input type="submit" value="옵션 변경">
+                  </form>
+
+              </div>
+
+            </div>
+
+          </div>
+        {% endfor %}
+        </div>
+        <div class="col-sm-12 col-md-4 p-3">
+            <h3> 결제 금액</h3>
+            <hr>
+            <span id="total">{{ total }}</span><span>원</span><br>
+            <button class="btn btn-outline-dark">결제하기</button>
+        </div>
+    {% endif %}
+</div>
+</div>
+{% endblock %}
+
+
+
