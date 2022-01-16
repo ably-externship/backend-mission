@@ -35,32 +35,88 @@
             {% endfor %}
         </div>
     </div>
+
     <div>
         <p class="text-base">{{product.name}}</p>
         <p class="text-lg font-bold">{{product.price}}원</p>
     </div>
     <hr/>
+    <div class="grid">
+        {% if product_option %}
+        {% for option in product_option %}
+        <div class="m-1 rounded-md border-gray-200 border-2 grid grid-cols-4 product" data-option-id="{{option.id}}">
+            <div class="place-self-center">{{option.color}}</div>
+            <div class="place-self-center">{{option.size}}</div>
+            <div class="place-self-center">
+                    <input type="number" class="rounded-md border-gray-200 border-2 text-center" name="input-number" value="0" min="0" max="9"/>
+            </div>
+            <div class="place-self-end"><button class="bg-gray-200 rounded-md font-bold cart-btn w-20" >담기</button></div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <hr/>
     <div class="p-4">
-        <span  class="inline"><p class="text-lg">배송비 <a class="font-bold">전 상품 무료배송</a></p></span>
+        <span class="inline"><p class="text-lg">배송비 <a class="font-bold">전 상품 무료배송</a></p></span>
     </div>
     <hr/>
     <div id="descriptionArea">
     </div>
+    <div class="fixed bottom-5 max-w-[600px] w-full">
+        <button class="w-full h-10 bg-red-600 rounded-lg text-white font-bold" id="purchaseBtn">구매하기</button>
+    </div>
 </div>
+</div>
+    {% block javascript %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            const description = `{{product.descriptions}}`
+            const descriptionArray = description.split("\n");
 
-{% block javascript %}
-<script type="text/javascript">
-    $(document).ready(function () {
-        const description = `{{product.descriptions}}`
-        const descriptionArray = description.split("\n");
+            let descriptTag = '';
+            descriptionArray.map(data => {
+                descriptTag += '<p class="text-sm">' + data + '</p>';
+            })
 
-        let descriptTag = '';
-        descriptionArray.map(data => {
-            descriptTag += '<p class="text-sm">'+ data+'</p>';
+            $("#descriptionArea").append(descriptTag);
+
+            $("#purchaseBtn").click(function () {
+                $("#optionModal").show();
+            })
+
+            $("#modalCloseBtn").click(function() {
+                $("#optionModal").hide();
+            })
+
+            $(".cart-btn").click(function() {
+                const $parent = $(this).parents(".product");
+                const id  = $parent.data('option-id');
+                const count = $parent.find('input[name=input-number]').val();
+
+                if ( count < 1 ) {
+                    alert('상품의 수량을 선택하세요')
+                } else if ( count > 9 ) {
+                    alert('상품의 최대 구매 가능 수량은 9개 입니다.')
+                } else {
+                    $.ajax({
+                    'url': '/cart/',
+                    'data': { 'product_option_id': id,'quantity':count },
+                    'method': 'POST',
+                    'success': function (data) {
+                        if ( data.result_code == 'SUCCESS') {
+                            if(confirm('장바구니에 상품이 담겼습니다.\n 장바구니 목록을 확인하시겠습니다?')) {
+                              location.href = "/cart";
+                            }
+                        }
+                      }
+                    });
+                }
+
+
+            })
+
+
         })
-
-        $("#descriptionArea").append(descriptTag);
-    })
-</script>
-{% endblock javascript %}
-{% endblock %}
+    </script>
+    {% endblock javascript %}
+    {% endblock %}

@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
+from product_option.models import ProductOption
 from .models import Product
 
 
@@ -21,7 +22,9 @@ def detail(request, product_id):
     try:
         product = Product.objects.select_related('market_pk').get(id=product_id)
         product.file = product.files.all()
-        context = {'product': product}
+
+        product_option = ProductOption.objects.filter(product_pk=product_id)
+        context = {'product': product, 'product_option': product_option}
         return render(request, 'product/product_detail.html', context)
     except Product.DoesNotExist:
         return redirect('/404/')

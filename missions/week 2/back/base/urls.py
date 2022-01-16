@@ -21,6 +21,7 @@ from base.views import CustomHandler500, CustomHandler404
 from product.urls import urlpatterns as product_url
 from users.urls import urlpatterns as auth_url
 from board.urls import urlpatterns as board_url
+from cart.urls import urlpatterns as cart_url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,7 +29,8 @@ urlpatterns = [
     path('auth/', include(auth_url)),
     path('board/', include(board_url)),
     path('404/', CustomHandler404.as_view()),
-    path('500/', CustomHandler500.as_view())
+    path('500/', CustomHandler500.as_view()),
+    path('cart/', include(cart_url))
 ]
 
 if settings.DEBUG:

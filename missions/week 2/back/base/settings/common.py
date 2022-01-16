@@ -55,7 +55,8 @@ INSTALLED_APPS = [
     'product.apps.ProductConfig',
     'product_option.apps.ProductOptionConfig',
     'product_category.apps.ProductCategoryConfig',
-    'users.apps.UsersConfig'
+    'users.apps.UsersConfig',
+    'cart.apps.CartConfig'
 ]
 
 MIDDLEWARE = [
@@ -172,3 +173,6 @@ KAKAO_OAUTH_CONFIG = {
     "KAKAO_REDIRECT_URI": secrets['KAKAO_REDIRECT_URI'],
 }
 
+KAKAO_AUTH_API = 'https://kauth.kakao.com/oauth/authorize?response_type=code'
+KAKAO_TOKEN_API = 'https://kauth.kakao.com/oauth/token'
+KAKAO_USER_API = 'https://kapi.kakao.com/v2/user/me'
