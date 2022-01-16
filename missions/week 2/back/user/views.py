@@ -18,10 +18,15 @@ import requests
 import json
 
 from project.settings import BASE_DIR
+from project.settings import DEBUG_BASE_URL
+from project.settings import PROD_BASE_URL
+from project.settings import DEBUG
 
 secret_file = os.path.join(BASE_DIR, 'secrets.json')
 with open(secret_file) as f:
     secrets = json.loads(f.read())
+
+KAKAO_CALLBACK_URL = "users/login/kakao/callback"
 
 
 def register(request):
@@ -60,7 +65,12 @@ class KakaoSignInView(View):
 
     def get(self, request):
         api_key = secrets["REST_API_KEY"]
-        redirect_uri = 'http://127.0.0.1:8000/users/login/kakao/callback'
+
+        redirect_uri = DEBUG_BASE_URL + KAKAO_CALLBACK_URL
+
+        if not DEBUG:
+            redirect_uri = PROD_BASE_URL + KAKAO_CALLBACK_URL
+
         kakao_auth_api = 'https://kauth.kakao.com/oauth/authorize?response_type=code'
 
         return redirect(
@@ -76,10 +86,13 @@ class KakaoSignInCallBackView(View):
         data = {
             'grant_type': 'authorization_code',
             'client_id': client_id,
-            'redirect_uri': 'http://127.0.0.1:8000/users/login/kakao/callback',
+            'redirect_uri': DEBUG_BASE_URL + KAKAO_CALLBACK_URL,
             'code': auth_code,
             'client_secret': secrets["CLIENT_SECRET"]
         }
+
+        if not DEBUG:
+            data['redirect_uri'] = PROD_BASE_URL + KAKAO_CALLBACK_URL
 
         token_response = requests.post(kakao_token_api, data=data)
 
