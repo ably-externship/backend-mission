@@ -27,8 +27,6 @@ with open(secret_file) as f:
 def register(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
-        # for field in form:
-        #     print("Field Error:", field.name,  field.errors)
         if form.is_valid():
             form.save()
             print(form.cleaned_data)
