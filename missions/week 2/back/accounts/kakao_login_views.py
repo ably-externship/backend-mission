@@ -19,7 +19,7 @@ class KakaoLoginView(View):
         email = user_info['kakao_account']['email']
 
         with transaction.atomic():
-            user, created = User.objects.get_or_create(email = email)
+            user, created = User.objects.get_or_create(email = email, is_social=True)
             social_type = SocialType.objects.get(social_type='kakao')
             social_user, created = SocialUserInfo.objects.get_or_create(user_id = user.id, social_type_id = social_type.id)
 
