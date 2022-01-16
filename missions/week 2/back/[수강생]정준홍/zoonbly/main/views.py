@@ -23,7 +23,7 @@ def productCreate(request):
     new_product.marcket = request.POST['marcket']
     new_product.pub_date = timezone.now()
     new_product.price = request.POST['price']
-    new_product.stock = request.POST['stock']
+    # new_product.stock = request.POST['stock']
     new_product.cartNum = 0
     new_product.description = request.POST['description']
     if request.FILES.get('image'):

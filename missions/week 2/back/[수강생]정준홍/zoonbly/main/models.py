@@ -21,6 +21,9 @@ class Product(models.Model):
     def summary(self):
         return self.description[:30]
 
+    def title(self):
+        return self.name[:15]
+
 # class Options(models.Model):
 #     color = models.TextField() # 색상
 #     size = models.TextField() # 사이즈
