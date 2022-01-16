@@ -1,6 +1,16 @@
-from os import name
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.models import UserManager
+
+
+class MyManager(UserManager):
+
+    def get_or_none(self, **kwargs):
+        try:
+            return self.get(**kwargs)
+        except ObjectDoesNotExist:
+            return None
 
 
 class User(AbstractUser):
@@ -12,3 +22,5 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
+
+    objects = MyManager()

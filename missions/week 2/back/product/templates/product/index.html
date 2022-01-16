@@ -32,27 +32,3 @@
     
 
 {% endblock contents %}
-
-{% comment %} <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>My test page</title>
-  </head>
-  <body>
-    {% if product_list %}
-    <ul>
-    {% for product in product_list %}
-        <li><a href="{% url 'product:detail' product.id %}">
-            {{ product.name }} 
-            {{ product.quantity }} 
-        </a></li>
-    {% endfor %}
-    </ul>
-    {% else %}
-        <p>There are no products.</p>
-    {% endif %}
-  </body>
-</html>
- {% endcomment %}
-

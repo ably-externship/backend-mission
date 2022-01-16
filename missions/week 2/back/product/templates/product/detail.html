@@ -31,13 +31,13 @@
 
     <form action="{% url 'cart:add_cart' product.id %}" method="POST">
         {% csrf_token %}
-        <input type="submit" value="담기">
+        <input type="submit" value="장바구니 담기">
     </form>
 
     {# Q & A  #}
     <br>
     질문: 
-    <form action="{% url 'product:create' product.id %}" method="POST">
+    <form action="{% url 'product:create_comment' product.id %}" method="POST">
         {% csrf_token %}
         {{ inquiry_form }}
         <input type="submit" value="submit">

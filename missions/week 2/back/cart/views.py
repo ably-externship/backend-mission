@@ -1,14 +1,16 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
-# from django.views.generic import CreateView, ListView, UpdateView, DeleteView
-
+from django.contrib.auth.decorators import login_required
 
 from .models import Cart
 from .models import CartItem
 from .models import User
 from .models import Product
 
+from project.settings import LOGIN_URL
 
+
+@login_required(login_url=LOGIN_URL)
 def cart(request):
 
     if request.method == "GET":
@@ -35,6 +37,7 @@ def cart(request):
     return render(request, 'cart/index.html', ctx)
 
 
+@login_required(login_url=LOGIN_URL)
 def add_cart(request, product_id):
     if request.method == 'POST':
         user = User.objects.get(email=request.user)

@@ -28,10 +28,10 @@
           <a class="btn btn-light" href="{% url 'cart:cart' %}">장바구니 </a>
 
             {% if user.is_authenticated %}
-              <a class="btn btn-light" href="{% url 'logout' %}">로그아웃</a>
+              <a class="btn btn-light" href="{% url 'user:logout' %}">로그아웃</a>
             {% else %}
-              <a class="navbar btn btn-light" href="{% url 'login' %}">로그인</a>
-              <a class="navbar btn btn-light" href="{% url 'register' %}">회원가입</a>
+              <a class="navbar btn btn-light" href="{% url 'user:login' %}">로그인</a>
+              <a class="navbar btn btn-light" href="{% url 'user:register' %}">회원가입</a>
             {% endif %}
         </div>
       </nav>
