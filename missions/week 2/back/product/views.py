@@ -69,7 +69,7 @@ def search(request):
 
 
 @login_required(login_url=LOGIN_URL)
-def create(request, product_id):
+def create_comment(request, product_id):
     comment_write = InquiryForm(request.POST)
     if comment_write.is_valid():
         comments = comment_write.save(commit=False)
