@@ -3,8 +3,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 
-from markets.models import Outwear, Onepiece, Top, Pants, Skirt, Qna
-
+from markets.models import Outwear, Onepiece, Top, Pants, Skirt, Qna, Cart
 
 def main(request):
     prod_list = Outwear.objects.all()
@@ -54,7 +53,6 @@ def skirt(request):
     }
     return render(request, 'markets/item-lists.html', values)
 
-@csrf_exempt
 def search(request, category):
     if request.method == 'POST':
         query = request.POST['query']
@@ -98,3 +96,35 @@ def qna(request, category, id):
     else :
         return render(request, 'markets/qna.html', {'category':category, 'id':id})
 
+@login_required
+def addcart (request):
+    if request.method == 'POST':
+        user = request.user.id
+        category = request.POST['category']
+        prod_id = request.POST['id']
+        newCart = Cart.objects.create(user_id = user, category=category, prod_id= prod_id, prod_num=1)
+        newCart.save()
+        return HttpResponse('done')
+    return HttpResponse('error')
+
+@login_required
+def cartCount (request):
+    if request.method == 'POST':
+        user = request.user.id
+        cartItem_id = request.POST['id']
+        changeNum = request.POST['changeNum']
+        cartItem = Cart.objects.get(id = cartItem_id, user_id = user)
+        cartItem.prod_num = changeNum
+        cartItem.save()
+        return HttpResponse('done')
+    return HttpResponse('error')
+
+@login_required
+def removeCart (request):
+    if request.method == 'POST':
+        user = request.user.id
+        cart_prod_id = request.POST['id']
+        deleteItem = Cart.objects.get(user_id = user, id= cart_prod_id)
+        deleteItem.delete()
+        return HttpResponse('done')
+    return HttpResponse('error')

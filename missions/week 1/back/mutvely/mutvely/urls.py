@@ -27,6 +27,11 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('signup/', accounts.signup, name='signup'),
     path('mypage/', accounts.mypage, name='mypage'),
+    path('cart/', accounts.cart, name='cart'),
+
+    path('addCart/', markets.addcart, name='addcart'),
+    path('CartCount/', markets.cartCount, name='cartCount'),
+    path('removeCart/', markets.removeCart, name='removeCart'),
 
     path('outer/', markets.outer, name='outer'),
     path('top/', markets.top, name='top'),

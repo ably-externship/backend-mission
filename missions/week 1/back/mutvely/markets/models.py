@@ -79,3 +79,14 @@ class Qna(models.Model):
     class Meta:
         managed = False
         db_table = 'QnA'
+
+class Cart(models.Model):
+    user_id = models.IntegerField()
+    category = models.CharField(max_length=30)
+    prod_id = models.IntegerField()
+    prod_num = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'Cart'
+

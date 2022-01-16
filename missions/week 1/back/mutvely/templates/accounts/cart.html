@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class='main-body'>
+  <table>
+    <tr>
+      <th> <input type="checkbox"> </th>
+        <th> 상품명 </th>
+        <th> 수량 </th>
+        <th> 가격 </th>
+        <th> </th>
+      </tr>
+      {% for item in myCart %}
+        <tr>
+          <td> <input type="checkbox"> </td>
+          <td>{{item.category}}</td>
+          <td> 
+              <span class="ec-base-qty">
+                <a onclick="countDown(this);" id='{{item.id}}'><img src="//img.echosting.cafe24.com/skin/base/common/btn_quantity_down.gif" alt="수량감소" class="down"/></a>
+                <input id="quantity" name="quantity_name_0" size="2" value="1" type="text" />
+                <a onclick="countUp(this);" id='{{item.id}}'><img src="//img.echosting.cafe24.com/skin/base/common/btn_quantity_up.gif" alt="수량증가" class="up"/></a>
+                <!-- <a class="btnBasic gBlank5" onclick="setChange(this)">변경</a> -->
+              </span>
+          </td>
+          <td> {{item.price}}</td>
+          <td onclick="deleteItem('{{item.id}}')"> <i class="bi bi-x-lg"></i> </td>
+        </tr>
+      {% endfor %}
+  </table>
+</div>
+<script>
+function countUp(e){
+  var cur_num = parseInt($(e).prev('#quantity').val()) + 1;
+  var id = $(e).attr('id');
+  $.ajax({
+    type : 'POST',
+    url : '/CartCount/',
+    data:{
+      'id':id,
+      'changeNum' : cur_num,
+      csrfmiddlewaretoken: getCookie('csrftoken'),
+    },
+    success:function(data){
+      if(data == 'done'){
+        $(e).prev('#quantity').attr('value', cur_num);
+      }
+    } 
+  });
+}
+function countDown(e){
+  var cur_num = parseInt($(e).next('#quantity').val()) - 1;
+  var id = $(e).attr('id');
+  if(cur_num > 1){
+    $.ajax({
+      type : 'POST',
+      url : '/CartCount/',
+      data:{
+        'id':id,
+        'changeNum': cur_num,
+        csrfmiddlewaretoken: getCookie('csrftoken'),
+      },
+      success:function(data){
+        if(data == 'done'){
+          $(e).next('#quantity').attr('value', cur_num);
+        }
+      } 
+    });
+  } 
+}
+function deleteItem(id){
+  $.ajax({
+    type : 'POST',
+    url : '/removeCart/',
+    data:{
+      'id':id,
+      csrfmiddlewaretoken: getCookie('csrftoken'),
+    },
+    success:function(data){
+      if(data == 'done'){
+        window.location.reload()
+      }
+    } 
+  });
+}
+</script>
+
+{% endblock %}
