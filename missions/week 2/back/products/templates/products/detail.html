@@ -1,0 +1,49 @@
+{% extends 'common/base.html' %}
+{% block title %}{{ product.name }} - 멋블리{% endblock %} #}
+{% load django_bootstrap5 %}
+{% load humanize %}
+{% block content %}
+    <div>
+        <a class="text-decoration-none" href="{% url 'index' %}">&lt; 상품 리스트</a>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md">
+            <img class="border w-100" src="https://picsum.photos/id/{{ product.id }}/600/450">
+        </div>
+        <div class="col-12 col-md">
+            <div class="pt-3">
+                <img class="rounded-circle bg-secondary me-1" src="https://picsum.photos/id/{{ product.id }}/50/50">
+                {{ product.market.name }}
+            </div>
+            <hr>
+            <div>
+                <p class="fs-5">{{ product.name }}</p>
+                <p>
+                    <span class="text-danger fs-5">{{ discounted_rate }}%</span>
+                    <strong class="fs-5">{{ product.discounted_price | intcomma }}원</strong>
+                    <del class="text-muted">{{ product.original_price | intcomma }}원</del>
+                </p>
+                <form method="post" action="{% url 'add_to_cart' %}" class="form">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    {% bootstrap_button button_type='submit' content='장바구니에 추가' %}
+                </form>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div>
+        <h4>상품 정보</h4>
+        {{ product.detail }}
+    </div>
+    <hr>
+    <div>
+        <h4>상품 문의</h4>
+        <ul>
+            {% for question in questions %}
+                <li>{{ question.title }}</li>
+            {% endfor %}
+        </ul>
+        <a class="btn btn-danger" href="{% url 'question' product.id %}">상품 문의</a>
+    </div>
+{% endblock %}

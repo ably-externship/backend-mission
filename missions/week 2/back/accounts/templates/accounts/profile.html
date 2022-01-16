@@ -1,0 +1,7 @@
+{% extends 'common/base.html' %}
+{% block title %}{{ user.username }}님 - 멋블리{% endblock %}
+{% load django_bootstrap5 %}
+{% block content %}
+    <h4>{{ user.username }}님</h4>
+    <a class="btn btn-danger" href="{% url 'logout' %}">로그아웃</a>
+{% endblock %}
