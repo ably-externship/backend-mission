@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load humanize %}
+<br>
+<br>
+<br>
+<div class="row">
+    <!-- 상품 카테고리 시작 -->
+    <div class="category_box">
+        <ul class="nav nav-tabs" style="width:450px;">
+          <li class="nav-item">
+            <a href="/" class="nav-link">모든 상품</a>
+          </li>
+          {% for category in categories %}
+          <li class="nav-item">
+            <a href="{{category.get_absolute_url}}" class="nav-link {% if selected_category.slug == category.slug %}active{% endif %}">{{category.name}}</a>
+          </li>
+          {% endfor %}
+        </ul>
+    </div>
+    <!-- 상품 카테고리 끝 -->
+    <div>
+        {% if not products %}
+        <h4 style="margin-left:88px; margin-top:220px; padding-top:10px;">검색 결과가 없습니다. 😅 </h4>
+    </div>
+    {% else %}
+    <div class="alert alert-success" role="alert">
+    '{{q}}'에 대한 검색 결과 입니다.
+    </div>
+    <!--  상품 박스 시작  -->
+    {% for product in products %}
+        <div class="col-2">
+            <div class="item_body">
+                <div class="item_box">
+                    <a href="{{product.get_absolute_url}}"><img class="item_img" src="{{product.image.url}}"></a>
+                    <div class="item_first_row">
+                        <div class="price_tag">
+                            <b>{{product.price|intcomma}}</b>
+                        </div>
+                        <div class="item_icon">
+                            <span class="favorite_icon material-icons-outlined icons" style="color: red;" >
+                                    favorite_border
+                            </span>
+                        </div>
+                    </div>
+                    <div class="item_second_row">
+                        <b>{{product.market}}</b>
+                    </div>
+                    <div class="item_third_row">
+                        {{product.name}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <!--  상품 박스 끝  -->
+    {% endif %}
+</div>
+{% endblock %}

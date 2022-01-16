@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load humanize %}
+<br>
+<br>
+<br>
+
+    <!-- 문의 입력란 시작   -->
+    <form action="" method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">제목</label>
+      <input type="email" name='title' class="form-control" id="exampleFormControlInput1" placeholder="제목을 입력해주세요.">
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">문의 내용</label>
+      <textarea name="body" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+    </form>
+    <!-- 문의 입력란 끝 -->
+
+{% endblock %}

@@ -1,0 +1,7 @@
+Django
+mysqlclient
+django-ckeditor
+Pillow
+django-crispy-forms
+django-allauth
+bootstrap4
