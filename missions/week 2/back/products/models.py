@@ -36,17 +36,20 @@ class Product(models.Model):
     main_image_url = models.URLField(max_length=2000)
     colors = models.ManyToManyField(Color, through='ProductOption')
     sizes = models.ManyToManyField(Size, through='ProductOption')
+    is_deleted = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'products'
 
-class ProductHistory(TimeStampModel):
+class ProductHistory(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     discount_price = models.DecimalField(max_digits=10, decimal_places=2)
     is_displayed = models.BooleanField(default=True)
     is_sold_out = models.BooleanField(default=False)
+    created_at = models.DateTimeField()
+    updated_at = models.DateTimeField(null=True)
     is_deleted = models.BooleanField(default=False)
 
     class Meta:

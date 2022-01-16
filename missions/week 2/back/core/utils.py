@@ -1,5 +1,3 @@
-from os import access
-from django.http import JsonResponse
 import requests
 
 class KakaoAPI:
