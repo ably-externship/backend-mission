@@ -31,9 +31,6 @@ class KakaoException(Exception):
 def kakao_login(request):
     kakao_key = env('KAKAO_KEY')
     redirect_uri = env('REDIRECT_URI')
-    # redirect_uri = 'http://127.0.0.1:8000/users/login/kakao/callback'
-    host = 'https://kauth.kakao.com'
-    url = f'/oauth/authorize?client_id={kakao_key}&redirect_uri={redirect_uri}&response_type=code'
     return redirect(
         f'https://kauth.kakao.com/oauth/authorize?client_id={kakao_key}&redirect_uri={redirect_uri}&response_type=code'
     )
@@ -63,7 +60,6 @@ def kakao_callback(request):
             user = User.objects.create_user(email=email)
             user.set_unusable_password()
             user.save()
-        messages.success(request, f"환영합니다 {user.email}님")
         login(request, user)
         return redirect(reverse("core:home"))
     except KakaoException:
