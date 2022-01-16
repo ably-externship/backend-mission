@@ -2,7 +2,6 @@
 .python-version
 __pycache__
 db.sqlite3
-media
 node_modules
 static/tailwind.output.css
 requests
