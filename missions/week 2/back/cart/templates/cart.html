@@ -14,6 +14,7 @@
             </tr>
         </thead>
         <tbody>
+        {% if cart %}
             {% for item in cart %}
                 {% with product=item.product %}
                 <tr>
@@ -47,6 +48,14 @@
                 </tr>
                 {% endwith %}
             {% endfor %}
+        {% else %}
+            <tr>
+                <td>등록된 물품이 없습니다.</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
         </tbody>
     </table>
 {% endblock %}
