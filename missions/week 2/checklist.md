@@ -22,3 +22,4 @@
   - 강사가 확인할 수 있는 서비스 주소 : http://www.kj-dev.com/product/
 
 ## 수행인증영상URL(유튜브)
+- https://youtu.be/eNU6f9U2_w8 
