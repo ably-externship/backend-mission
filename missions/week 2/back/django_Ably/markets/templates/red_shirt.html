@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+<html>
+    <head>
+        <title>Red Store</title>
+        <meta charset="utf-8" />
+        <link href="{%static 'css/styles.css'%}" rel="stylesheet" />
+      </head>
+    
+    <body>
+    <div class="top_logo">
+      <a class="logo" href="/">
+        <img src="{%static 'imgs/logo.png'%}" height="50px">
+      </a>
+      <ul>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Shop</a></li>
+        <li><a href="#">Cart</a></li>
+        {% if user.is_authenticated %} <li><a href="accounts/home/logout/">Logout</li>
+        {% else %} <li><a href="accounts/home/login/">Login</a></li> {% endif %}
+        <li><a href="accounts/home/signup/">Join</a></li>
+      </ul>
+    </div>
+
+    <div style = "text-align : center;">
+        <img src="{%static 'imgs/red_top.jpg'%}" height="400px">
+    </div>
+
+    <h1>Red Shirt</h1>
+
+    <div style = "text-align : center;">
+    <form action="/cart/add", method = "post">
+      {% csrf_token %}
+        <input type="hidden" name="item" value="Red Shirt">
+        <select name="color" >
+          <option value="none">=== 컬러 선택 ===</option>
+          {% for color in colors %}
+            <option value={{color}}>{{color}}</option>
+          {% endfor %}
+        </select>
+
+        <select name="size">
+          <option value="none">=== 사이즈 선택 ===</option>
+          {% for size in sizes %}
+            <option value={{size}}>{{size}}</option>
+          {% endfor %}
+        </select>
+        <input name = "quantity", type="number" min="0" max="10", value = 1> 
+        {% comment %} <div name = "item", value = "Red Shirt">
+        </div> {% endcomment %}
+        <input type="submit" value="장바구니 담기" />
+
+    </form>
+    {% comment %} <form action="/cart/">
+    </form> {% endcomment %}
+    </div> <br><br><br><br><br><br>
+    <div style = "text-align : center;">
+      <a href="#">
+        <img src="{%static 'imgs/size.png'%}">
+      </a>
+    </div>
+    </body>
+
+
+    
+</html>
+
+{% endblock %}
+
+
+<html>
+<head>
+	<title>BLUEB</title>
+</head>
+
+<body onload="init();">
+<script language="JavaScript">
+<!--
+var sell_price;
+var amount;
+
+function init () {
+	sell_price = document.form.sell_price.value;
+	amount = document.form.amount.value;
+	document.form.sum.value = sell_price;
+	change();
+}
+
+function add () {
+	hm = document.form.amount;
+	sum = document.form.sum;
+	hm.value ++ ;
+
+	sum.value = parseInt(hm.value) * sell_price;
+}
+
+function del () {
+	hm = document.form.amount;
+	sum = document.form.sum;
+		if (hm.value > 1) {
+			hm.value -- ;
+			sum.value = parseInt(hm.value) * sell_price;
+		}
+}
+
+function change () {
+	hm = document.form.amount;
+	sum = document.form.sum;
+
+		if (hm.value < 0) {
+			hm.value = 0;
+		}
+	sum.value = parseInt(hm.value) * sell_price;
+}  
+//-->
+</script>
+
+<form name="form" method="get">
+수량 : <input type=hidden name="sell_price" value="5500">
+<input type="text" name="amount" value="1" size="3" onchange="change();">
+<input type="button" value=" + " onclick="add();"><input type="button" value=" - " onclick="del();"><br>
+
+금액 : <input type="text" name="sum" size="11" readonly>원
+</form>
+</body>

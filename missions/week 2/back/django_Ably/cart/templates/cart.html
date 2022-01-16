@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+<html>
+    <head>
+        <title>Red Store</title>
+        <meta charset="utf-8" />
+        <link href="{%static 'css/styles.css'%}" rel="stylesheet" />
+      </head>
+    
+    <body>
+    <div class="top_logo">
+      <a class="logo" href="/">
+        <img src="{%static 'imgs/logo.png'%}" height="50px">
+      </a>
+      <ul>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Shop</a></li>
+        <li><a href="#">Cart</a></li>
+        {% if user.is_authenticated %} <li><a href="accounts/home/logout/">Logout</li>
+        {% else %} <li><a href="accounts/home/login/">Login</a></li> {% endif %}
+        <li><a href="accounts/home/signup/">Join</a></li>
+      </ul>
+    </div>
+
+
+    <h1>장바구니</h1>
+    <div style = "text-align : center;">
+        <p>name  size color quantity price</p>
+        {% for cart_id,name,size,color,quantity,price in cart_items %}
+            <p>{{name}}  {{size}} {{color}}</p>
+            <form action="/cart/update/{{cart_id}}/", method="post">
+                {% csrf_token %}
+                <input type="number" id="quantity" value = {{quantity}} name="quantity" min="1" max="5">
+                <input type="submit">
+              </form>
+            <form action="/cart/delete/{{cart_id}}/">
+                {% csrf_token %}
+                <input type="submit" value="삭제">
+              </form>
+            {% comment %} <input  type="submit" value="수정하기" onclick="location.href='update/{{cart_id}}/'"> {% endcomment %}
+        {% endfor%}
+    {% comment %} <form>
+        <select name="color">
+          <option value="none">=== 컬러 선택 ===</option>
+          {% for color in colors %}
+            <option value="color">{{color}}</option>
+          {% endfor %}
+        </select>
+
+        <select name="size">
+          <option value="none">=== 사이즈 선택 ===</option>
+          {% for size in sizes %}
+            <option value="size">{{size}}</option>
+          {% endfor %}
+        </select>
+    </form>
+    <button>장바구니 담기</button> {% endcomment %}
+    </div> <br><br><br><br><br><br>
+    
+    </body>
+
+
+    
+</html>
+
+{% endblock %}
+

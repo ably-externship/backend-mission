@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+<html>
+    <head>
+      <title>SimpleShop</title>
+      <meta charset="utf-8" />
+      <link href="{%static 'css/styles.css'%}" rel="stylesheet" />
+    </head>
+  
+    <body>
+      <div class="top_logo">
+        <a class="logo" href="/">
+          <img src="{%static 'imgs/logo.png'%}" height="50px">
+        </a>
+        <ul>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Shop</a></li>
+          <li><a href="#">Cart</a></li>
+          {% if user.is_authenticated %} <li><a href="accounts/home/logout/">Logout</li>
+          {% else %} <li><a href="accounts/home/login/">Login</a></li> {% endif %}
+          <li><a href="accounts/home/signup/">Join</a></li>
+        </ul>
+      </div>
+  
+      <div style = "text-align : center;">
+          <img src="{%static 'imgs/dress.jpg'%}" height="400px">
+          
+      </div>
+  
+      <h1>Our Stores</h1>
+      <div class="stores">
+        <a href="redstore/">
+          <img src="{%static 'imgs/red.jpg'%}">
+          <p>Red Store</p>
+          <p class="describe">레드 계열의 옷을 파는 Store</p>
+        </a>
+        <a href="#">
+          <img src="{%static 'imgs/blue.jpg'%}">
+          <p>Casual Store</p>
+          <p class="describe">캐주얼한 옷을 파는 Store</p>
+        </a>
+        <a href="#">
+          <img src="{%static 'imgs/white_jeans.jpg'%}">
+          <p>Basic Store</p>
+          <p class="describe">베이직한 상의/하의를 파는 Store</p>
+        </a>
+        <a href="#">
+          <img src="{%static 'imgs/black_white.jpg'%}">
+          <p>Simple Store</p>
+          <p class="describe">심플한 무드의 옷을 파는 Store</p>
+        </a>
+        <a href="#">
+          <img src="{%static 'imgs/striped_shirt.jpg'%}">
+          <p>Striped Shirt Store</p>
+          <p class="describe">스트라이프 셔츠를 파는 Store</p>
+        </a>
+        <a href="#">
+          <img src="{%static 'imgs/t-shirt.jpg'%}">
+          <p>T-shirt Store</p>
+          <p class="describe">티셔츠를 파는 Store</p>
+        </a>
+        <a href="#">
+          <img src="{%static 'imgs/knit.jpg'%}">
+          <p>Knit Store</p>
+          <p class="describe">니트를 파는 Store</p>
+        </a>
+        <a href="#">
+          <img src="{%static 'imgs/socks.jpg'%}">
+          <p>Socks Store</p>
+          <p class="describe">다양한 양말을 파는 Store</p>
+        </a>
+        <a href="#">
+            <img src="{%static 'imgs/nike.jpg'%}">
+            <p>Shoes Store</p>
+            <p class="describe">다양한 브랜드의 신발을 파는 Store</p>
+        </a>
+  
+        <div class="clearfix"></div>
+      </div>
+      {% comment %} {% if is_paginated %}
+      <p>
+      {% if has_previous_page %}
+        <a href='/?page={{previous_page}}'>
+      {% endif %}
+      &nbsp;
+      {% for page in current_page_group_range %}
+        &nbsp;
+        {% if page == page_obj.number %}
+        <a>{{page}}</a>
+        {% else %}
+          <a href='/?page={{page}}'>
+            {{page}}
+          </a>
+        {% endif %}
+        &nbsp;
+      {% endfor %}
+      &nbsp;
+      {% if has_next_page %}
+        <a href ='/?page={{next_page}}'>다음 페이지</a>
+      {% endif %}
+      </p>
+      {% endif %}
+      <br>
+      <br> {% endcomment %}
+      <!-- 페이징처리 시작 -->
+    <div id="paging">
+      <ul class="pagination justify-content-center" style="margin-top: 2rem;">
+          <!-- 이전페이지 -->
+          {% if page_obj.has_previous %}
+          <li class="page-item">
+              <a class="page-link" href="/?&page={{ page_obj.previous_page_number }}">이전</a>
+              <!-- href로 뎁스 설정 -->
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+              <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+          </li>
+          {% endif %}
+          <!-- 페이지리스트 -->
+          {% for page_number in page_obj.paginator.page_range %}
+          {% if page_number == page_obj.number %}
+          <li class="page-item active" aria-current="page">
+              <a class="page-link" href="/?&page={{ page_number }}">{{ page_number }}</a>
+          </li>
+          {% else %}
+          <li class="page-item">
+              <a class="page-link" href="/?&page={{ page_number }}">{{ page_number }}</a>
+          </li>
+          {% endif %}
+          {% endfor %}
+          <!-- 다음페이지 -->
+          {% if page_obj.has_next %}
+          <li class="page-item">
+              <a class="page-link" href="/?&page={{ page_obj.next_page_number }}">다음</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+              <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+          </li>
+          {% endif %}
+      </ul>
+    </div>
+    <!-- 페이징처리 끝 -->
+
+    </body>
+  </html>
+
+{% endblock content %}
