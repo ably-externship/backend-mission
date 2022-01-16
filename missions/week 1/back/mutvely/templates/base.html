@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html>
     <head>
@@ -11,7 +12,8 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
         <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-        <link rel="stylesheet" href="static/css/base.css">
+        <script src="{% static 'js/base.js' %}"> </script>
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
         <title>Mutvely</title>
     </head>
     <body>
@@ -23,9 +25,10 @@
                 {% if request.user.is_authenticated %}
                     {{request.user.username}}
                     <a href="{% url 'mypage' %}">마이페이지</a>
+                    <a href="{% url 'cart' %}">장바구니</a>
                     <a href="{% url 'logout' %}">로그아웃</a>
                 {% else %}
-                    <a href="{% url 'login' %}">로그인</a>
+                    <a href="{% url 'login' %}">로그인 | </a>
                     <a href="{% url 'signup' %}">회원가입</a>
                 {% endif %}
             </div>
@@ -40,7 +43,10 @@
             {% block content %}
             {% endblock %}
         <footer>
-            
+            <div class = "copyright">
+                COPYRIGHT ⓒ 2022 HELLO UNIV. ALL RIGHTS RESERVED. <br>
+                CONTACT. e-mail : 
+            </div>
         </footer>
     </body>
 </html>
