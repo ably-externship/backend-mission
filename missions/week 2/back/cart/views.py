@@ -29,7 +29,7 @@ def add_cart(request, id):
     in_cart_item = InCartItem()
     in_cart_item.user = request.user
     in_cart_item.item = item
-    in_cart_item.quantitiy = order_quantity
+    in_cart_item.quantity = order_quantity
     in_cart_item.save()    
     return redirect('index')
   else :
@@ -39,13 +39,19 @@ def add_cart(request, id):
 def delete_cart(request, id) :
   delete_item = InCartItem.objects.get(id = id)
   delete_item.delete()
-  return redirect('cart:cart')
+  return redirect('cart:show_cart')
 
 def update_cart(request, id):
-  update_item = InCartItem.objects.get(id = id)
-  update_item.quantitiy = request.POST['quantitiy']
-  update_item.save()
-  return redirect('cart:cart')
+  if request.method=='POST' :
+    update_item = InCartItem.objects.get(id = id)
+    # print(request.POST.get('update_quantity'))
+    update_item.quantity = request.POST['update_quantity']
+    update_item.save()
+    return redirect('cart:show_cart')
+  else :
+    return redirect('cart:show_cart')
+    
+  
   
 
   

@@ -10,12 +10,13 @@ from django.utils import timezone
 class InCartItem(models.Model) :
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   item = models.ForeignKey(Item, null=True, on_delete=models.CASCADE, related_name='cart')
-  quantitiy = models.IntegerField()
+  quantity = models.IntegerField()
+  # total_price = models.IntegerField(null=True)
   active = models.BooleanField(default=True)
   created_at = models.DateTimeField(default=timezone.now)
   
   def itemTotalPrice(self) :
-    return self.item.price * self.quantitiy.quantity
+    return self.item.price * self.quantity.quantity
   
 
   

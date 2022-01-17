@@ -34,12 +34,12 @@
     <div class="container-fluid">
       {% if user.is_authenticated %}
       <div>
-        <li class = "authentication"><a class="login" style = "font:bold" href={% url 'logout' %}>로그아웃</a></li>
+        <li class = "authentication"><a class="login" style = "font:bold" href={% url 'accounts:logout' %}>로그아웃</a></li>
       </div>
       {% else %}
         <div>
-          <li class = "authentication"><a class="login" style = "font:bold"  href={% url 'login' %}>로그인/ </a></li>
-          <li class = "authentication"><a class="login" style = "font:bold"  href= {% url 'signup' %}>회원가입</a></li>
+          <li class = "authentication"><a class="login" style = "font:bold"  href={% url 'accounts:login' %}>로그인/ </a></li>
+          <li class = "authentication"><a class="login" style = "font:bold"  href= {% url 'accounts:signup' %}>회원가입</a></li>
         </div>
       {% endif %}
         <div>

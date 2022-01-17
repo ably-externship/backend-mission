@@ -54,15 +54,15 @@ class QuestionView:
 #   return render(request, 'mutbly/cart.html', context)
   
   
-def updateItem(request):
-  print(request)
-  data = json.loads(request.body)
-  itemId = data['itemId']
-  action = data['action']
+# def updateItem(request):
+#   print(request)
+#   data = json.loads(request.body)
+#   itemId = data['itemId']
+#   action = data['action']
   
-  print('Action:', action)
-  print('itemId:', itemId)
+#   print('Action:', action)
+#   print('itemId:', itemId)
   
-  user = request.user
-  item = Item.objects.get(id=itemId)
-  return JsonResponse('Item was added', safe=False)
+#   user = request.user
+#   item = Item.objects.get(id=itemId)
+#   return JsonResponse('Item was added', safe=False)
