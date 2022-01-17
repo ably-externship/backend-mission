@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<div id="signupform">
-    <form method='POST'>
+    <form method='POST' id="signupform">
         {% csrf_token %}
         <div class="mb-3">
             <label for="UserID" class="form-label">ID</label>
@@ -22,10 +21,10 @@
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" name="email" required aria-describedby="emailHelp">
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
         </div>
-        <button type="submit" class="btn btn-primary">가입하기</button>
-      </form>
-</div>
+        <div class="login_account">
+            <button type="submit" class="loginbtn">가입하기</button>
+        </div>
+    </form>
 
 {% endblock %}

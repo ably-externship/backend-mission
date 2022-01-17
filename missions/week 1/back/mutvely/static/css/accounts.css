@@ -30,3 +30,10 @@
     margin : 10px 0;
 }
 /* signup.html */
+#signupform{
+    width : 600px;
+    margin: 60px auto;
+    padding: 50px 50px 30px;
+    border: 1px solid var(--hover-color);
+    border-radius: 10px;
+}
