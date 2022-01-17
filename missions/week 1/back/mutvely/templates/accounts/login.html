@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<div id="loginform">
-  <form method="POST">
+  <form method="POST" id="loginform">
     {% csrf_token %}
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">사용자 ID</label>
@@ -11,15 +10,19 @@
       <label for="exampleInputPassword1" class="form-label">비밀번호</label>
       <input name="password" type="password" class="form-control" id="exampleInputPassword1">
     </div>
-    <button type="submit" class="btn btn-primary">로그인</button>
+    <button type="submit" class="loginbtn">로그인</button>
   </form>
-  <button onclick="kakaoLogin()"> <a href=""> 카카오 로그인</a> </button>
-</div>
+  <div class="login_account">
+    <div>
+      <button class="plainBtn"> 아이디 찾기 </button>
+      <span> | </span>
+      <button class="plainBtn"> 비밀번호 찾기 </button>
+    </div>
+    <a href="javascript:kakaoLogin();"> <button id="kakaoBtn"> 카카오 로그인 </button> </a>
+  </div>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <body>
-  <a href="javascript:kakaoLogin();"><img src="./kakao_login.png" alt="카카오계정 로그인" style="height: 100px;"/></a>
-
-  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
   Kakao.init('b8a14b8a382e6d6521860f591f565aed');
   function kakaoLogin() {

@@ -1,0 +1,32 @@
+/* login.html */
+#loginform{
+    width:500px;
+    margin:auto;
+    padding: 80px 80px 0 80px;
+}
+.login_account{
+    text-align : center;
+}
+.loginbtn{
+    width : 340px;
+    background-color: var(--header-color);
+    padding: 5px;
+    border : none; 
+    margin : 10px 0;
+}
+.loginbtn:hover{
+    background-color: var(--hover-color);
+}
+.plainBtn{
+    background-color:none;
+    border : none;
+}
+#kakaoBtn{
+    width : 340px;
+    background-color : #FEE500;
+    padding: 5px;
+    border : none;
+    border-radius: 12px;
+    margin : 10px 0;
+}
+/* signup.html */
