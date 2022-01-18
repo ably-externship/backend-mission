@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 {% block content %}
 <div class="container mx-auto">
     <div
@@ -38,7 +39,7 @@
 
     <div>
         <p class="text-base">{{product.name}}</p>
-        <p class="text-lg font-bold">{{product.price}}원</p>
+        <p class="text-lg font-bold">{{ product.price | intcomma }}원</p>
     </div>
     <hr/>
     <div class="grid">

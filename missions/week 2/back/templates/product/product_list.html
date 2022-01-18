@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
+{% load humanize %}
 {% block content %}
+
 <section class="section-prod-list">
     <div class="m-3">
         <input type="text" id="filter"
@@ -14,7 +16,7 @@
                 <div onclick="location.href='/product/' + {{product.id}}">
                     <img class="w-full block" src="{{product.file}}"/>
                     <div>
-                        <p class="text-lg font-bold">{{product.price}}원</p>
+                        <p class="text-lg font-bold">{{ product.price | intcomma }}원</p>
                     </div>
                     <div>
                         <p class="text-base ">{{product.company_name}}</p>
