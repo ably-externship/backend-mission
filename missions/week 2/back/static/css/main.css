@@ -137,7 +137,9 @@ html, body {
     justify-content: center;
 }
 
-
+.narrow-select {
+    width: 10px;
+}
 
 .my.pagination > .active > a,
 .my.pagination > .active > span,

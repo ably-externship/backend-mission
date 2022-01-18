@@ -48,7 +48,7 @@ def detailProduct(request, product_id):
     context['product']=product
 
     option = Product_options.objects.filter(product_id=product_id)
-    context['qnas']=option
+    context['options']=option
 
     qnas = Product_qna.objects.filter(product_id=product_id)
     context['qnas']=qnas
@@ -62,6 +62,7 @@ def detailProduct(request, product_id):
 
 # QnA 질문
 def createQna(request, product_id):
+
 
     # 카카오톡 토큰
     context={}

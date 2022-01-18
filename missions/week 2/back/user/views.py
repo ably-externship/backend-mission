@@ -93,7 +93,8 @@ def kakaoLogout(request):
         return redirect('/')
     else:
         return render(request, 'logoutError.html')
-
+    # del request.session['access_token']
+    # return redirect('/')
 
 # 로그아웃
 def logout(request):

@@ -7,46 +7,45 @@
         <thead>
             <tr>
                 <th class="w-1/2" scope="col">상품정보</th>
-<!--                <th scope="col">옵션</th>-->
+                <th class="w-2/12">옵션</th>
                 <th class="w-1/5" scope="col">수량</th>
-                <th class="w-2/12" scope="col">금액</th>
-                <th class="w-2/12" scope="col">총 금액</th>
+                <th class="" scope="col">금액</th>
+                <th class="" scope="col">총 금액</th>
             </tr>
         </thead>
         <tbody>
-        {% if cart %}
-            {% for item in cart %}
-                {% with product=item.product %}
+        {% if carts %}
+            {% for cart in carts %}
                 <tr>
                     <th scope="row">
                         <div class="cart-img float-left">
-                            <a href="{{product.get_absolute_url}}">
-                                <img src = "/static/img/{{ product.image }}" class="img-thumbnail">
+                            <a>
+                                <img src = "/static/img/{{ cart.product_image }}" class="img-thumbnail">
                             </a>
                         </div>
                         <div>
-                            {{product.name}}
+                            {{cart.product_name}}
                         </div>
 
                     </th>
-<!--                    <td>-->
-<!--                        {{item.quantity_form.opt_size}}-->
-<!--&lt;!&ndash;                        {{item.quantity_form.opt_price}}&ndash;&gt;-->
-<!--                    </td>-->
                     <td>
-                        <form action="{% url 'cart:product_add' product.id %}" method="post">
+                        {{cart.opt_size}}
+                    </td>
+                    <td>
+                        <form action="{% url 'cart:cart_add' %}" method="post">
                             {% csrf_token %}
-                            {{item.quantity_form.quantity}}
-                            {{item.quantity_form.is_update}}
+                            <div class="narrow-select">
+                                {{cart.quantity_form.quantity}}
+                                {{cart.quantity_form.is_update}}
+                            </div>
+                            <br>
                             <input type="submit" class="btn btn-primary bg-black border-black" value="수정">
-                            <button type="button" class="btn btn-primary bg-black border-black" onclick="location.href='{% url 'cart:product_remove' product.id%}'">삭제</button>
+                            <button type="button" class="btn btn-primary bg-black border-black" onclick="location.href='{% url 'cart:product_remove' cart.cart_id%}'">삭제</button>
                         </form>
                     </td>
-                    {{item.cart_id}}
-                    <td class="num">{{item.price}}</td>
-                    <td class="num">{{item.total_price}}</td>
+                    <td class="num">{{cart.price}}</td>
+                    <td class="num">{{cart.total_price}}</td>
                 </tr>
-                {% endwith %}
             {% endfor %}
         {% else %}
             <tr>

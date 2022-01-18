@@ -28,34 +28,21 @@
                 </div>
                 <div class="buy-Button">
 
-                    <form action="{% url 'cart:product_add' product.id %}" method="post" class="">
+                    <form action="{% url 'cart:cart_add' %}" method="post" class="">
                         {% csrf_token %}
                         {{add_to_cart}}
-<!--                        <br>-->
-<!--                        사이즈를 선택하세요-->
+                        <br>
+                         옵션을 선택하세요
 
-<!--                        <select name="options">-->
-<!--                            {% for opt in options %}-->
-<!--                            <option >{{opt.opt1_name}}</option>-->
-
-<!--                            {% endfor %}-->
-<!--                        </select>-->
+                        <select name="opt">
+                            {% for opt in options %}
+                            <option value="{{opt.id}}">{{opt.opt1_name}} - 수량:{{opt.opt1_stock}}</option>
+                            {% endfor %}
+                        </select>
 
                         <input type="submit" value="장바구니" class="signUpButton m-1">
                     </form>
 
-<!--                    <select>-->
-<!--                        {% for opt in options %}-->
-<!--                        <option >사이즈:{{opt.opt1_name}} 추가금액:{{opt.opt1_price}} 재고:{{opt.opt1_stock}} </option>-->
-
-<!--                        {% endfor %}-->
-<!--                        <form action="{% url 'cart:product_add' product.id %}" method="post" class="object-right-bottom">-->
-<!--                            {{add_to_cart}}-->
-<!--                            {% csrf_token %}-->
-<!--                            <input type="submit" value="장바구니" class="signUpButton m-1 object-right-bottom">-->
-<!--                        </form>-->
-
-<!--                    </select>-->
 
 
                 </div>
@@ -64,11 +51,7 @@
                         <input type="submit" value="구매하기" class="signUpButton m-1">
                     </div>
                 </div>
-<!--                <form action="{% url 'cart:product_add' product.id %}" method="post" class="object-right-bottom">-->
-<!--                    {{add_to_cart}}-->
-<!--                    {% csrf_token %}-->
-<!--                    <input type="submit" value="장바구니" class="signUpButton m-1 object-right-bottom">-->
-<!--                </form>-->
+
             </li>
         </ul>
 
