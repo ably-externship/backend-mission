@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="32fb0568-5add-4a0d-9b25-698fd7e1dfe1" name="Changes" comment="배포 미완">
+      <change afterPath="$PROJECT_DIR$/../../../docs/week 3/readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../checklist.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../docs/week 2/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../docs/week 2/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 2/checklist.md" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="week_1" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="23H4C2PFtyAx1yLoSIMeGui1wVq" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/venv/lib/python3.10/site-packages/allauth/templates/socialaccount" />
+      <recent name="$PROJECT_DIR$/venv/lib/python3.10/site-packages/allauth/templates/account" />
+      <recent name="$PROJECT_DIR$/templates/product" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="32fb0568-5add-4a0d-9b25-698fd7e1dfe1" name="Changes" comment="" />
+      <created>1641377546611</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1641377546611</updated>
+    </task>
+    <task id="LOCAL-00001" summary="장바구니 model, view, api 구현 (에러)">
+      <created>1642066334853</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1642066334853</updated>
+    </task>
+    <task id="LOCAL-00002" summary="장바구니 리스트 페이지">
+      <created>1642071117334</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1642071117334</updated>
+    </task>
+    <task id="LOCAL-00003" summary="장바구니 상품 삭제 기능">
+      <created>1642091115922</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1642091115922</updated>
+    </task>
+    <task id="LOCAL-00004" summary="배포 미완">
+      <created>1642270937629</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1642270937629</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="1주차 프로젝트 완성 (데이터 부족)" />
+    <MESSAGE value="1주차 프로젝트 완성 체크리스트 수정" />
+    <MESSAGE value="장바구니 model, view, api 구현 (에러)" />
+    <MESSAGE value="장바구니 리스트 페이지" />
+    <MESSAGE value="장바구니 상품 삭제 기능" />
+    <MESSAGE value="배포 미완" />
+    <option name="LAST_COMMIT_MESSAGE" value="배포 미완" />
+  </component>
+</project>
