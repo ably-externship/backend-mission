@@ -3,7 +3,7 @@ import json
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DetailView, DeleteView
@@ -74,6 +74,7 @@ def product_list_view(request):
         }
     )
 
+
 @login_required()
 def add_cart_view(request):
     product_option_id = request.POST.get('product_option')
@@ -123,4 +124,3 @@ def cart_delete_view(request):
         cart_item.delete()
 
     return JsonResponse(data)
-

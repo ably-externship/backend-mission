@@ -1,5 +1,4 @@
 import secrets
-
 import requests
 from django.contrib import messages
 from django.contrib.auth import login as auth_login
@@ -202,6 +201,5 @@ def kakao_login_view(request):
     login_request_uri += 'client_id=' + client_id
     login_request_uri += '&redirect_uri=' + redirect_uri
     login_request_uri += '&response_type=code'
-
 
     return redirect(login_request_uri)

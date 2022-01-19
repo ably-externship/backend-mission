@@ -3,3 +3,4 @@ mysqlclient==2.1.0
 django-bootstrap-v5
 pillow
 django-allauth
+djangorestframework==3.12.4

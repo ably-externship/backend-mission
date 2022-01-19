@@ -11,6 +11,7 @@ class ProductAdmin(admin.ModelAdmin):
 class ProductOptionAdmin(admin.ModelAdmin):
     pass
 
+
 @admin.register(CartItem)
 class CartItemAdmin(admin.ModelAdmin):
     pass
