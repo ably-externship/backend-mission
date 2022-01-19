@@ -1,5 +1,6 @@
 import { useHistory } from 'react-router-dom';
 import axios from "axios";
+import styled from 'styled-components';
 
 function KakaoLogin(){
     const { Kakao } = window;
@@ -26,9 +27,13 @@ function KakaoLogin(){
 
     return(
         <div>
-            <img src="/kakao_login.png" onClick={kakaoLogin}/>
+            <KakaoImage src="/kakao_login.png" onClick={kakaoLogin}/>
         </div>
     )
 }
+
+const KakaoImage = styled.img`
+    cursor: pointer;
+    margin: 10px;`
 
 export default KakaoLogin
