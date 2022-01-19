@@ -6,7 +6,6 @@
       <change beforePath="$PROJECT_DIR$/apis/api_product.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/api_product.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apis/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apis/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../db/data/ib_logfile0" beforeDir="false" afterPath="$PROJECT_DIR$/../db/data/ib_logfile0" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

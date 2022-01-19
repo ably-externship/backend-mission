@@ -3,7 +3,7 @@ from .views import UserLoginView, UserCreateView, UserLogoutView, CommentCreateV
     CartMinusView, CartDeleteView
 
 # REST framework
-from .api_product import ProductViewSet, CategoryView, BrandView
+from .api_product import ProductViewSet, CategoryView, BrandView, brand_list, brand_detail
 
 
 # 3주차
@@ -23,15 +23,20 @@ product_detail = ProductViewSet.as_view({
 
 # Product API urls
 post_urlpatterns = [
+    # 상품 목록
     path('', product_list, name='api_product_list'),
+    # 상품 상세
     path('<int:pk>/', product_detail, name='api_product_detail'),
+    # 카테고리 별 상품
     path('category/<int:pk>/', CategoryView.as_view(
         {'get': 'list'}
     ), name='api_category'),
+    # 브랜드 별 상품
     path('brand/<int:pk>/', BrandView.as_view(
         {'get': 'list'}
     ), name='api_brand'),
-
+    path('brand_list/', brand_list, name='api_brand_list'),
+    path('brand_list/<int:pk>/', brand_detail),
 ]
 
 

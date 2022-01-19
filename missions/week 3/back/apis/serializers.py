@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from contents.models import Product, Comment, Image
+from contents.models import Product, Comment, Image, Category, Brand
 
 
 # Comment Serializer
@@ -11,10 +11,25 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+# Image Serializer
 class ImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Image
+        fields = '__all__'
+
+
+# Category Serializer
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ('name',)
+
+
+# Brand Serializer
+class BrandSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Brand
         fields = '__all__'
 
 
