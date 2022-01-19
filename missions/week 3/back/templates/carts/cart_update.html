@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {# 상품 정보 #}
+            <div class="col-sm-8" align="center">
+                <div class="card mb-4" style="width: 300px">
+                    <img src="https://picsum.photos/100/100" class="card-img-top" alt="not found image">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ product }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted text-center">{{ product.market }}</h6>
+                        <p class="card-text text-center">
+                            <span class="badge rounded-pill bg-info text-dark card-text text-center">{{ product.category.name }}</span>
+                        </p>
+                        <p class="card-text text-center">{{ cart.pk }}원</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <form method="post" action="{% url 'carts:update' cart.pk product.pk %}">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                  <label class="input-group-text" for="inputGroupSelect01">사이즈</label>
+                  <select name="size" class="form-select" id="inputGroupSelect01">
+                    {% for option in product.options.all %}
+                        {% if forloop.first %}
+                            <option value="{{ option.size }}" selected="selected">{{ option.size }}</option>
+                        {% else %}
+                            <option value="{{ option.size }}">{{ option.size }}</option>
+                        {% endif %}
+                    {% endfor %}
+                  </select>
+                </div>
+                    <div class="input-group mb-3">
+                      <label class="input-group-text" for="inputGroupSelect01">색상</label>
+                      <select name="color" class="form-select" id="inputGroupSelect01">
+                        {% for option in product.options.all %}
+                            {% if forloop.first %}
+                            <option value="{{ option.color }}" selected="selected">{{ option.color }}</option>
+                        {% else %}
+                            <option value="{{ option.color }}">{{ option.color }}</option>
+                        {% endif %}
+                        {% endfor %}>
+                      </select>
+                    </div>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="inputGroup-sizing-default">수량</span>
+                      <input name='quantity' type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{ cart.quantity }}">
+                    </div>
+                    <input class="btn btn-sm btn-outline-secondary" type="submit" value="저장">
+              </form>
+            </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

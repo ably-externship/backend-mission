@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="post">
+    <div class="container">
+        <div class="row" align="center">
+            <div class="col-12">
+                {% csrf_token %}
+
+                <p><b>{{ object.product.name }}</b> 제품을 장바구니에서 빼시겠습니까?</p>
+                <button type="submit" class="btn btn-danger float-right">삭제</button>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock content %}
