@@ -2,14 +2,26 @@ from django.urls import path, include
 from .views import UserLoginView, UserCreateView, UserLogoutView, CommentCreateView, CartAddView, CartPlusView, \
     CartMinusView, CartDeleteView
 
+# REST framework
+from .api_product import ProductViewSet, CategoryView, BrandView
+from .api_product import post_list, post_detail
 
 post_urlpatterns = [
-    path('', ),
+    path('', post_list, name='api_product_list'),
+    path('<int:pk>/', post_detail, name='api_product_detail'),
+    path('category/<int:pk>/', CategoryView.as_view(
+        {'get': 'list'}
+    )),
+    path('brand/<int:pk>/', BrandView.as_view(
+        {'get': 'list'}
+    )),
+
 ]
 
 
 urlpatterns = [
-    path('api/post/', include(post_urlpatterns.urls)),
+    path('product/', include(post_urlpatterns)),
+
 
     # user api
     path('v1/user/login/', UserLoginView.as_view(), name='apis_v1_user_login'),
