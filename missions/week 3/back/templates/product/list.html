@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<script src="https://cdn.tailwindcss.com"></script>
+<section class="section-1">
+    <div class="container mx-auto m-5">
+        <ul class="prod-list grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5">
+            {% if product_list %}
+            {% for product in product_list %}
+            <li>
+                <a href="{% url 'product:detail' pk=product.pk %}" class="block t-w-full ">
+                    <img src="{{ product.image.url }}" alt="" class="block t-w-full">
+                    <span class="block text-center mt-1">{{ product.name}}</span>
+                    <sapn class="block text-center mt-1">{{ product.price}}</sapn>
+                </a>
+            </li>
+            {% endfor %}
+            {% else %}
+            <div style="t-text-align:center">
+                <h1> No Product </h1>
+            </div>
+            {% endif %}
+        </ul>
+    </div>
+</section>
+
+    {% include 'snippets/pagination.html' with page_obj=page_obj %}
+
+    {% include 'product/search_form.html' %}
+
+
+{% endblock %}

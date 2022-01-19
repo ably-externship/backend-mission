@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .container {
+        padding: 0;
+        margin: 0, auto;
+    }
+    .container a {
+      width: 45%;
+      max-width: 250px;
+    }
+    .container div {
+      justify-content: center;
+      align-items: center;
+      border-radius: 1rem;
+    }
+    .container img {
+      width: 100%;
+      border-radius: 1rem;
+    }
+
+</style>
+
+{% if product_list %}
+<div class="container">
+    {% for product in product_list %}
+    <a href="{% url 'product:detail' pk=product.pk %}">
+        {% include 'snippets/card.html' with product=product %}
+    </a>
+    {% endfor %}
+</div>
+
+<script src="{% static 'js/magicgrid.js' %}"></script>
+
+{% else %}
+<div style="text-align:center">
+    <h1> No Product </h1>
+</div>
+{% endif %}
+
+{% include 'snippets/pagination.html' with page_obj=page_obj %}
+
+{% include 'product/search_form.html' %}
+
+{% endblock %}
+
+
