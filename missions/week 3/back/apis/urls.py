@@ -4,24 +4,41 @@ from .views import UserLoginView, UserCreateView, UserLogoutView, CommentCreateV
 
 # REST framework
 from .api_product import ProductViewSet, CategoryView, BrandView
-from .api_product import post_list, post_detail
 
+
+# 3주차
+# 상품 리스트에서 읽기과 생성 가능
+product_list = ProductViewSet.as_view({
+    'get': 'list',
+    'post': 'create',
+})
+
+# 상품 상세 화면에서 검색, 수정, 삭제가 가능
+product_detail = ProductViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy',
+})
+
+# Product API urls
 post_urlpatterns = [
-    path('', post_list, name='api_product_list'),
-    path('<int:pk>/', post_detail, name='api_product_detail'),
+    path('', product_list, name='api_product_list'),
+    path('<int:pk>/', product_detail, name='api_product_detail'),
     path('category/<int:pk>/', CategoryView.as_view(
         {'get': 'list'}
-    )),
+    ), name='api_category'),
     path('brand/<int:pk>/', BrandView.as_view(
         {'get': 'list'}
-    )),
+    ), name='api_brand'),
 
 ]
 
 
 urlpatterns = [
+    # 3주차
+    # 상품 API 별로 분리를 하기 위함
     path('product/', include(post_urlpatterns)),
-
 
     # user api
     path('v1/user/login/', UserLoginView.as_view(), name='apis_v1_user_login'),
