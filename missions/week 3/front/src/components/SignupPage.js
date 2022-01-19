@@ -1,7 +1,4 @@
-import './SignupPage.css'
-import styled from 'styled-components';
-import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import './SignupPage.css';
 import KakaoLogin from './KakaoLogin';
 
 function SignupPage (){

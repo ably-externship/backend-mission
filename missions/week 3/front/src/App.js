@@ -3,7 +3,7 @@ import { Link, Switch, Route } from 'react-router-dom';
 import './App.css';
 import SignupPage from './components/SignupPage.js';
 import ProductList from './components/ProductListPage.js';
-import KakaoLogin from './components/KakaoLogin';
+import LoginPage from './components/LoginPage';
 
 function App() {
 
@@ -16,7 +16,7 @@ function App() {
         <Nav className="me-auto">
           <Nav.Link as={Link} to="/products/list">Products</Nav.Link>
           <Nav.Link as={Link} to="/accounts/signup">Sign Up</Nav.Link>
-          <Nav.Link href="#pricing">Log In</Nav.Link>
+          <Nav.Link as={Link} to="/accounts/login">Log In</Nav.Link>
         </Nav>
         </Container>
       </Navbar>
@@ -35,6 +35,10 @@ function App() {
 
         <Route exact path="/accounts/signup">
           <SignupPage/>
+        </Route>
+
+        <Route exact path="/accounts/login">
+          <LoginPage/>
         </Route>
 
       </Switch>
