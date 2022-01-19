@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32fb0568-5add-4a0d-9b25-698fd7e1dfe1" name="Changes" comment="배포 미완">
-      <change afterPath="$PROJECT_DIR$/../../../docs/week 3/readme.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../checklist.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../docs/week 2/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../docs/week 2/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 2/checklist.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
