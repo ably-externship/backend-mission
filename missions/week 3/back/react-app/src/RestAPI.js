@@ -38,7 +38,7 @@ function RestAPI() {
 
             <button
               className="btn-delete"
-              onClick={async() => {
+              onClick={() => {
                 axios.delete(`http://127.0.0.1:8000/api/products/${e.id}`);
                 setText(text.filter((text) => text.id !== e.id));
               }}
