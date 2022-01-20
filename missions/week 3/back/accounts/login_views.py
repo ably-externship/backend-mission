@@ -13,7 +13,7 @@ class LogInView(View):
         try:
             data = json.loads(request.body)
             password = data['password']
-            user = User.objects.get(email = data['email'])
+            user = User.objects.get(email = data['email'], is_social = False)
 
             if user.userinfo.is_deleted:
                 return JsonResponse({'message' : 'Invalid User'}, status = 401)
