@@ -15,7 +15,7 @@ class Account(models.Model):
         db_table = 'accounts'
 
 class Master(TimeStampModel):
-    account_id = models.OneToOneField(Account, on_delete=models.SET_NULL, null=True)
+    account = models.OneToOneField(Account, on_delete=models.SET_NULL, null=True)
     email = models.CharField(max_length=100)
     password = models.CharField(max_length=60)
     is_deleted = models.BooleanField(default=False)
@@ -24,7 +24,7 @@ class Master(TimeStampModel):
         db_table = 'masters'
 
 class User(models.Model):
-    account_id = models.OneToOneField(Account, on_delete=models.SET_NULL, null=True)
+    account = models.OneToOneField(Account, on_delete=models.SET_NULL, null=True)
     email = models.CharField(max_length=100)
     is_social = models.BooleanField(default=False)
 
@@ -58,7 +58,7 @@ class SocialUserInfo(TimeStampModel):
         db_table = 'social_user_information'
 
 class Seller(TimeStampModel):
-    account_id = models.OneToOneField(Account, on_delete=models.SET_NULL, null=True)
+    account = models.OneToOneField(Account, on_delete=models.SET_NULL, null=True)
     email = models.CharField(max_length=100)
     password = models.CharField(max_length=60)
     name = models.CharField(max_length=30)
