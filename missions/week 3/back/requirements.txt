@@ -4,3 +4,5 @@ django-bootstrap-v5
 pillow
 django-allauth
 djangorestframework==3.12.4
+axios
+django-cors-headers

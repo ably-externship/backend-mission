@@ -4,5 +4,10 @@
   },
   "scripts": {
     "css": "npx tailwindcss -i ./static/tailwind.input.css -o ./static/tailwind.output.css --watch"
+  },
+  "dependencies": {
+    "axios": "^0.25.0",
+    "create-react-app": "^5.0.0",
+    "global": "^4.4.0"
   }
 }
