@@ -1,5 +1,4 @@
 import './SignupPage.css';
-import KakaoLogin from './KakaoLogin';
 
 function SignupPage (){
 
@@ -20,9 +19,6 @@ function SignupPage (){
                 </div>
                 <div>
                     <button>Creat Account</button>
-                </div>
-                <div>
-                    <KakaoLogin/>
                 </div>
             </form>
         </div>

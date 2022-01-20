@@ -4,6 +4,7 @@ import './App.css';
 import SignupPage from './components/SignupPage.js';
 import ProductList from './components/ProductListPage.js';
 import LoginPage from './components/LoginPage';
+import KakaoLogin from './components/KakaoLogin';
 
 function App() {
 
@@ -35,9 +36,15 @@ function App() {
 
         <Route exact path="/accounts/signup">
           <SignupPage/>
+          <KakaoLogin/>
         </Route>
 
         <Route exact path="/accounts/login">
+          <LoginPage/>
+          <KakaoLogin/>
+        </Route>
+
+        <Route exact path="/admin">
           <LoginPage/>
         </Route>
 
