@@ -1,0 +1,6 @@
+Django
+mysqlclient
+django-bootstrap-v5
+requests
+django-debug-toolbar
+djangorestframework

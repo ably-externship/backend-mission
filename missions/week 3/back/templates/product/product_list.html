@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block content %}
+
+<section class="section-prod-list">
+    <div class="m-3">
+        <input type="text" id="filter"
+               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none"
+               placeholder="상품 카테고리나 상품명을 입력하고 엔터키를 입력하세요."/>
+    </div>
+    <div class="container mx-auto">
+        <ul id="content" class="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {% if data %}
+            {% for product in data %}
+            <li>
+                <div onclick="location.href='/product/' + {{product.id}}">
+                    <img class="w-full block" src="{{product.file}}"/>
+                    <div>
+                        <p class="text-lg font-bold">{{ product.price | intcomma }}원</p>
+                    </div>
+                    <div>
+                        <p class="text-base ">{{product.company_name}}</p>
+                    </div>
+                    <div>
+                        <p class="text-base text-xs truncate">{{product.name}}</p>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+            {% else %}
+            <li>
+                No Data Found
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</section>
+{% block javascript %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        let pageNumber = 1;
+        const num_pages = '{{num_pages}}';
+        $(window).scroll(function () {
+                if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                    if (pageNumber != num_pages) {
+                        pageNumber += 1;
+                        getAjax(pageNumber, $("#filter").val())
+                    }
+                }
+            }
+        );
+
+        $("#filter").on('keyup', function(e) {
+            if (e.keyCode == 13) {
+                const searchValue = $(this).val();
+                $("#content").empty();
+                getAjax(1, searchValue);
+                pageNumber = 1;
+            }
+        })
+
+        function getAjax(page_num, q) {
+            $.ajax({
+                'url': '/product/ajax',
+                'data': {page_num: page_num, 'q': q},
+                'method': 'GET',
+                'success': function (data) {
+                    let appendTag = ''
+                    data.data.map(product => {
+                        appendTag += '<li>'
+                        appendTag += `<div onClick="location.href='/product/${product.id}'">`
+                        appendTag += '<img class="w-full block" src=" ' + product.file + '"/>'
+                        appendTag += '<div>'
+                        appendTag += '<p class="text-lg font-bold">' + product.price + '원</p>'
+                        appendTag += '</div>'
+                        appendTag += '<div>'
+                        appendTag += '<p class="text-base ">' + product.company_name + '</p>'
+                        appendTag += '</div>'
+                        appendTag += '<div>'
+                        appendTag += '<p class="text-base text-xs truncate">' + product.name + '</p>'
+                        appendTag += '</div>'
+                        appendTag += '</div>'
+                        appendTag += '</li>'
+                    })
+                    $("#content").append(appendTag)
+                    if (page_num == num_pages) {
+                        $("#content").append('<div class="justify-center"><div>마지막 상품입니다.<div></div>')
+                    }
+                },
+            })
+        }
+    })
+</script>
+{% endblock javascript %}
+{% endblock %}

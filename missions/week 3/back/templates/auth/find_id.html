@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="post">
+    <div class="grid grid-cols-4 gap-3 mx-auto">
+        <div class="col-span-4">
+            <input name="name" type="text" class="form-control" placeholder="이름" id="name"/>
+            <label for="name" id="nameLabel" style="display: none">아이디가 존재하지 않습니다.</label>
+        </div>
+        <div class="col-span-4">
+            <button type="button" class="btn w-full bg-[#0d6efd] text-white" id="submitBtn">
+                아이디 찾기
+            </button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#submitBtn").on('click', function () {
+            //TODO Find ID
+            $.ajax({
+                'url': '/auth/find-id/',
+                'data': {'name': $("#name").val()},
+                'method': 'POST',
+                'success': function (data) {
+                    console.log(data)
+                    if (data.data == false) {
+                        $("#nameLabel").show()
+                    } else {
+                        alert('회원님의 아이디는 ' + data.data + '입니다.')
+                    }
+                }
+            })
+        })
+    })
+</script>
+
+{% endblock %}
