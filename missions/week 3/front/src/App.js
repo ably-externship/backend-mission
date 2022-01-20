@@ -1,6 +1,8 @@
-import { Navbar, Container, Nav } from 'react-bootstrap';
-import { Link, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import './App.css';
+import HomeNav from './components/Navbar.js';
 import SignupPage from './components/SignupPage.js';
 import ProductList from './components/ProductListPage.js';
 import LoginPage from './components/LoginPage';
@@ -8,19 +10,18 @@ import KakaoLogin from './components/KakaoLogin';
 
 function App() {
 
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    if (localStorage.getItem('access_token')) {
+      dispatch({ type : 'login' });
+    }
+  }, []);
+
   return (
     <div className="App">
       
-      <Navbar bg="light" variant="light">
-        <Container>
-        <Navbar.Brand href="/">Mbly</Navbar.Brand>
-        <Nav className="me-auto">
-          <Nav.Link as={Link} to="/products/list">Products</Nav.Link>
-          <Nav.Link as={Link} to="/accounts/signup">Sign Up</Nav.Link>
-          <Nav.Link as={Link} to="/accounts/login">Log In</Nav.Link>
-        </Nav>
-        </Container>
-      </Navbar>
+      <HomeNav/>
 
       <Switch>
 

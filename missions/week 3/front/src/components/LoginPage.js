@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import './LoginPage.css';
 
 function LoginPage(){
@@ -8,6 +9,7 @@ function LoginPage(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const emailHandler = (e) => {
         setEmail(e.target.value)
@@ -23,6 +25,7 @@ function LoginPage(){
         { email : email, password : password })
         .then((response)=>{
             localStorage.setItem('access_token', response.data.access_token);
+            dispatch(({ type : 'login' }))
             history.push('/');
             alert('로그인 성공!');
         })

@@ -1,4 +1,5 @@
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import axios from "axios";
 import styled from 'styled-components';
 
@@ -6,6 +7,8 @@ function KakaoLogin(){
     const { Kakao } = window;
 
     let history = useHistory();
+
+    const dispatch = useDispatch();
     
     const kakaoLogin = () => {
         Kakao.Auth.login({
@@ -15,6 +18,7 @@ function KakaoLogin(){
                 .then((response)=>{
                     if ( response.data.access_token ) {
                         localStorage.setItem('access_token', response.data.access_token);
+                        dispatch({ type : 'login' });
                         history.push('/');
                     }
                 });
