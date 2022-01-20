@@ -4,10 +4,8 @@
     "fields": {
       "color": "red",
       "size": "55",
-      "main_image": null,
-      "detail_image": null,
       "stock": 10,
-      "product_id": "1"
+      "product_id": "10"
     }
   },
   {
@@ -15,10 +13,8 @@
     "fields": {
       "color": "red",
       "size": "free",
-      "main_image": null,
-      "detail_image": null,
       "stock": 11,
-      "product_id": "1"
+      "product_id": "10"
     }
   },
   {
@@ -26,10 +22,8 @@
     "fields": {
       "color": "ivory",
       "size": "55",
-      "main_image": null,
-      "detail_image": null,
       "stock": 10,
-      "product_id": "1"
+      "product_id": "10"
     }
   },
   {
@@ -37,10 +31,8 @@
     "fields": {
       "color": "ivory",
       "size": "free",
-      "main_image": null,
-      "detail_image": null,
       "stock": 10,
-      "product_id": "1"
+      "product_id": "10"
     }
   },
   {
@@ -48,10 +40,8 @@
     "fields": {
       "color": "gray",
       "size": "free",
-      "main_image": null,
-      "detail_image": null,
       "stock": 10,
-      "product_id": "2"
+      "product_id": "11"
     }
   },
   {
@@ -59,10 +49,8 @@
     "fields": {
       "color": "darkblue",
       "size": "M",
-      "main_image": null,
-      "detail_image": null,
       "stock": 10,
-      "product_id": "3"
+      "product_id": "12"
     }
   },
   {
@@ -70,10 +58,8 @@
     "fields": {
       "color": "darkblue",
       "size": "L",
-      "main_image": null,
-      "detail_image": null,
       "stock": 10,
-      "product_id": "3"
+      "product_id": "12"
     }
   },
   {
@@ -81,10 +67,8 @@
     "fields": {
       "color": "black",
       "size": "free",
-      "main_image": null,
-      "detail_image": null,
       "stock": 10,
-      "product_id": "4"
+      "product_id": "13"
     }
   },
   {
@@ -92,10 +76,8 @@
     "fields": {
       "color": "white",
       "size": "235",
-      "main_image": null,
-      "detail_image": null,
       "stock": 10,
-      "product_id": "5"
+      "product_id": "14"
     }
   },
   {
@@ -103,10 +85,8 @@
     "fields": {
       "color": "white",
       "size": "240",
-      "main_image": null,
-      "detail_image": null,
       "stock": 10,
-      "product_id": "5"
+      "product_id": "14"
     }
   },
   {
@@ -114,10 +94,8 @@
     "fields": {
       "color": "black",
       "size": "270",
-      "main_image": null,
-      "detail_image": null,
       "stock": 10,
-      "product_id": "6"
+      "product_id": "15"
     }
   },
   {
@@ -125,10 +103,8 @@
     "fields": {
       "color": "black",
       "size": "275",
-      "main_image": null,
-      "detail_image": null,
       "stock": 10,
-      "product_id": "6"
+      "product_id": "15"
     }
   },
   {
@@ -136,10 +112,8 @@
     "fields": {
       "color": "brown",
       "size": "270",
-      "main_image": null,
-      "detail_image": null,
       "stock": 10,
-      "product_id": "7"
+      "product_id": "16"
     }
   },
   {
@@ -147,10 +121,8 @@
     "fields": {
       "color": "brown",
       "size": "275",
-      "main_image": null,
-      "detail_image": null,
       "stock": 10,
-      "product_id": "7"
+      "product_id": "16"
     }
   },
   {
@@ -158,10 +130,8 @@
     "fields": {
       "color": "black",
       "size": "255",
-      "main_image": null,
-      "detail_image": null,
       "stock": 10,
-      "product_id": "8"
+      "product_id": "17"
     }
   },
   {
@@ -169,10 +139,8 @@
     "fields": {
       "color": "black",
       "size": "260",
-      "main_image": null,
-      "detail_image": null,
       "stock": 10,
-      "product_id": "8"
+      "product_id": "17"
     }
   }
 ]

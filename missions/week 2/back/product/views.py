@@ -2,11 +2,21 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils import timezone
 from django.http import HttpResponseRedirect
-from product.models import Product, ProductDetail, Board, Cart, CartDetail
+from product.models import Product, ProductDetail, Board, Cart
 from user.models import User
 from shop.models import Shop
 from django.core.paginator import Paginator
 # from user.login_check import login_check
+# django rest api
+from rest_framework import viewsets
+from .serializer import ProductSerializer
+
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+
 
 
 def make_page(request, queryset, num):
@@ -44,6 +54,7 @@ def search(request):
 
         context = {
             'search_list': make_page(request, search_list, 2),
+            'search_word': search_word,
             'classification': classification
         }
 
@@ -52,9 +63,9 @@ def search(request):
 
 def detail(request, product_id):
     if request.method == "GET":
-        product = Product.objects.get(product_id=product_id)
-        option_list = ProductDetail.objects.filter(product_id=product_id)
-        board = Board.objects.filter(product_id=product_id).order_by('-date')
+        product = Product.objects.get(id=product_id)
+        option_list = ProductDetail.objects.filter(product_id=product)
+        board = Board.objects.filter(product_id=product).order_by('-date')
         context = {
             'product': product,
             'option_list': option_list,
@@ -66,7 +77,7 @@ def detail(request, product_id):
 def write(request, product_id):
     if request.method == "POST" and 'user' in request.session:
         user_id = User.objects.get(user_id=request.session['user'])
-        product = Product.objects.get(product_id=product_id)
+        product = Product.objects.get(id=product_id)
         title = request.POST['title']
         content = request.POST['content']
         secret = request.POST.get('secret', False)
@@ -93,26 +104,26 @@ def write(request, product_id):
 
 # 장바구니
 def add_cart(request, product_id):
+    print("여기는 됐니?")
     if 'user' in request.session:
         try:
             user = User.objects.get(user_id=request.session['user'])
-            user_cart = Cart.objects.get(user_id=user)
 
-        except Cart.DoesNotExist:
-            user_cart = Cart(user_id=user)
-            user_cart.save()
+        except User.DoesNotExist:
+            return redirect('product:main')
 
         option = request.POST.get('option')
         cnt = int(request.POST.get('cnt'))
-        product = Product.objects.get(product_id=product_id)
+        product = Product.objects.get(id=product_id)
         product_detail = ProductDetail.objects.get(id=option)
         try:
-            item_check = CartDetail.objects.get(cart_id=user_cart, product_id=product, product_detail_id=product_detail)
-        except CartDetail.DoesNotExist:
-            add_item = CartDetail(cart_id=user_cart,
-                                  product_id=product,
-                                  product_detail_id=product_detail,
-                                  count=cnt)
+            item_check = Cart.objects.get(user=user, product=product, option=product_detail)
+
+        except Cart.DoesNotExist:
+            add_item = Cart(user=user,
+                            product=product,
+                            option=product_detail,
+                            count=cnt)
             add_item.save()
         else:
 
@@ -130,10 +141,10 @@ def add_cart(request, product_id):
 
 
 # 총 결제 금액 계산
-def price_total(user_cart_items):
+def price_total(cart_items):
     total = 0
-    for item in user_cart_items:
-        total += item.count * item.product_id.product_price
+    for item in cart_items:
+        total += item.count * item.product.product_price
     return total
 
 
@@ -141,12 +152,13 @@ def cart(request):
     context = {}
     try:
         user = User.objects.get(user_id=request.session['user'])
-        user_cart = Cart.objects.get(user_id=user)
-        user_cart_items = CartDetail.objects.filter(cart_id=user_cart)
-        if user_cart_items.count() == 0:
+        cart_items = Cart.objects.filter(user_id=user)
+
+        if cart_items.count() == 0:
             raise Exception()
-        total = price_total(user_cart_items)
-        context['product_list'] = user_cart_items
+
+        total = price_total(cart_items)
+        context['product_list'] = cart_items
         context['total'] = total
 
     except (Cart.DoesNotExist, Exception):
@@ -158,13 +170,13 @@ def cart(request):
 def detail_change(request, detail_id):
     try:
         if request.method == "POST":
-            ch_detail = CartDetail.objects.get(id=detail_id)
+            ch_detail = Cart.objects.get(id=detail_id)
 
-            option = request.POST.get('option')
+            opt = request.POST.get('option')
             cnt = int(request.POST.get('cnt'))
             # 옵션 선택 했을 경우
-            if option != "default":
-                ch_detail.product_detail_id = ProductDetail.objects.get(id=option)
+            if opt != "default":
+                ch_detail.option = ProductDetail.objects.get(id=opt)
 
             ch_detail.count = cnt
             ch_detail.save()
@@ -176,7 +188,7 @@ def detail_change(request, detail_id):
 
 def item_delete(request, detail_id):
     try:
-        item = CartDetail.objects.get(id=detail_id)
+        item = Cart.objects.get(option=detail_id)
         item.delete()
 
     except:

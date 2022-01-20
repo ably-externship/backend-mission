@@ -9,7 +9,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    product_id = models.CharField(max_length=15, primary_key=True)
+    product_code = models.CharField(max_length=15)
     product_name = models.CharField(max_length=30)
     product_price = models.IntegerField(default=0)
     main_image = models.ImageField(null=True, upload_to="main_image/", blank=True)
@@ -38,11 +38,7 @@ class Board(models.Model):
 
 
 class Cart(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column="user_id")
-
-
-class CartDetail(models.Model):
-    cart_id = models.ForeignKey(Cart, on_delete=models.CASCADE, db_column="cart_id")
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE, db_column="product_id")
-    product_detail_id = models.ForeignKey(ProductDetail, on_delete=models.CASCADE, db_column="product_detail_id")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, db_column="user")
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, db_column="product")
+    option = models.ForeignKey(ProductDetail, on_delete=models.CASCADE, db_column="product_detail")
     count = models.PositiveIntegerField()

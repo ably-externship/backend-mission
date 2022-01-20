@@ -67,24 +67,24 @@
         {% for item in product_list %}
             <div class="row g-0 border rounded overflow-hidden flex-md-row m-4 shadow-sm h-md-250 position-relative">
             <div class="col-auto d-lg-block m-3">
-              <image class="bd-placeholder-img" width="200" height="250" src="../../static/image_dir/main_image/{{ item.product_id.product_id}}.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/></image>
+              <image class="bd-placeholder-img" width="200" height="250" src="{{ item.main_image.url }}" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/></image>
             </div>
               <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-success">{{ item.product_id.shop_id.shop_name }}</strong>
-              <h3 class="mb-0">{{ item.product_id.product_name }}</h3>
-              <h4 class="mb-auto">{{ item.product_id.product_price }}</h4>
+              <strong class="d-inline-block mb-2 text-success">{{ item.product.shop_id.shop_name }}</strong>
+              <h3 class="mb-0">{{ item.product.product_name }}</h3>
+              <h4 class="mb-auto">{{ item.product.product_price }}</h4>
               <hr>
-              <div class="mb-1 text-muted">옵션&nbsp;:&nbsp;{{ item.product_detail_id.color }}&nbsp;{{ item.product_detail_id.size }} &nbsp;</div>
+              <div class="mb-1 text-muted">옵션&nbsp;:&nbsp;{{ item.option.color }}&nbsp;{{ item.option.size }} &nbsp;</div>
               <div class="mb-1 text-muted">수량&nbsp;:&nbsp;{{ item.count }}&nbsp;개</div>
               <a href="{% url 'product:item_delete' item.id %}">삭제</a>
-              <a href="javascript:void(0);" name="{{ item.user_id }}" onclick="divOnOff(this);">옵션 변경</a>
+              <a href="javascript:void(0);" name="{{ item.user }}" onclick="divOnOff(this);">옵션 변경</a>
               <div class="mb-3" style="display: none;">
                   <form method="POST" action="{% url 'product:detail_change' item.id %}">
                     {% csrf_token %}
                     <span> 옵션 :</span>
                     <select class="form-select" name="option">
                         <option value="default" selected>---선택---</option>
-                        {% for option in item.product_id.productdetail_set.all %}
+                        {% for option in item.product.productdetail_set.all %}
                             <option value="{{ option.id }}" {% if option.stock == 0 %}disabled{% endif %}>{{ option.color }} {{ option.size }}  남은수량: {{ option.stock }}</option>
                         {% endfor %}
                     </select>

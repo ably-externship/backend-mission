@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'product.apps.ProductConfig',
     'shop.apps.ShopConfig',
+    'rest_framework',     #django rest framework
 ]
 
 MIDDLEWARE = [

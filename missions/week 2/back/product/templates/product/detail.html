@@ -101,7 +101,7 @@
 <div class="container">
     <div class="row row-cols-1 row-cols-sm-2">
         <div class="p-2 col">
-            <image src="../../static/image_dir/main_image/{{ product.product_id }}.jpg" style="width:100%;"></image>
+            <image src="{{ product.main_image.url }}" style="width:100%;"></image>
         </div>
         <div class="p-2 col">
             <h2> {{ product.product_name }} </h2>
@@ -120,7 +120,7 @@
                     <input type='text' class="form-control w-50 d-inline-block" id='result' name="cnt" value="1"/>
                     <input type='button' class="btn btn-outline-dark" onclick='count("plus")' value='+'/>
                 </div>
-                <input type="submit" value="장바구니 추가" formaction="{% url 'product:add_cart' product.product_id %}">
+                <input type="submit" value="장바구니 추가" formaction="{% url 'product:add_cart' product.id %}">
                 <input type="submit" value="바로결제" formaction="{% url 'product:pay' %}">
             </form>
         </div>
@@ -135,7 +135,7 @@
     <label class="tab_item" for="qna"> QnA </label>
     <div class="tab_content" id="detail_content" style="text-align:center;">
         <p>제품 상세 설명</p>
-        <image src="../../static/image_dir/detail_image/{{ product.product_id }}.jpg"></image>
+        <image src="{{ product.detail_image.url }}"></image>
         <p>제품 설명입니다~!</p>
     </div>
     <div class="tab_content" id="qna_content">

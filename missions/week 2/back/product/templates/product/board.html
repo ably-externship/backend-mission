@@ -46,7 +46,7 @@
 </head>
 <body>
 <div class="container">
-<form method="POST" action="{% url 'product:write' product.product_id %}">
+<form method="POST" action="{% url 'product:write' product.id %}">
     {% csrf_token %}
     <input class="form-control m-2" type="text" name='title' placeholder="제목" style="width:80%; margin:auto;" required>
     <textarea class="form-control m-2" rows='3' name='content' placeholder="내용" style="width:80%; margin:auto;" required></textarea>

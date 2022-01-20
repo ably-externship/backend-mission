@@ -4,17 +4,17 @@
 <form method="POST" action="{% url 'product:search' %}">
     {% csrf_token %}
     <div class="container">
-        <div class="row">
-            <div class="col-2">
+        <div class="row" style="width:100%">
+            <div class="col-3">
                 <select class="form-select" name="classification">
                     <option value="product" selected>상품</option>
                     <option value="brand">브랜드</option>
                 </select>
             </div>
-            <div class="col-5">
+            <div class="col-7">
                 <input class="form-control" type="text" placeholder="검색어를 입력해주세요" name="search_word">
             </div>
-            <div class="col-1">
+            <div class="col-2">
                 <input type="submit" value="검색">
             </div>
         </div>
@@ -27,11 +27,12 @@
         {% for item in product_list %}
             <div class="col">
               <div class="card shadow-sm">
-                <image src="../../static/image_dir/main_image/{{ item.product_id }}.jpg"></image>
+                <image src="{{ item.main_image.url }}"></image>
+
                 <div class="card-body">
                   <span class="cost"> {{ item.product_price }}</span><br>
                   <span class="shop_name">{{ item.shop_id.shop_name }}</span><br>
-                  <span class="product_name"><a href="{% url 'product:detail' item.product_id %}">{{ item.product_name }}</a></span>
+                  <span class="product_name"><a href="{% url 'product:detail' item.id %}">{{ item.product_name }}</a></span>
                 </div>
               </div>
             </div>

@@ -12,9 +12,9 @@
 </form>
 <hr>
 {% if search_list.paginator.count == 0 %}
-<p style="margin-left: 20px;"> 검색 결과가 없습니다. </p>
+<p style="margin-left: 20px;"> '{{ search_word }}' 에 대한 검색 결과가 없습니다. </p>
 {% else %}
-<p style="margin-left: 20px;"> 검색 결과가 {{ search_list.paginator.count }} 건 입니다.</p>
+<p style="margin-left: 20px;"> '{{ search_word }}' 에 대한 검색 결과가 {{ search_list.paginator.count }} 건 입니다.</p>
 <div class='container'>
   {% for item in search_list %}
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
@@ -22,11 +22,11 @@
         {% if classification == 'product' %}
             <div class="col">
                 <div class="card shadow-sm">
-                    <image src="../../static/image_dir/main_image/{{ item.product_id }}.jpg"></image>
+                    <image src="{{ item.main_image.url }}"></image>
                 <div class="card-body">
                   <span class="cost"> {{ item.product_price }}</span><br>
                   <span class="shop_name">{{ item.shop_id.shop_name }}</span><br>
-                  <span class="product_name"><a href="{% url 'product:detail' item.product_id %}">{{ item.product_name }}</a></span>
+                  <span class="product_name"><a href="{% url 'product:detail' item.id %}">{{ item.product_name }}</a></span>
                 </div>
               </div>
             </div>

@@ -2,7 +2,7 @@
   {
     "model": "product.product",
     "fields": {
-      "product_id": "1",
+      "product_code": "1",
       "product_name": "꽈배기 니트",
       "product_price": 15000,
       "category": "100",
@@ -12,7 +12,7 @@
   {
     "model": "product.product",
     "fields": {
-      "product_id": "2",
+      "product_code": "2",
       "product_name": "기모 후드티",
       "product_price": 18000,
       "category": "100",
@@ -22,7 +22,7 @@
   {
     "model": "product.product",
     "fields": {
-      "product_id": "3",
+      "product_code": "3",
       "product_name": "청바지",
       "product_price": 15000,
       "category": "200",
@@ -32,7 +32,7 @@
   {
     "model": "product.product",
     "fields": {
-      "product_id": "4",
+      "product_code": "4",
       "product_name": "떡볶이 코트",
       "product_price": 40000,
       "category": "300",
@@ -42,7 +42,7 @@
   {
     "model": "product.product",
     "fields": {
-      "product_id": "5",
+      "product_code": "5",
       "product_name": "기본 운동화",
       "product_price": 40000,
       "category": "400",
@@ -52,7 +52,7 @@
   {
     "model": "product.product",
     "fields": {
-      "product_id": "6",
+      "product_code": "6",
       "product_name": "가죽 로퍼",
       "product_price": 50000,
       "category": "400",
@@ -62,7 +62,7 @@
   {
     "model": "product.product",
     "fields": {
-      "product_id": "7",
+      "product_code": "7",
       "product_name": "스웨이드 로퍼",
       "product_price": 50000,
       "category": "400",
@@ -72,7 +72,7 @@
   {
     "model": "product.product",
     "fields": {
-      "product_id": "8",
+      "product_code": "8",
       "product_name": "슬리퍼",
       "product_price": 10000,
       "category": "400",

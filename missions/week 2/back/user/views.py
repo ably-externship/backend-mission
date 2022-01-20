@@ -7,6 +7,7 @@ from .models import User
 
 # 카카오 로그인시 필요한 모듈
 import requests
+import secrets
 from config.settings import KAKAO_KEY, kakao_redirect_uri
 
 
@@ -123,7 +124,7 @@ def KakaoLogin(request):
     except User.DoesNotExist:
         user = User(user_id=user_id,
                     user_name=nickname,
-                    user_pw=1,
+                    user_pw=secrets.token_bytes(),
                     user_email="default@default.com",
                     is_social=True)
         user.save()
