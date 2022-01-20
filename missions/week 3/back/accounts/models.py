@@ -9,7 +9,7 @@ class AccountType(models.Model):
         db_table = 'account_type'
 
 class Account(models.Model):
-    account_type_id = models.ForeignKey(AccountType, on_delete=models.SET_NULL, null=True)
+    account_type = models.ForeignKey(AccountType, on_delete=models.SET_NULL, null=True)
 
     class Meta:
         db_table = 'accounts'
