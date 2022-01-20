@@ -2,10 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32fb0568-5add-4a0d-9b25-698fd7e1dfe1" name="Changes" comment="배포 미완">
+      <change afterPath="$PROJECT_DIR$/front/apis/api.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/api_product.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/api_product.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ably/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ably/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../db/data/aria_log.00000001" beforeDir="false" afterPath="$PROJECT_DIR$/../db/data/aria_log.00000001" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../db/data/aria_log_control" beforeDir="false" afterPath="$PROJECT_DIR$/../db/data/aria_log_control" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../db/data/ib_buffer_pool" beforeDir="false" afterPath="$PROJECT_DIR$/../db/data/ib_buffer_pool" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../db/data/ib_logfile0" beforeDir="false" afterPath="$PROJECT_DIR$/../db/data/ib_logfile0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../db/data/ibdata1" beforeDir="false" afterPath="$PROJECT_DIR$/../db/data/ibdata1" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,8 +20,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -45,7 +50,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 import pymysql
 
 pymysql.install_as_MySQLdb()
@@ -19,7 +20,6 @@ DJANGO_ALLOWED_HOST = ['0.0.0.0', '127.0.0.1', 'localhost', '54.145.86.155']
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -32,7 +32,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 AUTHENTICATION_BACKENDS = (
@@ -40,7 +39,6 @@ AUTHENTICATION_BACKENDS = (
 
     'allauth.account.auth_backends.AuthenticationBackend',
 )
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -67,7 +65,9 @@ INSTALLED_APPS += [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.kakao',
 
+    # REST framework
     'rest_framework',
+    'corsheaders',
 ]
 
 SITE_ID = 1
@@ -76,8 +76,8 @@ LOGIN_REDIRECT_URL = '/'  # 로그인 후 리다이렉트 될 경로
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_ON_GET = True
 
-
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # CORS 관련 추가
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -87,12 +87,18 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# CORS 관련 추가
+CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:3000', 'http://localhost:3000']
+CORS_ALLOW_CREDENTIALS = True
+
 ROOT_URLCONF = 'ably.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'front')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -107,7 +113,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ably.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -118,7 +123,7 @@ DATABASES = {
         'NAME': 'ably',
         'USER': 'root',
         'PASSWORD': '1234',
-        'HOST': 'db',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }
@@ -140,7 +145,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
