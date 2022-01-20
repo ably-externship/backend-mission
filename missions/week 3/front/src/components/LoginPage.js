@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import './LoginPage.css';
-import KakaoLogin from './KakaoLogin.js';
-
 
 function LoginPage(){
 
@@ -47,9 +45,6 @@ function LoginPage(){
                     <button onClick={onClickHandler}>Log In</button>
                 </div>
             </form>
-                <div>
-                    <KakaoLogin/>
-                </div>
         </div>
     )
 }
