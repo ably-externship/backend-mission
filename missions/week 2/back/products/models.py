@@ -1,8 +1,8 @@
+from tkinter import CASCADE
 from django.db import models
 from django.db.models.deletion import DO_NOTHING
 
-from core.models import TimeStampModel
-from accounts.models import Seller
+from accounts.models import Seller, User
 
 class ProductCategory(models.Model):
     name = models.CharField(max_length=20)
@@ -35,17 +35,20 @@ class Product(models.Model):
     main_image_url = models.URLField(max_length=2000)
     colors = models.ManyToManyField(Color, through='ProductOption')
     sizes = models.ManyToManyField(Size, through='ProductOption')
+    is_deleted = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'products'
 
-class ProductHistory(TimeStampModel):
+class ProductHistory(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     discount_price = models.DecimalField(max_digits=10, decimal_places=2)
     is_displayed = models.BooleanField(default=True)
     is_sold_out = models.BooleanField(default=False)
+    created_at = models.DateTimeField()
+    updated_at = models.DateTimeField(null=True)
     is_deleted = models.BooleanField(default=False)
 
     class Meta:
@@ -68,6 +71,15 @@ class ProductOption(models.Model):
 
     class Meta:
         db_table = 'product_options'
+
+class CartItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product_option = models.ForeignKey(ProductOption, on_delete=models.CASCADE)
+    quantity = models.PositiveSmallIntegerField()
+
+    class Meta:
+        db_table = 'cart_items'
 
 class ProductList(models.Model):
     category = models.ForeignKey(ProductCategory, on_delete=DO_NOTHING)
