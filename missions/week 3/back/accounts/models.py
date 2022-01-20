@@ -20,6 +20,9 @@ class Master(TimeStampModel):
     password = models.CharField(max_length=60)
     is_deleted = models.BooleanField(default=False)
 
+    class Meta:
+        db_table = 'masters'
+
 class User(models.Model):
     account_id = models.OneToOneField(Account, on_delete=models.SET_NULL, null=True)
     email = models.CharField(max_length=100)
