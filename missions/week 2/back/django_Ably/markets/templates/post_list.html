@@ -9,6 +9,16 @@
   
       <h1>Our Stores</h1>
       <div class="stores">
+      {% for store in page_obj.object_list %}
+        <a href={{store.name}}>
+          <p>{{store.name}}</p> <br>
+          <p>{{store.detail}}</p>
+        </a>
+
+
+      {% endfor %}
+      </div>
+      <div class="stores">
         <a href="redstore/">
           <img src="{%static 'imgs/red.jpg'%}">
           <p>Red Store</p>
