@@ -2,7 +2,26 @@ from django.db import models
 
 from core.models import TimeStampModel
 
+class AccountType(models.Model):
+    account_type = models.CharField(max_length=10)
+
+    class Meta:
+        db_table = 'account_type'
+
+class Account(models.Model):
+    account_type_id = models.ForeignKey(AccountType, on_delete=models.SET_NULL, null=True)
+
+    class Meta:
+        db_table = 'accounts'
+
+class Master(TimeStampModel):
+    account_id = models.OneToOneField(Account, on_delete=models.SET_NULL, null=True)
+    email = models.CharField(max_length=100)
+    password = models.CharField(max_length=60)
+    is_deleted = models.BooleanField(default=False)
+
 class User(models.Model):
+    account_id = models.OneToOneField(Account, on_delete=models.SET_NULL, null=True)
     email = models.CharField(max_length=100)
     is_social = models.BooleanField(default=False)
 
@@ -36,6 +55,7 @@ class SocialUserInfo(TimeStampModel):
         db_table = 'social_user_information'
 
 class Seller(TimeStampModel):
+    account_id = models.OneToOneField(Account, on_delete=models.SET_NULL, null=True)
     email = models.CharField(max_length=100)
     password = models.CharField(max_length=60)
     name = models.CharField(max_length=30)
