@@ -7,7 +7,8 @@ from django.views import View
 from django.db import transaction
 
 from core.validators import validate_email, validate_password, validate_phone_number, validate_name
-from accounts.models import User, UserInfo
+from core.const import USER_ACCOUNT_TYPE
+from accounts.models import User, UserInfo, Account
 
 class SignUpView(View):
     def post(self, request):
@@ -32,7 +33,10 @@ class SignUpView(View):
             hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
             with transaction.atomic():
-                user = User(email = email)
+                account = Account(account_type_id = USER_ACCOUNT_TYPE)
+                account.save()
+
+                user = User(account_id = account.id, email = email)
                 user.save()
 
                 UserInfo.objects.create(
