@@ -50,7 +50,9 @@ def cart_update(request):
     cart_id = request.GET['id']
     cart = get_object_or_404(Cart,pk=cart_id)
     number = int(request.GET['number'])
-    print(number)
+    if number <=0 :
+        messages.error(request,"상품 수량을 다시 확인해주세요")
+        return redirect('cart:list')
 
     productReal = cart.product
     if number > productReal.stock_quantity : # 현재 실제 상품의 재고확인
