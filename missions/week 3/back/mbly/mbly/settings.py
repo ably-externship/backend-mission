@@ -58,14 +58,10 @@ INSTALLED_APPS = [
 
     'market',
     'cart',
+    'rest_api',
 
-    # #allauth #추가
-    # 'allauth',
-    # 'allauth.account',
-    # 'allauth.socialaccount',
-
-    # #provider #추가
-    # 'allauth.socialaccount.providers.kakao',
+    # third
+    'rest_framework',
     
 ]
 

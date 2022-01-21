@@ -23,6 +23,7 @@ urlpatterns = [
     path('account/',include("account.urls")),
     path('product/',include("product.urls")),
     path('cart/',include("cart.urls")),
+    path('api/',include("rest_api.urls")),
     path('',ProductList.as_view(),name='index'),
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
