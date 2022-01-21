@@ -8,7 +8,7 @@ from django.db import transaction
 
 from core.validators import validate_email, validate_password, validate_phone_number, validate_name
 from core.const import USER_ACCOUNT_TYPE
-from accounts.models import User, UserInfo, Account
+from accounts.models import User, Account
 
 class SignUpView(View):
     def post(self, request):
