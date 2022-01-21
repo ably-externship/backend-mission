@@ -45,14 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
 
     'django.contrib.sites',
-
-    # allauth
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-
-    # provider 카톡 소셜로그인 제공업체
-    'allauth.socialaccount.providers.kakao',
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -68,7 +60,7 @@ LOGIN_REDIRECT_URL = '/'
 
 AUTH_USER_MODEL = 'accounts.User'
 
-REST_API_KEY = '971e27ca1e0a36938c146e573cf77ce8'
+REST_API_KEY = my_settings.REST_API_KEY
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
