@@ -17,7 +17,6 @@ class LogInView(View):
             
             account = Account.objects.get(
                 email = data['email'], 
-                account_type_id = USER_ACCOUNT_TYPE,
                 user__social_type_id__isnull = True,
                 is_deleted = False)
 
