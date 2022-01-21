@@ -1,5 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from django.views.decorators.csrf import csrf_exempt
 from .serializers import *
 
 # 제품 리스트
@@ -16,6 +17,8 @@ def ProductCreate(request):
     serializer = ProductCreateSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
+    else:
+        print("에러 코드 :",serializer.errors)
 
     return Response(serializer.data)
 
@@ -36,6 +39,7 @@ def ProductUpdate(request, pk):
         serializer.save()
 
     return Response(serializer.data)
+
 
 @api_view(['DELETE'])
 def ProductDelete(request, pk):

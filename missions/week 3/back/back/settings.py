@@ -18,6 +18,8 @@ from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# 리액트서버
+CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
 
 # secrets.json
 secret_file = os.path.join(BASE_DIR, 'secrets.json')
@@ -56,6 +58,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
+    'corsheaders',  # CORS
+
     'rest_framework',
     'rest_framework_simplejwt',
 
@@ -69,7 +73,8 @@ INSTALLED_APPS = [
 # JWT 관련
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        # 'rest_framework.permissions.IsAuthenticated', # 인증된 회원이 아닐시 모든 기능 금지
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly', # read는 가능
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -78,14 +83,14 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),  # Access 토큰의 만료 시간
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),  # Access 토큰의 만료 시간
     'REFRESH_TOKEN_LIFETIME': timedelta(days=3),  # Refresh 토큰의 만료 시간
-    'ROTATE_REFRESH_TOKENS': False,
-    'BLACKLIST_AFTER_ROTATION': True,
-
-    'ALGORITHM': 'HS256', # 암호 알고리즘
-    'SIGNING_KEY': SECRET_KEY,
-    'VERIFYING_KEY': None,
+    # 'ROTATE_REFRESH_TOKENS': False,
+    # 'BLACKLIST_AFTER_ROTATION': True,
+    #
+    # 'ALGORITHM': 'HS256', # 암호 알고리즘
+    # 'SIGNING_KEY': SECRET_KEY,
+    # 'VERIFYING_KEY': None,
 
     # 'AUTH_HEADER_TYPES': ('Bearer',),
     # 'USER_ID_FIELD': 'id',
@@ -100,6 +105,8 @@ SIMPLE_JWT = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

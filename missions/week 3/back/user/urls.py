@@ -3,5 +3,8 @@ from . import views
 from .views import MyTokenObtainPairView
 
 urlpatterns=[
-    path('user/token/',MyTokenObtainPairView.as_view())
+
+    path('current/', views.current_user),
+
+    path('token/',MyTokenObtainPairView.as_view())
 ]

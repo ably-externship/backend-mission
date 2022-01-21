@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from .views import validate_jwt_token
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -28,8 +29,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('product/', include('product.urls')),
 
+    path('validate/', validate_jwt_token),
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+
     path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
     path('user/', include('user.urls')),
 ]
+
+# 이미지 URL 설정
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -25,8 +25,8 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name='가격', default=0) # 가격
     sale_price = models.IntegerField(verbose_name="할인 가격", default=0) # 할인 가격
     description = models.TextField(max_length=255, verbose_name='제품설명') # 제품설명
-    image = models.CharField(max_length=250, null=True, verbose_name='제품 이미지')  # 이미지
-    image_detail = models.CharField(max_length=250, null=True, verbose_name='제품 상세이미지')  # 상세 이미지
+    image = models.ImageField(upload_to='', null=True, verbose_name='제품 이미지')  # 이미지
+    image_detail = models.ImageField(upload_to='', null=True, verbose_name='제품 상세이미지')  # 상세 이미지
     is_deleted = models.BooleanField(default=False) # 삭제여부
     is_hidden = models.BooleanField(default=False, verbose_name="히든 상품") # 숨긴여부
     is_sold_out = models.BooleanField(default=False, verbose_name="품절 상품") # 품절여부
