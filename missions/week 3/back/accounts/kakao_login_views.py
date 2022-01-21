@@ -5,7 +5,7 @@ from django.http  import JsonResponse
 from django.views import View
 from django.db import transaction
 
-from accounts.models     import Account, User, SocialType, SocialUserInfo
+from accounts.models     import Account, User, SocialType
 from core.utils import KakaoAPI
 from core.const import USER_ACCOUNT_TYPE, KAKAO_SOCIAL_TYPE
 from my_settings import SECRET_KEY, ALGORITHM
