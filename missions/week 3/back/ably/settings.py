@@ -78,6 +78,7 @@ ACCOUNT_LOGOUT_ON_GET = True
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',  # CORS 관련 추가
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -96,9 +97,7 @@ ROOT_URLCONF = 'ably.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(BASE_DIR, 'front')
-        ],
+        'DIRS': [BASE_DIR, 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -191,3 +190,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ## 2주차 pip list
 # pip install social-auth-app-django (소셜 로그인을 위한 OAuth2.0 REST API 라이브러리)
 # pip install django-allauth
+
+## 3주차
+# pip install djangorestframework
+# pip install django-cors-headers
+
