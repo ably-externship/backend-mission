@@ -4,6 +4,7 @@ from django.contrib.auth import logout, authenticate, login
 from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import FormView, ListView
+from rest_framework.views import APIView
 
 from config.settings.common import env
 from accounts.models import User
