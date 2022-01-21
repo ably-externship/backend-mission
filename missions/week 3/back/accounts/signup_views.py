@@ -24,27 +24,25 @@ class SignUpView(View):
             validate_name(name)
             validate_phone_number(phone_number)
 
-            if User.objects.filter(email = email, is_social=False).exists():
+            if Account.objects.filter(
+                email = email, 
+                account_type_id = USER_ACCOUNT_TYPE,
+                user__social_type_id__isnull = True,
+                is_deleted=False
+                ).exists():
                 return JsonResponse({'message' : 'Email Already Exists'}, status = 400)
-
-            if UserInfo.objects.filter(phone_number = phone_number).exists():
-                return JsonResponse({'message' : 'Phone Number Already Exists'}, status = 400)
 
             hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
             with transaction.atomic():
-                account = Account(account_type_id = USER_ACCOUNT_TYPE)
+                account = Account(
+                    account_type_id = USER_ACCOUNT_TYPE,
+                    email = email,
+                    password = hashed_password
+                    )
                 account.save()
 
-                user = User(account_id = account.id, email = email)
-                user.save()
-
-                UserInfo.objects.create(
-                    user_id = user.id,
-                    password = hashed_password,
-                    name = name,
-                    phone_number = phone_number
-                )
+                User.objects.create(account_id = account.id, name = name, phone_number = phone_number)
 
             return JsonResponse({'message' : 'Success'}, status = 201)
 

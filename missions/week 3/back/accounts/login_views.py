@@ -5,7 +5,8 @@ import bcrypt
 from django.http import JsonResponse
 from django.views import View
 
-from accounts.models import User
+from accounts.models import Account
+from core.const import USER_ACCOUNT_TYPE
 from my_settings import SECRET_KEY, ALGORITHM
 
 class LogInView(View):
@@ -13,19 +14,24 @@ class LogInView(View):
         try:
             data = json.loads(request.body)
             password = data['password']
-            user = User.objects.get(email = data['email'], is_social = False)
+            
+            account = Account.objects.get(
+                email = data['email'], 
+                account_type_id = USER_ACCOUNT_TYPE,
+                user__social_type_id__isnull = True,
+                is_deleted = False)
 
-            if user.userinfo.is_deleted:
+            if not bcrypt.checkpw(password.encode('utf-8'), account.password.encode('utf-8')):
                 return JsonResponse({'message' : 'Invalid User'}, status = 401)
 
-            if not bcrypt.checkpw(password.encode('utf-8'), user.userinfo.password.encode('utf-8')):
-                return JsonResponse({'message' : 'Invalid User'}, status = 401)
+            access_token = jwt.encode({'id' : account.id}, SECRET_KEY, ALGORITHM)
 
-            access_token = jwt.encode({'id' : user.id}, SECRET_KEY, ALGORITHM)
-
-            return JsonResponse({'access_token' : access_token}, status = 201)
+            return JsonResponse({
+                'access_token' : access_token, 
+                'account_type' : account.account_type.account_type
+                }, status = 201)
         
         except KeyError:
             return JsonResponse({'message' : 'Key Error'}, status = 400)
-        except User.DoesNotExist:
+        except Account.DoesNotExist:
             return JsonResponse({'message' : 'Invalid User'}, status = 401)
