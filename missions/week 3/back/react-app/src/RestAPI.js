@@ -9,7 +9,7 @@ function RestAPI() {
   return (
     <>
       <h1>REST API</h1>
-      <div className="btn btn-primary">
+      <div className="get_product">
         <button
           onClick={() => {
             axios
