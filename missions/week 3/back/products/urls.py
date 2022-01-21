@@ -1,13 +1,19 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 from . import views
 
 app_name = 'products'
+router = DefaultRouter()
+router.register('', views.ProductViewSet)
 
 urlpatterns = [
-    path("<int:pk>/", views.ProductDetailView.as_view(), name="detail"),
+    # path('', include(router.urls)),
+    path('', views.ProductAPIView.as_view()),
+    path('<int:pk>/', views.ProductDetailAPIView.as_view()),
+    path('<int:pk>/options/', views.ProductOptionAPIView.as_view()),
+    path('<int:pk>/options/<int:option_id>/', views.ProductOptionDetailAPIView.as_view()),
+
+    # path("<int:pk>/", views.ProductDetailView.as_view(), name="detail"),
     path("<int:pk>/question/", views.question, name="question"),
     path('search/', views.search, name='search'),
-
-    # path('<int:pk>/cart-create/', views.cart_create, name="cart-create"),
-    # path('cart-list/', views.CartListView.as_view(), name="cart-list")
 ]

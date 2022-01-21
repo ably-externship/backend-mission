@@ -29,12 +29,15 @@ class ProductOption(core_models.DateTimeModel):
     add_price = models.IntegerField(default=0)
     is_sold_out = models.BooleanField(default=False)
 
+    class Meta:
+        unique_together = (('product', 'color', 'size'),)
+
     def __str__(self):
         return f'{self.color} / {self.size}'
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, unique=True)
 
     def __str__(self):
         return self.name
