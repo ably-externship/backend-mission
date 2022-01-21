@@ -86,6 +86,7 @@ def reset_password_view(request):
             token = secrets.token_urlsafe()
             find_user.tmp_token = token
             find_user.save()
+
             # 1회성 패스워드 리셋 URL
             url = f'http://127.0.0.1:8000/accounts/change_password/?reset_token={token}'
 

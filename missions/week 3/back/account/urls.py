@@ -6,6 +6,11 @@ from account.views import (
     reset_password_view,
     change_password_view, oauth, kakao_login_view,
 )
+from rest_framework_jwt.views import (
+    obtain_jwt_token,
+    refresh_jwt_token,
+    verify_jwt_token,
+)
 
 app_name = "account"
 
@@ -18,5 +23,8 @@ urlpatterns = [
     path('find_username/', find_username_view, name='find_username'),
     path('reset_password/', reset_password_view, name='reset_password'),
     path('change_password/', change_password_view, name='change_password'),
+    path('token/', obtain_jwt_token),
+    path('token/refresh/', refresh_jwt_token),
+    path('token/verify/', verify_jwt_token), # 검증
 
 ]

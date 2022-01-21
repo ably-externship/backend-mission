@@ -12,7 +12,7 @@ django.setup()
 import secrets
 url = secrets.token_urlsafe()
 print(len(url))
-# from account.models import User
+# from account.moduls import User
 
 # print(User.objects.all())
 # User.objects.create_user('h45652','h45652@naver.com','1234')
