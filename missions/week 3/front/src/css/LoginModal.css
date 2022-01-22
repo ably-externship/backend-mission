@@ -5,10 +5,23 @@
     margin-top: 10%;
 }
 
-.login-box{
+.write-box{
     margin: 0 auto;
     width: 400px;
     height: 350px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 1px;
+    border: 1px solid rgba(var(--b6a,219,219,219),1);
+}
+
+
+.login-box{
+    margin: 0 auto;
+    width: 400px;
+    height: 250px;
     border: 1px solid black;
     display: flex;
     flex-direction: column;

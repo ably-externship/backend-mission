@@ -1,0 +1,90 @@
+SangRakKun,2022-01-22 01:50:26,FE feature : axios restAPI
+SangRakKun,2022-01-20 19:33:37,feature : add JWT
+SangRakKun,2022-01-20 09:33:07,feature : add CRUD drf
+SangRakKun,2022-01-19 13:57:14,feature : initial mission3
+SangRakKun,2022-01-19 09:36:15,Merge branch 'upstream'
+jhs512,2022-01-18 23:37:11,작업
+SangRakKun,2022-01-18 23:12:54,feature : add product_option about cart
+jhs512,2022-01-18 16:33:50,Update readme.md
+jhs512,2022-01-18 15:47:07,Update readme.md
+jhs512,2022-01-18 15:46:21,Update readme.md
+SangRakKun,2022-01-16 18:38:54,feature : add youtube_link
+SangRakKun,2022-01-16 13:30:55,feature : add requirements.txt
+SangRakKun,2022-01-16 12:56:34,feature : add cart templates
+SangRakKun,2022-01-16 12:03:44,feature : add temp_cart
+SangRakKun,2022-01-16 11:35:41,feature : add temp_cart
+SangRakKun,2022-01-16 10:51:20,feature : add temp_cart
+SangRakKun,2022-01-16 01:21:13,feature: fix kakao_login
+SangRakKun,2022-01-16 01:08:20,feature : add css about img slider
+SangRakKun,2022-01-15 22:54:30,feature : implement kakao login
+SangRakKun,2022-01-15 20:20:25,feature : complete cart
+SangRakKun,2022-01-14 22:00:29,feature : add cart
+SangRakKun,2022-01-14 13:04:26,feature : rename user to account
+SangRakKun,2022-01-14 10:07:05,feature : extend model about deliver, option, reivew...
+SangRakKun,2022-01-13 23:17:52,feature : implement kakao login
+SangRakKun,2022-01-13 19:32:11,feature : fix allauth user
+SangRakKun,2022-01-13 16:37:00,feature : implement kakao login
+SangRakKun,2022-01-12 23:37:55,feature : copy from mission1 to mission2
+SangRakKun,2022-01-12 23:28:43,feature : load upstream
+SangRakKun,2022-01-12 23:16:42,feature : load upstream
+jhs512,2022-01-12 21:19:24,Update readme.md
+jhs512,2022-01-12 21:18:13,Update readme.md
+jhs512,2022-01-12 21:03:34,Update readme.md
+externship_master,2022-01-12 17:03:00,Update readme.md
+SangRakKun,2022-01-12 14:14:49,feature : fix checklist.md
+SangRakKun,2022-01-12 13:54:49,feature : Initialize project
+SangRakKun,2022-01-12 13:48:43,feature : fix gitignore
+SangRakKun,2022-01-12 13:48:15,feature : fix secrets.json
+SangRakKun,2022-01-12 13:38:55,feature : add secrets.json
+SangRakKun,2022-01-12 13:36:06,feature : add .gitignore
+SangRakKun,2022-01-12 13:34:53,feature : fix .gitignore
+SangRakKun,2022-01-12 13:19:46,feature : fix .gitignore
+SangRakKun,2022-01-12 13:12:49,feature : add secrets.json
+SangRakKun,2022-01-12 12:55:31,feature : add secrets.json
+SangRakKun,2022-01-12 12:43:45,feature : add gitignore
+jhs512,2022-01-11 22:34:31,수정
+jhs512,2022-01-11 22:33:44,수정
+jhs512,2022-01-11 21:42:50,2주차 미션 추가
+SangRakKun,2022-01-09 21:53:33,feature : add checklist
+SangRakKun,2022-01-09 17:44:44,feature : fix signup
+SangRakKun,2022-01-09 17:04:14,feature : fix css & adapt secrets
+SangRakKun,2022-01-09 16:43:10,feature : add resetPW, forgotID
+SangRakKun,2022-01-09 15:14:55,WIP on view_v2.0: 8836ca3 Merge pull request #1 from SangRakee/model_v1.0
+SangRakKun,2022-01-09 15:14:55,index on view_v2.0: 8836ca3 Merge pull request #1 from SangRakee/model_v1.0
+SangRakee,2022-01-09 11:03:10,Merge pull request #4 from SangRakee/template_v2.0
+SangRakKun,2022-01-09 11:02:16,feature : adapt ui detail&qna
+jhs512,2022-01-08 14:20:01,Update checklist.md
+jhs512,2022-01-08 14:18:43,Update readme.md
+SangRakee,2022-01-08 12:21:50,Merge pull request #3 from SangRakee/template_v1.0
+SangRakKun,2022-01-08 12:19:55,feature : adapt responsive-ui
+SangRakee,2022-01-07 23:25:45,Merge pull request #2 from SangRakee/view_v1.0
+SangRakKun,2022-01-07 23:23:42,feature : add view about QnA, Product, Detail
+dnlwjtud,2022-01-07 20:29:57,Add reviewer member
+dnlwjtud,2022-01-07 18:12:46,Add CODEOWNER\
+SangRakKun,2022-01-06 19:08:13,feature : migrations
+SangRakee,2022-01-06 19:02:32,Merge pull request #1 from SangRakee/model_v1.0
+SangRakKun,2022-01-06 18:57:14,feature : model db about user, product, order, cart, seller, qna
+SangRakKun,2022-01-06 09:47:47,feature : add app about order/qna/product/seller/cart
+SangRakKun,2022-01-06 09:41:15,feature : connect MySQL
+SangRakKun,2022-01-06 09:39:08,Initialize project
+jhs512,2022-01-05 10:47:49,Update readme.md
+jhs512,2022-01-05 10:45:30,수정
+jhs512,2022-01-05 10:36:07,Update empty.txt
+jhs512,2022-01-05 10:35:36,Update checklist.md
+externship_master,2022-01-05 10:34:28,Update readme.md
+externship_master,2022-01-05 10:33:57,initial commit
+jhs512,2022-01-05 10:32:07,Add files via upload
+jhs512,2022-01-05 10:31:49,Add files via upload
+jhs512,2022-01-05 10:30:51,Add files via upload
+jhs512,2022-01-05 10:30:28,Add files via upload
+jhs512,2022-01-05 10:29:08,Delete missions directory
+jhs512,2022-01-05 10:28:19,Update readme.md
+jhs512,2022-01-05 10:27:51,Add files via upload
+jhs512,2022-01-05 10:27:22,Delete 0 directory
+jhs512,2022-01-05 10:27:10,Delete 1 directory
+jhs512,2022-01-05 10:26:56,Add files via upload
+jhs512,2022-01-05 10:11:57,Update readme.md
+jhs512,2022-01-05 10:10:25,Add files via upload
+Woo Chul Seong,2022-01-03 23:12:11,Merge pull request #2 from dnlwjtud/master
+dnlwjtud,2022-01-03 22:47:31,N주차 과제 수행
+dnlwjtud,2022-01-03 21:58:11,과제 양식
