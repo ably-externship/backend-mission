@@ -13,8 +13,8 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    if (localStorage.getItem('access_token')) {
-      dispatch({ type : 'login' });
+    if (localStorage.getItem('access_token') && localStorage.getItem('account_type')) {
+      dispatch({ type : 'login' , payload : localStorage.getItem('account_type') });
     }
   }, []);
 

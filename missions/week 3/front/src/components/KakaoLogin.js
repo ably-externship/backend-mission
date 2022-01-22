@@ -16,12 +16,16 @@ function KakaoLogin(){
                 axios.get('http://localhost:8000/accounts/login/kakao', 
                 { headers : { Authorization : response.access_token } })
                 .then((response)=>{
-                    if ( response.data.access_token ) {
+                    
+                    if ( response !== null && !response.date !== null ) {
+                        
                         localStorage.setItem('access_token', response.data.access_token);
-                        dispatch({ type : 'login' });
+                        localStorage.setItem('account_type', response.data.account_type);
+                        dispatch({ type : 'login', payload : response.data.account_type });
                         history.push('/');
-                    }
-                });
+
+                        } 
+                    });
             },
             fail: function(error) {
                 console.log(error);
