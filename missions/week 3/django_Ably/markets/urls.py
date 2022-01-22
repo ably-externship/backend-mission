@@ -1,6 +1,13 @@
 from django.urls import path
+from django.urls.conf import include
 from . import views
 from .models import *
+# from rest_framework import routers
+
+# router = routers.DefaultRouter()
+# router.register(r'items', views.ItemViewSet)
+
+
 
 urlpatterns = [
     path('', views.page, name=''),
@@ -8,6 +15,7 @@ urlpatterns = [
     # path('redstore/redshirt/', views.post_redshirt, name='redshirt'),
     # path('redstore/redskirt/', views.post_redskirt, name='redskirt'),
     # path('redstore/reddress/', views.post_reddress, name='reddress'),
+    # path('api/',include('rest_framework.urls', namespace='rest_framework'))
 ]
 
 

@@ -25,6 +25,7 @@ def signup(request):
 
 # 로그인
 def login(request):
+    print(AuthUser.objects.filter(is_superuser=True))
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']

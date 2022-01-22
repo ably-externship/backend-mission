@@ -1,8 +1,11 @@
+from django.db.models import fields
+from markets import serializers
 from django.core import paginator
 from django.shortcuts import render
 from .models import *
 from django.core.paginator import Paginator
-from collections import defaultdict
+from rest_framework import viewsets, permissions
+from .serializers import ItemSerializer
 
 
 # Create your views here.
@@ -17,8 +20,6 @@ def page(request):
 
     # print(page)
     return render(request, 'post_list.html', {'page_obj':page_obj})
-
-
 
 
 def post_RedStore(request):
@@ -49,6 +50,11 @@ def post_RedSkirt(request):
 def post_RedDress(request):
     return render(request,'red_dress.html')
 
-# def select(request):
+class ItemViewSet(viewsets.ModelViewSet):
+    queryset = Item.objects.all().order_by('id_item')
+    serializer_class = ItemSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    
 
 
