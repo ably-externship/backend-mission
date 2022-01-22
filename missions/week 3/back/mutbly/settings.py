@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'allauth.account', 
     'allauth.socialaccount',
     'allauth.socialaccount.providers.kakao',
+    'apis',
+    #rest-framework
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

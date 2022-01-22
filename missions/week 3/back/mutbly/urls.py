@@ -25,17 +25,25 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls', namespace= 'accounts')), 
     path('cart/', include('cart.urls', namespace='cart')),
     path('', mutbly.views.index, name='index'),
-    path('items/<int:id>/', mutbly.views.show, name = 'show'),
-    path('search/', mutbly.views.search, name='search'),
-    path('items/<int:id>/questions/', mutbly.views.QuestionView.create, name='question_create'),
-    path('items/<int:id>/questions/<int:cid>', mutbly.views.QuestionView.delete, name='question_delete'),
+    
+     #user
+    path('accounts/', include('accounts.urls', namespace= 'accounts')), 
     path('social_accounts/', include('allauth.urls')),
-    # path('social_accounts/', include('accountapp.urls')),
-    # path('update_item/', mutbly.views.updateItem, name='update_item'),
+    
+    #apis app
+    path('apis/', include('apis.urls', namespace = "apis")),
+    
+    #search
+    path('search/', mutbly.views.search, name='search'),
+    
+    #product
+    path('items/<int:id>/', mutbly.views.show, name = 'show'),
+    path('items/<int:id>/questions/', mutbly.views.QuestionView.create, name='question_create'),
+    path('items/<int:id>/questions/<int:cid>', mutbly.views.QuestionView.delete, name='question_delete'),   
 ]
 
+#image
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

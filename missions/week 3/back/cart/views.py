@@ -50,9 +50,3 @@ def update_cart(request, id):
     return redirect('cart:show_cart')
   else :
     return redirect('cart:show_cart')
-    
-  
-  
-
-  
-    

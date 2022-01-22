@@ -29,8 +29,8 @@ def show(request, id):
 
 
 def search(request) :
-  if request.method == "POST":
-    searched = request.POST['searched']
+  if request.method == "GET":
+    searched = request.GET['searched']
     items = Item.objects.filter(name__contains = searched)
     return render(request, 'mutbly/search.html', {'searched': searched, 'items': items})
   else :
@@ -49,20 +49,3 @@ class QuestionView:
     return redirect(f'/items/{id}')
   
   
-# def cart(request) :
-#   context = {}
-#   return render(request, 'mutbly/cart.html', context)
-  
-  
-# def updateItem(request):
-#   print(request)
-#   data = json.loads(request.body)
-#   itemId = data['itemId']
-#   action = data['action']
-  
-#   print('Action:', action)
-#   print('itemId:', itemId)
-  
-#   user = request.user
-#   item = Item.objects.get(id=itemId)
-#   return JsonResponse('Item was added', safe=False)
