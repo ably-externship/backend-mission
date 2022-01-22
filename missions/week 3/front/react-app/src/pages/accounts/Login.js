@@ -29,6 +29,7 @@ export default function Login() {
               } = response;
 
             setJwtToken(jwtToken);
+            console.log(jwtToken);
 
 
           notification.open({
