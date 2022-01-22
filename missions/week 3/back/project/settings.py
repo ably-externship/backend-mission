@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
 
     'bootstrap4',
+
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
