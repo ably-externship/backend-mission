@@ -1,0 +1,15 @@
+{% extends 'main.html' %}
+
+{% block page_title %}
+  Cart
+{% endblock page_title %}
+
+
+{% block section %}
+  <div class="flex justify-center align-center">
+    <div class="card m-5" style="height:80vh">
+      <h1 class="m-5 text-xl font-bold mb-4 ">cart</h1>
+      <p class="m-5 text-lg">{{ carts }}</p>
+    </div>
+  </div>
+{% endblock %}

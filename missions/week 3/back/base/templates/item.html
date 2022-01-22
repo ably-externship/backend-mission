@@ -1,0 +1,91 @@
+{% extends "main.html" %}
+
+{% block section %}
+
+<section id="intro">
+    <div class="section-cotent">
+        <div class="container intro mb-5">
+            <div class="row align-items-center mt-5">
+
+                {% for item in context %}
+                <div class="col-md-6 intro-second">
+                    <br>
+                    <h2 class="fas fw-light"> {{ item.name }}</h2>
+                    <br>
+
+                    <div class="card mt-3 position-relative  rounded-3">
+                        <img src="{{ item.img_url }}" class="shop-card-img-top embed-responsive-item" alt="img">
+                    </div>
+
+                </div>
+
+                <div class="col-md-6 intro-first button">
+                    <div class="row px-md-2 mt-2">
+                        <h1 class="mb-4"> Introduce our item.</h1>
+                        <div class="intro-text">
+                            <p class="lead text_sm">
+                                {{ item.description }}
+                            </p>
+                            <p class="lead text_sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam,
+                                reiciendis.
+                                Sapiente ad ex quam cumque debitis? Necessitatibus quasi dolor similique?</p>
+                        </div>
+                    </div>
+
+                    <div class="row px-md-2">
+                        <p class="fas fa-tag " style="color: coral; font-size:20px;"> {{ item.price }} 원 </p>
+                        <div class="container">
+                            <div class="card-block position-relative rounded-3"
+                                style="height: 13vh; background-color: none;">
+                                <div
+                                    class="d-flex justify-content-center align-items-center position-absolute h-100 w-100">
+                                    <button class="fas fa btn-warning" data-toggle="collapse fa fa-fire" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                                        aria-expanded="false" aria-controls="collapseExample"
+                                        style="border-color: white;border-radius: 15px; width: 185px; height: 40px;">
+                                        buy </button>
+
+                                </div>
+
+                            </div>
+                            <div class="collapse" id="collapseExample">
+                                <div class="card">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <a href="#product-img"><img class="t-w-full t-max-w-[300px] t-rounded" src="{{product.thumb_img_url}}" alt=""></a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <span class="t-w-16 t-inline-block"> 상품명 </span>
+                                            <span class="badge bg-primary">{{item.name}}</span>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <span class="t-w-16 t-inline-block">카테고리</span>
+                                            <span class="badge bg-primary">{{item.category.name}}</span>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <span class="t-w-16 t-inline-block">가격</span>
+                                            <span class="badge bg-primary"> {{item.sale_price}} </span>원
+                                        </li>
+                                        <li class="list-group-item">
+                                            <span class="t-w-16 t-inline-block">색상</span>
+                                            {{item.colors|safe}}
+                                        </li>
+                                    </ul>
+
+                                    <a href="{% url 'add_cart' id=item.id.id num=item.num %}" class="btn-sm btn-warning align-center m-3 text-decoration-none"> 장바구니 담기 </a>
+                                </div>
+                                    
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+</section>
+
+{% endblock %}
