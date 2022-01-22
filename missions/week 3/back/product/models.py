@@ -17,6 +17,7 @@ class Product(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
     files = models.ManyToManyField(File)
+    product_status = models.CharField(default='ACTIVE', max_length=10)
 
 
 

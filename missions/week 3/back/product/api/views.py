@@ -1,15 +1,14 @@
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework import exceptions
+from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from common.BaseResponse import BaseResponse
-from rest_framework.response import Response
-from rest_framework import status
-
+from common.exception.ErrorMessage import ErrorMessage
 from product.api.serializers import ProductListSerializer, ProductPostSerializer, ProductPutSerializer
 from product.models import Product
-from rest_framework import exceptions
-from common.exception.ErrorMessage import ErrorMessage
 
 
 @api_view(['GET', 'POST'])
@@ -17,39 +16,45 @@ from common.exception.ErrorMessage import ErrorMessage
 @permission_classes((IsAuthenticated,))
 def products(request):
     if request.method == 'GET':
-        products = Product.objects.all()
-        serializer = ProductListSerializer(products, many=True)
-        response = BaseResponse(data=serializer.data, message="AAA", code="SUCCESS")
+        product_list = Product.objects.all()
+        serializer = ProductListSerializer(product_list, many=True)
+        response = BaseResponse(data=serializer.data, message=None, code="SUCCESS")
         return Response(data=response.to_dict(), status=status.HTTP_200_OK)
     if request.method == 'POST':
         product = ProductPostSerializer(data=request.data)
         if product.is_valid():
             product.save()
-            return Response(data=product.data, status=status.HTTP_201_CREATED)
+            response = BaseResponse(data=product.data, message=None, code="SUCCESS")
+            return Response(data=response.to_dict(), status=status.HTTP_201_CREATED)
         else:
             if product.errors.get('market_pk') is not None:
-                raise exceptions.NotFound(detail={'code': ErrorMessage.MARKET_NOT_FOUND.code, "message":ErrorMessage.MARKET_NOT_FOUND.message})
+                raise exceptions.NotFound(detail={'code': ErrorMessage.MARKET_NOT_FOUND.code,
+                                                  "message": ErrorMessage.MARKET_NOT_FOUND.message})
             if product.errors.get('category_fk') is not None:
-                raise exceptions.NotFound(detail={'code': ErrorMessage.PRODUCT_CATEGORY_NOT_FOUND.code, "message":ErrorMessage.PRODUCT_CATEGORY_NOT_FOUND.message})
+                raise exceptions.NotFound(detail={'code': ErrorMessage.PRODUCT_CATEGORY_NOT_FOUND.code,
+                                                  "message": ErrorMessage.PRODUCT_CATEGORY_NOT_FOUND.message})
             else:
-                raise exceptions.ValidationError(detail={'code': ErrorMessage.PRODUCT_VALIDATION_ERROR.code, "message":ErrorMessage.PRODUCT_VALIDATION_ERROR.message})
+                raise exceptions.ValidationError(detail={'code': ErrorMessage.PRODUCT_VALIDATION_ERROR.code,
+                                                         "message": ErrorMessage.PRODUCT_VALIDATION_ERROR.message})
 
 
 @api_view(['PUT', 'DELETE'])
 @permission_classes((IsAuthenticated,))
-def product(request, id):
-    if  request.method == 'PUT':
+def product(request, product_id):
+    if request.method == 'PUT':
         try:
-            Product.objects.select_related('market_pk').get(id=id)
-            product = ProductPutSerializer(data=request.data)
-            if product.is_valid():
-                product.save()
-                return Response(data=product.data, status=status.HTTP_201_CREATED)
+            product_model = Product.objects.select_related('market_pk').get(id=product_id)
+            serializer = ProductPutSerializer(product_model, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                response = BaseResponse(data=serializer.data, message=None, code="SUCCESS")
+                return Response(data=response.to_dict(), status=status.HTTP_201_CREATED)
             else:
-                if product.errors.get('market_pk') is not None:
+                if serializer.errors.get('market_pk') is not None:
                     raise exceptions.NotFound(
-                        detail={'code': ErrorMessage.MARKET_NOT_FOUND.code, "message": ErrorMessage.MARKET_NOT_FOUND.message})
-                if product.errors.get('category_fk') is not None:
+                        detail={'code': ErrorMessage.MARKET_NOT_FOUND.code,
+                                "message": ErrorMessage.MARKET_NOT_FOUND.message})
+                if serializer.errors.get('category_fk') is not None:
                     raise exceptions.NotFound(detail={'code': ErrorMessage.PRODUCT_CATEGORY_NOT_FOUND.code,
                                                       "message": ErrorMessage.PRODUCT_CATEGORY_NOT_FOUND.message})
                 else:
@@ -60,10 +65,12 @@ def product(request, id):
                 detail={'code': ErrorMessage.PRODUCT_NOT_FOUND.code, "message": ErrorMessage.PRODUCT_NOT_FOUND.message})
     if request.method == 'DELETE':
         try:
-            Product.objects.select_related('market_pk').get(id=id)
-            product = ProductPutSerializer(data=request.data)
-            return Response(data=None, status=status.HTTP_200_OK)
+            product_model = Product.objects.select_related('market_pk').get(id=product_id)
+            product_model.product_status = 'DEACTIVE'
+            product_model.save()
+            serializer = ProductPutSerializer(product_model)
+            response = BaseResponse(data=serializer.data, message=None, code="SUCCESS")
+            return Response(data=response.to_dict(), status=status.HTTP_200_OK)
         except Product.DoesNotExist:
             raise exceptions.NotFound(
                 detail={'code': ErrorMessage.PRODUCT_NOT_FOUND.code, "message": ErrorMessage.PRODUCT_NOT_FOUND.message})
-

@@ -25,7 +25,7 @@ export default function Login() {
     client.post('http://127.0.0.1:8000/auth/token', {
         username: data.get('email'),
         password: data.get('password')
-    }).then(response => {
+    }, {withCredentials: true}).then(response => {
         const data = response.data;
         const accessToken = data.data;
         localStorage.setItem('Access-Token', accessToken);
