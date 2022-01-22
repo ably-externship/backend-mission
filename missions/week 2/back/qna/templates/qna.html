@@ -1,0 +1,146 @@
+{% extends "main.html" %}
+
+{% block section %}
+
+    {% block thing %}
+    <div class="m-5">
+        <div class="d-flex justify-content-center align-items-center position-relative">
+            <div class="btn text-decoration-none">
+                <a href="{% url 'qna_page' %}" class="text-decoration-none" > ( 질문 및 후기 남기기 ) </a>
+            </div>
+        </div>
+        
+        <form method="POST" action="" class="">
+            {% csrf_token %}
+            <div class="form-control-lg" id="questionform" name="questionform">
+                {{ questionform }} </div>
+                <div class="col-sm-3 col-md-12 mt-3">
+                    <input class="btn btn-warning" type="submit" value="질문하기">
+                </div>
+        </form>
+
+    
+    
+        <h2 class="text-center" style="font-weight: bold;"> 질문게시판 </h2>
+    </div>
+    {% endblock %}
+<div class="container">
+    <div class="my-3 text-center">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center">작성 번호) 제목</th>
+                    <th scope="col" class="text-center">글쓴이</th>
+                    <th scope="col" class="text-center">작성일</th>
+                    <th scope="col" class="text-center">답글여부</th>
+                </tr>
+            </thead>
+
+            {% for question_list in question %}
+
+                <tr>
+                    <td style="width: 40%">
+                        <div class="text-decoration-none">
+                            <a href="{% url 'qna_page_num' num=question_list.q_num %}" class="text-decoration-none" >{{ question_list.q_num }} )  {{ question_list.subject }}</a>
+                        </div>
+                    </td>
+                    <!-- 작성자, 작성일, 조회수 -->
+                    <td style="width: 10%" class="text-center"> {{question_list.user}} </td>
+                    <td style="width: 20%" class="text-center"> {{question_list.date}} </td>
+                    <td style="width: 10%" class="text-center"> {{question_list.rep}} </td>
+                </tr>
+
+            {% endfor %}
+
+        </table>
+    </div>
+</div>
+
+<section class="board">
+    <div class="container">
+        <div class="row m-2 mt-3">
+            <div class="col">
+                {% if  question_num  %}
+                    {% for question_one in question_num %}
+                        <laber class="form-label form-control-lg" for="title1" style="font-family: 'Poppins', sans-serif;">
+                            Question </laber>
+                        <input type="text" class="form-control" id="title1" value="{{ question_one.subject }}" readonly>
+
+                        <div class="mb-3 mt-3">
+                            <laber class="form-label" for="content1"> </laber>
+                            <textarea type="text" class="form-control" id="content1" readonly
+                                row="30"> {{ question_one.content }}</textarea>
+                        </div>
+                    {% endfor %}
+
+                {% else %}            
+                    <laber class="form-label form-control-lg" for="title1" style="font-family: 'Poppins', sans-serif;">
+                        Question </laber>
+                    <input type="text" class="form-control" id="title1" placeholder="제목을 입력하세요.">
+
+                    <div class="mb-3 mt-3">
+                        <laber class="form-label" for="content1"> </laber>
+                        <textarea type="text" class="form-control" id="content1" placeholder="내용을 입력하세요."
+                            row="12"></textarea>
+                    </div>
+
+                    
+                    <!-- 질문 남기는 버튼, form, post 구현하고 영상찍기 -->
+                {% endif %}
+                
+                {% if answer %}
+                <div class="card-block position-relative rounded-3" style="height: 13vh; background-color: none;">
+                    <div class="d-flex justify-content-center align-items-center position-absolute h-100 w-100">
+                        <button class="fas btn-warning" data-toggle="collapse fa fa-fire" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
+                            aria-controls="collapseExample"
+                            style="border-color: none;border-radius: 25px; width: 135px; height: 50px;">
+                            답글보기 </button>
+                    </div>
+
+                </div>
+                <div class="collapse" id="collapseExample">
+                    <div class="card p-3 " style="background-color: rgba(255, 193, 7, 0.7)!important;">
+                        <laber class="form-label form-control-lg" for="title1" style="font-family: 'Poppins', sans-serif;">
+                            Reply </laber>
+                        <input type="text" class="form-control " id="title1" placeholder="{{ question_num.q_num }}" readonly>
+    
+                        <div class="mb-3 mt-3">
+                            <laber class="form-label " for="content1"> </laber>
+                            <textarea type="text" class="form-control" id="content1" placeholder="{{ answer }}"
+                                row="12" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="card-block position-relative rounded-3" style="height: 13vh; background-color: none;">
+                    <div class="d-flex justify-content-center align-items-center position-absolute h-100 w-100">
+                        <button class="fas btn-warning" data-toggle="collapse fa fa-fire" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
+                            aria-controls="collapseExample"
+                            style="border-color: none;border-radius: 25px; width: 135px; height: 50px;">
+                            답글남기기 </button>
+                    </div>
+
+                </div>
+                <div class="collapse" id="collapseExample">
+                    <div class="card p-3 " style="background-color: rgba(255, 193, 7, 0.7)!important;">
+                        <laber class="form-label form-control-lg" for="title1" style="font-family: 'Poppins', sans-serif;">
+                            Reply </laber>
+                        <input type="text" class="form-control " id="title1" placeholder="제목을 입력하세요.">
+    
+                        <div class="mb-3 mt-3">
+                            <laber class="form-label " for="content1"> </laber>
+                            <textarea type="text" class="form-control" id="content1" placeholder="내용을 입력하세요."
+                                row="12"></textarea>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</section>
+   
+{% endblock %}

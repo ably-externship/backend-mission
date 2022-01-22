@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block sidebar %}
+<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+    <li class="nav-item">
+        <a href="{% url 'home_page' %}" class="nav-link">
+            Home
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="{% url 'main_page' %}"  class="nav-link">
+            Shops
+        </a>
+    </li>
+
+    {% if user.is_authenticated %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout_page' %}">{{ user.username }} (logout)</a>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            My page
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" href="#">프로필</a></li>
+            <li><a class="dropdown-item" href="#">즐겨찾기</a></li>
+            <li><a class="dropdown-item" href="#">POST</a></li>
+        </ul>
+    </li>
+    <li class="nav-item">
+        <a href="{% url 'cart_page' %}" class="nav-link">
+            Cart
+        </a>
+    </li>
+    {% else %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'login_page' %}">
+            Login
+        </a>
+    </li>
+    {% endif %}
+    
+    <li class="nav-item">
+        <a  href="{% url 'qna_page' %}" class="nav-link">
+            Question
+        </a>
+    </li>
+
+</ul>
+{% endblock %}
+
+
+{% block section %}
+<section id="shops">
+    <div class="container-fluid">
+        <div class="row">
+        </div>
+
+        <div class="m-2">
+            <div class="row">
+                {% for mall_list in mlists %}
+                <div class="col-4 col-md-3 col-lg-2">
+                    <div class="card my-3 position-relative rounded-3 shops-first-card">
+                        <img src="{{ mall_list.img_url }}" class="card-img-top embed-responsive-item" alt="img">
+
+                        <h4 class="fas fa-external-link-square-alt fa-sm m-2 mt-3 mb-3">
+                            <a id="shopname" href="{% url 'shop_page' id=mall_list.id %}" class="card-title text-decoration-none"
+                                style="color: black;"> {{ mall_list.name }} </a>
+                        </h4>
+                    </div>
+
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section id="items">
+</section>
+
+<section id="event" style="height: 15vh;">
+    <div class="row m-2">
+        <div class="col-md-10 col-sm-12">
+            <form class="d-flex m-2 form-post" id="search_box" name="search_box" method="GET" action="{% url 'search_page' %}" >
+                {% csrf_token %}
+                <input  name="q" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-warning" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

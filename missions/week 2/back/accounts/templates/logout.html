@@ -1,0 +1,55 @@
+{% extends "main.html" %}
+
+{% block section %}
+{%if user.is_authenticated %}
+<section id="login" class="position-relative">
+    <div class="section-content overlay d-flex justify-content-center align-items-center">
+        <div class="container-xxl">
+            <div class="row align-items-center">
+                <div class="loginbox col-md-16 text-align">
+                    <h1 class="login-title fw-light" style="font-family: 'Poppins', sans-serif;">
+                        Login success                    </h1>
+                    <h3> {{ user.username }} 님 로그아웃 하시겠습니까?.</h3>
+                </div>
+                <div class="card-block mt-5">
+                    <a href="{% url 'main_page' %}" class="btn btn-warning go_home_btn"> 쇼핑가기 </a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+{% else %}
+<section id="login" class="position-relative">
+    <div class="section-content overlay d-flex justify-content-center align-items-center">
+        <div class="container-xxl">
+            <div class="row align-items-center">
+                <div class="loginbox col-md-16 text-align">
+                    <h1 class="login-title fw-light" style="font-family: 'Poppins', sans-serif;">
+                        Logout success                    </h1>
+                    <h3> 로그아웃되셨습니다. </h3>
+                </div>
+                <div class="card-block mt-5">
+                    <a href="{% url 'home_page' %}" class="btn btn-warning go_home_btn"> 홈으로 </a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+{% endif %}
+
+<section id="event" class="position-relative mb-5" style="height: fit-content;">
+    <div class="eventbox col-md-16 text-align">
+        <div class="card-img-top col-sm-14 col-md-12" >
+            <a href="#">
+                <img src="/static/images/cu_img.jpg" alt="" class="card-img-top" style="height: fit-content;">
+            </a>
+        </div>    
+    </div>
+</section>
+
+{% endblock %}
