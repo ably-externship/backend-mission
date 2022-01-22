@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import json
 import os
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -20,7 +21,6 @@ secret_file = os.path.join(BASE_DIR, "secrets.json")
 secrets = None
 with open(secret_file) as f:
     secrets = json.loads(f.read())
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -32,7 +32,6 @@ SECRET_KEY = secrets['SECRET_KEY']
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -49,7 +48,8 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'bootstrap5',
     'rest_framework',
-    #Local App
+    'rest_framework_simplejwt',
+    # Local App
     'market.apps.MarketConfig',
     'board.apps.BoardConfig',
     'file.apps.FileConfig',
@@ -91,7 +91,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'base.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -99,16 +98,15 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ably',
-        'USER':'kjkim',
-        'PASSWORD':'kj123!@#',
-        'HOST':'127.0.0.1',
-        'PORT':'3306',
+        'USER': 'kjkim',
+        'PASSWORD': 'kj123!@#',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
         'OPTIONS': {
-            'init_command':"SET sql_mode='STRICT_TRANS_TABLES'"
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
         },
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -128,7 +126,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -140,7 +137,6 @@ USE_I18N = True
 
 USE_TZ = False
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
@@ -149,7 +145,6 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -171,7 +166,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = secrets['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = secrets['EMAIL_HOST_PASSWORD']
 SERVER_EMAIL = secrets['SERVER_EMAIL']
-DEFAULT_FROM_MAIL = '' # ex) bum752
+DEFAULT_FROM_MAIL = ''  # ex) bum752
 
 # 카카오 API 관련 키
 KAKAO_OAUTH_CONFIG = {
@@ -182,10 +177,12 @@ KAKAO_OAUTH_CONFIG = {
 KAKAO_AUTH_API = 'https://kauth.kakao.com/oauth/authorize?response_type=code'
 KAKAO_TOKEN_API = 'https://kauth.kakao.com/oauth/token'
 KAKAO_USER_API = 'https://kapi.kakao.com/v2/user/me'
-KAKAO_REDIRECT_URI= 'http://127.0.0.1:8000/auth/kakao/login/callback/'
+KAKAO_REDIRECT_URI = 'http://127.0.0.1:8000/auth/kakao/login/callback/'
 
-
-#Rest Framework 설정
+# Rest Framework 설정
 REST_FRAMEWORK = {
-    'EXCEPTION_HANDLER': 'common.exception.CustomException.custom_exception_handler'
+    'EXCEPTION_HANDLER': 'common.exception.CustomException.custom_exception_handler',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
 }

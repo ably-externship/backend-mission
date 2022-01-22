@@ -1,5 +1,6 @@
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 from common.BaseResponse import BaseResponse
 from rest_framework.response import Response
@@ -13,6 +14,7 @@ from common.exception.ErrorMessage import ErrorMessage
 
 @api_view(['GET', 'POST'])
 @csrf_exempt
+@permission_classes((IsAuthenticated,))
 def products(request):
     if request.method == 'GET':
         products = Product.objects.all()
@@ -34,6 +36,7 @@ def products(request):
 
 
 @api_view(['PUT', 'DELETE'])
+@permission_classes((IsAuthenticated,))
 def product(request, id):
     if  request.method == 'PUT':
         try:
