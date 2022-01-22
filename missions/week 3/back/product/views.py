@@ -2,23 +2,9 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
 
-from common.BaseResponse import BaseResponse
 from product_option.models import ProductOption
 from .models import Product
-
-
-# Create your views here.
-
-@api_view(['GET'])
-def helloAPI(request):
-    #raise exceptions.APIException(detail={'code': ErrorMessage.PRODUCT_001.code, "message":ErrorMessage.PRODUCT_001.message})
-    response = BaseResponse(data="aaa", message="AAA", code="SUCCESS")
-    return Response(data=response.to_dict(), status=status.HTTP_200_OK)
-
 
 
 def index(request):

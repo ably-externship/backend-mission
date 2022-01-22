@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.urls import path
 
-from .views import test_api
+from .views import products, product
 
 urlpatterns = [
-    path('', test_api)
+    path('', products),
+    path('<int:product_id>', product),
 ]
 

@@ -15,12 +15,11 @@ Including another URLconf
 """
 from django.urls import path
 
-from .views import index, detail, ajax, helloAPI
+from .views import index, detail, ajax
 
 urlpatterns = [
     path('', index),
     path('ajax', ajax),
     path('<int:product_id>', detail),
-    path('hello/', helloAPI)
 ]
 
