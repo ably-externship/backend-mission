@@ -5,3 +5,4 @@ requests
 django-debug-toolbar
 djangorestframework
 djangorestframework-simplejwt
+django-cors-headers
