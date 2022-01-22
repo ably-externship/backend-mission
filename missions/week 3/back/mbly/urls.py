@@ -24,7 +24,8 @@ urlpatterns = [
     path('board/', include('qna.urls')),
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('restapi/', include('restapi.urls')),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('frontend/', include('frontend.urls')),
 
 ]
 
