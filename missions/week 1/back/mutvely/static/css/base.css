@@ -4,28 +4,31 @@
     --header-color: #DFD3C3;
     --hover-color:#b39f71;
     --font-color : #50514F;
+    --font-hover: #313231;
 }
 body{
     background-color: var(--background-color);
 }
 .main-container{
-    min-height:calc(100vh - 240px);
+    margin : 50px 10%; 
+    min-height:calc(100vh - 340px);
 }
 a{
     text-decoration: none;
-    color: #50514F;
+    color: var(--font-color);
+}
+a:hover{
+    color:var(--font-hover);
 }
 /* header */
 header{
     height: 120px;
-    padding : 10px 30px;
+    padding : 20px 30px;
     background-color: #DFD3C3;
 }
-#logo{
-    width : fit-content;
-}
-#account{
-    float:right;
+.header_top{
+    display: flex;
+    justify-content: space-between;
 }
 .main-body{
     width:80%;

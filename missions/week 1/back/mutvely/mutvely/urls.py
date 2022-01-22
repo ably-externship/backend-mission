@@ -13,11 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls import url, include
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from accounts import views as accounts
 from markets import views as markets
+from rest_framework import routers
+from api.views import ProductViewSet
+
+router = routers.DefaultRouter() 
+router.register('product',ProductViewSet)
 
 urlpatterns = [
     path('', markets.main, name='main'),
@@ -44,4 +50,5 @@ urlpatterns = [
 
     path('<category>/product/<int:id>/QnA/', markets.qna, name='qna'),
     
+    url(r'^',include(router.urls)),
 ]

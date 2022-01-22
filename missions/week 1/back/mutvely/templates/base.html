@@ -20,27 +20,39 @@
     </head>
     <body>
         <header>
-            <div id="logo">
-                <a href="{% url 'main' %}"><h1>Mutvely</h1></a>
+            <div class="header_top">
+                <div id="logo">
+                    <a href="{% url 'main' %}"><h1>Mutvely</h1></a>
+                </div>
+                <div id="account">
+                    {% if request.user.is_authenticated %}
+                        {{request.user.username}} 님
+                        <a href="{% url 'mypage' %}">마이페이지</a>
+                        <span> | </span>
+                        <a href="{% url 'cart' %}">장바구니</a>
+                        <span> | </span>
+                        <a href="{% url 'logout' %}">로그아웃</a>
+                    {% else %}
+                        <a href="{% url 'login' %}">로그인 </a>
+                        <span> | </span>
+                        <a href="{% url 'signup' %}">회원가입</a>
+                    {% endif %}
+                </div>
             </div>
-            <div id="account">
-                {% if request.user.is_authenticated %}
-                    {{request.user.username}}
-                    <a href="{% url 'mypage' %}">마이페이지</a>
-                    <a href="{% url 'cart' %}">장바구니</a>
-                    <a href="{% url 'logout' %}">로그아웃</a>
-                {% else %}
-                    <a href="{% url 'login' %}">로그인 | </a>
-                    <a href="{% url 'signup' %}">회원가입</a>
-                {% endif %}
+            <div class="header_bottom">
+                <div id="menu-list">
+                    <a href="{% url 'outer' %}">아우터</a>
+                    <a href="{% url 'top' %}">상의</a>
+                    <a href="{% url 'onepiece' %}">원피스/세트</a>
+                    <a href="{% url 'pants' %}">팬츠</a>
+                    <a href="{% url 'skirt' %}">스커트</a>
+                </div>
+                <div id="search">
+                    <input name="query" type="text">
+                    <button >검색</button>
+                </div>
             </div>
-            <div id="menu-list">
-                <a href="{% url 'outer' %}">아우터</a>
-                <a href="{% url 'top' %}">상의</a>
-                <a href="{% url 'onepiece' %}">원피스/세트</a>
-                <a href="{% url 'pants' %}">팬츠</a>
-                <a href="{% url 'skirt' %}">스커트</a>
-            </div>
+
         </header> 
         <div class="main-container">
             {% block content %}
