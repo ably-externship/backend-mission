@@ -7,17 +7,27 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
-const isLogin = false;
+const auth = { isLogin : false, account_type : ''};
 
-function reducer(state=isLogin, action){
+function reducer(state=auth, action){
   if (action.type === 'login'){
-    state = true
-    return state
+
+    const copy = { ...auth };
+    copy.isLogin = true;
+    copy.account_type = action.payload;
+
+    return copy
+
   } else if (action.type === 'logout'){
-    state = false
+
+    const copy = { ...auth };
+    copy.isLogin = false;
+    copy.account_type = '';
+
+    return copy
+    
+  } else  {
     return state
-  } else {
-    return state 
   }
 };
 

@@ -24,15 +24,19 @@ function LoginPage(){
         axios.post("http://localhost:8000/accounts/login", 
         { email : email, password : password })
         .then((response)=>{
-            localStorage.setItem('access_token', response.data.access_token);
-            dispatch(({ type : 'login' }))
-            history.push('/');
-            alert('로그인 성공!');
-        })
+            if ( response !== null && response.date !== null) {
+
+                localStorage.setItem('access_token', response.data.access_token);
+                localStorage.setItem('account_type', response.data.account_type);
+                dispatch({ type : 'login' , payload : response.data.account_type });
+                history.push('/');
+
+                    } 
+                })
         .catch((error)=>{
             console.log(error);
             alert('이메일 또는 비밀번호가 틀렸습니다.')
-        })
+        });
     };
 
     return(
