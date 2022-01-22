@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'QA',
     'Review',
     'cart',
+    'rest_framework',
 ]
 
 AUTH_USER_MODEL = 'accounts.AuthUser'

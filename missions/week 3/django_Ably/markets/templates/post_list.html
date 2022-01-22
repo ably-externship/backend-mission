@@ -8,15 +8,16 @@
       </div>
   
       <h1>Our Stores</h1>
-      <div class="stores">
       {% for store in page_obj.object_list %}
+      <div style = "text-align : center;">
         <a href={{store.name}}>
-          <p>{{store.name}}</p> <br>
-          <p>{{store.detail}}</p>
-        </a>
+          <p>{{store.name}}</p>
+          <p>{{store.detail}}</p><br>
+        </a></div>
 
 
       {% endfor %}
+      <br><br><br><br>
      
       <!-- 페이징처리 시작 -->
     <div id="paging">

@@ -33,7 +33,7 @@ def post_RedStore(request):
     return render(request, 'red_store.html', {'redstore_name':redstore_name})
 
 def post_RedShirt(request):
-    items = Item.objects.filter(name='Red Shirt')
+    items = Item.objects.filter(name='RedShirt')
     colors=set()
     sizes=[]
     for item in items:
