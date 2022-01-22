@@ -92,6 +92,8 @@ class ProductList(models.Model):
     discount_price = models.DecimalField(max_digits=10, decimal_places=2)
     main_image_url = models.URLField(max_length=2000)
     seller_name = models.CharField(max_length=30)
+    is_displayed = models.BooleanField(default=True)
+    is_deleted = models.BooleanField(default=False)
 
     class Meta:
         managed = False
