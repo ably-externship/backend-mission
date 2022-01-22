@@ -3,7 +3,7 @@
 ## 영상
 
 - [http://projectlion.io/courses/technology/ably_externship_backend#curriculum](http://projectlion.io/courses/technology/ably_externship_backend#curriculum)
-- 1주차, 미션해설영상을 봐주세요.
+- 1주차, 미션해설영상을 봐주세요. 해당영상의 뒷 부분에 2주차 미션에 대한 설명이 있습니다.
 
 ## 주의사항
 
@@ -104,4 +104,4 @@
 
 ### Q11. back 폴더는 뭔가요?
 
-- 1주차 미션의 과제물을 그 안에 담아주시면 됩니다.
+- 미션의 과제결과물을 그 안에 담아주시면 됩니다.
