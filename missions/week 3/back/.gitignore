@@ -94,4 +94,4 @@ db.sqlite3
 /lib/python*/*
 !/lib/python*/site-packages
 
-../DS_Store
+../.DS_Store
