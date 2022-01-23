@@ -19,6 +19,7 @@ discord로 운영매니저에게 문의주시면 감사하겠습니다.
 - missions/week 2/back 폴더에 작업물 소스코드를 담아주세요.
 - 작업이 끝나셨다면, 제출하기 전에, missions/week 2/checklist.md 파일을 수정해서, 어디까지 작업이 되었는지 알려주세요.
 
+
 # 폴더구조
 
 - docs
