@@ -22,7 +22,7 @@ product_detail = ProductViewSet.as_view({
 })
 
 # Product API urls
-post_urlpatterns = [
+product_urlpatterns = [
     # 상품 목록
     path('', product_list, name='api_product_list'),
     # 상품 상세
@@ -43,7 +43,7 @@ post_urlpatterns = [
 urlpatterns = [
     # 3주차
     # 상품 API 별로 분리를 하기 위함
-    path('product/', include(post_urlpatterns)),
+    path('product/', include(product_urlpatterns)),
 
     # user api
     path('v1/user/login/', UserLoginView.as_view(), name='apis_v1_user_login'),

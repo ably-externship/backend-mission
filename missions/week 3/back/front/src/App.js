@@ -84,7 +84,7 @@ class App extends React.Component {
           onChange={this.handlingChange}
         />
         </div>
-        <button type ="submit">제출하기</button>
+        <button type ="submit">상품 등록하기</button>
         </form>
       </div>
       <br/>
