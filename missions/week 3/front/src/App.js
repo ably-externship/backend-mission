@@ -3,7 +3,7 @@ import './App.css';
 import Header from './components/Header';
 import LoginModal from './components/LoginModal';
 import { Route } from 'react-router-dom';
-import Board from "./components/Board";
+import Product from "./components/Product";
 import Writer from "./components/Writer"
 
 function App() {
@@ -38,8 +38,6 @@ function App() {
         }
     }, [isAuthenticated]);
 
-    console.log(user)
-
     return (
         <>
             <div className="App">
@@ -47,7 +45,7 @@ function App() {
 
                     <Route exact path="/">
                         <Header modal={modal} handleLogout={handleLogout}/>
-                        <Board user={user} />
+                        <Product user={user} />
                     </Route>
 
                     <Route exact path="/write">

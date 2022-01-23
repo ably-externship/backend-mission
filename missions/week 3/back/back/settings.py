@@ -74,7 +74,7 @@ INSTALLED_APPS = [
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         # 'rest_framework.permissions.IsAuthenticated', # 인증된 회원이 아닐시 모든 기능 금지
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly', # read는 가능
+        # 'rest_framework.permissions.IsAuthenticatedOrReadOnly', # read는 가능
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',

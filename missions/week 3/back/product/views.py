@@ -40,7 +40,7 @@ def ProductUpdate(request, pk):
 
     return Response(serializer.data)
 
-
+# 제품 삭제
 @api_view(['DELETE'])
 def ProductDelete(request, pk):
     product = Product.objects.get(id=pk)
@@ -48,28 +48,36 @@ def ProductDelete(request, pk):
     return Response('Deleted')
 
 
-# class ProductList(ListAPIView):
-#     queryset = Product.objects.all()
-#     serializer_class = ProductSerializer
-#
-# class ProductCreate(CreateAPIView):
-#     queryset = Product.objects.all()
-#     serializer_class = ProductCreateSerializer
-#
-# class ProductUpdate(UpdateAPIView):
-#     lookup_field = 'no'
-#     queryset = Product.objects.all()
-#     serializer_class = ProductSerializer
-#
-# class ProductDelete(DestroyAPIView):
-#     lookup_field = 'no'
-#     queryset = Product.objects.all()
-#     serializer_class = ProductSerializer
-#
-# class ProductDetail(RetrieveAPIView):
-#     lookup_field = 'no'
-#     queryset = Product.objects.all()
-#     serializer_class = ProductDetailSerializer
+# 제품 찾기
+@api_view(['GET'])
+def ProductFind(request, name):
+    product = Product.objects.get(name=name)
+    product_id = product.id
+    serializer = ProductFindSerializer(product)
 
+    return Response(serializer.data)
+
+
+
+
+# 옵션 리스트
+@api_view(['GET'])
+def OptionList(request):
+    options = Product_option.objects.all()
+    serializer = OptionSerializer(options, many=True)
+
+    return Response(serializer.data)
+
+
+# 옵션 추가
+@api_view(['POST'])
+def OptionCreate(request):
+    serializer = OptionCreateSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    else:
+        print("에러 코드 :",serializer.errors)
+
+    return Response(serializer.data)
 
 
