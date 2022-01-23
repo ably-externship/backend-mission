@@ -1,17 +1,28 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views import generic
-from .models import Product
-from django.views.generic.edit import FormView
-from product.forms import ProductSearchForm
-from django.db.models import Q
-from django.core.paginator import Paginator
-from django.views import View
 from django.contrib.auth.decorators import login_required
-from inquiry.models import Inquiry
-from product.forms import InquiryForm
-from user.models import User
+from django.views.generic.edit import FormView
+from django.core.paginator import Paginator
+from django.views import generic
+from django.db.models import Q
+from django.views import View
+
 from project.settings import LOGIN_URL
 
+from product.forms import InquiryForm
+from product.forms import ProductSearchForm
+from inquiry.models import Inquiry
+from product.models import Product
+from vendor.models import Vendor
+from user.models import User
+
+from product.permissions import IsVendorOrReadOnly, IsStaffOrReadOnly
+from product.serializers import ProductSerializer
+from product.serializers import VendorSerializer
+from product.serializers import UserSerializer
+
+from rest_framework import generics, permissions
+
+from braces.views import CsrfExemptMixin
 
 class IndexView(generic.ListView):
     template_name = 'product/index.html'
@@ -52,7 +63,6 @@ class SearchFormView(FormView):
 
         return render(self.request, self.template_name, context)
 
-
 def search(request):
     products = Product.objects.all().order_by('-id')
 
@@ -77,3 +87,30 @@ def create_comment(request, product_id):
         comments.user = request.user
         comments.save()
     return redirect('product:detail', product_id)
+
+
+
+class ProductList(CsrfExemptMixin, generics.ListCreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class ProductDetail(CsrfExemptMixin, generics.RetrieveUpdateDestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, 
+                          IsStaffOrReadOnly, ]
+
+
+class VendorList(generics.ListAPIView):
+    queryset = Vendor.objects.all()
+    serializer_class = VendorSerializer
+
+
+class VendorDetail(generics.RetrieveAPIView):
+    queryset = Vendor.objects.all()
+    serializer_class = VendorSerializer
+
+
+
