@@ -36,6 +36,11 @@
   - 강사가 확인할 수 있는 젠킨스 관리자 페이지 주소 : https://여기에*주소를*적어주세요.
   - 운영메뉴얼.md 파일도 첨부해주세요.(자세한 내용은 docs/week 3/readme.md 파일을 참고해주세요.)
 
+
+
+
+
+
 ## 수행인증영상URL(유튜브)
 
 - https://www.youtube.com/watch?v=g0p_GsjAHRA
