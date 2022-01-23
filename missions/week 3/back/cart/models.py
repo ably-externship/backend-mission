@@ -1,11 +1,11 @@
 from django.db import models
+
 from user.models import User
 from product.models import Product
 
 
 class Cart(models.Model):
-    user = models.ForeignKey(
-        User, null=True, blank=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated_at = models.DateTimeField(auto_now_add=False, auto_now=True)
     active = models.BooleanField(default=True)

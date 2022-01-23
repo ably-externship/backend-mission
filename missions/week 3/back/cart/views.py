@@ -4,8 +4,8 @@ from django.contrib.auth.decorators import login_required
 
 from .models import Cart
 from .models import CartItem
-from .models import User
-from .models import Product
+from user.models import User
+from product.models import Product
 
 from project.settings import LOGIN_URL
 
