@@ -5,8 +5,9 @@ import './App.css';
 import HomeNav from './components/Navbar.js';
 import SignupPage from './components/SignupPage.js';
 import ProductList from './components/ProductListPage.js';
-import LoginPage from './components/LoginPage';
-import KakaoLogin from './components/KakaoLogin';
+import LoginPage from './components/LoginPage.js';
+import KakaoLogin from './components/KakaoLogin.js';
+import AdminProductList from './components/AdminProductList.js';
 
 function App() {
 
@@ -45,8 +46,8 @@ function App() {
           <KakaoLogin/>
         </Route>
 
-        <Route exact path="/admin">
-          <LoginPage/>
+        <Route exact path="/admin/products">
+          <AdminProductList/>
         </Route>
 
       </Switch>
