@@ -1,8 +1,7 @@
-import React, { Component } from "react";
+import React, {Component} from 'react';
 import { render } from "react-dom";
-import HomePage from "./HomePage";
-import MallJoinPage from "./MallJoinPage";
-import CreateMallPage from "./CreateMallPage";
+import "./App.css";
+import RestAPI from "./RestAPI.js";
 
 
 export default class App extends Component {
@@ -13,7 +12,7 @@ export default class App extends Component {
     render() {
         return (
         <div>
-        <HomePage />
+        <RestAPI />
         </div>
         );
     }
