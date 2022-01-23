@@ -33,16 +33,6 @@
   - 로그인 할 때 AccessToken과 Refresh Token을 발급하여서 로그인 처리를 하였지만, 
   AccessToken이 만료 되었을 때 RefreshToken 확인을 통한 AccessToken을 재발급 하는 기능은 구현하지 못했습니다.   
 - [x] 젠킨스 설치, 깃허브 커밋에 따라 서버에 로그파일 생성
-  - 강사가 확인할 수 있는 젠킨스 관리자 페이지 주소 : http://www.kj-dev.com
-  - 운영메뉴얼.md 파일도 첨부해주세요.(자세한 내용은 docs/week 3/readme.md 파일을 참고해주세요.)
-
-
-
-
-
-
+  - 젠킨스 관리자 페이지 주소 : http://www.kj-dev.com
 ## 수행인증영상URL(유튜브)
-
-- https://www.youtube.com/watch?v=g0p_GsjAHRA
-- 위 링크를 지우고 여러분의 영상 링크를 남겨주세요.
-- 영상을 일부공개로 설정해주세요, 링크가 있는 분들만 볼 수 있습니다.
+- https://youtu.be/i8NWgvUX-QI
