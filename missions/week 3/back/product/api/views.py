@@ -38,39 +38,45 @@ def products(request):
                                                          "message": ErrorMessage.PRODUCT_VALIDATION_ERROR.message})
 
 
-@api_view(['PUT', 'DELETE'])
+@api_view(['PUT', 'DELETE', 'GET'])
 @permission_classes((IsAuthenticated,))
 def product(request, product_id):
+    if request.method == 'GET':
+        product_model = product_select(product_id)
+        serializer = ProductPutSerializer(product_model)
+        response = BaseResponse(data=serializer.data, message=None, code="SUCCESS")
+        return Response(data=response.to_dict(), status=status.HTTP_200_OK)
     if request.method == 'PUT':
-        try:
-            product_model = Product.objects.select_related('market_pk').get(id=product_id)
-            serializer = ProductPutSerializer(product_model, data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                response = BaseResponse(data=serializer.data, message=None, code="SUCCESS")
-                return Response(data=response.to_dict(), status=status.HTTP_201_CREATED)
-            else:
-                if serializer.errors.get('market_pk') is not None:
-                    raise exceptions.NotFound(
-                        detail={'code': ErrorMessage.MARKET_NOT_FOUND.code,
-                                "message": ErrorMessage.MARKET_NOT_FOUND.message})
-                if serializer.errors.get('category_fk') is not None:
-                    raise exceptions.NotFound(detail={'code': ErrorMessage.PRODUCT_CATEGORY_NOT_FOUND.code,
-                                                      "message": ErrorMessage.PRODUCT_CATEGORY_NOT_FOUND.message})
-                else:
-                    raise exceptions.ValidationError(detail={'code': ErrorMessage.PRODUCT_VALIDATION_ERROR.code,
-                                                             "message": ErrorMessage.PRODUCT_VALIDATION_ERROR.message})
-        except Product.DoesNotExist:
-            raise exceptions.NotFound(
-                detail={'code': ErrorMessage.PRODUCT_NOT_FOUND.code, "message": ErrorMessage.PRODUCT_NOT_FOUND.message})
-    if request.method == 'DELETE':
-        try:
-            product_model = Product.objects.select_related('market_pk').get(id=product_id)
-            product_model.product_status = 'DEACTIVE'
-            product_model.save()
-            serializer = ProductPutSerializer(product_model)
+        product_model = product_select(product_id)
+        serializer = ProductPutSerializer(product_model, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
             response = BaseResponse(data=serializer.data, message=None, code="SUCCESS")
-            return Response(data=response.to_dict(), status=status.HTTP_200_OK)
-        except Product.DoesNotExist:
-            raise exceptions.NotFound(
-                detail={'code': ErrorMessage.PRODUCT_NOT_FOUND.code, "message": ErrorMessage.PRODUCT_NOT_FOUND.message})
+            return Response(data=response.to_dict(), status=status.HTTP_201_CREATED)
+        else:
+            if serializer.errors.get('market_pk') is not None:
+                raise exceptions.NotFound(
+                    detail={'code': ErrorMessage.MARKET_NOT_FOUND.code,
+                            "message": ErrorMessage.MARKET_NOT_FOUND.message})
+            if serializer.errors.get('category_fk') is not None:
+                raise exceptions.NotFound(detail={'code': ErrorMessage.PRODUCT_CATEGORY_NOT_FOUND.code,
+                                                  "message": ErrorMessage.PRODUCT_CATEGORY_NOT_FOUND.message})
+            else:
+                raise exceptions.ValidationError(detail={'code': ErrorMessage.PRODUCT_VALIDATION_ERROR.code,
+                                                         "message": ErrorMessage.PRODUCT_VALIDATION_ERROR.message})
+    if request.method == 'DELETE':
+        product_model = product_select(product_id)
+        product_model.product_status = 'DEACTIVE'
+        product_model.save()
+        serializer = ProductPutSerializer(product_model)
+        response = BaseResponse(data=serializer.data, message=None, code="SUCCESS")
+        return Response(data=response.to_dict(), status=status.HTTP_200_OK)
+
+
+def product_select(product_id):
+    try:
+        product_model = Product.objects.select_related('market_pk').get(id=product_id)
+        return product_model
+    except Product.DoesNotExist:
+        raise exceptions.NotFound(
+            detail={'code': ErrorMessage.PRODUCT_NOT_FOUND.code, "message": ErrorMessage.PRODUCT_NOT_FOUND.message})
