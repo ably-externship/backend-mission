@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./Product.css";
-
+import { useHistory } from "react-router-dom";
 import useLocalStorage from "./accounts/useLocalStorage";
 
 
 function Product() {
+  const history = useHistory();
   const [text, setText] = useState([]);
-
+  const [jwtToken, setJwtToken] = useLocalStorage("jwtToken", "");
 
   return (
     <>
@@ -17,14 +18,19 @@ function Product() {
         <button
           onClick={() => {
             axios
-              .get("http://127.0.0.1:8000/api/products/")
+              .get("http://127.0.0.1:8000/api/products/", { headers: {"Authorization" : `JWT ${jwtToken}`} })
               .then((response) => {
                 setText([...response.data]);
                 console.log(response.data);
+                 console.log(jwtToken);
 
               })
               .catch(function (error) {
                 console.log(error);
+                if(error.response.status==401){
+                    alert('로그인이 필요합니다.');
+                    history.push("/accounts/login");
+                }
               });
           }}
         >
