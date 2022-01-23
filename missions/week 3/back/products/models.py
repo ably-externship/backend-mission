@@ -1,8 +1,6 @@
-from tkinter import CASCADE
 from django.db import models
 from django.db.models.deletion import DO_NOTHING
 
-from core.models import TimeStampModel
 from accounts.models import Seller, User
 
 class ProductCategory(models.Model):
@@ -45,7 +43,7 @@ class ProductHistory(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    discount_price = models.DecimalField(max_digits=10, decimal_places=2)
+    discount_price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     is_displayed = models.BooleanField(default=True)
     is_sold_out = models.BooleanField(default=False)
     created_at = models.DateTimeField()
@@ -92,6 +90,7 @@ class ProductList(models.Model):
     discount_price = models.DecimalField(max_digits=10, decimal_places=2)
     main_image_url = models.URLField(max_length=2000)
     seller_name = models.CharField(max_length=30)
+    is_sold_out = models.BooleanField(default=False)
     is_displayed = models.BooleanField(default=True)
     is_deleted = models.BooleanField(default=False)
 
