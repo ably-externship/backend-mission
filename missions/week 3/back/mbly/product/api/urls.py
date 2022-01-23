@@ -4,8 +4,8 @@ from .views import ProductList,ProductDetail
 ENDPOINT : api/product/
 
 """
-app_name = 'product'
+app_name = 'product_api'
 urlpatterns = [
     path('',ProductList.as_view()),
-    path('<int:product_id>',ProductDetail.as_view())
+    path('<int:pk>',ProductDetail.as_view())
 ]

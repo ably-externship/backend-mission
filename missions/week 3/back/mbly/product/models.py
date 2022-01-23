@@ -6,21 +6,20 @@ from market.models import Market
 # Create your models here.
 
 class ProductCategory(models.Model):
-    name = models.CharField('카테고리 이름',max_length=50)
+    name = models.CharField('카테고리 이름',max_length=50,unique=True)
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=150) # 이름
-    price = models.IntegerField() # 가격
-    description = models.CharField(max_length=200) # 설명
+    name = models.CharField(max_length=150,blank=False) # 이름
+    description = models.CharField(max_length=200,blank=False) # 설명
     image = models.ImageField(upload_to='images/') # 이미지
     reg_date = models.DateTimeField(auto_now_add=True) # 등록일
     update_date = models.DateTimeField(auto_now=True) # 변경일
     market = models.ForeignKey(Market,on_delete=models.DO_NOTHING) # 마켓
     category = models.ForeignKey(ProductCategory,on_delete= models.DO_NOTHING) # 카테고리
 
-    price = models.PositiveIntegerField('권장판매가')
-    sale_price = models.PositiveIntegerField('실제판매가')
+    price = models.PositiveIntegerField('권장판매가',blank=False)
+    sale_price = models.PositiveIntegerField('실제판매가',blank=False)
 
     is_deleted= models.BooleanField('삭제 여부',default = False)
     deleted_date = models.DateTimeField('삭제날짜',null = True,blank=True)
