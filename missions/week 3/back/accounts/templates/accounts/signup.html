@@ -27,7 +27,7 @@
 
     <span> 
         <div class="login-form" style ="max-width:480px;margin:auto;">
-        <form class="form-group" method="POST" action="{%url 'signup' %}">
+        <form class="form-group" method="POST" action="{%url 'accounts:signup' %}">
             {% csrf_token %}
             <div class="mb-3">
             <label for="id" class="form-label">ID</label>
@@ -53,9 +53,10 @@
             <button type="submit" class="btn btn-primary">회원가입</button>
         </form>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href={% url 'login' %}>로그인</a>
-        <a class="dropdown-item" href={% url 'find_id' %}>아이디 찾기</a>
-        <a class="dropdown-item" href={% url 'password_reset' %}>비밀번호 찾기</a>
+            <div class="mb-3">
+        <a class="dropdown-item" href={% url 'accounts:login' %}>로그인</a>
+        <a class="dropdown-item" href={% url 'accounts:find_id' %}>아이디 찾기</a>
+        <a class="dropdown-item" href={% url 'accounts:password_reset' %}>비밀번호 찾기</a>
         </div>
     </span>
 

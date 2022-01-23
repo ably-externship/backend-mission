@@ -7,7 +7,6 @@ from .views import ItemViewSet
 
 
 router = routers.DefaultRouter()
-
 #apis for items CRUD
 router.register('items', ItemViewSet)
 

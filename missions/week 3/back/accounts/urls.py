@@ -2,6 +2,7 @@
 from django.urls import path, include
 from accounts import views
 from django.contrib.auth import views as auth_views
+from rest_framework.authtoken.views import obtain_auth_token
 
 
 app_name= 'accounts'
@@ -13,4 +14,5 @@ urlpatterns = [
   path('forgot_id/', views.forgot_id, name='find_id'),
   path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
   # path('social_accounts/', include('allauth.urls')),
+  path('api/token/', obtain_auth_token, name='obtain_token'),
 ]
