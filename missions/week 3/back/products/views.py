@@ -175,9 +175,9 @@ class ProductOptionDetailAPIView(APIView):
         try:
             option = ProductOption.objects.get(id=option_id)
         except ProductOption.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response({'error': '해당 제품의 옵션은 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
         option.delete()
-        return Response({'error': '해당 제품은 없습니다.'}, status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
     def put(self, request, *args, **kwargs):
         option_id = self.kwargs['option_id']
