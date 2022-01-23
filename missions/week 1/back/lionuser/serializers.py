@@ -45,6 +45,7 @@ class LionuserSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
+from rest_framework.response import Response
 
 class LionuserLoginSerializer(serializers.ModelSerializer):
     username = serializers.CharField(max_length=128)
@@ -54,9 +55,12 @@ class LionuserLoginSerializer(serializers.ModelSerializer):
         model = Lionuser
         fields = ['username', 'password']
 
-    def validate(self, data):
-        username = data.get("username", None)
-        password = data.get("password", None)
-
-        user = authenticate(username=username, password=password)
-        return user
+    # def validate(self, data):
+    #     username = data.get("username", None)
+    #     password = data.get("password", None)
+    #     try:
+    #         user = authenticate(username=username, password=password)
+    #     except:
+    #         return Response({'status': 403, 'errors': "errors", 'message': '유저 로그인 에러입니다.'})
+    #
+    #     return user

@@ -16,15 +16,16 @@ Content-Type: application/json
 
 
 ### 아이템 생성 처리
-POST  http://localhost:8000/shop/1/items
+POST  http://localhost:8000/product/admin
 Content-Type: application/json
 
-{
+{"shop": 1,
+  "productImgs": [{"img_url": ""}],
     "product_name":"잠바3",
     "description":"따뜻",
     "price":900008,
     "stock":94,
-    "option_group" : [{"optionGroup":"사이즈",
+    "optionGroups" : [{"optionGroup":"사이즈",
                         "optionItem":[{
                             "optionItem":"55",
                             "addPrice":0
@@ -44,12 +45,12 @@ Content-Type: application/json
 }
 
 ### 아이템 생성 처리
-POST  http://localhost:8000/shop/2/items
+POST  http://localhost:8000/shop/3/items
 Content-Type: application/json
 
 {
-    "product_name":"니트",
-    "description":"이뻐",
+    "product_name":"패딩",
+    "description":"구려",
     "price":100000,
     "stock":150,
     "option_group" : [{"optionGroup":"사이즈",
@@ -74,4 +75,4 @@ Content-Type: application/json
 ### 토큰 생성 처리
 GET  http://localhost:8000/user/login/test
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQyMzg5OTk5LCJpYXQiOjE2NDIyMTcxOTksImp0aSI6ImIyMGYzMzIzYzllMjRjNThhYzBjZDk5MjhlZTZhZmY1IiwidXNlcl9pZCI6MX0.J3EbNr1BdmeitFaya8g9V8hTt3Ik8XsunwIc_M1_bsU
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQyOTAzMzYyLCJpYXQiOjE2NDI5MDI5ODMsImp0aSI6IjcxNjNkNTZiZTYwYzQyNWM5Y2VmZDBiMmE4YjY3NDNiIiwidXNlcl9pZCI6MX0.1PK0k3BUI4XdgTEg8ef03PKzxwf-S_-ZzTwoWon82nI

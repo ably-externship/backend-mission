@@ -36,12 +36,17 @@ def login(request):
 @permission_classes((IsAuthenticated,))
 @authentication_classes((JWTAuthentication,))
 def loginTest(request):
+    print("테스트 시도!!!1")
     if request.method == 'GET':
         if request.user.is_authenticated:
             print("User is logged in :)")
             print(f"Username --> {request.user.username}")
+            print("테스트성공")
+
         else:
             print("User is not logged in :(")
+            print("테스트실패!!")
+
         return JsonResponse({"Success": "header에 jwt token으로 api 요청 성공"})
 
 
@@ -126,6 +131,7 @@ class LionUserAPI(APIView):
 
 class LionLoginUser(APIView):
     def post(self, request):
+        print("로그인 시도!!!!----------------")
         serializer = LionuserLoginSerializer(data=request.data)
         if not serializer.is_valid():
             return Response({'status': 403, 'errors': serializer.errors, 'message': '유저 로그인 에러입니다.'})
@@ -162,10 +168,10 @@ def kakaoTest(request):
     k_access_token = str(request.GET.get('code', None))
     print(k_access_token)
 
-    app_key = APP_KEY    app_key = "183b1738c1dcd7012baaf747c970ba3f"
+    app_key = "183b1738c1dcd7012baaf747c970ba3f"
     redirect_url = "http://localhost:8000/user/login/kakao"
     kakao_auth_token_api = "https://kauth.kakao.com/oauth/token?grant_type=authorization_code&"
-    client_secret = CLIENT_SECRET    client_secret = "saNjsXd1W6G7YwAjMJf5JKbjsayDJzkY"
+    client_secret = "saNjsXd1W6G7YwAjMJf5JKbjsayDJzkY"
     print(f'{kakao_auth_token_api}client_id={app_key}&redirect_uri={redirect_url}&code={k_access_token}&client_secret={client_secret}')
     url_k = f'{kakao_auth_token_api}client_id={app_key}&redirect_uri={redirect_url}&code={k_access_token}&client_secret={client_secret}'
     response = requests.post(url_k)

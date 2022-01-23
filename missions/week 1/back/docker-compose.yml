@@ -12,6 +12,23 @@ services:
     depends_on:
       - calendar_db
 
+  web:
+    image: 'jc21/nginx-proxy-manager:latest'
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    environment:
+      DB_MYSQL_HOST: "calendar_db"
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: "calendar"
+      DB_MYSQL_PASSWORD: "calendar"
+      DB_MYSQL_NAME: "calendar_db"
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+
+
   calendar_db:
     container_name: harim_db
     image: mysql/mysql-server:5.7
@@ -28,3 +45,5 @@ services:
       - "mysqld"
       - "--character-set-server=utf8mb4"
       - "--collation-server=utf8mb4_unicode_ci"
+
+

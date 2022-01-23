@@ -26,7 +26,7 @@ class LionuserManager(UserManager):
     #     user.save(using=self._db)
     #     return user
 
-#custome AuthUser
+#custome AuthUser https://www.youtube.com/watch?v=AfYfvjP1hK8&t=4345s
 class Lionuser(AbstractUser): #AbstractBaseUser,PermissionsMixin
     """
     customized User

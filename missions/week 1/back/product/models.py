@@ -49,7 +49,7 @@ class Product(models.Model):
 
 
 class ProductOptionGroup(models.Model):  # 색상, 사이즈
-    product = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name='쇼핑몰')
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='optionGroups')
 
     optionGroup = models.CharField(max_length=256, verbose_name='옵션그룹')
     # description = models.TextField(verbose_name='옵션 설명')
@@ -64,18 +64,19 @@ class ProductOptionGroup(models.Model):  # 색상, 사이즈
     #     verbose_name_plural = '상품옵션'
 
 class ProductOptionGroupItem(models.Model):  # red, black, 55, 66
-    productOptionGroup = models.ForeignKey(ProductOptionGroup, on_delete=models.CASCADE)
-    optionItem = models.CharField(max_length=256, verbose_name='옵션내용')
+    productOptionGroup = models.ForeignKey(ProductOptionGroup, on_delete=models.CASCADE,related_name='optionItems')
     addPrice = models.IntegerField(default=0, verbose_name='추가 가격')  # 옵션 변경시 가격 변동, 주문 시
     stock = models.IntegerField(verbose_name='재고', default=0)
 
 class ProductImg(models.Model):  # 이미지 여러개
-    product = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name='쇼핑몰')
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='productImgs')
     img_url = models.TextField()
+    def __str__(self):
+        return self.img_url
 
 
-class ProductStock(models.Model):  # 이미지 여러개
-    product = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name='쇼핑몰')
+class ProductStock(models.Model):
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='productStocks')
     productOptionGroup = models.ForeignKey(ProductOptionGroup, on_delete=models.CASCADE)
     productOptionGroup = models.ForeignKey(ProductOptionGroup, on_delete=models.CASCADE)
     stock = models.IntegerField()
