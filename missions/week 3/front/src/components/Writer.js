@@ -85,11 +85,11 @@ function Writer(props) {
     const Insertoption = async ()=> {
 
 
-        // console.log(productMakeList["name"])
+        console.log(productMakeList["name"])
         const find = async () => {
             const {data} = await axios.get('http://localhost:8000/product/find/' + productMakeList["name"] + '/');
             setProductID(data['id']);
-            // console.log(data['id'])
+            console.log(data['id'])
 
             const formData = new FormData();
 
@@ -97,7 +97,7 @@ function Writer(props) {
             formData.append('opt1_name', optionMakeList["opt1_name"]);
             formData.append('opt1_price', optionMakeList["opt1_price"]);
             formData.append('opt1_stock', optionMakeList["opt1_stock"]);
-            formData.append('product', productId);
+            formData.append('product', data['id']);
 
 
             await axios.post('http://localhost:8000/product/option/create/', formData, {headers: {
