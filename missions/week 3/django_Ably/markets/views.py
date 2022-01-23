@@ -5,7 +5,7 @@ from django.shortcuts import render
 from .models import *
 from django.core.paginator import Paginator
 from rest_framework import viewsets, permissions
-from .serializers import ItemSerializer
+from .serializers import *
 
 
 # Create your views here.
@@ -53,7 +53,12 @@ def post_RedDress(request):
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all().order_by('id_item')
     serializer_class = ItemSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
+
+class StoreViewSet(viewsets.ModelViewSet):
+    queryset = Store.objects.all().order_by('id_store')
+    serializer_class = StoreSerializer
+    # permission_classes = [permissions.IsAuthenticated]
 
     
 

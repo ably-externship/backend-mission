@@ -32,6 +32,8 @@ def login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             auth.login(request, user)
+            if username == '1234':
+                return redirect('/items/')
             return redirect('/')
         else:
             return render(request, 'login.html', {'error': 'username or password is incorrect.'})

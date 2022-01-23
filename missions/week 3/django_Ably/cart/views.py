@@ -4,48 +4,6 @@ from markets.models import Item
 from accounts.models import AuthUser
 from .models import Cart
 from collections import defaultdict
-# Create your views here.
-
-# def _cart_id(request):
-#     cart = request.session.session_key
-#     if not cart:
-#         cart = request.session.create()
-#     return cart
-
-# def add_cart(request, item_id):
-#     item = Item.objects.get(id_item=item_id)
-#     try:
-#         cart = Cart.objects.get(id_cart = _cart_id(request))
-#     except Cart.DoesNotExist:
-#         cart = Cart.objects.create(
-#             id_cart = _cart_id(request)
-#         )
-#         cart.save()
-    
-#     try:
-#         cart_item = Cartitem.objects.get(item_id_item=item,cart_id_cart=cart)
-#         cart_item.quantity +=1
-#         cart_item.save()
-#     except Cartitem.DoesNotExist:
-#         cart_item = Cartitem.objects.create(
-#             item_id_item = item,
-#             quantity=1,
-#             cart_id_cart=cart
-#         )
-#         cart_item.save()
-#     return redirect('cart:cart_detail')
-
-# def cart_detail(request, total=0, counter=0, cart_items = None):
-#     try:
-#         cart = Cart.objects.get(id_cart=_cart_id(request))
-#         cart_items = Cartitem.objects.filter(cart_id_cart=cart)
-#         for cart_item in cart_items:
-#             total += (cart_item.item_id_item.price * cart_item.quantity)
-#             counter += cart_item.quantity
-#     except ObjectDoesNotExist:
-#         pass
-
-#     return render(request, 'cart.html', dict(cart_items = cart_items, total=total, counter = counter))
 
 
 def add_cart(request):

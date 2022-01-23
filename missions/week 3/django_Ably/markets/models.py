@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import redirect
 
 class Item(models.Model):
     id_item = models.CharField(db_column='id_Item', primary_key=True, max_length=5)  # Field name made lowercase.
@@ -13,6 +14,9 @@ class Item(models.Model):
     class Meta:
         managed = False
         db_table = 'Item'
+        
+    def model_method(self):
+        return "http://127.0.0.1/items/{}/".format(self.id_item)
 
 class Store(models.Model):
     id_store = models.CharField(db_column='id_Store', primary_key=True, max_length=5)  # Field name made lowercase.
