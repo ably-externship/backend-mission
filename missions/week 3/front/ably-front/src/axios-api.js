@@ -6,7 +6,7 @@ client.interceptors.request.use(
   function (config) {
     // 요청을 보내기 전에 수행할 일
     // token 설정
-    config.headers['Authorization'] = `Bearer ${localStorage.getItem('Access-Token')}`
+    config.headers['Authorization'] = `Bearer ${sessionStorage.getItem('Access-Token')}`
 
     return config;
   },

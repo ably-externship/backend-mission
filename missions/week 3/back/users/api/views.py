@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken, Token
 
 from common.BaseResponse import BaseResponse
 from users.api.serializers import UserAuthSerializer, UserAuthResponseSerializer, UserAuthResponse
@@ -38,5 +38,6 @@ def refresh_token(request):
     #TODO Refresh-Token 처리
     refresh_hash = request.COOKIES['refresh_hash']
     refresh_storage = RefreshStorage.objects.get(hash_value=refresh_hash)
+    #Token.verify(refresh_storage.refresh_token)
     return Response(data=None, status=status.HTTP_200_OK)
 

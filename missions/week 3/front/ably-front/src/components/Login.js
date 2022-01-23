@@ -28,7 +28,7 @@ export default function Login() {
     }, {withCredentials: true}).then(response => {
         const data = response.data;
         const accessToken = data.data;
-        localStorage.setItem('Access-Token', accessToken);
+        sessionStorage.setItem('Access-Token', accessToken);
         navigate('/product-list')
     }).catch(error => {
         console.log(error)
