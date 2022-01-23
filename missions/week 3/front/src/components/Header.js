@@ -1,6 +1,5 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import '../css/Header.css';
 
 function Header(props){
 
@@ -12,7 +11,7 @@ function Header(props){
                         <Link className="header-logo" to="/">MBLY</Link>
                         {
                             props.modal === false
-                            ?<Link to="/login"><button className="header-btn">로그인</button></Link>
+                            ?<Link to="/login"><div className="menu">로그인</div></Link>
                                 :(
                                     <div className="writer-button-1">
                                         <ul className="row">

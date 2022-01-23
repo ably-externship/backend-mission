@@ -1,6 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import './assets/base.css';
+import './assets/tailwind.css';
+import './css/main.css';
+import './css/Header.css';
+import './css/LoginModal.css';
+import './css/Product.css';
+import './css/Sign.css';
+import './css/Writer.css';
+
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';

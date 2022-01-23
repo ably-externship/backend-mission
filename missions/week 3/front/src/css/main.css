@@ -117,6 +117,12 @@ html, body {
     margin-top: 20px;
 }
 
+.detail-box-2 > ul > li{
+    width:40%;
+    /*padding:0 10px;*/
+    margin-top: 20px;
+}
+
 .qna-boxlist-1 > ul > li{
     padding:0 10px;
     margin-top: 20px;
@@ -162,6 +168,62 @@ html, body {
 
 .qna-content{
 
+}
+
+.input-1 {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 25px;
+    padding: 0 15px 2px;
+    font-size: 17px;
+    background: white;
+    border: 2px solid #EBEBEB;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 -2px #EBEBEB;
+    box-shadow: inset 0 -2px #EBEBEB;
+}
+
+.input-2 {
+    width: 100%;
+    height: 300px;
+    margin-bottom: 25px;
+    padding: 0 15px 2px;
+    font-size: 17px;
+    background: white;
+    border: 2px solid #EBEBEB;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 -2px #EBEBEB;
+    box-shadow: inset 0 -2px #EBEBEB;
+}
+
+.button-1{
+    border: 1px solid rgba(102, 112, 139, 0.781);
+    color: white;
+    background-color: black;
+    border-radius: .5rem;
+    display: flex;
+    margin: 0 auto;
+    height: 30px;
+    width: 70px;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-2 {
+    margin-bottom: 10px;
+    position: relative;
+    vertical-align: top;
+    width: 100%;
+    height: 54px;
+    padding: 0;
+    font-size: 22px;
+    color: white;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    background: black;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 @media ( min-width:801px ) {

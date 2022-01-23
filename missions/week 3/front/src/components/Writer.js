@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
 import { useHistory } from 'react-router-dom';
-import '../css/LoginModal.css';
 import axios from "axios";
 
 function Writer(props) {
@@ -122,75 +121,93 @@ function Writer(props) {
             {
                 goback === false
                 ?(
-                        <div className="login-container">
-                            <div className="write-box">
-                                <span>상품 등록창</span>
-                                <div className="detail-box-1">
+                        <div className="write-product-1">
+                            <div className="">
+                                <span className="menu">상품 등록창</span>
+                                <article className="detail-box-1">
                                     <ul className="row">
                                         <li className="cell">
-                                            <h3>이미지 추가</h3>
-                                            <input type="file" onChange = {e => setProductMakeList({...productMakeList, image: e.target.files[0]})}/>
-                                            <h3>상세 이미지 추가</h3>
-                                            <input type="file" onChange = {e => setProductMakeList({...productMakeList, image_detail: e.target.files[0]})}/>
+
+                                            <div className="">
+                                                <input type="text" placeholder="상품명을 입력하세요" onChange={e => setProductMakeList({...productMakeList, name: e.target.value})} className="input-1"></input>
+                                            </div>
+                                            <div className="">
+                                                <textarea placeholder="상품에 대한 설명을 입력하세요" onChange={e => setProductMakeList({...productMakeList, description: e.target.value})} className="input-2"></textarea>
+                                            </div>
+
                                         </li>
                                         <li className="cell">
-                                            <select onChange={(e)=>{setSelected(e.target.value)}} value={Selected}>{selectList.map((item) => (
-                                                <option value={item} key={item}>
-                                                    {item}
-                                                </option>
-                                            ))}
-                                            </select>
                                             <div className="">
-                                                <input type="text" placeholder="상품명을 입력하세요" onChange={e => setProductMakeList({...productMakeList, name: e.target.value})}></input>
+                                                <input type="number" placeholder="정가를 입력하세요" onChange={e => setProductMakeList({...productMakeList, price: e.target.value})} className="input-1"></input>
                                             </div>
                                             <div className="">
-                                                <textarea placeholder="상품에 대한 설명을 입력하세요" onChange={e => setProductMakeList({...productMakeList, description: e.target.value})}></textarea>
+                                                <input type="number" placeholder="할인가를 입력하세요" onChange={e => setProductMakeList({...productMakeList, sale_price: e.target.value})} className="input-1"></input>
                                             </div>
-                                            <div className="">
-                                                <input type="number" placeholder="정가를 입력하세요" onChange={e => setProductMakeList({...productMakeList, price: e.target.value})}></input>
+
+                                            <div className="detail-box-2">
+                                                <ul className="row">
+                                                    <li className="cell">
+                                                        <select onChange={(e)=>{setSelected(e.target.value)}} value={Selected}>{selectList.map((item) => (
+                                                            <option value={item} key={item}>
+                                                                {item}
+                                                            </option>
+                                                        ))}
+                                                        </select>
+                                                    </li>
+                                                    <li className="cell">
+                                                        <div className="m-4">
+                                                            <h3>이미지 추가</h3>
+                                                            <input type="file" onChange = {e => setProductMakeList({...productMakeList, image: e.target.files[0]})}/>
+                                                        </div>
+
+                                                        <div className="m-4">
+                                                            <h3>상세 이미지 추가</h3>
+                                                            <input type="file" onChange = {e => setProductMakeList({...productMakeList, image_detail: e.target.files[0]})}/>
+                                                        </div>
+
+
+                                                    </li>
+                                                </ul>
+
                                             </div>
-                                            <div className="">
-                                                <input type="number" placeholder="할인가를 입력하세요" onChange={e => setProductMakeList({...productMakeList, sale_price: e.target.value})}></input>
-                                            </div>
+
+
                                         </li>
+
                                     </ul>
-                                </div>
-                                <article className="write-container">
-                                    <footer className="post-comment">
-                                        <button className="exit-btn transparent-btn" onClick={()=>{history.goBack()}}>✔ 나가기</button>
-                                        <button className="upButton" onClick={Insertproduct}>등록하기</button>
+                                </article>
+                                <article className="">
+                                    <footer className="flex">
+                                        <button className="button-2 m-2" onClick={Insertproduct}>등록하기</button>
+                                        <button className="button-2 m-2" onClick={()=>{history.goBack()}}>뒤로 가기</button>
                                     </footer>
                                 </article>
                             </div>
                         </div>
                 ):
                 (
-                    <div className="login-container">
-                        <div className="write-box">
-                            <span>옵션 등록창</span>
-                            <div className="detail-box-1">
-                                <ul className="row">
-                                    <li className="cell">
+                    <div className="write-product-2">
+                        <div className="">
+                            <span className="menu m-2">옵션 등록창</span>
+                            <article className="detail-box-1">
                                         <div className="">
-                                            <input type="text" placeholder="유형을 입력하세요" onChange={e => setOptionMakeList({...optionMakeList, opt1_type: e.target.value})}></input>
+                                            <input type="text" placeholder="유형을 입력하세요(ex. 사이즈)" onChange={e => setOptionMakeList({...optionMakeList, opt1_type: e.target.value})} className="input-1"></input>
                                         </div>
                                         <div className="">
-                                            <input type="text" placeholder="유형에 대한 정보를 입력하세요" onChange={e => setOptionMakeList({...optionMakeList, opt1_name: e.target.value})}></input>
+                                            <input type="text" placeholder="유형에 대한 정보를 입력하세요" onChange={e => setOptionMakeList({...optionMakeList, opt1_name: e.target.value})} className="input-1"></input>
                                         </div>
                                         <div className="">
-                                            <input type="number" placeholder="추가가격을 입력하세요" onChange={e => setOptionMakeList({...optionMakeList, opt1_price: e.target.value})}></input>
+                                            <input type="number" placeholder="추가가격을 입력하세요" onChange={e => setOptionMakeList({...optionMakeList, opt1_price: e.target.value})} className="input-1"></input>
                                         </div>
                                         <div className="">
-                                            <input type="number" placeholder="재고를 입력하세요" onChange={e => setOptionMakeList({...optionMakeList, opt1_stock: e.target.value})}></input>
+                                            <input type="number" placeholder="재고를 입력하세요" onChange={e => setOptionMakeList({...optionMakeList, opt1_stock: e.target.value})} className="input-1"></input>
                                         </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <article className="write-container">
-                                <footer className="post-comment">
-                                    <button className="exit-btn transparent-btn" onClick={()=>{setGoback(false)}}>뒤로가기</button>
-                                    <button className="upButton" onClick={Insertoption}>옵션추가</button>
-                                    <button className="upButton" onClick={Nextpage}>최종 등록</button>
+                            </article>
+                            <article>
+                                <footer className="flex">
+                                    <button className="button-2 m-2" onClick={Insertoption}>옵션추가</button>
+                                    <button className="button-2 m-2" onClick={Nextpage}>최종 등록</button>
+                                    <button className="button-2 m-2" onClick={()=>{setGoback(false)}}>나가기</button>
                                 </footer>
                             </article>
                         </div>

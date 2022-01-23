@@ -80,12 +80,7 @@
     justify-content: center;
     align-items: center;
 }
-.googlebox .google-login{
-    width: 30px;
-    height: 30px;
-    margin-top: 25px;
-    margin-bottom: 5px;
-}
+
 .JoinLoign-button{
     border: 1px solid rgba(102, 112, 139, 0.781);
     color: white;

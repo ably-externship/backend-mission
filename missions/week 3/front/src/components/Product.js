@@ -1,6 +1,5 @@
 import React,{useState, useEffect} from 'react';
 import {Link, useHistory} from 'react-router-dom';
-import '../css/main.css';
 import axios from 'axios';
 
 function Product(props) {
@@ -43,9 +42,9 @@ function Product(props) {
                                                         <div className="img-box ">
                                                             <img src={`http://localhost:8000/${product.image}/`} />
                                                         </div>
-                                                        <div>{product.name}</div>
-                                                        <div>{product.price}</div>
-                                                        <button className="upButton" onClick={(e)=>{Deleteproduct(product.id, e)}}>삭제하기</button>
+                                                        <div className="text-xl text-left">{product.name}</div>
+                                                        <div className="text-red-600 text-sm text-right">{product.price}원</div>
+                                                        <button className="JoinLoign-button" onClick={(e)=>{Deleteproduct(product.id, e)}}>삭제하기</button>
                                                     </li>)}
                 </ul>
             </div>
