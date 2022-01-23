@@ -37,7 +37,7 @@ export default function Login() {
             icon: <SmileOutlined style={{ color: "#108ee9" }} />
           });
 
-          history.push("/Product"); // 이동주소
+          history.push("/products"); // 이동주소
         } catch (error) {
           if (error.response) {
             notification.open({
@@ -47,9 +47,6 @@ export default function Login() {
             });
 
             const { data: fieldsErrorMessages } = error.response;
-            // fieldsErrorMessages => { username: "m1 m2", password: [] }
-            // python: mydict.items()
-            //setFieldErrors(parseErrorMessages(fieldsErrorMessages));
           }
         }
       }
@@ -60,7 +57,6 @@ export default function Login() {
       <Form
         {...layout}
         onFinish={onFinish}
-        //   onFinishFailed={onFinishFailed}
         autoComplete={"false"}
       >
         <Form.Item

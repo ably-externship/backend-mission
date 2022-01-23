@@ -1,11 +1,7 @@
-
 from django.shortcuts import get_object_or_404
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
-
 from product.api.serializers import ProductSerializer
 from product.models import Product
 
@@ -18,7 +14,6 @@ def create_product(request):
     return Response(serializer.errors, status=400)
 
 
-@permission_classes([IsAuthenticated])
 def list_product():
     serializer = ProductSerializer(Product.objects.all(), many=True)
     return Response(serializer.data)
