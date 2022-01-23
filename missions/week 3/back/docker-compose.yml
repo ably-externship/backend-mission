@@ -15,11 +15,11 @@ services:
       - ../db/data:/var/lib/mysql
       - ../db/data/conf.d:/etc/mysql/conf.d
 
-  web:
+  django:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: web
+    container_name: django
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./:/usr/src/app/
@@ -30,3 +30,14 @@ services:
     links:
       - db:db
     restart: always
+
+  react:
+    build:
+      context: ./front
+      dockerfile: Dockerfile-re
+    container_name: react
+    command: ["npm", "start"]
+    volumes:
+      - ./:/usr/src/app/
+    ports:
+      - "3000:3000"

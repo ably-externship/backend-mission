@@ -6,10 +6,16 @@ cryptography==36.0.1
 defusedxml==0.7.1
 Django==4.0.1
 django-allauth==0.47.0
+django-cors-headers==3.11.0
+django-webpack-loader==1.4.1
 djangorestframework==3.13.1
 idna==3.3
 mysqlclient==2.1.0
+npm==0.1.1
+npx==0.0.25
+numpy==1.22.1
 oauthlib==3.1.1
+optional-django==0.1.0
 pycparser==2.21
 PyJWT==2.3.0
 PyMySQL==1.0.2

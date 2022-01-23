@@ -122,7 +122,7 @@ DATABASES = {
         'NAME': 'ably',
         'USER': 'root',
         'PASSWORD': '1234',
-        'HOST': '127.0.0.1',
+        'HOST': 'db',
         'PORT': '3306',
     }
 }
@@ -171,16 +171,20 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# mysql db model
+## mysql db model
 # python manage.py makemigrations
 # python manage.py inspectdb
 # python manage.py migrate
 
-# 관리자 및 유저 아이디
+## 관리자 및 유저 아이디
 #  id     pw
 # admin admin
 # admin3 admin3
 # admin4 admin4
+
+## docker
+# pip freeze > requirements.txt
+# docker-compose up -d --build
 
 
 ## 1주차 pip list
@@ -191,7 +195,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # pip install social-auth-app-django (소셜 로그인을 위한 OAuth2.0 REST API 라이브러리)
 # pip install django-allauth
 
-## 3주차
+## 3주차 pip, npm list
 # pip install djangorestframework
 # pip install django-cors-headers
+# npm install axios
 
