@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from rest_framework import generics, status
+from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
@@ -53,28 +54,11 @@ def question(request, pk):
     return render(request, 'products/question.html', {'form': form, 'product': product})
 
 
-class ProductViewSet(ModelViewSet):
-    queryset = Product.objects.select_related('market', 'category')
-    serializer_class = ProductSerializer
-
-    def perform_create(self, serializer):
-        """
-        관리자가 마켓이름, 카테고리를 입력했을 때
-        DB에 해당 내용이 있으면 해당 데이터의 값을 넣고 없으면 생성 후 해당 데이터를 넣습니다.
-        """
-
-        market_name = self.request.data['market']
-        category_name = self.request.data.get('category', None)
-
-        market, _ = Market.objects.get_or_create(name=market_name)
-        category, _ = Category.objects.get_or_create(name=category_name)
-
-        serializer.save(market=market, category=category)
-
-
 # 한 API 에서 상품 옵션까지 다 추가 할 수 있도록 구성
 class ProductAPIView(APIView):
     """상품 리스트 조회, 추가 API"""
+    permission_classes = [IsAdminUser]
+
     def get(self, request, *args, **kwargs):
         products = Product.objects.select_related('category', 'market')
         serializer = ProductSerializer(products, many=True)
@@ -97,6 +81,8 @@ class ProductAPIView(APIView):
 # 제품 / 옵션 각각 API 분리
 class ProductDetailAPIView(APIView):
     """제품 상세 조회, 수정, 삭제 API"""
+    permission_classes = [IsAdminUser]
+
     def get(self, request, **kwargs):
         product_id = self.kwargs['pk']
         try:
@@ -138,6 +124,8 @@ class ProductDetailAPIView(APIView):
 
 class ProductOptionAPIView(APIView):
     """제품 옵션 조회, 생성 API"""
+    permission_classes = [IsAdminUser]
+
     def get(self, request, *args, **kwargs):
         product_id = self.kwargs['pk']
         options = ProductOption.objects.filter(product_id=product_id)
@@ -167,6 +155,8 @@ class ProductOptionAPIView(APIView):
 
 class ProductOptionDetailAPIView(APIView):
     """제품 옵션 상세조회, 수정, 삭제 API"""
+    permission_classes = [IsAdminUser]
+
     def get(self, request, *args, **kwargs):
         product_id = self.kwargs['pk']
         options = ProductOption.objects.filter(product_id=product_id)
@@ -206,3 +196,23 @@ class ProductOptionDetailAPIView(APIView):
         option.save()
         serializer = ProductOptionSerializer(option)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ProductViewSet(ModelViewSet):
+    """Viewset 활용"""
+    queryset = Product.objects.select_related('market', 'category')
+    serializer_class = ProductSerializer
+
+    def perform_create(self, serializer):
+        """
+        관리자가 마켓이름, 카테고리를 입력했을 때
+        DB에 해당 내용이 있으면 해당 데이터의 값을 넣고 없으면 생성 후 해당 데이터를 넣습니다.
+        """
+
+        market_name = self.request.data['market']
+        category_name = self.request.data.get('category', None)
+
+        market, _ = Market.objects.get_or_create(name=market_name)
+        category, _ = Category.objects.get_or_create(name=category_name)
+
+        serializer.save(market=market, category=category)
