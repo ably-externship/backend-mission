@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./Product.css";
 
+import useLocalStorage from "./accounts/useLocalStorage";
+
 
 function Product() {
   const [text, setText] = useState([]);
+
 
   return (
     <>
@@ -18,6 +21,7 @@ function Product() {
               .then((response) => {
                 setText([...response.data]);
                 console.log(response.data);
+
               })
               .catch(function (error) {
                 console.log(error);
