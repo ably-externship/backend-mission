@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load humanize %}
+<br>
+<br>
+<br>
+<div class="row">
+    <!--  장바구니 칸 시작  -->
+    <div class="category_box" style="text-align:center;">
+        <p style="padding-top:8px; padding-right:8px;"><b>문의 수정</b></p>
+    </div>
+
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div style="display:flex; margin-top:5px;">
+            <a href="{{product.get_absolute_url}}">
+                <img class="cart_img" src="{{product.image.url}}">
+            </a>
+            <div style="margin-top:10px;">
+                <div class="word" style ="padding-left:15px; width:250px; font-size:16px; color:gray;">
+                    문의 상품: {{ product }}
+                </div>
+                <div style="font-size:16px; color:gray; padding-left:15px; padding-top:10px;">
+                   가격: {{ product.price|intcomma }} KRW
+                </div>
+            </div>
+        </div>
+    </li>
+
+
+    <!-- 문의 입력란 시작   -->
+    <div style="margin-left:20px; margin-top:20px; width:320px;">
+        <form action="{% url 'shop:question_modify' question.id %}" method="POST">
+        {% csrf_token %}
+        <div class="mb-3" style="width:280px;">
+          <label for="exampleFormControlInput1" class="form-label">제목</label>
+          <input type="text" name='title' class="form-control" value="{{question.title}}" id="exampleFormControlInput1"">
+        </div>
+        <div class="mb-3" style="width:320px;">
+          <label for="exampleFormControlTextarea1" class="form-label">문의 내용</label>
+          <textarea name="body" style="height:250px;" class="form-control" id="exampleFormControlTextarea1" rows="3">{{question.comment}}</textarea>
+        </div>
+        <button type="submit" class="btn btn-outline-secondary" style="margin-top:15px; margin-left:125px;">수정하기</button>
+        </form>
+    </div>
+    <!-- 문의 입력란 끝 -->
+</div>
+{% endblock %}

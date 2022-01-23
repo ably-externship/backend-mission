@@ -1,0 +1,11 @@
+Django
+mysqlclient
+django-ckeditor
+Pillow
+django-crispy-forms
+django-dotenv
+django-allauth
+bootstrap4
+djangorestframework
+django-cors-headers == 3.11.0
+djangorestframework-simplejwt

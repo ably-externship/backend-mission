@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load humanize %}
+<br>
+<br>
+<br>
+
+<div class="row">
+    <!--  카테고리 선택 시작  -->
+    <div class="category_box">
+        <ul class="nav nav-tabs" style="width:450px;">
+          <li class="nav-item">
+            <a href="/" class="nav-link {% if not selected_category %}active{% endif %}">모든 상품</a>
+          </li>
+          {% for category in categories %}
+          <li class="nav-item">
+            <a href="{{category.get_absolute_url}}" class="nav-link {% if selected_category.slug == category.slug %}active{% endif %}">{{category.name}}</a>
+          </li>
+          {% endfor %}
+        </ul>
+    </div>
+    <!--  카테고리 선택 끝  -->
+
+        <!--  상품 박스 시작  -->
+    {% for product in page_obj.object_list %}
+        <div class="col-2">
+            <div class="item_body">
+                <div class="item_box">
+                    {% if product.image.url == True %}
+                    <a href="{{product.get_absolute_url}}"><img class="item_img" src="{{product.image.url}}"></a>
+                    {% else %}
+                    <a href="{{product.get_absolute_url}}"><img class="item_img" src="{{product.image_url}}"></a>
+                    {% endif %}
+                    <div class="item_first_row">
+                        <div class="price_tag">
+                            <b>{{product.price|intcomma}}</b>
+                        </div>
+                        <div class="item_icon" style="margin-top:8px;">
+                            <span class="favorite_icon material-icons-outlined icons" style="color: red;" >
+                                    favorite_border
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="item_second_row">
+                    <b>{{product.market}}</b>
+                </div>
+                <div class="item_third_row">
+                    {{product.name}}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+        <!--  상품 박스 끝 -->
+    </div>
+</div>
+
+<!-- 페이징처리 시작 -->
+<nav aria-label="Page navigation example" style="margin-top:30px; padding-bottom:80px;">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{page_obj.previous_page_number}}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        {% endif %}
+        {% for page_number in page_obj.paginator.page_range %}
+            {% if page_number == page_obj.number %}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{page_obj.next_page_number}}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+<!-- 페이징처리 끝 -->
+{% endblock %}

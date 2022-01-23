@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load humanize %}
+<br>
+<br>
+<br>
+<br>
+<br>
+        <!-- 셀러 등록란 -->
+        <div style="margin-left:100px;">
+            셀러 정보를 입력해주세요
+        </div>
+        <div style="text-align: center; padding-left:50px; height:200px;">
+            <form action="" method="POST">
+            {% csrf_token %}
+            <div class="input-group mb-3" style="margin-top:30px; width:300px; padding-right:15px;">
+              <form action="" method="POST">
+                  <input type="text" name="market" class="form-control" placeholder="마켓 이름" aria-label="문의 내용을 입력해주세요." aria-describedby="button-addon2">
+                  <button class="btn btn-outline-secondary" type="submit" id="button-addon1">등록</button>
+            </div>
+            </form>
+        </div>
+        <!-- 설러 등록란 끝 -->
+
+{% endblock %}

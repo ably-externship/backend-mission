@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load humanize %}
+<br>
+<br>
+<br>
+
+<div class="row" style="overflow:hidden;">
+    <!--  장바구니 칸 시작  -->
+    <div class="category_box" style="text-align:center;">
+        <p style="padding-top:8px; padding-right:8px;"><b>장바구니</b></p>
+    </div>
+    <!--  장바구니 칸 끝  -->
+
+    <!--  장바구니 목록 시작 -->
+    <ol class="list-group list-group">
+        {% for cart in carts %}
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div style="display:flex; margin-top:5px;">
+                <a href="{{cart.inventory.product.get_absolute_url}}">
+                    {% if product.image.url == True %}
+                    <img class="cart_img" src="{{cart.inventory.product.image.url}}">
+                    {% else %}
+                    <img class="cart_img" src="{{cart.inventory.product.image_url}}">
+                    {% endif %}
+                </a>
+                <div>
+                    <div class="word" style ="padding-left:15px; font-size:16px; color:#555555;">
+                        {{ cart.inventory.product }}
+                    </div>
+                    <div style="font-size:13px; color:gray; padding-left:20px; padding-top:6px;">
+                        색상: {{ cart.inventory.color }}
+                    </div>
+                    <div style="font-size:13px; color:gray; padding-left:20px;">
+                       사이즈: {{ cart.inventory.size }}
+                    </div>
+                    <div style="font-size:13px; color:gray; padding-left:20px;">
+                       가격: {{ cart.inventory.product.price|intcomma }}
+                    </div>
+                </div>
+            </div>
+            <!--   수량 변경 시작 -->
+            <form action="{% url 'cart:cart_modify' cart.id %}" method="POST">
+            {% csrf_token %}
+            <div id="mainDiv" style="display: flex; align-items: center; margin-bottom:15px; margin-left:15px; margin-top:25px;font-size:13px;color:#555555;">
+                수량<input type="number" name="quantity" placeholder="{{cart.quantity}}" onfocus="this.placeholder = ''" style="width:50px; margin-left:10px;" min="1" id="numberPlace" class="form-control qty-input text-center">
+            </div>
+            <button type="submit" class="btn btn-outline-secondary btn-sm" style="margin-left:90px; margin-bottom:5px;">변경</button>
+            </form>
+            <a href="{% url 'cart:cart_delete' cart.id %}"><span class="material-icons-outlined" style="font-size:13px; color:grey; left:350px;">close</span></a>
+            <!--   수량 변경 끝 -->
+        </li>
+    {% endfor %}
+    </ol>
+
+        <!--  총 상품 금액 시작 -->
+    <div style="display:flex; margin-top:40px; width:360px; margin-left:30px; margin-bottom:80px;">
+        <p style="margin-top:20px; font-size:18px; color:#555555;">총 상품 금액 : {{total_price|intcomma}}KRW</p>
+        <div>
+        <button type="submit" class="btn btn-outline-dark" style="margin-top:15px; margin-left:15px;">구매하기</button>
+        </div>
+    </div>
+    <!--  총 상품 금액 끝 -->
+
+    <!--  장바구니 목록 끝 -->
+
+</div>
+{% endblock %}
