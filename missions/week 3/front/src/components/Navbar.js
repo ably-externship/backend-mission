@@ -1,8 +1,10 @@
 import { Navbar, Container, Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 function HomeNav (){
+
+    const history = useHistory();
 
     const authState = useSelector((state) => state);
     const dispatch = useDispatch();
@@ -11,6 +13,7 @@ function HomeNav (){
         localStorage.removeItem('access_token');
         localStorage.removeItem('account_type');
         dispatch({ type : 'logout' });
+        history.push('/');
     };
 
     return (
@@ -40,8 +43,7 @@ function HomeNav (){
                             )
                             : (
                                 <Nav className="me-auto">
-                                    <Nav.Link as={Link} to="/products/list">상품 관리</Nav.Link>
-                                    <Nav.Link as={Link} to="/products/list">상품 등록</Nav.Link>
+                                    <Nav.Link as={Link} to="/admin/products">상품 관리</Nav.Link>
                                     <Nav.Link onClick={logout}>Log Out</Nav.Link>
                                 </Nav>
                             )
