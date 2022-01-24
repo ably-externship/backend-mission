@@ -74,7 +74,6 @@ def search(request):
         return render(request, 'product/search.html', {'products': products, 'q': q})
 
     else:
-        print("NO\n")
         return render(request, 'product/search.html')
 
 
@@ -93,7 +92,8 @@ def create_comment(request, product_id):
 class ProductList(CsrfExemptMixin, generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+                          IsStaffOrReadOnly, ]
 
 
 class ProductDetail(CsrfExemptMixin, generics.RetrieveUpdateDestroyAPIView):
