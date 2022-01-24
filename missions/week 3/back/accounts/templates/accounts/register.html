@@ -1,0 +1,12 @@
+{% extends 'common/base.html' %}
+{% block title %}회원 가입 - 멋블리{% endblock %}
+{% load django_bootstrap5 %}
+{% block content %}
+    <h4>회원 가입</h4>
+    <form method="post" action="{% url 'register_succeeded' %}">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% bootstrap_button button_type="submit" content="회원 가입" %}
+    </form>
+    <p><a href="{% url 'login' %}">로그인</a></p>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'common/base.html' %}
+{% block title %}아이디 찾기 - 멋블리{% endblock %}
+{% load django_bootstrap5 %}
+{% block content %}
+    <h4>아이디 찾기</h4>
+    <form method="post" action="{% url 'recovery_done' %}">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% bootstrap_button button_type="submit" content="계정 찾기" %}
+    </form>
+    <p><a href="{% url 'login' %}">로그인</a></p>
+{% endblock %}
