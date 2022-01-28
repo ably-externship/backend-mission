@@ -5,7 +5,7 @@ from products.models import ProductList
 
 class ProductListView(View):
     def get(self, request):
-        PAGINATION_LIMIT = 6
+        PAGINATION_LIMIT = 9
         
         search_word = request.GET.get('search_word', '')
         page = int(request.GET.get('page', 1))

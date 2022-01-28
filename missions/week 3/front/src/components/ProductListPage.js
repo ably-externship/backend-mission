@@ -1,18 +1,24 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import './ProductListPage.css';
+import PaginationBtns from "./PaginationBtns.js";
 
 function ProductList (){
 
-    let [products, setProducts] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [pages, setPages] = useState();
+    const [currentPage, setCurrentPage] = useState(1);
+    const limit = 9;
 
     useEffect(()=>{
-        axios.get("http://localhost:8000/products/list")
+        axios.get("http://localhost:8000/products/list", { params : { page : currentPage } })
         .then((response)=>{
-            let productList = response.data.product_lists;
+            const productList = response.data.product_lists;
             setProducts(productList);
+            const productCounts = response.data.product_counts;
+            setPages(Math.ceil(productCounts/limit));
         })
-    }, []);
+    }, [currentPage]);
 
     return(
         <div className="container">
@@ -29,6 +35,7 @@ function ProductList (){
                     })
                 }
             </div>
+            <PaginationBtns pages={pages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
         </div>
     )
 }
