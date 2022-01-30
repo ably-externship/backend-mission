@@ -13,6 +13,11 @@ import json
 
 def index(request):
     if request.method == 'GET':
+        print("test jenkins")
+        print("test jenkins")
+        print("test jenkins")
+        return "jenkins"
+
         shop = Shop.objects.all()
         #serializer = ShopSerializer(shop, many=True)
         return render(request, 'index.html', {'shop_list': shop})  # 쇼핑몰 -> item -> item 상세 페이지 or jQuery를 통해
