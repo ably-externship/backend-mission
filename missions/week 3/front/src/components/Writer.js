@@ -85,11 +85,15 @@ function Writer(props) {
     const Insertoption = async ()=> {
 
 
-        console.log(productMakeList["name"])
+        // console.log(productMakeList["name"])
         const find = async () => {
-            const {data} = await axios.get('http://localhost:8000/product/find/' + productMakeList["name"] + '/');
+            const {data} = await axios.get('http://localhost:8000/product/find/' + productMakeList["name"] + '/',
+                {headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    }
+                });
             setProductID(data['id']);
-            console.log(data['id'])
+            // console.log(data['id'])
 
             const formData = new FormData();
 

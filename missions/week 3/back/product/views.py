@@ -2,12 +2,15 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 from .serializers import *
+from .models import *
+from django.http import JsonResponse
 
 # 제품 리스트
 @api_view(['GET'])
 def ProductList(request):
     user_id = request.user.id
     products = Product.objects.prefetch_related('product_options').filter(market=user_id)
+    # products = Product.objects.prefetch_related('product_options').all()
     serializer = ProductSerializer(products, many=True)
 
     return Response(serializer.data)
@@ -32,21 +35,33 @@ def ProductDetail(request, pk):
     return Response(serializer.data)
 
 # 제품 수정
-@api_view(['PUT'])
+@api_view(['PATCH'])
 def ProductUpdate(request, pk):
+    user_id = request.user.id
     product = Product.objects.get(id=pk)
-    serializer = ProductUpdateSerializer(instance=product, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
 
-    return Response(serializer.data)
+    if product.market_id==user_id:
+        serializer = ProductUpdateSerializer(instance=product, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        else:
+            print("에러 코드 :",serializer.errors)
+
+        return Response(serializer.data)
+    else:
+        return JsonResponse({'message' : 'INVALID TOKEN'}, status = 403)
 
 # 제품 삭제
 @api_view(['DELETE'])
 def ProductDelete(request, pk):
+    user_id = request.user.id
     product = Product.objects.get(id=pk)
-    product.delete()
-    return Response('Deleted')
+
+    if product.market_id == user_id:
+        product.delete()
+        return Response('Deleted')
+    else:
+        return JsonResponse({'message': 'INVALID TOKEN'}, status=403)
 
 
 # 제품 찾기
