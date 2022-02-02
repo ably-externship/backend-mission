@@ -1,13 +1,31 @@
 from rest_framework import serializers
 from .models import Product, Product_option
 
+# ProductOption 관련
+# 리스트
+class OptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product_option
+        fields = '__all__'
+
+# 생성
+class OptionCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product_option
+        fields = ['id', 'reg_date', 'update_date', 'opt1_type', 'opt1_name', 'opt1_price', 'opt1_stock', 'product']
+
+
 
 # Product 관련
 # 리스트
 class ProductSerializer(serializers.ModelSerializer):
+    product_options = OptionSerializer(many=True)
+
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ['id', 'category', 'name', 'price', 'sale_price', 'description',
+                  'image', 'image_detail', 'is_hidden', 'is_sold_out', 'reg_date',
+                  'hit_count', 'like_count', 'update_date', 'market', 'product_options']
 
 # 상세
 class ProductDetailSerializer(serializers.ModelSerializer):
@@ -35,16 +53,5 @@ class ProductFindSerializer(serializers.ModelSerializer):
 
 
 
-# ProductOption 관련
-# 리스트
-class OptionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Product_option
-        fields = '__all__'
 
-# 생성
-class OptionCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Product_option
-        fields = ['id', 'reg_date', 'update_date', 'opt1_type', 'opt1_name', 'opt1_price', 'opt1_stock', 'product']
 

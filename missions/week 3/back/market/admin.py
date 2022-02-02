@@ -4,6 +4,6 @@ from .models import Market
 
 
 class MarketAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'admin', 'url', 'email')
+    list_display = ('user', 'name', 'url', 'email')
 
 admin.site.register(Market, MarketAdmin)

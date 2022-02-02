@@ -46,6 +46,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SITE_ID=1
+
 
 # Application definition
 
@@ -73,11 +75,12 @@ INSTALLED_APPS = [
 # JWT 관련
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        # 'rest_framework.permissions.IsAuthenticated', # 인증된 회원이 아닐시 모든 기능 금지
+        'rest_framework.permissions.IsAuthenticated', # 인증된 회원이 아닐시 모든 기능 금지
         # 'rest_framework.permissions.IsAuthenticatedOrReadOnly', # read는 가능
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTTokenUserAuthentication',
     ),
 
 }

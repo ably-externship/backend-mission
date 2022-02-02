@@ -6,5 +6,5 @@ urlpatterns=[
 
     path('current/', views.current_user),
 
-    path('token/',MyTokenObtainPairView.as_view())
+    path('api/token/',MyTokenObtainPairView.as_view())
 ]

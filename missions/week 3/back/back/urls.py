@@ -19,6 +19,7 @@ from .views import validate_jwt_token
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
+    TokenVerifyView,
 )
 
 # 이미지를 업로드
@@ -31,8 +32,8 @@ urlpatterns = [
 
     path('validate/', validate_jwt_token),
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-
     path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('verify/', TokenVerifyView.as_view()),
 
     path('user/', include('user.urls')),
 ]

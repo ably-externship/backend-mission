@@ -28,7 +28,7 @@ function Writer(props) {
         is_sold_out : false,
         reg_date : date,
         update_date : date,
-        market : 1
+        market : 3
     });
 
     const [optionMakeList, setOptionMakeList] = useState({

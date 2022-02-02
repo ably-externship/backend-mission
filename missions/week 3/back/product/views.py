@@ -6,7 +6,8 @@ from .serializers import *
 # 제품 리스트
 @api_view(['GET'])
 def ProductList(request):
-    products = Product.objects.all()
+    user_id = request.user.id
+    products = Product.objects.prefetch_related('product_options').filter(market=user_id)
     serializer = ProductSerializer(products, many=True)
 
     return Response(serializer.data)

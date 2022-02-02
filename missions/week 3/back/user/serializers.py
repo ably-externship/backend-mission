@@ -6,13 +6,17 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
+
         token['is_staff']=user.is_staff
         token['is_superuser']=user.is_superuser
-        print(user)
-        print(user.is_staff)
-        print(user.is_superuser)
-        print(token)
+        token['username'] = user.username
+
         return token
+
+class ApiRefreshRefreshTokenSerializer(serializers.Serializer):
+    refresh = serializers.CharField()
+    pass
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

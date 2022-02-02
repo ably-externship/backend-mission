@@ -15,3 +15,4 @@ from django.contrib.auth.models import User
 #     password = models.CharField(max_length=128, verbose_name='비밀번호') # 비밀번호
 #     # email = models.CharField(max_length=128, verbose_name='이메일') # 이메일
 #     # phone = models.CharField(max_length=128, verbose_name='핸드폰 번호')
+
