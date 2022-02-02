@@ -3,8 +3,9 @@ from .views import UserLoginView, UserCreateView, UserLogoutView, CommentCreateV
     CartMinusView, CartDeleteView
 
 # REST framework
-from .api_product import ProductViewSet, CategoryView, BrandView, brand_list, brand_detail
-
+from .api_product import ProductViewSet, CategoryView, BrandView, brands_list, brands_detail, BrandMasterView
+from rest_framework.routers import DefaultRouter
+from rest_framework_nested.routers import NestedDefaultRouter
 
 # 3주차
 # 상품 리스트에서 읽기과 생성 가능
@@ -15,6 +16,18 @@ product_list = ProductViewSet.as_view({
 
 # 상품 상세 화면에서 검색, 수정, 삭제가 가능
 product_detail = ProductViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy',
+})
+
+# 4주차
+brand_list = BrandMasterView.as_view({
+    'get': 'list',
+})
+
+brand_detail = BrandMasterView.as_view({
     'get': 'retrieve',
     'put': 'update',
     'patch': 'partial_update',
@@ -32,18 +45,25 @@ product_urlpatterns = [
         {'get': 'list'}
     ), name='api_category'),
     # 브랜드 별 상품
-    path('brand/<int:pk>/', BrandView.as_view(
-        {'get': 'list'}
-    ), name='api_brand'),
-    path('brand_list/', brand_list, name='api_brand_list'),
-    path('brand_list/<int:pk>/', brand_detail),
+    # path('brand/<int:pk>/', brand_list, name='api_brand'),
+    # path('brand_list/', brands_list, name='api_brand_list'),
+    # path('brand_list/<int:pk>/', brands_detail),
+
+    # 4주차
+    path('brand/', brand_list),
+    path('brand/<int:pk>/', brand_detail),
 ]
 
+router = DefaultRouter()
+router.register('', BrandMasterView)
 
 urlpatterns = [
     # 3주차
     # 상품 API 별로 분리를 하기 위함
     path('product/', include(product_urlpatterns)),
+
+    # 4주차
+    path('brand/', include(router.urls)),
 
     # user api
     path('v1/user/login/', UserLoginView.as_view(), name='apis_v1_user_login'),

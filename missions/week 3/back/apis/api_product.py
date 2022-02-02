@@ -10,6 +10,7 @@ from rest_framework.response import responses
 from contents.models import Product, Category, Brand
 
 
+
 # 3주차
 # 상품 목록 및 상세 화면 API
 class ProductViewSet(viewsets.ModelViewSet):
@@ -29,12 +30,12 @@ class BrandViewSet(viewsets.ModelViewSet):
     serializer_class = BrandSerializer
 
 
-brand_list = BrandViewSet.as_view(
+brands_list = BrandViewSet.as_view(
     {'get': 'list',
-     'post': 'create'}
-)
+     'post': 'create',
+     })
 
-brand_detail = BrandViewSet.as_view({
+brands_detail = BrandViewSet.as_view({
     'get': 'retrieve',
     'put': 'update',
     'patch': 'partial_update',
@@ -42,11 +43,33 @@ brand_detail = BrandViewSet.as_view({
 })
 
 
+# # 삼품 목록에서 브랜드 별 상품출력
+# class BrandView(viewsets.ModelViewSet):
+#     queryset = Brand.objects.all().order_by('pk')
+#     serializer_class = BrandSerializer
+
+
 # 삼품 목록에서 브랜드 별 상품출력
 class BrandView(ProductViewSet):
     def get_queryset(self):
         brand = Brand.objects.get(id=self.kwargs['pk'])
         return Product.objects.filter(brand_id=brand)
+
+
+# 4주차
+class BrandMasterView(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    def get_queryset(self):
+        return Product.objects.filter(brand=self.request.user.brand)
+
+    def perform_create(self, serializer):
+        brand = self.request.user.brand
+        serializer.save(brand=brand)
+
+
+
 
 
 

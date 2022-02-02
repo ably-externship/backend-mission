@@ -22,6 +22,10 @@ class Brand(models.Model):
     # 브랜드 url
     slug = models.SlugField(max_length=100, unique=True, allow_unicode=True, null=True, blank=True)
 
+    # 4주차
+    # 해당 브랜드 관리자
+    master = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+
     def __str__(self):
         return self.name
 

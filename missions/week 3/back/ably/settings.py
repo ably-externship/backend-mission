@@ -200,3 +200,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # pip install django-cors-headers
 # npm install axios
 
+## 4주차 pip
+# pip install drf-nested-routers

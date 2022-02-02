@@ -26,13 +26,6 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-# Brand Serializer
-class BrandSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Brand
-        fields = '__all__'
-
-
 # Product Serializer
 class ProductSerializer(serializers.ModelSerializer):
     comment_product = CommentSerializer(many=True, read_only=True)
@@ -40,4 +33,13 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
+        fields = '__all__'
+
+
+# Brand Serializer
+class BrandSerializer(serializers.ModelSerializer):
+    product_brand = ProductSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Brand
         fields = '__all__'
