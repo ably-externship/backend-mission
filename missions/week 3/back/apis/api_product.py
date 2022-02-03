@@ -9,6 +9,10 @@ from rest_framework.response import responses
 
 from contents.models import Product, Category, Brand
 
+# 4주차
+from rest_framework import permissions
+from .permission import MasterSerializer, IsOwnerOrReadOnly
+
 
 
 # 3주차
@@ -60,6 +64,7 @@ class BrandView(ProductViewSet):
 class BrandMasterView(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    permission_classes = [permissions.IsAuthenticated, MasterSerializer]
 
     def get_queryset(self):
         return Product.objects.filter(brand=self.request.user.brand)

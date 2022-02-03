@@ -25,6 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# SECRET_KEY = 'django-insecure-1^d)5h@t15n-p1__y&uf7ks3qasf@f1#3qdpi2(_$wihmo$s4g'
 SECRET_KEY = 'django-insecure-1^d)5h@t15n-p1__y&uf7ks3qasf@f1#3qdpi2(_$wihmo$s4g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -68,6 +69,9 @@ INSTALLED_APPS += [
     # REST framework
     'rest_framework',
     'corsheaders',
+
+    # 4주차
+    'rest_framework_simplejwt',
 ]
 
 SITE_ID = 1
@@ -171,6 +175,41 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# 4주차
+# JWT
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),  #
+}
+
+# JWT 환경 설정
+REST_USE_JWT = True
+
+from datetime import timedelta
+
+# 추가 설정 부분
+
+SIMPLE_JWT = {
+
+    # 여기는 기본 세팅값
+
+    'JWT_SECRET_KEY': SECRET_KEY,  # JWT 에 서명하는데 사용되는 시크릿키. 장고의 시크릿키가 디폴트.
+    'JWT_ALGORITHM': 'HS256',  # PyJWT 에서 암호화 서명에 지원되는 알고리즘으로 마찬가지로 이것 또한 기본값.
+    'JWT_VERIFY_EXPIRATION': True,  # 토큰 만료 시간 확인. 기본값 True.
+
+    # 새로 커스텀한 옵션들
+
+    'JWT_ALLOW_REFRESH': True,  # 토큰 새로고침 기능 활성화. 기본값 False.
+    'JWT_EXPIRATION_DELTA': timedelta(hours=2),  # datetime.timedelta 의 만료 시간. 기본값 seconds=300.
+    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=3),  # Refresh Token의 새로 고침 시간. 기본값 days=7
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'accounts.custom_responses.my_jwt_response_handler'
+    # 로그인 또는 새로 고침 후 반환되는 응답 데이터를 제어. 기본값은 {'token' : token } 인데 이건 나중에 우리가 따로 적어줄것임.
+}
+
 ## mysql db model
 # python manage.py makemigrations
 # python manage.py inspectdb
@@ -202,3 +241,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ## 4주차 pip
 # pip install drf-nested-routers
+# pip install djangorestframework-jwt
+# pip install djangorestframework-simplejwt

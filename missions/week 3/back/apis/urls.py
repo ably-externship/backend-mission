@@ -4,8 +4,11 @@ from .views import UserLoginView, UserCreateView, UserLogoutView, CommentCreateV
 
 # REST framework
 from .api_product import ProductViewSet, CategoryView, BrandView, brands_list, brands_detail, BrandMasterView
-from rest_framework.routers import DefaultRouter
+from rest_framework.routers import DefaultRouter, SimpleRouter
 from rest_framework_nested.routers import NestedDefaultRouter
+
+# 4주차
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 # 3주차
 # 상품 리스트에서 읽기과 생성 가능
@@ -25,6 +28,7 @@ product_detail = ProductViewSet.as_view({
 # 4주차
 brand_list = BrandMasterView.as_view({
     'get': 'list',
+    'post': 'create',
 })
 
 brand_detail = BrandMasterView.as_view({
@@ -33,6 +37,9 @@ brand_detail = BrandMasterView.as_view({
     'patch': 'partial_update',
     'delete': 'destroy',
 })
+
+# router = SimpleRouter()
+# router.register(r'', BrandMasterView)
 
 # Product API urls
 product_urlpatterns = [
@@ -50,12 +57,18 @@ product_urlpatterns = [
     # path('brand_list/<int:pk>/', brands_detail),
 
     # 4주차
+    # 브랜드 별 상품 url
     path('brand/', brand_list),
     path('brand/<int:pk>/', brand_detail),
 ]
 
-router = DefaultRouter()
-router.register('', BrandMasterView)
+# 4주차
+# simple token url
+token_urlpatterns = [
+    path('', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('verify/', TokenVerifyView.as_view(), name='token_verify'),
+]
 
 urlpatterns = [
     # 3주차
@@ -63,7 +76,10 @@ urlpatterns = [
     path('product/', include(product_urlpatterns)),
 
     # 4주차
-    path('brand/', include(router.urls)),
+    # path('brand/', include(router.urls)),
+
+    # 4주차
+    path('token/', include(token_urlpatterns)),
 
     # user api
     path('v1/user/login/', UserLoginView.as_view(), name='apis_v1_user_login'),
