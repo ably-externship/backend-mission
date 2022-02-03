@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="section-prod-list">
+    {% if cart_list %}
+    {% for cart in cart_list %}
+    <div class="grid grid-cols-7 gap-3 m-2 rounded-md border-gray-200 border-2 cart" data-cart-id="{{cart.id}}">
+        <div>
+            <img src="{{cart.file}}"/>
+        </div>
+        <div class="col-span-3" >
+            <a href="/product/{{cart.productId}}">
+                <p class="text-base truncate">{{cart.productName}}</p>
+                <p class="text-base font-bold">{{cart.color}}</p>
+                <p class="text-base font-bold">{{cart.size}}</p>
+            </a>
+        </div>
+        <div class="place-self-center">
+            <p class="text-base font-bold">{{cart.price}}원</p>
+        </div>
+        <div class="place-self-center">
+            <input type="number" class="rounded-md border-gray-200 border-2 text-center" name="input-number"
+                   value="{{cart.quantity}}" min="0" max="9"/>
+        </div>
+        <div class="place-self-center">
+            <button class="bg-gray-200 rounded-md font-bold text-sm w-15 update">수정</button>
+            <button class="bg-gray-200 rounded-md font-bold text-sm w-15 delete">삭제</button>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="grid grid-cols-6 gap-3 m-2 rounded-md border-gray-200 border-2">
+        <div class="col-span-6 place-self-center">
+            <p class="text-base font-bold">장바구니에 담긴 상품이 없습니다.</p>
+        </div>
+    </div>
+    {% endif %}
+
+</section>
+{% block javascript %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".update").click(function () {
+            const $parent = $(this).parents(".cart");
+            const cartId = $parent.data('cart-id');
+            const quantity = $parent.find('input[name=input-number]').val();
+            $.ajax({
+                'url': '/cart/' + cartId,
+                'data': {'quantity': quantity},
+                'method': 'POST',
+                'success': function (data) {
+                    if (data.result_code == 'SUCCESS') {
+                        alert(data.message)
+                        location.reload();
+                    }
+                },
+            })
+
+            //Send Update Ajax
+        })
+
+        $(".delete").click(function () {
+            const $parent = $(this).parents(".cart");
+            const cartId = $parent.data('cart-id');
+            //Send Delete Ajax
+            $.ajax({
+                'url': '/cart/' + cartId,
+                'method': 'DELETE',
+                'success': function (data) {
+                    if (data.result_code == 'SUCCESS') {
+                        alert(data.message)
+                        location.reload();
+                    }
+                },
+            })
+        })
+
+    })
+</script>
+{% endblock javascript %}
+{% endblock %}
