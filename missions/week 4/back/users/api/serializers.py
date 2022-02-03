@@ -36,7 +36,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['is_staff'] = user.is_staff
         token['is_active'] = user.is_active
         token['market_yn'] = user.market_yn
-        token['market_id'] = user.market_id
-
-
+        if user.market_yn:
+            token['market_id'] = user.market_id.id
         return token

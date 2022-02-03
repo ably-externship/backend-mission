@@ -21,16 +21,25 @@ def products(request):
         response = BaseResponse(data=serializer.data, message=None, code="SUCCESS")
         return Response(data=response.to_dict(), status=status.HTTP_200_OK)
     if request.method == 'POST':
-        product = ProductPostSerializer(data=request.data)
-        if product.is_valid():
-            product.save()
-            response = BaseResponse(data=product.data, message=None, code="SUCCESS")
+        product_serializer = ProductPostSerializer(data=request.data)
+
+        if product_serializer.is_valid():
+            market_yn = user_market_yn(request.auth)
+            if market_yn:
+                # TODO Check param Market Id == auth Market Id
+                market_id = request.auth.payload['market_id']
+                validate_data = product_serializer.validated_data
+                if validate_data['market_pk'].id != market_id:
+                    raise exceptions.APIException(detail={'code': ErrorMessage.MARKET_ID_NOT_CORRECT.code,
+                                                          "message": ErrorMessage.MARKET_ID_NOT_CORRECT.message})
+            product_serializer.save()
+            response = BaseResponse(data=product_serializer.data, message=None, code="SUCCESS")
             return Response(data=response.to_dict(), status=status.HTTP_201_CREATED)
         else:
-            if product.errors.get('market_pk') is not None:
+            if product_serializer.errors.get('market_pk') is not None:
                 raise exceptions.NotFound(detail={'code': ErrorMessage.MARKET_NOT_FOUND.code,
                                                   "message": ErrorMessage.MARKET_NOT_FOUND.message})
-            if product.errors.get('category_fk') is not None:
+            if product_serializer.errors.get('category_fk') is not None:
                 raise exceptions.NotFound(detail={'code': ErrorMessage.PRODUCT_CATEGORY_NOT_FOUND.code,
                                                   "message": ErrorMessage.PRODUCT_CATEGORY_NOT_FOUND.message})
             else:
@@ -50,6 +59,14 @@ def product(request, product_id):
         product_model = product_select(product_id)
         serializer = ProductPutSerializer(product_model, data=request.data)
         if serializer.is_valid():
+            market_yn = user_market_yn(request.auth)
+            if market_yn:
+                # TODO Check param Market Id == auth Market Id
+                market_id = request.auth.payload['market_id']
+                validate_data = serializer.validated_data
+                if validate_data['market_pk'].id != market_id:
+                    raise exceptions.APIException(detail={'code': ErrorMessage.MARKET_ID_NOT_CORRECT.code,
+                                                          "message": ErrorMessage.MARKET_ID_NOT_CORRECT.message})
             serializer.save()
             response = BaseResponse(data=serializer.data, message=None, code="SUCCESS")
             return Response(data=response.to_dict(), status=status.HTTP_201_CREATED)
@@ -80,3 +97,7 @@ def product_select(product_id):
     except Product.DoesNotExist:
         raise exceptions.NotFound(
             detail={'code': ErrorMessage.PRODUCT_NOT_FOUND.code, "message": ErrorMessage.PRODUCT_NOT_FOUND.message})
+
+def user_market_yn(access_token):
+    return access_token.payload['market_yn']
+    #access_token.payload['market_id']

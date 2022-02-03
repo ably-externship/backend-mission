@@ -6,6 +6,7 @@ class ErrorMessage(Enum):
     PRODUCT_VALIDATION_ERROR = ("PRODUCT_002", "Product Post Invalid Error")
     MARKET_NOT_FOUND = ('MARKET_001', 'Market Not Found')
     PRODUCT_CATEGORY_NOT_FOUND = ("PRODUCT_CATEGORY_001", "Product Category Not Found")
+    MARKET_ID_NOT_CORRECT = ("MARKET_001", 'Market Id Is Not Correct')
 
 
 
