@@ -2,7 +2,9 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from rest_framework import generics, status
+from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAdminUser
+from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
@@ -10,6 +12,7 @@ from rest_framework.viewsets import ModelViewSet
 from markets.models import Market
 from .models import Product, ProductOption, Category
 from .forms import SearchForm, QuestionForm
+from .permisstions import IsOwnerOrReadOnly
 from .serializers import ProductSerializer, ProductOptionSerializer
 
 
@@ -54,10 +57,9 @@ def question(request, pk):
     return render(request, 'products/question.html', {'form': form, 'product': product})
 
 
-# 한 API 에서 상품 옵션까지 다 추가 할 수 있도록 구성
 class ProductAPIView(APIView):
     """상품 리스트 조회, 추가 API"""
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsOwnerOrReadOnly]
 
     def get(self, request, *args, **kwargs):
         products = Product.objects.select_related('category', 'market')
@@ -71,7 +73,10 @@ class ProductAPIView(APIView):
         name = self.request.data['name']
         price = self.request.data['price']
 
-        market, _ = Market.objects.get_or_create(name=market_name)
+        market = get_object_or_404(Market, name=market_name)
+        if market.owner != self.request.user:
+            return Response({'msg': '마켓 주인이 아닙니다.'}, status=status.HTTP_403_FORBIDDEN)
+
         category, _ = Category.objects.get_or_create(name=category_name)
         product = Product.objects.create(name=name, price=price, market=market, category=category)
         serializer = ProductSerializer(product)
@@ -81,7 +86,7 @@ class ProductAPIView(APIView):
 # 제품 / 옵션 각각 API 분리
 class ProductDetailAPIView(APIView):
     """제품 상세 조회, 수정, 삭제 API"""
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsOwnerOrReadOnly]
 
     def get(self, request, **kwargs):
         product_id = self.kwargs['pk']
@@ -124,7 +129,7 @@ class ProductDetailAPIView(APIView):
 
 class ProductOptionAPIView(APIView):
     """제품 옵션 조회, 생성 API"""
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsOwnerOrReadOnly]
 
     def get(self, request, *args, **kwargs):
         product_id = self.kwargs['pk']
@@ -140,7 +145,9 @@ class ProductOptionAPIView(APIView):
         color = self.request.data.get('color', None)
         size = self.request.data.get('size', None)
         stock = self.request.data.get('stock', None)
-
+        product = get_object_or_404(Product, id=product_id)
+        if product.market.owner != self.request.user:
+            return Response({'msg': '마켓 주인이 아닙니다.'}, status=status.HTTP_403_FORBIDDEN)
         # 기존 제품에 이미 있는 옵션이면 수량만 수정됨
         option, created = ProductOption.objects.get_or_create(product_id=product_id, color=color, size=size)
 
@@ -155,7 +162,7 @@ class ProductOptionAPIView(APIView):
 
 class ProductOptionDetailAPIView(APIView):
     """제품 옵션 상세조회, 수정, 삭제 API"""
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsOwnerOrReadOnly]
 
     def get(self, request, *args, **kwargs):
         product_id = self.kwargs['pk']
