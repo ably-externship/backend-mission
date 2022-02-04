@@ -13,19 +13,4 @@ class IsOwner(permissions.BasePermission):
         return False
 
 
-#
-# class IsOwner2(permissions.BasePermission):
-#
-#     def has_object_permission(self, request, view, obj):
-#         data = list(obj)
-#         data = ''.join(map(str, data))
-#         data = data.split('::')
-#         seller = ''
-#         for i in data:
-#             if i == request.user.seller:
-#                 seller = i
-#         return seller == request.user.seller
-
-
-
 

@@ -10,8 +10,11 @@ class Product(models.Model):
     image = models.ImageField(upload_to='product/', null=True, verbose_name='사진')
     description = models.TextField(verbose_name='상품설명')
 
-    def __str__(self):
-        return f'{self.seller}::'
+    def get_seller(self):
+        return self.seller
+
+    # def __str__(self):
+    #     return f'{self.seller}::'
 
 
 class ProductOption(models.Model):
@@ -21,7 +24,7 @@ class ProductOption(models.Model):
     stock_count = models.PositiveIntegerField(verbose_name='재고')
 
     def __str__(self):
-        return f'{self.product_id}::{self.size}::{self.color}'
+        return f'{self.product_id}::{self.size}::{self.color}::{self.stock_count}'
 
 
 class CartItem(models.Model):
