@@ -1,4 +1,4 @@
-from .views import LionUserAPI, LionLoginUser, RegisterUser,LoginUser, loginTest, register, login,KakaoSignInView,kakaoTest, checkJwt
+from .views import LionUserAPI, LionLoginUser, RegisterUser,LoginUser, loginTest, register, login,KakaoSignInView,kakaoTest, checkJwt,ApiRefreshRefreshTokenView,MyTokenObtainPairView
 
 from django.urls import path
 
@@ -18,6 +18,11 @@ urlpatterns = [
     path('lioncustomlogin', LionLoginUser.as_view()),
 
     path('kakao', KakaoSignInView.as_view()),
-    path('check', checkJwt , name="check_jwt")
+    path('check', checkJwt , name="check_jwt"),
+
+    #refreshToken url #
+    path('api/token/refresh/refresh_token/', ApiRefreshRefreshTokenView.as_view(),
+         name='token_refresh_refresh_token'),
+    path('api/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
 
 ]

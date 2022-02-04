@@ -1,0 +1,66 @@
+### 쇼핑몰 생성 처리
+POST http://localhost:8000/shop
+Content-Type: application/json
+
+{
+  "shop_name": "슬로우앤드",
+  "img_url": "data:image/jpeg;base64,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",
+  "category_name": "여성의류"
+}
+
+
+### 아이템 생성 처리
+POST  http://localhost:8000/shop/1/items
+Content-Type: application/json
+
+{
+    "product_name":"패딩",
+    "description":"따뜻",
+    "price":900008,
+    "stock":94,
+    "option_group" : [{"optionGroup":"사이즈",
+                        "optionItem":[{
+                            "optionItem":"55",
+                            "addPrice":0
+                        },{
+                            "optionItem":"66",
+                            "addPrice":500
+                        }]}
+                     ,{"optionGroup":"색상",
+                        "optionItem":[{
+                            "optionItem":"black",
+                              "addPrice":0
+                        },
+                        {
+                            "optionItem":"red",
+                            "addPrice":700
+                        }]}]
+}
+
+### 아이템 생성 처리
+POST  http://localhost:8000/shop/2/items
+Content-Type: application/json
+
+{
+    "product_name":"니트",
+    "description":"추울때",
+    "price":100000,
+    "stock":150,
+    "option_group" : [{"optionGroup":"사이즈",
+                        "optionItem":[{
+                            "optionItem":"55",
+                            "addPrice":0
+                        },{
+                            "optionItem":"88",
+                            "addPrice":1500
+                        }]}
+                     ,{"optionGroup":"색상",
+                        "optionItem":[{
+                            "optionItem":"beige",
+                              "addPrice":0
+                        },
+                        {
+                            "optionItem":"brown",
+                            "addPrice":1000
+                        }]}]
+}

@@ -49,6 +49,23 @@ class Lionuser(AbstractUser): #AbstractBaseUser,PermissionsMixin
 
     USERNAME_FIELD = 'username'
 
+    class UserTypeCodeChoices(models.TextChoices):
+        ADMIN = "ABLY 최고 관리자"
+        M_ADMIN = "마켓관리자"
+        USER = "사용자"
+    #
+    user_type = models.CharField('유저타입', max_length=20, choices=UserTypeCodeChoices.choices,
+                                          default=UserTypeCodeChoices.M_ADMIN)
+        # models.CharField(choices=(
+        # ('ADMIN', 'ABLY 최고 관리자'),
+        # ('M_ADMIN', '마켓관리자'),
+        # ('USER', '사용자')
+        # ),  default="M_ADMIN", max_length=32, verbose_name='유저타입')
+
+    #테이블 추가 OR 컬럼 추가 선택
+    shop = models.ForeignKey('mall.Shop', on_delete=models.CASCADE, verbose_name='쇼핑몰', default = 1) #1:N
+
+
     # class Meta:
     #     verbose_name = _('user')
     #     verbose_name_plural = _('users')

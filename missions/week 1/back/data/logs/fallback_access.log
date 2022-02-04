@@ -1,0 +1,2 @@
+[24/Jan/2022:08:45:57 +0000] 400 - GET http localhost "/" [Client 172.20.0.1] [Length 654] [Gzip -] "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36" "-"
+[24/Jan/2022:08:45:57 +0000] 400 - GET http localhost "/favicon.ico" [Client 172.20.0.1] [Length 654] [Gzip -] "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36" "http://localhost:443/"

@@ -1,31 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
-// import {useEffect, useState} from 'react';
-// import { BrowserRouter as Router, Route, Routes ,Link, useLocation } from "react-router-dom";
-// import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+import {useEffect, useState} from 'react';
+import { BrowserRouter as Router,  Route, Routes ,Link, useLocation } from "react-router-dom";
+import { QueryClient, QueryClientProvider, useQuery, useMutation } from 'react-query';
 
-import React, { useState,useEffect } from "https://cdn.skypack.dev/react";
-import ReactDOM from "https://cdn.skypack.dev/react-dom";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-    useMutation
-} from "https://cdn.skypack.dev/react-query";
-import {
-  HashRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useLocation
-} from "https://cdn.skypack.dev/react-router-dom@5";
+import ReactDOM from 'react-dom';
 import classnames from "https://cdn.skypack.dev/classnames";
 import {
   RecoilRoot,
   atom,
   useRecoilState,
   useRecoilValue
-} from "https://cdn.skypack.dev/recoil";
+} from 'recoil';
 
 import axios from 'axios';
 
@@ -171,7 +157,7 @@ function PokeListPage() {
     data
   } = useQuery(`pokemon?offset=${offset}&limit=${limit}`,
      async () =>
-         axiosInstance.get(`product/asdf?offset=${offset}&limit=${limit}`)
+         axiosInstance.get(`product/market_admin_api?offset=${offset}&limit=${limit}`)
     // fetch(
     //   `http://127.0.0.1:8000/product/asdf?offset=${offset}&limit=${limit}`
     // )
@@ -185,7 +171,6 @@ function PokeListPage() {
   if (isLoading) return "Loading...";
   if (error) return "An error has occurred: " + error.message;
 
-  console.log("asdfasdfasdf");
   console.log(data);
 
 
@@ -194,7 +179,7 @@ function PokeListPage() {
   }
 
   const showMore = () => {
-    console.log("shorMore!");
+    console.log("showMore!");
     setOffset(offset + limit);
   };
   const showPrev = () => {
@@ -216,7 +201,7 @@ function PokeListPage() {
   return (
     <>
        <h1 className="py-2 px-2 flex font-bold bg-gray-500 sticky top-0">
-        <span className="text-white">관리자 상품 리스트</span>
+        <span className="text-white">마켓 관리자 상품 리스트</span>
         <div className="flex-grow" />
          <input
           type="search"
@@ -234,16 +219,16 @@ function PokeListPage() {
           return (
             <li key={poke.id} className="hover:bg-gray-100">
               <Link to={"poke?id=" + poke.id} className="flex items-center">
-                <img
-                  src={poke.imgs[0].img_url}
-                />
+                {/*<img*/}
+                {/*  src={poke.imgs[0].img_url}*/}
+                {/*/>*/}
                 <div className="ml-2">
                   <h2 className="w-20">
                     <span className="badge badge-outline badge-primary">
                       {no}
                     </span>
                   </h2>
-                  <h2>{poke.name}</h2>
+                  <h2>{poke.product_name}</h2>
                     <div className="ml-2">
                         <h1 key={poke.id} className="flex items-center">{poke.product_name}</h1>
                            <p className="badge badge-outline badge-primary">{poke.description}</p>
@@ -251,7 +236,15 @@ function PokeListPage() {
                            <strong>재고 ✨ {poke.stock}</strong>{' '}
                            <strong>등록날짜 : {poke.register_date}</strong>{' '}
                            <strong>상태 :  {poke.status}</strong>{' '}
-                           <strong>shop: {poke.shop}</strong>
+                           <strong>shop: {poke.shop.shop_name}</strong>{' '}
+                            {' '}
+
+                           <strong>사이즈 :  {poke.product_reals[0].option_1_display_name}</strong>{' '}
+                           <strong>컬러 :  {poke.product_reals[0].option_2_display_name}</strong>{' '}
+                           <strong>수량 :  {poke.product_reals[0].stock_quantity}</strong>{' '}
+                           <strong>사이즈 :  {poke.product_reals[1].option_1_display_name}</strong>{' '}
+                           <strong>컬러 :  {poke.product_reals[1].option_2_display_name}</strong>{' '}
+                           <strong>수량 :  {poke.product_reals[1].stock_quantity}</strong>{' '}
                       </div>
 
                 </div>
@@ -361,7 +354,6 @@ axiosInstance.interceptors.response.use(
 			error.response.data.code === 'token_not_valid' &&
 			error.response.status === 401
 		) {
-		    console.log("asdfasdfasdf");
 			const refreshToken = localStorage.getItem('refresh_token');
 		    console.log(refreshToken);
 
@@ -374,10 +366,10 @@ axiosInstance.interceptors.response.use(
 
 				if (tokenParts.exp > now) {
 					return axiosInstance
-						.post('api/token/refresh/', { refresh: refreshToken })
+						.post('user/api/token/refresh/refresh_token/', { refresh: refreshToken })
 						.then((response) => {
 							localStorage.setItem('access_token', response.data.access);
-							// localStorage.setItem('refresh_token', response.data.refresh);
+							localStorage.setItem('refresh_token', response.data.refresh);
 
 							axiosInstance.defaults.headers['Authorization'] =
 								'Bearer ' + response.data.access;
@@ -498,29 +490,29 @@ const LoginPage = () => {
       });
   };
 
-    const style = {
+  const style = {
         marginTop: "20px",
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
         };
   return (
     <div style={style}>
-        관리자 로그인 페이지
+        마켓 관리자 로그인 페이지
       {loading === false && <h1>Login</h1>}
       {errors === true && <h2>Cannot log in with provided credentials</h2>}
       {loading === false && (
         <form onSubmit={onSubmit}>
-          <label htmlFor='email'>Email address:</label> <br />
+          <label htmlFor='email'>아이디:</label> <br />
           <input
             name='email'
-            type='email'
+            type='text'
             value={email}
             required
             onChange={e => setEmail(e.target.value)}
           />{' '}
           <br />
-          <label htmlFor='password'>Password:</label> <br />
+          <label htmlFor='password'>비밀번호:</label> <br />
           <input
             name='password'
             type='password'
@@ -541,15 +533,14 @@ const App = () => {
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
         <Router>
-          <Switch>
-            <Route path="/logintest" component={LoginTestPage} />
+          <Routes>
+            <Route path="/logintest" element={<LoginTestPage />} />
 
-            <Route path="/loginsdf" component={LoginPage} />
+            <Route path="/loginsdf" element={<LoginPage />} />
 
-            <Route path="/poke" component={PokeDetailPage} />
-            <Route path="/" component={PokeListPage} />
-
-          </Switch>
+            <Route path="/poke" element={<PokeDetailPage />} />
+            <Route path="/" element={<PokeListPage />} />
+          </Routes>
         </Router>
       </QueryClientProvider>
     </RecoilRoot>

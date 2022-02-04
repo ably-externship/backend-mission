@@ -21,8 +21,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView
 )
-from basket.views import basket_delete_v2
-
+#
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mall.urls')),
@@ -35,7 +34,6 @@ urlpatterns = [
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-
 
     # path('api/token/', obtain_jwt_token),
     # path('api/token/verify/', verify_jwt_token),
