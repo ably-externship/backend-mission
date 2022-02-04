@@ -8,6 +8,7 @@ import ProductList from './components/ProductListPage.js';
 import LoginPage from './components/LoginPage.js';
 import KakaoLogin from './components/KakaoLogin.js';
 import AdminProductList from './components/AdminProductList.js';
+import ProductRegistration from './components/ProductRegistration.js';
 
 function App() {
 
@@ -48,6 +49,10 @@ function App() {
 
         <Route exact path="/admin/products">
           <AdminProductList/>
+        </Route>
+
+        <Route exact path="/products/registration"> 
+          <ProductRegistration/>
         </Route>
 
       </Switch>
