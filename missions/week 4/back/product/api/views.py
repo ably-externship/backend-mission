@@ -15,6 +15,10 @@ from product.models import Product
 @csrf_exempt
 @permission_classes((IsAuthenticated,))
 def products(request):
+    # 마켓 사용자인지 Check
+    market_yn = request.auth.payload['market_yn']
+    market_id = request.auth.payload['market_id']
+
     if request.method == 'GET':
         product_list = Product.objects.all()
         serializer = ProductListSerializer(product_list, many=True)
@@ -24,10 +28,7 @@ def products(request):
         product_serializer = ProductPostSerializer(data=request.data)
 
         if product_serializer.is_valid():
-            market_yn = user_market_yn(request.auth)
             if market_yn:
-                # TODO Check param Market Id == auth Market Id
-                market_id = request.auth.payload['market_id']
                 validate_data = product_serializer.validated_data
                 if validate_data['market_pk'].id != market_id:
                     raise exceptions.APIException(detail={'code': ErrorMessage.MARKET_ID_NOT_CORRECT.code,
@@ -50,6 +51,9 @@ def products(request):
 @api_view(['PUT', 'DELETE', 'GET'])
 @permission_classes((IsAuthenticated,))
 def product(request, product_id):
+    market_yn = request.auth.payload['market_yn']
+    market_id = request.auth.payload['market_id']
+
     if request.method == 'GET':
         product_model = product_select(product_id)
         serializer = ProductPutSerializer(product_model)
@@ -59,10 +63,7 @@ def product(request, product_id):
         product_model = product_select(product_id)
         serializer = ProductPutSerializer(product_model, data=request.data)
         if serializer.is_valid():
-            market_yn = user_market_yn(request.auth)
             if market_yn:
-                # TODO Check param Market Id == auth Market Id
-                market_id = request.auth.payload['market_id']
                 validate_data = serializer.validated_data
                 if validate_data['market_pk'].id != market_id:
                     raise exceptions.APIException(detail={'code': ErrorMessage.MARKET_ID_NOT_CORRECT.code,
@@ -97,7 +98,3 @@ def product_select(product_id):
     except Product.DoesNotExist:
         raise exceptions.NotFound(
             detail={'code': ErrorMessage.PRODUCT_NOT_FOUND.code, "message": ErrorMessage.PRODUCT_NOT_FOUND.message})
-
-def user_market_yn(access_token):
-    return access_token.payload['market_yn']
-    #access_token.payload['market_id']
