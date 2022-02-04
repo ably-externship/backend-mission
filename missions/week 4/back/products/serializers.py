@@ -21,7 +21,7 @@ class ProductOptionSerializer(ModelSerializer):
 
     class Meta:
         model = ProductOption
-        fields = ['color', 'size', 'stock']
+        fields = ['color', 'size', 'extra_price']
 
 class ProductImageSerializer(ModelSerializer):
 

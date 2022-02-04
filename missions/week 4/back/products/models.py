@@ -1,3 +1,4 @@
+from wsgiref.validate import validator
 from django.db import models
 from django.db.models.deletion import DO_NOTHING
 
@@ -31,7 +32,7 @@ class Size(models.Model):
 class Product(models.Model):
     product_subcategory = models.ForeignKey(ProductSubcategory, on_delete=models.SET_NULL, null=True)
     seller = models.ForeignKey(Seller, on_delete=models.CASCADE)
-    main_image_url = models.URLField(max_length=2000)
+    main_image_url = models.CharField(max_length=2000)
     colors = models.ManyToManyField(Color, through='ProductOption')
     sizes = models.ManyToManyField(Size, through='ProductOption')
     is_deleted = models.BooleanField(default=False)
@@ -55,7 +56,7 @@ class ProductHistory(models.Model):
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    image_url = models.URLField(max_length=2000)
+    image_url = models.CharField(max_length=2000)
 
     class Meta:
         db_table = 'product_images'
@@ -64,7 +65,7 @@ class ProductOption(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     color = models.ForeignKey(Color, on_delete=models.CASCADE)
     size = models.ForeignKey(Size, on_delete=models.CASCADE)
-    stock = models.IntegerField()
+    stock = models.IntegerField(null=True)
     extra_price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     is_sold_out = models.BooleanField(default=False)
 
