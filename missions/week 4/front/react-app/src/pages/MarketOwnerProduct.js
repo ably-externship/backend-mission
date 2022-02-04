@@ -9,7 +9,7 @@ function Product() {
   const history = useHistory();
   const [text, setText] = useState([]);
   const [jwtToken, setJwtToken] = useLocalStorage("jwtToken", "");
-
+//  const apiUrl = 'http://127.0.0.1:8000/product/list';
   return (
     <>
     <div className="head">
@@ -18,7 +18,7 @@ function Product() {
         <button
           onClick={() => {
             axios
-              .get("http://127.0.0.1:8000/api/products", { headers: {"Authorization" : `JWT ${jwtToken}`} })
+              .get("http://127.0.0.1:8000/api/products/marketowner/", { headers: {"Authorization" : `JWT ${jwtToken}`} })
               .then((response) => {
                 setText([...response.data]);
                 console.log(response.data);
@@ -51,7 +51,7 @@ function Product() {
             <button
               className="btn-delete"
               onClick={() => {
-                axios.delete(`http://127.0.0.1:8000/api/products/${e.id}`, { headers: {"Authorization" : `JWT ${jwtToken}`} });
+                axios.delete(`http://127.0.0.1:8000/api/products/marketowner/${e.id}`);
                 setText(text.filter((text) => text.id !== e.id));
               }}
             >
