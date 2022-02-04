@@ -24,22 +24,8 @@ class ProductListAPIView(APIView):
             return Response(serializer.data)
 
         qs = Product.objects.filter(seller=request.user.seller)
-        # qs = Product.objects.all()
-        # data = list(qs)
-        # data = ''.join(map(str, data))
-        # data = data.split('::')
-        # seller = ''
-        #
-        # for i in data:
-        #     if i == request.user.seller:
-        #         seller = i
-        #
-        # qs = Product.objects.filter(seller=seller)
-        if qs:
-            serializer = ProductSerializer(qs, many=True, context={'request': request})
-            return Response(serializer.data)
-        else:
-            return Response(status=status.HTTP_204_NO_CONTENT)
+        serializer = ProductSerializer(qs, many=True, context={'request': request})
+        return Response(serializer.data)
 
     def post(self, request):
         serializer = ProductSerializer(data=request.data, many=True, context={'request': request})

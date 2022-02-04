@@ -10,11 +10,8 @@ class Product(models.Model):
     image = models.ImageField(upload_to='product/', null=True, verbose_name='사진')
     description = models.TextField(verbose_name='상품설명')
 
-    def get_seller(self):
-        return self.seller
-
-    # def __str__(self):
-    #     return f'{self.seller}::'
+    def __str__(self):
+        return f'{self.seller}::{self.author}::'
 
 
 class ProductOption(models.Model):
