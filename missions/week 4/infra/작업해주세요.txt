@@ -1,0 +1,31 @@
+1. 배포 
+
+
+http://54.180.100.75:8000
+
+
+(react 는 local 환경에서)
+
+
+2. Jenkins 
+
+http://54.180.100.75:8000     (admin, adminforlion)
+
+github webhoook 사용
+
+
+
+3. Elastic Search
+
+(kibana)      
+http://54.180.100.75:9200/app/dev_tools#/console
+
+(elastic, changeme)
+mysql 연동    
+
+
+참고)   
+https://wiken.io/ken/3144    
+https://wiken.io/ken/3374
+
+
