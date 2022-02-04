@@ -9,7 +9,7 @@ function Product() {
   const history = useHistory();
   const [text, setText] = useState([]);
   const [jwtToken, setJwtToken] = useLocalStorage("jwtToken", "");
-//  const apiUrl = 'http://127.0.0.1:8000/product/list';
+
   return (
     <>
     <div className="head">
@@ -29,6 +29,7 @@ function Product() {
                 console.log(error);
                 if(error.response.status==401){
                     alert('로그인이 필요합니다.');
+                    history.push("/accounts/login");
 
                 }
               });
@@ -51,7 +52,7 @@ function Product() {
             <button
               className="btn-delete"
               onClick={() => {
-                axios.delete(`http://127.0.0.1:8000/api/products/marketowner/${e.id}`);
+                axios.delete(`http://127.0.0.1:8000/api/products/marketowner/${e.id}`, { headers: {"Authorization" : `JWT ${jwtToken}`} });
                 setText(text.filter((text) => text.id !== e.id));
               }}
             >

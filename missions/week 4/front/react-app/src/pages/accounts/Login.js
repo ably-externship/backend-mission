@@ -37,7 +37,7 @@ export default function Login() {
             icon: <SmileOutlined style={{ color: "#108ee9" }} />
           });
 
-          history.push("/products"); // 이동주소
+          history.push("/MarketOwnerProduct"); // 이동주소
         } catch (error) {
           if (error.response) {
             notification.open({

@@ -11,7 +11,7 @@ function Root() {
             <AppLayout>
                <Route exact path="/" component={Home}  />
                <Route exact path="/products" component={Product}  />
-               <Route exact path="/MarketOwnerProduct" component={MarketOwnerProduct}  />
+               <Route exact path="/marketownerproduct" component={MarketOwnerProduct}  />
                <Route path="/accounts" component={AccountRoutes} />
 
             </AppLayout>

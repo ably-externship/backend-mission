@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import useLocalStorage from "./accounts/useLocalStorage";
 
 
-function Product() {
+function Product() {/vp
   const history = useHistory();
   const [text, setText] = useState([]);
   const [jwtToken, setJwtToken] = useLocalStorage("jwtToken", "");
@@ -29,6 +29,7 @@ function Product() {
                 console.log(error);
                 if(error.response.status==401){
                     alert('로그인이 필요합니다.');
+                    history.push("/accounts/login");
 
                 }
               });
