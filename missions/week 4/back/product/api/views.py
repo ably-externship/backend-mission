@@ -1,4 +1,5 @@
 from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -17,22 +18,27 @@ class ProductListAPIView(APIView):
 
     def get(self, request):
 
-        # 관리자일 경우
-        if request.user.is_superuser:
+        # staff
+        if request.user.is_staff:
+            qs = Product.objects.filter(author=request.user)
+            serializer = ProductSerializer(qs, many=True, context={'request': request})
+            return Response(serializer.data)
+        else:
             qs = Product.objects.all()
             serializer = ProductSerializer(qs, many=True, context={'request': request})
             return Response(serializer.data)
 
-        qs = Product.objects.filter(seller=request.user.seller)
-        serializer = ProductSerializer(qs, many=True, context={'request': request})
-        return Response(serializer.data)
-
     def post(self, request):
-        serializer = ProductSerializer(data=request.data, many=True, context={'request': request})
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
+        # 관리자 or staff
+        if request.user.is_superuser or request.user.is_staff:
+            author = self.request.user
+            serializer = ProductSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save(author=author)
+                return Response(serializer.data, status=201)
+            return Response(serializer.errors, status=400)
+        else :
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class ProductDetailAPIView(APIView):
@@ -41,9 +47,9 @@ class ProductDetailAPIView(APIView):
 
     def get_object(self, pk):
         try:
-            product = Product.objects.get(pk=pk)
-            self.check_object_permissions(self.request, product)
-            return product
+            qs = Product.objects.get(pk=pk)
+            self.check_object_permissions(self.request, qs)
+            return qs
         except ObjectDoesNotExist:
             return None
 
@@ -64,5 +70,3 @@ class ProductDetailAPIView(APIView):
         Product = self.get_object(pk)
         Product.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-

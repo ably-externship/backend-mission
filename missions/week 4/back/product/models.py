@@ -3,7 +3,7 @@ from django.db import models
 
 
 class Product(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.PROTECT, related_name='author')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, verbose_name='상품명')
     seller = models.CharField(max_length=200, null=True, verbose_name='입점사')
     price = models.PositiveIntegerField(verbose_name='가격(원)')

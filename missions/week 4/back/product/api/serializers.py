@@ -1,3 +1,4 @@
+from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 from product.models import Product, ProductOption
 
@@ -17,6 +18,7 @@ class ProductOptionSerializer(ModelSerializer):
 
 class ProductSerializer(ModelSerializer):
     productoption = ProductOptionSerializer(many=True, read_only=True)
+
 
     class Meta:
         model = Product
