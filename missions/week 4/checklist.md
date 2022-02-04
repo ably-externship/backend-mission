@@ -38,5 +38,5 @@ http://54.180.100.75:8080   (admin, adminforlion)
 
 ## 수행인증영상URL(유튜브)
 
-- 
+- https://youtu.be/t2EBYOtstJE      
 
