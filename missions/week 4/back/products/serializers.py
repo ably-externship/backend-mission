@@ -44,11 +44,11 @@ class ProductSerializer(ModelSerializer):
             product = Product.objects.create(**validated_data)
             now = datetime.now()
             for history in histories:
-                ProductHistory.objects.create(product=product, created_at = now, **history)
+                ProductHistory.objects.create(product = product, created_at = now, updated_at = now, **history)
             for option in options:
-                ProductOption.objects.create(product=product, **option)
+                ProductOption.objects.create(product = product, **option)
             for image in images:
-                ProductImage.objects.create(product=product, **image)
+                ProductImage.objects.create(product = product, **image)
 
             return product
 

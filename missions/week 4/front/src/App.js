@@ -51,7 +51,7 @@ function App() {
           <AdminProductList/>
         </Route>
 
-        <Route exact path="/products/registration"> 
+        <Route exact path="/admin/products/registration"> 
           <ProductRegistration/>
         </Route>
 

@@ -13,12 +13,12 @@ def login_required(func):
                 return JsonResponse({'message' : 'Unauthorized Access'}, status=401)
             
             payload = jwt.decode(access_token, SECRET_KEY, algorithms = ALGORITHM)
-            user = Account.objects.get(id = payload['id'])
+            account = Account.objects.get(id = payload['id'])
             
-            if user.is_deleted:
+            if account.is_deleted:
                 return JsonResponse({'message' : 'Invalid User'}, status = 401)
             
-            request.user = user
+            request.account = account
 
             return func(self, request, *arg, **kwargs)
         except jwt.DecodeError:

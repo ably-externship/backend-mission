@@ -1,7 +1,7 @@
 from django.urls import path, include
 
 from products.admin_views import ProductView
-from core.views import CategoryView, ColorView, SizeView
+from core.views import CategoryView, ColorView, SizeView, SellerView
 
 urlpatterns = [
     path('accounts', include('accounts.urls')),
@@ -12,4 +12,5 @@ urlpatterns = [
     path('categories', CategoryView.as_view()),
     path('colors', ColorView.as_view()),
     path('sizes', SizeView.as_view()),
+    path('sellers', SellerView.as_view()),
 ]

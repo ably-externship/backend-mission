@@ -1,14 +1,18 @@
 import axios from 'axios';
 import { useState, useEffect, useRef, forwardRef } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import './ProductRegistration.css';
 
 function ProductRegistration(){
 
+    const authState = useSelector((state) => state);
+
     const [categories, setCategories] = useState([]);
     const [colors, setColors] = useState([]);
     const [sizes, setSizes] = useState([]);
+    const [sellers, setSellers] = useState([]);
 
     useEffect(()=>{
         axios.get('http://localhost:8000/categories')
@@ -38,20 +42,46 @@ function ProductRegistration(){
         .catch((error)=>{
             console.log(error);
         })
+        if ( authState.account_type === 'master' ) {
+            axios.get('http://localhost:8000/sellers')
+            .then((response)=>{
+                if ( response != null && response.data != null ) {
+                    setSellers(response.data.result)
+                }
+            })
+            .catch((error)=>{
+                console.log(error);
+            })
+        }
     },[])
     
+    const [sellerId, setSellerId] = useState('');
     const subcategorySelect = useRef();
     const [subcategories, setSubcategories] = useState([]);
-    const [subcategoryId, setSubcategoryId] = useState(0);
+    const [subcategoryId, setSubcategoryId] = useState();
+
+    const onChangeSeller = (e) => {
+        const target = e.target.value;
+        if ( target === 'seller' ) {
+            setSellerId('');
+        } else {
+            setSellerId(sellers[target].id);
+        }
+    }
 
     const onChangeCategory = (e) => {
         const category = categories[e.target.value];
         setSubcategories(category.subcategories);
-        subcategorySelect.current.value = '0';
-        setSubcategoryId(0);
+        subcategorySelect.current.value = 'subcategory';
+        setSubcategoryId('');
     }
     const onChangeSubcategory = (e) => {
-        setSubcategoryId(e.target.value);
+        const target = e.target.value;
+        if ( target === 'subcategory' ) {
+            setSubcategoryId('');
+        } else {
+            setSubcategoryId(e.target.value);
+        }
     }
 
     const [productInfo, setProductInfo] = useState({ name : '', price : '', discount_price : '' });
@@ -128,6 +158,8 @@ function ProductRegistration(){
         const formData = new FormData();
         if ( !subcategoryId ) {
             alert('카테고리를 선택해주세요.')
+        } else if ( authState.account_type === 'master' && !sellerId ) {
+            alert('셀러를 선택해주세요.')
         } else if ( !productInfo.name || !productInfo.price ) {
             alert('상품명과 가격을 입력해주세요.')
         } else if ( !mainImg ) {
@@ -138,19 +170,28 @@ function ProductRegistration(){
             alert('상품 옵션을 선택해주세요.')
         } else if ( productInfo.price && productInfo.discount_price && productInfo.price <= productInfo.discount_price ) {
             alert('할인가격은 가격보다 클 수 없습니다.')
-        } else if ( productInfo.price <= 0 || productInfo.discount_price <= 0 ) {
+        } else if ( productInfo.price <= 0 || ( productInfo.discount_price && productInfo.discount_price <= 0 )) {
             alert('가격은 0보다 큰 값을 입력해주세요.')
         } else {
             const data = {
                 product_subcategory : subcategoryId,
                 producthistory_set : [productInfo],
-                productoption_set : options
+                productoption_set : options,
+                seller : sellerId
             }
             formData.append('data', JSON.stringify(data))
             formData.append('main_image', mainImg)
             Array.from(detailImgs).forEach(img=>formData.append('detail_images', img))
             
-            axios.post('http://localhost:8000/admin/products', formData)
+            axios.post('http://localhost:8000/admin/products', formData, {
+                headers : {
+                    Authorization : localStorage.getItem('access_token')
+                }
+            })
+            .then(()=>{
+                alert('상품이 등록되었습니다.')
+                window.location.reload();
+            })
             .catch((error)=>{
                 console.log(error);
             })
@@ -159,6 +200,18 @@ function ProductRegistration(){
 
     return (
         <Form className='registrationForm'>
+            {
+                authState.account_type === 'master'
+                ? ( <Form.Select onChange={onChangeSeller}>
+                        <option value='seller'>셀러</option>
+                        {
+                            sellers.map((a, i)=>{
+                                return <option key={i} value={i}>{a.name}</option>
+                            })
+                        }
+                    </Form.Select> )
+                : null
+            }
             <Row>
                 <Col>
                     <Form.Select onChange={onChangeCategory}>
@@ -252,10 +305,10 @@ const Subcategory = forwardRef((props, ref)=>{
 
     return(
         <Form.Select ref={ref} onChange={props.onChangeSubcategory}>
-            <option value='0'>2차카테고리</option>
+            <option value='subcategory'>2차카테고리</option>
             {
-                props.subcategories.map((a)=>{
-                    return <option key={a.id} value={a.id}>{a.name}</option>
+                props.subcategories.map((a, i)=>{
+                    return <option key={i} value={a.id}>{a.name}</option>
                 })
             }
         </Form.Select>

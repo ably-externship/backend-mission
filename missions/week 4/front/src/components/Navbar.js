@@ -20,7 +20,7 @@ function HomeNav (){
         <Navbar bg="light" variant="light">
             <Container>
                     {
-                        authState.account_type === 'master'
+                        authState.account_type === 'master' || authState.account_type === 'seller'
                         ? <Navbar.Brand href="/">Mbly-admin</Navbar.Brand>
                         : <Navbar.Brand href="/">Mbly</Navbar.Brand>
                     }
@@ -44,6 +44,7 @@ function HomeNav (){
                             : (
                                 <Nav className="me-auto">
                                     <Nav.Link as={Link} to="/admin/products">상품 관리</Nav.Link>
+                                    <Nav.Link as={Link} to="/admin/products/registration">상품 등록</Nav.Link>
                                     <Nav.Link onClick={logout}>Log Out</Nav.Link>
                                 </Nav>
                             )

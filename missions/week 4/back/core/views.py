@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from django.views import View
 
 from products.models import ProductCategory, Color, Size
+from accounts.models import Seller
 
 class CategoryView(View):
     def get(self, request):
@@ -44,6 +45,19 @@ class SizeView(View):
                 'id' : size.id,
                 'name' : size.size
             } for size in sizes
+        ]
+
+        return JsonResponse({'result' : result}, status=200)
+
+class SellerView(View):
+    def get(self, request):
+        sellers = Seller.objects.all()
+
+        result = [
+            {
+                'id' : seller.id,
+                'name' : seller.name
+            } for seller in sellers
         ]
 
         return JsonResponse({'result' : result}, status=200)
