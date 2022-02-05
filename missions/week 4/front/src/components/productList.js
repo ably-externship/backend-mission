@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
+import { useAppContext } from "../store";
 
 const apiURL = "http://127.0.0.1:8000/products/";
-const accessToken = localStorage.getItem("accessToken");
-const headers = { Authorization: `Bearer ${accessToken}` };
+// const accessToken = localStorage.getItem("accessToken");
+// const headers = { Authorization: `Bearer ${accessToken}` };
 
 function ProductList() {
+  const {
+    store: { jwtToken },
+  } = useAppContext();
   const [productList, setProductList] = useState([]);
+
+  const headers = { Authorization: `Bearer ${jwtToken}` };
   useEffect(() => {
     Axios.get(apiURL, { headers: headers })
       .then((response) => {

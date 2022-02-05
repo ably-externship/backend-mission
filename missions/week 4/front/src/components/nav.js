@@ -1,6 +1,12 @@
 import React from "react";
+import { useAppContext, deleteToken } from "../store";
 
 function Nav() {
+  const {
+    store: { isLogin },
+  } = useAppContext();
+  const { dispatch } = useAppContext();
+
   return (
     <div>
       <nav className="bg-gray-800">
@@ -22,7 +28,6 @@ function Nav() {
                   >
                     Home
                   </a>
-
                   <a
                     href="products"
                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
@@ -30,12 +35,24 @@ function Nav() {
                     Products
                   </a>
 
-                  <a
-                    href="login"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Login
-                  </a>
+                  <div>
+                    {isLogin === false ? (
+                      <a
+                        href="login"
+                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                      >
+                        Login
+                      </a>
+                    ) : (
+                      <a
+                        href="/"
+                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                        onClick={() => dispatch(deleteToken())}
+                      >
+                        Logout
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
