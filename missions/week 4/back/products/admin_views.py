@@ -91,7 +91,7 @@ class ProductView(APIView):
         if account.account_type_id != MASTER_ACCOUNT_TYPE and account.account_type_id != SELLER_ACCOUNT_TYPE:
             return Response(status.HTTP_403_FORBIDDEN)
         
-        product = get_object_or_404(Product, id = product_id)
+        product = get_object_or_404(Product, id = product_id, is_deleted = False)
 
         if account.account_type_id == SELLER_ACCOUNT_TYPE:
             if product.seller_id != account.seller.id:
