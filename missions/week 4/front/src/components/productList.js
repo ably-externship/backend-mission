@@ -33,6 +33,7 @@ function ProductList() {
           headers: headers,
         }
       );
+      alert("해당 제품이 삭제되었습니다.");
       window.location.replace("/products");
     } catch (error) {
       if (error.response.status === 403) {
