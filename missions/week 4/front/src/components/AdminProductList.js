@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Table, Button } from 'react-bootstrap';
 import styled from "styled-components";
+import ProductOptionModal from "./ProductOptionModal.js";
 
 
 function AdminProductList (){
 
     const [products, setProducts] = useState([]);
+    const [modalVisibleId, setModalVisibleId] = useState('');
+    const [productOptions, setProductOptions] = useState([]);
 
     useEffect(()=>{
         axios.get("http://localhost:8000/admin/products", {
@@ -17,7 +20,6 @@ function AdminProductList (){
         .then((response)=>{
             if ( response !== null && response.data !== null ) {
                 const productList = response.data;
-                console.log(productList);
                 setProducts(productList);
             }
         })
@@ -26,8 +28,8 @@ function AdminProductList (){
         })
     }, []);
 
-    const clickHandler = (param) => {
-        axios.delete("http://localhost:8000/admin/products/" + String(param), {
+    const onClickDelete = (productId) => {
+        axios.delete("http://localhost:8000/admin/products/" + String(productId), {
             headers : {
                 Authorization : localStorage.getItem('access_token')
             }
@@ -38,6 +40,14 @@ function AdminProductList (){
         .catch((error)=>{
             console.log(error);
         })
+    }
+    const onClickOption = (productId, options) => {
+        if ( !modalVisibleId || modalVisibleId !== productId ) {
+            setProductOptions(options)
+            setModalVisibleId(productId)
+        } else {
+            setModalVisibleId('')
+        }
     }
 
     return (
@@ -52,25 +62,37 @@ function AdminProductList (){
                 <th>할인가</th>
                 <th>품절여부</th>
                 <th>진열여부</th>
+                <th>옵션</th>
                 <th>삭제</th>
                 </tr>
             </thead>
             {
-                products.map((a, i)=>{
+                products.map((product, index)=>{
                     return (
-                        <tbody key={i}>
+                        <>
+                        <tbody>
                             <TableRow>
-                            <td>{ a.product_id }</td>
-                            <td><ProductImage src={ a.main_image_url }/></td>
-                            <td>{ a.seller_name }</td>
-                            <td>{ a.product_name }</td>
-                            <td>{ Number(a.price) }</td>
-                            <td>{ Number(a.discount_price) }</td>
-                            { a.is_sold_out === true ? <td>품절</td> : <td></td> }
-                            { a.is_displayed === true ? <td>진열중</td> : <td>미진열</td> }
-                            <td><Button variant="outline-danger" onClick={()=>{clickHandler(a.product);}}>삭제</Button></td>
+                            <td>{ product.product_id }</td>
+                            <td><ProductImage src={ product.main_image_url }/></td>
+                            <td>{ product.seller_name }</td>
+                            <td>{ product.product_name }</td>
+                            <td>{ Number(product.price) }</td>
+                            <td>{ Number(product.discount_price) }</td>
+                            <td>{ !product.is_sold_out ? '' : '품절' }</td>
+                            <td>{ !product.is_displayed ? '미진열' : '진열중' }</td>
+                            <td><Button onClick={()=>{
+                                onClickOption(product.product_id, product.product.productoption_set)
+                            }
+                        }>{ !modalVisibleId || modalVisibleId !== product.product_id ? '열기' : '닫기' }</Button></td>
+                            <td><Button variant="outline-danger" onClick={()=>{ onClickDelete(product.product_id) }}>삭제</Button></td>
                             </TableRow>
                         </tbody>
+
+                            <ProductOptionModal 
+                            show={ modalVisibleId === product.product_id }
+                            productOptions={ productOptions }/>
+
+                        </>
                     )
                 })
             }

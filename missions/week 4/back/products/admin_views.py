@@ -93,13 +93,17 @@ class ProductView(APIView):
         
         product = get_object_or_404(Product, id = product_id)
 
+        if account.account_type_id == SELLER_ACCOUNT_TYPE:
+            if product.seller_id != account.seller.id:
+                return Response(status.HTTP_403_FORBIDDEN)
+
         with transaction.atomic():
             product.is_deleted = True
             product.save()
 
             now = datetime.now()
             
-            history = ProductHistory.objects.filter(id = product_id).last()
+            history = ProductHistory.objects.filter(product_id = product_id).last()
             history.id = None
             history.updated_at = now
             history.is_deleted = True
