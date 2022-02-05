@@ -15,7 +15,6 @@ const Login = () => {
     async function fn() {
       try {
         const response = await Axios.post(LOGIN_API, inputs);
-        console.log(response);
         const {
           data: { access: jwtToken },
         } = response;
