@@ -11,6 +11,9 @@ urlpatterns = [
     path('delete/<int:pk>/', views.ProductDelete, name="ProductDelete"),
     path('find/<str:name>/', views.ProductFind, name="ProductFind"),
 
+    # ElasticSearch
+    path('search_by_elastic/', views.search_by_elastic, name='search_by_elastic'),
+
     # 옵션 관련
     path('option/', views.OptionList, name="OptionList"),
     path('option/create/', views.OptionCreate, name="OptionCreate"),

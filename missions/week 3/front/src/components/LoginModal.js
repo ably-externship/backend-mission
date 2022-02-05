@@ -73,6 +73,7 @@ function LoginModal(props) {
                                                             true,
                                                             json.username,
                                                             json.token);
+                                                        // console.log(json.token['id'])
                                                         history.push('/');
                                                         props.setModal(true);
                                                     } else {

@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import axios from "axios";
 
 function Writer(props) {
+    // console.log(props.loginedUserInfo.user_id);
 
     const history = useHistory()
     let Today = new Date();
@@ -28,7 +29,7 @@ function Writer(props) {
         is_sold_out : false,
         reg_date : date,
         update_date : date,
-        market : 3
+        market : props.loginedUserInfo.user_id
     });
 
     const [optionMakeList, setOptionMakeList] = useState({

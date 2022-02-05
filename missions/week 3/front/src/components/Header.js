@@ -18,8 +18,6 @@ function Header(props){
                                             <li className="cell"><Link to="/write"><div className="menu">상품 등록</div></Link></li>
                                             <li className="cell"><Link onClick={props.handleLogout} to="/"><div className="menu">로그아웃</div></Link></li>
                                         </ul>
-
-
                                     </div>
 
                                 )

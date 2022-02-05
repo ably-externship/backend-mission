@@ -1,24 +1,33 @@
-import React,{useState, useEffect} from 'react';
+import React,{useState,useEffect,useCallback,useMemo} from "react";
 import {Link, useHistory} from 'react-router-dom';
 import axios from 'axios';
 
 function Product(props) {
 
     const history = useHistory();
-
     const [productList, setProductList] = useState([]);
+    const [inputsearch, setInputSearch] = useState('');
+
+
 
     useEffect(() => {
         const take = async () => {
-            const {data} = await axios.get('http://127.0.0.1:8000/product/',{headers: {
-                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+            const {data} = await axios.get('http://127.0.0.1:8000/product/',
+                {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('token')}`,
+                        },
+                        params:{
+                            search: inputsearch,
+                        }
                     }
-                });
+                );
             setProductList(data);
             // console.log(data);
         };
         take();
-    }, []);
+    }, [inputsearch]);
+
 
     const Deleteproduct = async (product_id)=> {
         if(!!localStorage.getItem('token')) {
@@ -43,6 +52,14 @@ function Product(props) {
 
     return (
         <div className="">
+            <div className="flex-grow flex items-center px-3 con">
+                <input
+                    className="text-black" value={inputsearch}
+                    onChange={e => setInputSearch(e.target.value)}
+                    placeholder="찾으실 물건을 입력"
+                />
+            </div>
+
             {
                 !localStorage.getItem('token')
                     ?(
@@ -68,7 +85,7 @@ function Product(props) {
                                                 </a>
                                             </div>
                                             <div>
-                                                제품명 : {product.name}
+                                                {product.name}
                                             </div>
 
                                         </th>

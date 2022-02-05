@@ -9,22 +9,43 @@ import Writer from "./components/Writer"
 function App() {
     const [modal, setModal] = useState(false);
     const [user, setUser] = useState([])
+    const [loginedUserInfo ,setLoginedUserInfo] =  useState()
+
 
     let [isAuthenticated, setisAuthenticated] = useState(localStorage.getItem('token') ? true : false)
 
+
+    // 토큰에서 페이로드(데이터) 부분 가져오기
+    function getPayloadFromJWT(token) {
+        const base64Payload = token.split(".")[1];
+        return JSON.parse(atob(base64Payload));
+    }
+
+    //회원가입이나 로그인이 성공했을 때 토큰을 저장
     const userHasAuthenticated = (authenticated, username, token) => {
         setisAuthenticated(authenticated)
         setUser(username)
+        // console.log(token)
         localStorage.setItem('token', token['access']);
         sessionStorage.setItem('token', token['refresh']);
-    }//회원가입이나 로그인이 성공했을 때 토큰을 저장
 
+
+        const userInfo = getPayloadFromJWT(token['access']);
+        userInfo.accessToken = token['access']; // 이 토큰과
+        userInfo.refreshToken = token['refresh'];
+        setLoginedUserInfo(userInfo);
+        // console.log(userInfo);
+        // console.log(loginedUserInfo["user_id"]);
+    }
+
+    // 로그아웃
     const handleLogout = () => {
         setisAuthenticated(false);
         setUser('');
         localStorage.removeItem('token');
         setModal(false);
-    };// 로그아웃
+    };
+
 
     // console.log(isAuthenticated)
     
@@ -38,18 +59,27 @@ function App() {
         }
     }, [isAuthenticated]);
 
+
+
+
+
+
     return (
         <>
             <div className="App">
+
+
+
                 <div className="auto-margin">
 
                     <Route exact path="/">
                         <Header modal={modal} handleLogout={handleLogout}/>
-                        <Product user={user} />
+                        <Product user={user}/>
                     </Route>
 
+
                     <Route exact path="/write">
-                        <Writer user={user}/>
+                        <Writer user={user} loginedUserInfo={loginedUserInfo}/>
                     </Route>
 
                     <Route exact path="/login">
@@ -57,6 +87,8 @@ function App() {
                     </Route>
 
                 </div>
+
+
             </div>
         </>
     );
