@@ -1,0 +1,58 @@
+
+{% extends 'product_detail.html' %}
+<h1> HI</h1>
+
+<!-- {% block question %} -->
+{{ object_list.all.count }}개의 Q&A가 있습니다.
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+      </tr>
+    </tbody>
+  </table>
+{% if object_list %}
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">번호</th>
+        <th scope="col">질문</th>
+        <th scope="col">작성자</th>
+        <th scope="col">등록일자</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for question in object_list %}
+        <tr>
+            <th scope = 'row'>{{ object_list.forloop.revcounter }}</th>
+            <td>{{ question.subject }}</td>
+            <td>{{ question.author }}</td>
+            <td>{{ question.create_date }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+<!-- {% endblock question %} -->

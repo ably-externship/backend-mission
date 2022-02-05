@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='container px-4'>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">사진</th>
+            <th scope="col">상품</th>
+            <th scope="col">옵션</th>
+            <th scope="col">개수</th>
+            <th scope="col">삭제</th>
+            <th scope="col">가격</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for cart in object_list %}
+            <tr>
+                <th > <img src = "{{ cart.product.product.image.url }}" width="100px" height="100px"> </th>
+                <td>{{ cart.product.product.name }}</td>
+                <td>{{ cart.product.option_1_display_name }}  {{ cart.product.option_2_display_name }}</td>
+                <td><form action = "{% url 'cart:update' %}"><input  type='number' name ='number' value = "{{ cart.quantity }}"> 
+                    <button type= 'submit' name='id' value ="{{ cart.id }}" class='btn btn-outline-success'>update
+                </form>
+                </td>
+                <td>
+                    <form action = "{% url 'cart:delete' %}"> 
+                        <button type= 'submit' name='id' value ="{{ cart.id }}" class='btn btn-outline-success'>delete
+                    </form>
+                </td>
+                <td>{{ cart.total_price }}</td>
+              </tr>
+            {% endfor %}
+         
+         
+        </tbody>
+      </table>
+      
+      전체금액 : {{ total }}
+      <button class = 'btn btn-primary'>결제하기</button>
+
+    
+</div>
+
+{% endblock content %}

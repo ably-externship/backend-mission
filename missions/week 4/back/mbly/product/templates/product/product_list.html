@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- content 블록 정의 -->
+
+
+
+<div id = 'content'>
+    <div class="container">
+        <h2>Products - 둘러보기</h2>
+        <div class="row">
+            {% for product in object_list %}
+            <div class="col-sm-6">
+                <div class="card mb-3">
+                    <div class="embed-responsive embed-responsive-4by3">
+                        <a href = "{% url 'product:detail' product.id %}" >
+                        <img class="card-img-top embed-responsive-item" src="{{ product.image.url }}" width="100" height="450" alt="{{ product }}" />
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title h4">{{ product.name }}</h3>
+                        
+                        {% if product.is_sale %}
+                        <span>{{ product.sale_price }}</span>
+                        <del>{{ product.price }}</del>
+                        {% else %}
+                        <span>{{product.price}}</span>
+                        {% endif %}
+                        <a class="invisible btn btn-outline-dark" href="{% url 'product:detail' product.id %}">상세이동</a>
+                    </div>
+                <div class="card-footer">
+                    <div class="small text-muted"></div>
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+            
+        </div>
+    </div>
+    <!-- 페이징처리 시작 -->
+    <ul class="pagination justify-content-center">
+        <!-- 이전페이지 -->
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">이전</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+        </li>
+      {% endif %}
+      <!-- 페이지리스트 -->
+      {% for page_number in page_obj.paginator.page_range %}
+        {% if page_number >= page_obj.number|add:-3 and page_number <= page_obj.number|add:3  %}
+        {% if page_number == page_obj.number %}
+          <li class ='page-item active' aria-current = 'page'>
+            <a class ='page-link' href="?page={{ page_number }}">{{ page_number }}</a>
+          </li>
+          {% else %}
+          <li class = 'page-item'>
+            <a class ='page-link' href='?page={{ page_number }}'>{{ page_number }}</a>
+            {% endif %}
+            {% endif %}
+          {% endfor %}
+          </li>
+      <!-- 다음페이지 -->
+      {% if page_obj.has_next %}
+      <li class = 'page-item'>
+        <a class = 'page-link' href = "?page={{ page_obj.next_page_number }}">다음</a>
+      </li>
+      {% else %}
+      <li class = 'page-item disabled'>
+        <a class = 'page-link' tabindex='-1' aria-disabled="true" href = '#'>다음</a>
+      </li>
+      {% endif %}
+    </ul>
+    <!-- 페이징처리 끝 -->
+
+</div> 
+{% endblock content %}
