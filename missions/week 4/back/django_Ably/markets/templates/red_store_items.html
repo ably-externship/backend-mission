@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+<html>
+    <head>
+        <title>Red Store</title>
+        <meta charset="utf-8" />
+        <link href="{%static 'css/styles.css'%}" rel="stylesheet" />
+    </head>
+
+    <body>
+        {%for d in data%}
+            <p> {{d.id_item}} {{d.name}} {{d.size}} {{d.color}} {{d.price}} {{d.stock}} </p>
+            
+            <form action="/items/update/{{ d.id_item }}/", method="post">
+                {% csrf_token %}
+                <input type="text" id="name" value = {{d.name}} name="name">
+                <input type="text" id="size" value = {{d.size}} name="size">
+                <input type="text" id="color" value = {{d.color}} name="color">
+                <input type="number" id="price" value = {{d.price}} name="price">
+                <input type="number" id="stock" value = {{d.stock}} name="stock" min="1" max="100">
+                <input type="submit">
+            </form>
+
+            <form action="/items/delete/{{ d.id_item }}/">
+                {% csrf_token %}
+                <input type="submit" value="삭제">
+            </form>
+        {% endfor %}
+        <form action="/items/add/" method="post">
+            {% csrf_token %}
+            <input type="text" id="id_item" value = '입력' name="id_item">
+            <input type="text" id="name" value = '입력' name="name">
+            <input type="text" id="size" value = '입력' name="size">
+            <input type="text" id="color" value = '입력' name="color">
+            <input type="number" id="price" value = 0 name="price">
+            <input type="number" id="stock" value = 0 name="stock" min="1" max="100">
+            <input type="submit">            
+        </form>
+    </body>
+    
+  
+{% endblock %}
+
+

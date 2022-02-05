@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+<html>
+    <head>
+        <title>Red Store</title>
+        <meta charset="utf-8" />
+        <link href="{%static 'css/styles.css'%}" rel="stylesheet" />
+      </head>
+    
+    <body>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Document</title>
+        <style>
+          .searchBox {
+            margin: 20px 0;
+            padding-left: 60px;
+          }
+    
+          .listBox {
+            max-width: 500px;
+            padding-left: 60px;
+          }
+    
+          .listInner {
+            background-color: #dedede;
+            margin: 10px 5px;
+            padding: 4px;
+          }
+
+          }
+    
+        </style>
+      </head>
+    
+      <body>
+        <div class="searchBox">
+          <label>items: <input type="text" id="search" onkeyup="filter()" placeholder="상품을 검색하세요." /></label>
+        </div>
+    
+        <div class="listBox">
+            <div class="listInner">
+              <span class="first_name">Red Shirt</span>
+            </div>
+            <div class="listInner">
+              <span class="first_name">Red Skirt</span>
+            </div>
+            <div class="listInner">
+              <span class="first_name">Red Dress</span>
+            </div>
+          </div>
+      
+          <script>
+            function filter() {
+              let search = document.getElementById("search").value.toLowerCase();
+              let listInner = document.getElementsByClassName("listInner");
+      
+              for (let i = 0; i < listInner.length; i++) {
+                first_name = listInner[i].getElementsByClassName("first_name");
+                if (
+                  first_name[0].innerHTML.toLowerCase().indexOf(search) != -1
+                ) {
+                  listInner[i].style.display = "flex"
+                } else {
+                  listInner[i].style.display = "none"
+                }
+              }
+            }
+          </script>
+      </body><br><br><br><br><br>
+
+
+      <h1>Red Store</h1>
+        {% for item in redstore_name %}
+          <div style = "text-align : center;">
+          <a href={{item}}>
+            <p>{{item}}</p>
+          </a></div>
+
+
+      {% endfor %}
+
+    </body>
+  </html>
+  
+{% endblock %}
+
+

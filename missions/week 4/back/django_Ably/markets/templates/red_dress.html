@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+<html>
+    <head>
+        <title>Red Store</title>
+        <meta charset="utf-8" />
+        <link href="{%static 'css/styles.css'%}" rel="stylesheet" />
+      </head>
+    
+    <body>
+    <div class="top_logo">
+      <a class="logo" href="/">
+        <img src="{%static 'imgs/logo.png'%}" height="50px">
+      </a>
+      <ul>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Shop</a></li>
+        <li><a href="#">Cart</a></li>
+        {% if user.is_authenticated %} <li><a href="accounts/home/logout/">Logout</li>
+        {% else %} <li><a href="accounts/home/login/">Login</a></li> {% endif %}
+        <li><a href="accounts/home/signup/">Join</a></li>
+      </ul>
+    </div>
+
+    <div style = "text-align : center;">
+        <img src="{%static 'imgs/red_dress.jpg'%}" height="400px">
+    </div>
+
+    <h1>Red Dress</h1>
+
+    <div style = "text-align : center;">
+    <form>
+        <select name="size">
+          <option value="none">=== 사이즈 선택 ===</option>
+          <option value="size">44</option>
+          <option value="size">55</option>
+          <option value="size">66</option>
+          <option value="size">77</option>
+        </select>
+    </form>
+    </div> <br><br><br><br><br><br>
+    <div style = "text-align : center;">
+      <a href="#">
+        <img src="{%static 'imgs/size.png'%}">
+      </a>
+    </div>
+    </body>
+</html>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+<html>
+    <head>
+        <title>Red Store</title>
+        <meta charset="utf-8" />
+        <link href="{%static 'css/styles.css'%}" rel="stylesheet" />
+      </head>
+    
+    <body>
+
+    <div style = "text-align : center;">
+        <img src="{%static 'imgs/red_top.jpg'%}" height="400px">
+    </div>
+
+    <h1>Red Shirt</h1>
+
+    <div style = "text-align : center;">
+    <form action="/cart/add", method = "post">
+      {% csrf_token %}
+        <input type="hidden" name="item" value="RedShirt">
+        <select name="color" >
+          <option value="none">=== 컬러 선택 ===</option>
+          {% for color in colors %}
+            <option value={{color}}>{{color}}</option>
+          {% endfor %}
+        </select>
+
+        <select name="size">
+          <option value="none">=== 사이즈 선택 ===</option>
+          {% for size in sizes %}
+            <option value={{size}}>{{size}}</option>
+          {% endfor %}
+        </select>
+        <input name = "quantity", type="number" min="0" max="10", value = 1> 
+        {% comment %} <div name = "item", value = "Red Shirt">
+        </div> {% endcomment %}
+        <input type="submit" value="장바구니 담기" />
+
+    </form>
+    {% comment %} <form action="/cart/">
+    </form> {% endcomment %}
+    </div> <br><br><br><br><br><br>
+    <div style = "text-align : center;">
+      <a href="#">
+        <img src="{%static 'imgs/size.png'%}">
+      </a>
+    </div>
+    </body>
+
+
+    
+</html>
+
+{% endblock %}
+
