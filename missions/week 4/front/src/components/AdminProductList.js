@@ -77,7 +77,7 @@ function AdminProductList (){
                             <td>{ product.seller_name }</td>
                             <td>{ product.product_name }</td>
                             <td>{ Number(product.price) }</td>
-                            <td>{ Number(product.discount_price) }</td>
+                            <td>{ !product.discount_price ? '' : Number(product.discount_price) }</td>
                             <td>{ !product.is_sold_out ? '' : '품절' }</td>
                             <td>{ !product.is_displayed ? '미진열' : '진열중' }</td>
                             <td><Button onClick={()=>{
