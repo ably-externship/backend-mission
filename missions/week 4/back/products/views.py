@@ -13,7 +13,7 @@ from markets.models import Market
 from .models import Product, ProductOption, Category
 from .forms import SearchForm, QuestionForm
 from .permisstions import IsOwnerOrReadOnly
-from .serializers import ProductSerializer, ProductOptionSerializer
+from .serializers import ProductSerializer, ProductOptionSerializer, ProductDetailSerializer
 
 
 class ProductListView(ListView):
@@ -95,7 +95,7 @@ class ProductDetailAPIView(APIView):
         except Product.DoesNotExist:
             return Response({'error': '해당 제품은 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
 
-        serializer = ProductSerializer(product)
+        serializer = ProductDetailSerializer(product)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request, **kwargs):
@@ -223,3 +223,14 @@ class ProductViewSet(ModelViewSet):
         category, _ = Category.objects.get_or_create(name=category_name)
 
         serializer.save(market=market, category=category)
+
+
+class MyProductListView(generics.ListAPIView):
+    """내 마켓의 상품 보기"""
+    serializer_class = ProductDetailSerializer
+
+    def get_queryset(self):
+        qs = Product.objects.filter(
+            market__owner=self.request.user
+        ).select_related('category', 'market').prefetch_related('options')
+        return qs

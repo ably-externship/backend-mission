@@ -17,11 +17,20 @@ class ProductOptionSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    # market = MarketSerializer()       # 여러 정보가 있을 경우 nested 로 처리
-    # category = CategorySerializer()
     market = serializers.CharField(source='market.name')
     category = serializers.CharField(source='category.name', required=False)
 
     class Meta:
         model = Product
         fields = ['id', 'market', 'category', 'name', 'price', 'is_sold_out', 'is_hidden', 'is_delete']
+
+
+class ProductDetailSerializer(serializers.ModelSerializer):
+    """상품 + 옵션까지"""
+    options = ProductOptionSerializer(many=True)
+    market = serializers.CharField(source='market.name')
+    category = serializers.CharField(source='category.name', required=False)
+
+    class Meta:
+        model = Product
+        fields = ['id', 'market', 'category', 'name', 'price', 'is_sold_out', 'is_hidden', 'is_delete', 'options']

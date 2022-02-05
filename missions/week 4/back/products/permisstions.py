@@ -11,6 +11,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
     """
 
     # /products
+    # /products/1/options/
     def has_permission(self, request, view) -> bool:
         if request.method in permissions.SAFE_METHODS:
             return True
@@ -18,7 +19,8 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         product_owner = Product.objects.get(id=product_id).market.owner
         return (request.user == product_owner) or request.user.is_staff
 
-    # /products/<id>
+    # /products/<product_id>
+    # /products/1/options/<option_id>
     def has_object_permission(self, request, view, obj) -> bool:
         if request.method in permissions.SAFE_METHODS:
             return True

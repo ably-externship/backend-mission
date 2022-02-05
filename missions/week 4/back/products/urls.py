@@ -16,4 +16,5 @@ urlpatterns = [
     # path("<int:pk>/", views.ProductDetailView.as_view(), name="detail"),
     path("<int:pk>/question/", views.question, name="question"),
     path('search/', views.search, name='search'),
+    path('me/', views.MyProductListView.as_view(), name='my-products'),
 ]
