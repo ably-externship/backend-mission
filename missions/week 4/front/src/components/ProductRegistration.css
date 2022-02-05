@@ -1,0 +1,19 @@
+.registrationForm {
+    width : 600px;
+    display : inline-block;
+}
+
+.registrationForm Select {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.productOption input {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.productOption button {
+    margin-top: 18px;
+}
+
