@@ -243,3 +243,4 @@ SIMPLE_JWT = {
 # pip install drf-nested-routers
 # pip install djangorestframework-jwt
 # pip install djangorestframework-simplejwt
+# npm i react-router-dom
