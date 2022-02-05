@@ -1,32 +1,15 @@
 from datetime import datetime
 
 from django.db import transaction
-from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
 from products.models import ProductList, Product, ProductHistory, ProductOption, ProductImage
 
-class ProductOptionGetSerializer(ModelSerializer):
-    color_name = serializers.CharField(source='color.color')
-    size_name = serializers.CharField(source='size.size')
-    
-    class Meta:
-        model = ProductOption
-        fields = ['color_id', 'color_name', 'size_id', 'size_name', 'extra_price', 'stock', 'is_sold_out']
-
-class ProductGetSerializer(ModelSerializer):
-    productoption_set = ProductOptionGetSerializer(many=True)
-
-    class Meta:
-        model = Product
-        fields = ['productoption_set']
-
-class ProductListGetSerializer(ModelSerializer):
-    product = ProductGetSerializer()
+class ProductListSerializer(ModelSerializer):
 
     class Meta:
         model = ProductList
-        fields = ['product_id', 'main_image_url', 'seller_name', 'product_name', 'price', 'discount_price', 'is_sold_out', 'is_displayed', 'product']
+        fields = '__all__'
 
 class ProductHistorySerializer(ModelSerializer):
 
@@ -38,7 +21,7 @@ class ProductOptionSerializer(ModelSerializer):
 
     class Meta:
         model = ProductOption
-        fields = ['color', 'size', 'extra_price']
+        fields = ['color', 'size', 'stock']
 
 class ProductImageSerializer(ModelSerializer):
 
@@ -61,11 +44,11 @@ class ProductSerializer(ModelSerializer):
             product = Product.objects.create(**validated_data)
             now = datetime.now()
             for history in histories:
-                ProductHistory.objects.create(product = product, created_at = now, updated_at = now, **history)
+                ProductHistory.objects.create(product=product, created_at = now, **history)
             for option in options:
-                ProductOption.objects.create(product = product, **option)
+                ProductOption.objects.create(product=product, **option)
             for image in images:
-                ProductImage.objects.create(product = product, **image)
+                ProductImage.objects.create(product=product, **image)
 
             return product
 

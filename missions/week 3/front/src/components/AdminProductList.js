@@ -17,7 +17,6 @@ function AdminProductList (){
         .then((response)=>{
             if ( response !== null && response.data !== null ) {
                 const productList = response.data;
-                console.log(productList);
                 setProducts(productList);
             }
         })
@@ -60,7 +59,7 @@ function AdminProductList (){
                     return (
                         <tbody key={i}>
                             <TableRow>
-                            <td>{ a.product_id }</td>
+                            <td>{ a.product }</td>
                             <td><ProductImage src={ a.main_image_url }/></td>
                             <td>{ a.seller_name }</td>
                             <td>{ a.product_name }</td>
