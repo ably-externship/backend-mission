@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
 
-from products.serializers import ProductListSerializer, ProductSerializer, ProductHistoryUpdateSerializer
+from products.serializers import ProductGetSerializer, ProductListGetSerializer, ProductSerializer, ProductHistoryUpdateSerializer
 from products.models import ProductList, Product, ProductHistory
 from core.decorators import login_required
 from core.const import MASTER_ACCOUNT_TYPE, SELLER_ACCOUNT_TYPE
@@ -20,9 +20,13 @@ class ProductView(APIView):
 
         if account.account_type_id != MASTER_ACCOUNT_TYPE and account.account_type_id != SELLER_ACCOUNT_TYPE:
             return Response(status.HTTP_403_FORBIDDEN)
-        
-        products = ProductList.objects.filter(is_deleted = False)
-        serializer = ProductListSerializer(products, many = True)
+
+        if account.account_type_id == SELLER_ACCOUNT_TYPE:
+            products = ProductList.objects.filter(is_deleted = False, seller_id = account.seller.id)
+        else:
+            products = ProductList.objects.filter(is_deleted = False)
+            
+        serializer = ProductListGetSerializer(products, many = True)
 
         return Response(serializer.data, status.HTTP_200_OK)
 

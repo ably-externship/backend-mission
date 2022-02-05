@@ -1,15 +1,32 @@
 from datetime import datetime
 
 from django.db import transaction
+from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
 from products.models import ProductList, Product, ProductHistory, ProductOption, ProductImage
 
-class ProductListSerializer(ModelSerializer):
+class ProductOptionGetSerializer(ModelSerializer):
+    color_name = serializers.CharField(source='color.color')
+    size_name = serializers.CharField(source='size.size')
+    
+    class Meta:
+        model = ProductOption
+        fields = ['color_id', 'color_name', 'size_id', 'size_name', 'extra_price', 'stock', 'is_sold_out']
+
+class ProductGetSerializer(ModelSerializer):
+    productoption_set = ProductOptionGetSerializer(many=True)
+
+    class Meta:
+        model = Product
+        fields = ['productoption_set']
+
+class ProductListGetSerializer(ModelSerializer):
+    product = ProductGetSerializer()
 
     class Meta:
         model = ProductList
-        fields = '__all__'
+        fields = ['product_id', 'main_image_url', 'seller_name', 'product_name', 'price', 'discount_price', 'is_sold_out', 'is_displayed', 'product']
 
 class ProductHistorySerializer(ModelSerializer):
 

@@ -86,6 +86,7 @@ class ProductList(models.Model):
     category = models.ForeignKey(ProductCategory, on_delete=DO_NOTHING)
     subcategory = models.ForeignKey(ProductSubcategory, on_delete=DO_NOTHING)
     product = models.ForeignKey(Product, on_delete=DO_NOTHING)
+    seller = models.ForeignKey(Seller, on_delete=DO_NOTHING)
     product_name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     discount_price = models.DecimalField(max_digits=10, decimal_places=2)
