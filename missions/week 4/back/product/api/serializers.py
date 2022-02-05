@@ -15,11 +15,9 @@ class ProductOptionSerializer(ModelSerializer):
         ]
 
 
-
 class ProductSerializer(ModelSerializer):
     productoption = ProductOptionSerializer(many=True, read_only=True)
 
-
     class Meta:
         model = Product
-        fields = ['id', 'author_id', 'seller', 'price', 'image', 'description', 'productoption', ]
+        fields = ['id', 'name', 'author_id', 'seller', 'price', 'image', 'description', 'productoption', ]

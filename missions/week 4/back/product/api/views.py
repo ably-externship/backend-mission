@@ -17,12 +17,17 @@ class ProductListAPIView(APIView):
     pagination_class = PageNumberPagination
 
     def get(self, request):
-
+        # superuser
+        if request.user.is_superuser:
+            qs = Product.objects.all()
+            serializer = ProductSerializer(qs, many=True, context={'request': request})
+            return Response(serializer.data)
         # staff
-        if request.user.is_staff:
+        elif request.user.is_staff:
             qs = Product.objects.filter(author=request.user)
             serializer = ProductSerializer(qs, many=True, context={'request': request})
             return Response(serializer.data)
+        # all
         else:
             qs = Product.objects.all()
             serializer = ProductSerializer(qs, many=True, context={'request': request})
@@ -37,7 +42,7 @@ class ProductListAPIView(APIView):
                 serializer.save(author=author)
                 return Response(serializer.data, status=201)
             return Response(serializer.errors, status=400)
-        else :
+        else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -54,9 +59,12 @@ class ProductDetailAPIView(APIView):
             return None
 
     def get(self, request, pk):
-        Product = self.get_object(pk)
-        serializer = ProductSerializer(Product, context={'request': request})
-        return Response(serializer.data)
+        try:
+            qs = Product.objects.get(pk=pk)
+            serializer = ProductSerializer(qs, context={'request': request})
+            return Response(serializer.data)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
     def patch(self, request, pk):
         Product = self.get_object(pk)

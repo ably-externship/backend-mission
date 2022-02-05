@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import useLocalStorage from "./accounts/useLocalStorage";
 
 
-function Product() {/vp
+function Product() {
   const history = useHistory();
   const [text, setText] = useState([]);
   const [jwtToken, setJwtToken] = useLocalStorage("jwtToken", "");
@@ -47,7 +47,9 @@ function Product() {/vp
             <p> 이름 : {e.name} </p>
             <p> 입점사 : {e.seller} </p>
             <p> 가격 : {e.price} </p>
+            <p> <img src={e.image} style={{ width: "100px" }}  /></p>
             <p>설명 : {e.description} </p>
+
 
             <button
               className="btn-delete"
