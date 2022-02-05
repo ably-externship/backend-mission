@@ -1,0 +1,19 @@
+{%extends 'mutbly/base.html'%}
+
+  {% block content %}
+    {% load static%}
+    {% csrf_token %}
+
+      {% if searched %}
+      <h1>"{{searched}}"에 대한 검색결과</h1>
+
+      {% include "mutbly/item_list.html" %}
+
+      {% else %}
+      <h1>검색내용 없음</h1>
+
+      {% endif %}
+
+    {% endblock content %}
+    
+  
