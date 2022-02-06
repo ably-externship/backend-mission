@@ -19,7 +19,7 @@ class ProductView(APIView):
         account = request.account
 
         if account.account_type_id != MASTER_ACCOUNT_TYPE and account.account_type_id != SELLER_ACCOUNT_TYPE:
-            return Response(status.HTTP_403_FORBIDDEN)
+            return Response({'Message' : 'Forbidden'}, status.HTTP_403_FORBIDDEN)
 
         if account.account_type_id == SELLER_ACCOUNT_TYPE:
             products = ProductList.objects.filter(is_deleted = False, seller_id = account.seller.id)
@@ -35,7 +35,7 @@ class ProductView(APIView):
         account = request.account
 
         if account.account_type_id != MASTER_ACCOUNT_TYPE and account.account_type_id != SELLER_ACCOUNT_TYPE:
-            return Response(status.HTTP_403_FORBIDDEN)
+            return Response({'Message' : 'Forbidden'}, status.HTTP_403_FORBIDDEN)
 
         data = request.data.dict()
         detail_images = request.FILES.getlist('detail_images')
@@ -54,7 +54,7 @@ class ProductView(APIView):
         serializer = ProductSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(status.HTTP_201_CREATED)
+            return Response({'Message' : 'Success'}, status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
 
@@ -63,13 +63,13 @@ class ProductView(APIView):
         account = request.account
 
         if account.account_type_id != MASTER_ACCOUNT_TYPE and account.account_type_id != SELLER_ACCOUNT_TYPE:
-            return Response(status.HTTP_403_FORBIDDEN)
+            return Response({'Message' : 'Forbidden'}, status.HTTP_403_FORBIDDEN)
         
         product = get_object_or_404(Product, id = product_id, is_deleted = False)
 
         if account.account_type_id == SELLER_ACCOUNT_TYPE:
             if product.seller_id != account.seller.id:
-                return Response(status.HTTP_403_FORBIDDEN)
+                return Response({'Message' : 'Forbidden'}, status.HTTP_403_FORBIDDEN)
 
         data = request.data
         
@@ -93,13 +93,13 @@ class ProductView(APIView):
         account = request.account
 
         if account.account_type_id != MASTER_ACCOUNT_TYPE and account.account_type_id != SELLER_ACCOUNT_TYPE:
-            return Response(status.HTTP_403_FORBIDDEN)
+            return Response({'Message' : 'Forbidden'}, status.HTTP_403_FORBIDDEN)
         
         product = get_object_or_404(Product, id = product_id, is_deleted = False)
 
         if account.account_type_id == SELLER_ACCOUNT_TYPE:
             if product.seller_id != account.seller.id:
-                return Response(status.HTTP_403_FORBIDDEN)
+                return Response({'Message' : 'Forbidden'}, status.HTTP_403_FORBIDDEN)
 
         with transaction.atomic():
             product.is_deleted = True
