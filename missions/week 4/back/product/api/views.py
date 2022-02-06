@@ -15,20 +15,31 @@ from product.models import Product
 @csrf_exempt
 @permission_classes((IsAuthenticated,))
 def products(request):
-    # 마켓 사용자인지 Check
+    # 사용자가  Market 인지 체크
     market_yn = request.auth.payload['market_yn']
-    market_id = request.auth.payload['market_id']
 
     if request.method == 'GET':
-        product_list = Product.objects.all()
+        if market_yn:
+            market_id = request.auth.payload['market_id']
+            product_list = Product.objects\
+                .prefetch_related('market_pk')\
+                .prefetch_related('category_fk')\
+                .prefetch_related('product_option').filter(market_pk=market_id)
+        else:
+            product_list = Product.objects\
+                .prefetch_related('market_pk')\
+                .prefetch_related('category_fk')\
+                .prefetch_related('product_option').all()
         serializer = ProductListSerializer(product_list, many=True)
         response = BaseResponse(data=serializer.data, message=None, code="SUCCESS")
         return Response(data=response.to_dict(), status=status.HTTP_200_OK)
+
     if request.method == 'POST':
         product_serializer = ProductPostSerializer(data=request.data)
 
         if product_serializer.is_valid():
             if market_yn:
+                market_id = request.auth.payload['market_id']
                 validate_data = product_serializer.validated_data
                 if validate_data['market_pk'].id != market_id:
                     raise exceptions.APIException(detail={'code': ErrorMessage.MARKET_ID_NOT_CORRECT.code,
@@ -51,12 +62,12 @@ def products(request):
 @api_view(['PUT', 'DELETE', 'GET'])
 @permission_classes((IsAuthenticated,))
 def product(request, product_id):
+    # 사용자가  Market 인지 체크
     market_yn = request.auth.payload['market_yn']
-    market_id = request.auth.payload['market_id']
 
     if request.method == 'GET':
         product_model = product_select(product_id)
-        serializer = ProductPutSerializer(product_model)
+        serializer = ProductListSerializer(product_model)
         response = BaseResponse(data=serializer.data, message=None, code="SUCCESS")
         return Response(data=response.to_dict(), status=status.HTTP_200_OK)
     if request.method == 'PUT':
@@ -64,6 +75,7 @@ def product(request, product_id):
         serializer = ProductPutSerializer(product_model, data=request.data)
         if serializer.is_valid():
             if market_yn:
+                market_id = request.auth.payload['market_id']
                 validate_data = serializer.validated_data
                 if validate_data['market_pk'].id != market_id:
                     raise exceptions.APIException(detail={'code': ErrorMessage.MARKET_ID_NOT_CORRECT.code,
@@ -84,6 +96,11 @@ def product(request, product_id):
                                                          "message": ErrorMessage.PRODUCT_VALIDATION_ERROR.message})
     if request.method == 'DELETE':
         product_model = product_select(product_id)
+        if market_yn:
+            market_id = request.auth.payload['market_id']
+            if product_model.market_pk.id != market_id:
+                raise exceptions.APIException(detail={'code': ErrorMessage.MARKET_ID_NOT_CORRECT.code,
+                                                      "message": ErrorMessage.MARKET_ID_NOT_CORRECT.message})
         product_model.product_status = 'DEACTIVE'
         product_model.save()
         serializer = ProductPutSerializer(product_model)

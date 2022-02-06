@@ -5,11 +5,12 @@ from product.models import Product
 
 
 class ProductOption(models.Model):
-    product_pk = models.ForeignKey(Product, on_delete=models.CASCADE, db_column="product_fk")
+    product_pk = models.ForeignKey(Product, on_delete=models.CASCADE, db_column="product_fk", related_name='product_option')
     size = models.CharField(default='', max_length=20)
     color = models.CharField(max_length=20)
     sold_out_yn = models.BooleanField(default=False)
-    inventory_Count = models.IntegerField(default=None)
+    inventory_Count = models.IntegerField(default=None, null=True)
     create_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
+    add_price = models.IntegerField(null=True)
 
