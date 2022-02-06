@@ -1,0 +1,40 @@
+"properties": {
+    "id": {
+      "type": "long"
+    },
+    "name": {
+      "type": "text",
+      "copy_to": [ "name_nori"]
+    },
+    "name_nori": {
+      "type": "text",
+      "analyzer": "nori_analyzer"
+    },
+    "description": {
+      "type": "text",
+      "copy_to": [ "description_nori"]
+    },
+    "description_nori": {
+      "type": "text",
+      "analyzer": "nori_analyzer"
+    },
+    "market_name": {
+      "type": "keyword",
+      "copy_to": [ "market_name_nori"]
+    },
+    "market_name_nori": {
+      "type": "text",
+      "analyzer": "nori_analyzer"
+    },
+    "cate_item_name": {
+      "type": "keyword",
+      "copy_to": [ "cate_item_name_nori"]
+    },
+    "cate_item_name_nori": {
+      "type": "text",
+      "analyzer": "nori_analyzer"
+    },
+    "price": {
+      "type": "long"
+    }
+  }

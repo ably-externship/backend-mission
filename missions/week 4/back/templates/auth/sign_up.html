@@ -49,7 +49,7 @@
                 dupCheckLabel('이메일 형식에 맞지 않습니다.')
             } else {
                 $.ajax({
-                    'url': '/auth/dup-check',
+                    'url': '/auth/dup-check/',
                     'data': {'username': email},
                     'method': 'GET',
                     'success': function (data) {
