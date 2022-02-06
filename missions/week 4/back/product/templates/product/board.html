@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div.content {
+            display: none;
+            margin-top: 10px;
+            padding: 20px;
+            background-color: #faebf5;
+        }
+        form {
+            display: inline-block;
+            width: 85%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        span.date {
+            display: inline-block;
+            float: right;
+        }
+    </style>
+    <script>
+        function divOnOff(element) {
+            var panel = element.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        };
+
+        function secretCheck(element) {
+            var userid = "{{ request.session.user }}";
+            var writerid = element.name;
+
+            if (writerid == userid ) {
+                divOnOff(element)
+            } else {
+                alert("작성자만 볼 수 있습니다.");
+            }
+        };
+    </script>
+</head>
+<body>
+<div class="container">
+<form method="POST" action="{% url 'product:write' product.id %}">
+    {% csrf_token %}
+    <input class="form-control m-2" type="text" name='title' placeholder="제목" style="width:80%; margin:auto;" required>
+    <textarea class="form-control m-2" rows='3' name='content' placeholder="내용" style="width:80%; margin:auto;" required></textarea>
+    <input type="checkbox" name="secret" value=True>비밀글
+    <input type="submit" value="등록">
+</form>
+{{ message }}
+<br>
+<br>
+<div class="container">
+<ul class="list-group list-group-flush">
+    {% for item in board_list %}
+        {% if item.secret %}
+            <li class="list-group-item">
+                <a href="javascript:void(0);" class="test" name="{{ item.user_id }}" onclick="secretCheck(this);">
+                <span>비밀글입니다.</span>
+                <span class="date" style="display:inline-block; float:right;">{{ item.user_id.user_name|slice:":2" }}*님&nbsp;&nbsp;|&nbsp;&nbsp;{{ item.date | date:"y-m-d H:i" }}</span>
+                </a>
+                <div class="content"><p>{{ item.content }}</p>
+                    {% if item.comment %}
+                        <hr>
+                        <p>▶ {{ item.comment }}</p>
+                    {% endif %}
+                </div>
+            </li>
+        {% else %}
+            <li class="list-group-item">
+                <a href="javascript:void(0);" class="test" name="{{ item.user_id }}" onclick="divOnOff(this);">
+                <span>{{ item.title }}</span>
+                <span class="date" style="display:inline-block; float:right;">{{ item.user_id.user_name|slice:":2" }}*님&nbsp;&nbsp;|&nbsp;&nbsp;{{ item.date | date:"y-m-d H:i" }}</span>
+                </a>
+                <div class="content"><p>{{ item.content }}</p>
+                    {% if item.comment %}
+                        <hr>
+                        <p>▶ {{ item.comment }}</p>
+                    {% endif %}
+                </div>
+            </li>
+
+    {% endif %}
+    {% endfor %}
+
+</ul>
+</div>
+</div>
+</body>
+</html>
