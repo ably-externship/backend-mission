@@ -1,0 +1,40 @@
+{% extends 'common/base.html' %}
+{% block title %}로그인 - 멋블리{% endblock %}
+{% load django_bootstrap5 %}
+{% load static %}
+{% block content %}
+    <h4>로그인</h4>
+    {% if form.errors %}
+        <p>사용자 이름과 비밀번호가 일치하지 않습니다. 다시 시도해 주세요.</p>
+    {% endif %}
+
+    {% if next %}
+        {% if user.is_authenticated %}
+            <p>귀하의 계정은 이 페이지에 액세스할 수 없습니다. 계속하려면,
+                액세스 권한이 있는 계정으로 로그인하십시오.</p>
+        {% else %}
+            <p>이 페이지를 보려면 로그인하십시오.</p>
+        {% endif %}
+    {% endif %}
+
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% bootstrap_button button_type="submit" content="로그인" extra_classes="w-100" %}
+        <input type="hidden" name="next" value="{{ next }}">
+    </form>
+
+    {# Assumes you setup the password_reset view in your URLconf #}
+    <div class="d-flex justify-content-evenly my-3">
+        <a href="{% url 'recovery' %}">아이디 찾기</a> | <a href="{% url 'password_reset' %}">비밀번호 찾기</a>
+    </div>
+    <div class="text-center my-3">
+        <a class="text-decoration-none" href="{% url 'kakao_login' %}">
+            <div class="rounded" style="background-color: #FEE500;">
+                <img src="{% static 'kakao_login/kakao_symbol.png' %}" height="40">
+                <span style="color: rgba(0, 0, 0, 0.85)">카카오 로그인</span>
+            </div>
+        </a>
+    </div>
+    <p><a class="btn btn-light w-100" href="{% url 'register' %}">이메일 회원 가입</a></p>
+{% endblock %}

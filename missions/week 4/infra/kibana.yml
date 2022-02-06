@@ -1,0 +1,8 @@
+server.name: kibana
+server.host: 0.0.0.0
+elasticsearch.hosts: [ "http://elasticsearch:9200" ]
+monitoring.ui.container.elasticsearch.enabled: true
+
+## 엘라스틱 아이디와 비번을 키바나에게 알려주기
+elasticsearch.username: elastic
+elasticsearch.password: elasticpassword
