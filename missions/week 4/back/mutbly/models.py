@@ -1,12 +1,23 @@
 
+from email.policy import default
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
 
-class Item(models.Model):
+
+class Brand(models.Model):
   name = models.CharField(max_length=256)
-  photo = models.ImageField(upload_to="image")
+  admin_user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+
+  def __str__(self):
+    return self.name
+
+
+class Item(models.Model):
+  brand = models.ForeignKey(Brand, null=True, on_delete=models.CASCADE)
+  name = models.CharField(max_length=256)
+  photo = models.ImageField(upload_to="image", default = "/media/image/alexi-romano-CCx6Fz_CmOI-unsplash.jpg")
   price = models.IntegerField(default=0)
   description = models.TextField()
   created_at = models.DateTimeField(default=timezone.now)
