@@ -40,4 +40,4 @@
     에러 메시지 : cannot be changed from type [text] to [keyword] 변경할 수 없다는 메세지인거 같은데 어느 부분을 확인해보면 좋을까요?
 
 ## 수행인증영상URL(유튜브)
-- https://www.youtube.com/watch?v=g0p_GsjAHRA
+- https://www.youtube.com/watch?v=VmCR0XZ0kCA
