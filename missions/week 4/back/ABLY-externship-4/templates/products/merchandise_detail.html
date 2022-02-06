@@ -1,0 +1,70 @@
+{% extends "core/layout.html" %}
+
+{% block content %}
+{% load mathfilters %}
+<div class="d-flex itemalign">
+    <div> <img src="{{ merchandise.main_img }}" width=1000px/></div>
+    <div>
+        <div class="textalign"> <span>상품이름:</span> <span>{{ merchandise.name }}</span> </div>
+        <div class="textalign"> <span>상품사이즈:</span> <span>{{ option.size }}</span> </div>
+        <div class="textalign"> <span>상품재고:</span> <span>{{ option.current_stock }}</span> </div>
+        {% if merchandise.standard_price|sub:merchandise.discounted_price == merchandise.standard_price %}
+        <div class="textalign"> <span>상품정가:</span> <span>{{ merchandise.standard_price }}원</span> </div>
+        <div class="textalign"> <span>상품할인 없음</span></div>
+        {% else %}
+        <div class="textalign"> <span>정가:</span> <span class="text-decoration-line-through">{{ merchandise.standard_price }}</span> </div>
+        <div class="textalign"> <span>할인가:</span> <span>{{merchandise.standard_price|sub:merchandise.discounted_price}}</span> </div>
+        {% endif %}
+        <div class="bottommargin">
+        </div>
+        <div class="d-flex container-fluid card text-center">
+            <div class="card-header itemalign">
+                <ul class="nav nav-tabs card-header-tabs itemalign">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="true" href="#" style="color: black;">상품 상세정보</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" aria-current="false" href="#" aria-disabled="true" style="color: black;">상품 리뷰</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" aria-current="false" href="#" style="color: black;">배송안내</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class=""> <span>{{ merchandise.description }}</span> </div>
+                <div class="middlemargin">
+                </div>
+                {% if user %}
+                <a href="http://127.0.0.1:8000/questions/new/?merchandise={{ merchandise.id }}&user={{ user }}" class="btn btn-secondary btn-lg">상품 문의하기</a>
+                {% else %}
+                <a href="http://127.0.0.1:8000/accounts/login" class="btn btn-secondary btn-lg">상품 문의하기</a>
+                {% endif %}
+            </div>
+            <div class="bottommargin">
+            </div>
+            <div class="container-fluid">
+                <form action="http://127.0.0.1:8000/carts/add/product/{{ option.id }}" method="POST">
+                    {% csrf_token %}
+                    {{ add_to_cart }}
+                    <div class="middlemargin">
+                    </div>
+                    <button type="submit" class="btn-link btn-secondary btn-cart">장바구니 담기</button>
+                </form>
+            </div>
+            <div class="middlemargin">
+            </div>
+            <div class="container-fluid">
+                <form action="http://127.0.0.1:8000/products/detail/{{ merchandise.id }}" method="GET">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-link btn-secondary btn-buy">바로 구매하기</button>
+                </form>
+            </div>   
+            <div class="middlemargin">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bottommargin">
+</div>
+{% endblock %}
