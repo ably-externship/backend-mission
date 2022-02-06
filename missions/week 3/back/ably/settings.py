@@ -207,7 +207,7 @@ SIMPLE_JWT = {
     'JWT_EXPIRATION_DELTA': timedelta(hours=2),  # datetime.timedelta 의 만료 시간. 기본값 seconds=300.
     'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=3),  # Refresh Token의 새로 고침 시간. 기본값 days=7
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'accounts.custom_responses.my_jwt_response_handler'
-    # 로그인 또는 새로 고침 후 반환되는 응답 데이터를 제어. 기본값은 {'token' : token } 인데 이건 나중에 우리가 따로 적어줄것임.
+    # 로그인 또는 새로 고침 후 반환되는 응답 데이터를 제어.
 }
 
 ## mysql db model
@@ -239,8 +239,10 @@ SIMPLE_JWT = {
 # pip install django-cors-headers
 # npm install axios
 
-## 4주차 pip
+## 4주차 pip, npm list
 # pip install drf-nested-routers
 # pip install djangorestframework-jwt
 # pip install djangorestframework-simplejwt
 # npm i react-router-dom
+# npm install --save styled-components
+# npm install --save antd

@@ -8,6 +8,7 @@ class MasterSerializer(BasePermission):
         return hasattr(request.user, 'brand')
 
 
+# test
 class IsOwnerOrReadOnly(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):

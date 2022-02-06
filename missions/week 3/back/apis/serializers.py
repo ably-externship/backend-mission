@@ -6,7 +6,6 @@ from contents.models import Product, Comment, Image, Category, Brand
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
-
 # Comment Serializer
 class CommentSerializer(serializers.ModelSerializer):
 

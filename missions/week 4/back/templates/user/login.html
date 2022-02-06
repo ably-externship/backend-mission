@@ -1,0 +1,61 @@
+{% extends 'base/base.html' %}
+
+{% load socialaccount %}
+
+{% block body %}
+<div id="login">
+    <div class="container">
+        <br>
+        <h3 class="d-flex justify-content-center text-secondary">Login</h3><br>
+        <div class="form-group col-md">
+            <label for="username" class="text-secondary">Username:</label><br>
+            <input type="text" name="username" id="username" class="form-control">
+        </div>
+        <div class="form-group col-md">
+            <label for="password" class="text-secondary">Password:</label><br>
+            <input type="password" name="password" id="password" class="form-control">
+        </div>
+        <br>
+        <div class="form-group col-md">
+            <div class="row">
+                <input type="submit" id="loginButton" class="form-control btn btn-secondary" value="Login">
+            </div>
+        </div>
+        <br>
+        <div class="form-group col-md">
+            <div class="row">
+                <a href="{% url 'register' %}" class="form-control btn btn-outline-secondary">Register here!</a>
+            </div>
+        </div>
+        <br>
+        <div class="row text-center">
+            <a href="{% provider_login_url 'kakao' method='oauth2' %}">
+                <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMDExMTFfMjg1%2FMDAxNjA1MDY5NTU0MTQ2.BnwMyokysAj_hGJdpGChM2Jjxx0uytXMuQV33tmZz2Qg.OlgP3ZZErZ7VGOYkTz884Pqh_cRB19e8TK_kpsr52xEg.PNG.evenple1%2F%25C4%25AB%25C4%25AB%25BF%25C0%25C5%25E5-%25B7%25CE%25B0%25ED-1.png&type=sc960_832"
+                     style="width: 30px; height: 30px;">
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+<!--Jquery-->
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+
+<!--로그인 스크립트-->
+<script>
+    $(document).ready(function () {
+    $('#loginButton').click(function() {
+        $.post('/apis/v1/user/login/', {'username': $('#username').val(), 'password': $('#password').val()}, function() {
+            window.location.href = '/';
+        }).fail(function(data) {
+            alert(data.responseJSON.message);
+        });
+});
+});
+
+
+</script>
+{% endblock %}

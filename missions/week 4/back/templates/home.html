@@ -1,0 +1,95 @@
+{% extends 'base/base.html' %}
+
+{% block body %}
+<div class="container">
+
+    <!--    navbar-->
+    {% include 'base/navbar.html' %}
+
+<!--    carousel -->
+    {% include 'base/carousel.html' %}
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+<!--Jquery-->
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+
+<!--search script-->
+<script>
+<!--검색버튼을 누르면 해당페이지로 이동, 짧다면 알림창 구현-->
+    function search(){
+        let searchValue = document.getElementById('search-input').value.trim();
+        if (searchValue.length > 1){
+            location.href='/product/search/' + searchValue + '/';
+        }
+        else{
+            alert('검색어('+ searchValue +')가 너무 짧습니다. 두 글자 이상 검색해주세요.');
+        }
+    };
+<!--    Enter 반응-->
+    document.getElementById('search-input').addEventListener('keyup', function(event){
+        if (event.key === 'Enter'){
+            search();
+        }
+    });
+
+   $(document).ready(function(){
+        $('#logoutButton').click(function(){
+            $.get('/apis/v1/user/logout/', {}, function(){
+                window.location.href = "{% url 'home' %}";
+            });
+        });
+    });
+
+</script>
+{% endblock %}
+
+
+
+<div>
+    {% if user.is_authenticated %}
+    {{ request.user }}
+    <a href="javascript:void(0);" id="logoutButton">logout</a>
+    {% else %}
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'register' %}">Register</a>
+    {% endif %}
+</div>
+<!--Search-->
+<br/>
+<div>
+    <input type="text" id="search-input" placeholder="상품명 또는 브랜드">
+    <div>
+        <button type="button" onclick="search();">search</button>
+    </div>
+</div>
+<br/>
+<hr/>
+<div>
+    <h3><a href="{% url 'product_list' %}">Product</a></h3>
+</div>
+<hr/>
+<div>
+    <br/>
+    <ul>
+        {% for category in categories %}
+        <li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
+        {% endfor %}
+    </ul>
+    <br/>
+</div>
+<hr/>
+<div>
+    <br/>
+    <ul>
+        {% for brand in brands %}
+        <li><a href="{{ brand.get_absolute_url }}">{{ brand.name }}</a></li>
+        {% endfor %}
+    </ul>
+    <br/>
+</div>
