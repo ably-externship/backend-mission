@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load humanize %}
+
+<br>
+<br>
+<br>
+    <div class="row" style="min-width:375px;">
+        <!-- 상품 카테고리 시작 -->
+        <div class="category_box">
+            <ul class="nav nav-tabs" style="width:450px;">
+              <li class="nav-item">
+                <a href="/" class="nav-link">모든 상품</a>
+              </li>
+              {% for category in categories %}
+              <li class="nav-item">
+                <a href="{{category.get_absolute_url}}" class="nav-link {% if selected_category.slug == category.slug %}active{% endif %}">{{category.name}}</a>
+              </li>
+              {% endfor %}
+            </ul>
+        </div>
+        <!-- 상품 카테고리 끝 -->
+
+        <!-- 상품 세부 정보 시작  -->
+        <div class="col-4" style="margin-top:5px;">
+            {% if product.image.url == True %}
+            <img src="{{product.image.url}}" width="375px;">
+            {% else %}
+            <img src="{{product.image_url}}" width="375px;">
+            {% endif %}
+        </div>
+        <div class="col" style="width:375px; margin-top:25px; margin-left:25px;">
+            <div style="display: flex; align-items: center; max-width:355px; margin-bottom:10px;">
+                <span style="font-size:16px;color:#555555;">상품명</span>
+                <span style="font-size:16px;color:#555555; margin-left:40px;">{{product.name}}</span>
+            </div>
+            <div style="display: flex; align-items: center; width:300px; margin-bottom:10px;">
+                <span style="font-size:16px;color:#555555;">마켓</span>
+                <span style="font-size:16px;color:#555555; margin-left:55px;">{{product.seller.market}}</span>
+            </div>
+            <div style="display: flex; align-items: center; width:300px; margin-bottom:20px;">
+                <span style="font-size:16px;color:#555555;">판매가</span>
+                <span style="font-size:16px;color:#555555; margin-left:40px;">{{product.price|intcomma}} KRW</span>
+            </div>
+            <div style="display: flex; align-items: center; width:355px; margin-bottom:10px;">
+                <span style="font-size:16px;color:#555555; margin-bottom:10px;">소개</span>
+                <span style="font-size:16px;color:#555555; margin-left:55px; margin-bottom:10px;">{{product.description}}</span>
+            </div>
+            <!-- 상품 세부 정보 끝 -->
+
+            <!-- 옵션 선택, 장바구니 시작 -->
+            <form action="{% url 'cart:add_cart' %}" method="POST">
+            {% csrf_token %}
+                <div style="display: flex; align-items: center; width:320px; margin-bottom:20px;">
+                        <span style="font-size:16px;color:#555555;">옵션</span>
+                        <select name="inventory" class="form-select" aria-label="Default select example" style="margin-left:20px; width:260px;">
+                            {% for inventory in inventories %}
+                                {% if inventory.stock == 0 %}
+                                <option value="{{inventory.id}}">{{inventory.color}} - {{inventory.size}}  (품절)</option>
+                                {% else %}
+                                <option value="{{inventory.id}}">{{inventory.color}} - {{inventory.size}} ({{inventory.stock}}개 남음)</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+
+                </div>
+
+            <!--   수량   -->
+                <div id="mainDiv" style="display: flex; align-items: center; margin-bottom:25px; margin-top:20px; font-size:16px;color:#555555;">
+                    수량 선택 <input type="number" name="quantity" style="width:70px; margin-left:20px;" min="1" id="numberPlace" class="form-control qty-input text-center">
+                </div>
+            <!--   수량  끝 -->
+
+                <div>
+                    <button type="submit" class="btn btn-outline-secondary" style="margin-right:5px;">Add To Cart</button>
+            </form>
+                <button type="button" class="btn btn-outline-secondary">To WishList</button>
+            </div>
+        </div>
+        <!-- 옵션 선택, 장바구니 끝 -->
+
+        <div style="display: flex; align-items: center;">
+            <hr style="border:1px silver;width: 100%;">
+        </div>
+
+        <!--  상품 문의 시작    -->
+        <span style="font-size:16px;color:#555555; text-align:center;">상품 문의</span>
+        <div style="margin-left:3px; margin-top:10px;">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">No.</th>
+                  <th scope="col">ID</th>
+                  <th scope="col">문의 내용</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for question in page_obj.object_list %}
+                <tr>
+                  <th scope="row">{{ forloop.counter }}</th>
+                  <td>{{ question.user.username }}</td>
+                  <td><a href="{% url 'shop:question_detail' question.id %}"><div class="word" style="width:80px;">{{ question.title }}</div></a></td>
+                  <td><a href="{% url 'shop:question_delete' question.id %}"><span class="material-icons-outlined" style="font-size:13px; color:grey; margin-right:10px;">close</span></a></td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        </div>
+        <!--  상품 문의 끝  -->
+
+        <!-- 페이징처리 시작 -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center"">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{page_obj.previous_page_number}}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% for page_number in page_obj.paginator.page_range %}
+                    {% if page_number == page_obj.number %}
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{page_obj.next_page_number}}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        <!-- 페이징처리 끝 -->
+
+        <!-- 문의 입력란 시작 -->
+        <div style="text-align: center; height:200px; padding-right:50px;">
+            <a href="{% url 'shop:question_create' product.id %}"><button type="button" class="btn btn-outline-secondary" style="float:right;">문의하기</button></a>
+        </div>
+        <!-- 문의 입력란 끝 -->
+    </div>
+
+<script>
+document.getElementById('numberPlace').value = '1';
+</script>
+
+{% endblock %}

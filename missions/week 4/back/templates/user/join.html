@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div style="font-size: 14px;text-align: center;width: 100%;min-height: 100vh;display: flex; flex-direction: row; align-items: center; justify-content: center">
+    <div>
+        <div class="mb-3" style="background-color: white; width: 430px; height: 550px; border-radius: 15px; border: 1px solid rgba(0, 0, 0, 0.18);">
+            <div style="display: flex;align-items: center; justify-content:center;">
+                    <img style="height: 20px; object-fit: contain; margin: 30px 0" src="{% static "design/logo_black.png" %}">
+            </div>
+            <div class="form-floating mb-2 floating_form">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{message.tags}}" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-floating mb-2 floating_form" style="text-align:right; margin-right:120px;">
+                    {% for field in form %}
+                        <p>
+                            {{ field.label_tag }}
+                            {{ field }}
+
+                            {% for error in field.errors %}
+                                <p style="color: red">{{ error }}</p>
+                            {% endfor %}
+                        </p>
+                    {% endfor %}
+                <div class="floating_form mb-3" style="margin-right:40px;">
+                    <br>
+                    <button id="button_login" type="submit" value="Login" class="btn btn-primary" style="width: 50%"> 가입하기</button>
+                </div>
+            </form>
+            <div style="align-items: center; justify-content: center">
+                <div class="mb-2" style="display: flex; align-items: center; justify-content: space-between; margin-left:100px;">
+                    <hr style="border:1px silver; width: 30px">
+                        계정이 있으신가요?
+                    <hr style="border:1px silver;width: 30px">
+                </div>
+                <div style="font-weight: bold; color: royalblue; margin-right:65px;">
+                    <a href="{% url 'login' %}" style="font-weight: bold; color: cornflowerblue; text-decoration: none; cursor: pointer">로그인하기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %}
