@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.urls import path
 
-from .views import products, product
+from .views import products, product, search_by_elastic
 
 urlpatterns = [
     path('', products),
     path('<int:product_id>', product),
+    path('elastic', search_by_elastic)
 ]
 

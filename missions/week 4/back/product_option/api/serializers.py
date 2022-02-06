@@ -36,7 +36,7 @@ class ProductOptionCreateSerializer(ModelSerializer):
         #     )
         # ]
 
-class ProductOptionCreateSerializer(ModelSerializer):
+class ProductOptionDetailSerializer(ModelSerializer):
 
     class Meta:
         model = ProductOption
