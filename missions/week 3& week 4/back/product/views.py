@@ -44,7 +44,6 @@ def ProductList(request):
 
     user_id = request.user.id
     products = queryset.prefetch_related('product_options').filter(market=user_id)
-    # products = Product.objects.prefetch_related('product_options').all()
     serializer = ProductSerializer(products, many=True)
 
     return Response(serializer.data)
@@ -131,6 +130,7 @@ def OptionCreate(request):
     return Response(serializer.data)
 
 
+# ElasticSearch 테스트용
 @api_view(['GET'])
 def search_by_elastic(request: HttpRequest):
     keyword, min_price, max_price = "청바지", 100, 1000000
@@ -155,11 +155,8 @@ def search_by_elastic(request: HttpRequest):
     """
 
     response = elasticsearch.sql.query(body={"query": elastic_sql})
-
     product_ids = [row[0] for row in response['rows']]
-
     order = Case(*[When(id=id, then=pos) for pos, id in enumerate(product_ids)])
-
     queryset = Product.objects.filter(id__in=product_ids).order_by(order)
 
     return HttpResponse(queryset)

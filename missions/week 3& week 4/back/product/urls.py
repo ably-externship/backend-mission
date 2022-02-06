@@ -12,7 +12,7 @@ urlpatterns = [
     path('find/<str:name>/', views.ProductFind, name="ProductFind"),
 
     # ElasticSearch
-    path('search_by_elastic/', views.search_by_elastic, name='search_by_elastic'),
+    path('search_by_elastic/', views.search_by_elastic, name='search_by_elastic'), # 테스트용
 
     # 옵션 관련
     path('option/', views.OptionList, name="OptionList"),
