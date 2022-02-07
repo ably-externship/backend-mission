@@ -1,0 +1,63 @@
+{% extends "core/layout.html" %}
+
+{% block content %}
+{% load static %}
+{% comment %} <div class="topmargin">
+</div> {% endcomment %}
+{% comment %} <div>
+    {% for maincategory in maincategories %}
+    <div class="container">
+        <div class="row">
+            <ul class="nav row">
+                <li class="nav-item col text-center">
+                    <a class="nav-link" href="#"> {{ maincategory.name }} </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    {% endfor %}
+</div> {% endcomment %}
+<div class="d-flex itemalign infinite-container">
+    {% load mathfilters %}
+    {% if merchandises %}
+        {% for merchandise in merchandises %}
+        <div class="infinite-item">
+            <a href="http://127.0.0.1:8000/products/detail/{{ merchandise.id }}"><img src="{{ merchandise.main_img }}" width=400px;/></a>
+            <div class="textalign"> {{ merchandise.name }} </div>
+            {% if merchandise.standard_price|sub:merchandise.discounted_price == merchandise.standard_price %}
+            <div class="textalign"> <span>정가:</span> <span>{{ merchandise.standard_price }}원</span> </div>
+            {% else %}
+            <div class="textalign"> <span>정가:</span> <span class="text-decoration-line-through">{{ merchandise.standard_price }}원</span> </div>
+            <div class="textalign"> <span>할인가:</span> <span>{{merchandise.standard_price|sub:merchandise.discounted_price}}원</span> </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    {% else %}
+    <div class="d-flex err-msg"> 검색어에 해당하는 상품이 없습니다. </div>
+    {% endif %}
+</div>
+<div class="row">
+    <div class="col-12">
+        {% if page_obj.has_next %}
+        <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">next</a>
+        {% endif %}
+    </div>
+</div>
+<div class="bottommargin">
+</div>
+<script src="{% static 'imakewebthings-waypoints/js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'imakewebthings-waypoints/js/infinite.min.js' %}"></script>
+<script>
+    var infinite = new Waypoint.Infinite({
+        element: $('.infinite-container')[0],
+        offset: 'bottom-in-view',
+        onBeforePageLoad: function () {
+            $('.loading').show();
+            $('.infinite-more-link').hide();
+        },
+        onAfterPageLoad: function () {
+            $('.loading').hide();
+        }
+    });
+</script>
+{% endblock %}
