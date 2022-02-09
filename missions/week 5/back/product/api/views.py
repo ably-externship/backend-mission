@@ -181,8 +181,6 @@ class OrderedItemListAPIView(APIView):
         # qs2 = Product.objects.all().filter(author=request.user)
         # qs3 = OrderItem.objects.select_related('product')
         serializer = OrderItemSerializer(qs, many=True)
-
-        breakpoint()
         return Response(serializer.data)
 
 
