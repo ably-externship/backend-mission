@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Product, Product_option
+from market.serializers import MarketSerializer
 
 # ProductOption 관련
 # 리스트
@@ -20,7 +21,7 @@ class OptionCreateSerializer(serializers.ModelSerializer):
 # 리스트
 class ProductSerializer(serializers.ModelSerializer):
     product_options = OptionSerializer(many=True)
-
+    market = MarketSerializer(read_only=True)
     class Meta:
         model = Product
         fields = ['id', 'category', 'name', 'price', 'sale_price', 'description',

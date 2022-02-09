@@ -43,7 +43,7 @@ def ProductList(request):
         queryset = Product.objects
 
     user_id = request.user.id
-    products = queryset.prefetch_related('product_options').filter(market=user_id)
+    products = queryset.prefetch_related('product_options').select_related('market').filter(market=user_id)
     serializer = ProductSerializer(products, many=True)
 
     return Response(serializer.data)

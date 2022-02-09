@@ -79,8 +79,9 @@ REST_FRAMEWORK = {
         # 'rest_framework.permissions.IsAuthenticatedOrReadOnly', # read는 가능
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_simplejwt.authentication.JWTTokenUserAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTTokenUserAuthentication', # 사용자 정보를 DB에서가 아닌 JWT에서 가져올수 있다
+        # rest_framework_simplejwt.authentication.JWTAuthentication 사용하지 마세요.
     ),
 
 }
