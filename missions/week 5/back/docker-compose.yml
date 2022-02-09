@@ -1,0 +1,53 @@
+version: "3"
+
+services:
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    volumes:
+      - static_volume:/usr/src/app/static
+      - media_volume:/usr/src/app/media
+    ports:
+    - "80:80"
+    depends_on:
+      - web
+  web:
+    build: .
+    container_name: django
+#    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      bash -c "gunicorn config.wsgi:application --bind 0.0.0.0:8000"
+#      bash -c "python manage.py collectstatic --noinput &&
+#               python manage.py migrate &&
+#               gunicorn config.wsgi:application --bind 0.0.0.0:8000"
+    volumes:
+      - .:/code
+      - static_volume:/usr/src/app/static
+      - media_volume:/usr/src/app/media
+    ports:
+      - "8000:8000"
+    expose:
+      - 8000
+    env_file:
+      - .env
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    image: mariadb:10.3
+    container_name: db
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    env_file:
+      - .env
+    environment:
+      TZ: Asia/Seoul
+    restart: always
+
+volumes:
+  mariadb_data:
+  static_volume:
+  media_volume:
