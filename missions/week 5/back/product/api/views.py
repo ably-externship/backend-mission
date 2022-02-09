@@ -1,8 +1,8 @@
-from elasticsearch import Elasticsearch
+from django.db.models import Case
 from django.db.models import When
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_GET
+from elasticsearch import Elasticsearch
 from rest_framework import exceptions
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
@@ -13,7 +13,6 @@ from common.BaseResponse import BaseResponse
 from common.exception.ErrorMessage import ErrorMessage
 from product.api.serializers import ProductListSerializer, ProductPostSerializer, ProductPutSerializer
 from product.models import Product
-from django.db.models import Case
 
 
 @api_view(['GET', 'POST'])
@@ -64,7 +63,7 @@ def products(request):
                                                          "message": ErrorMessage.PRODUCT_VALIDATION_ERROR.message})
 
 
-@api_view(['PUT', 'DELETE', 'GET'])
+@api_view(['PATCH', 'DELETE', 'GET'])
 @permission_classes((IsAuthenticated,))
 def product(request, product_id):
     # 사용자가  Market 인지 체크
@@ -75,7 +74,7 @@ def product(request, product_id):
         serializer = ProductListSerializer(product_model)
         response = BaseResponse(data=serializer.data, message=None, code="SUCCESS")
         return Response(data=response.to_dict(), status=status.HTTP_200_OK)
-    if request.method == 'PUT':
+    if request.method == 'PATCH':
         product_model = product_select(product_id)
         serializer = ProductPostSerializer(product_model, data=request.data)
         if serializer.is_valid():
@@ -111,6 +110,13 @@ def product(request, product_id):
         serializer = ProductPutSerializer(product_model)
         response = BaseResponse(data=serializer.data, message=None, code="SUCCESS")
         return Response(data=response.to_dict(), status=status.HTTP_200_OK)
+
+
+def check_market_id(request_id, auth_market_id):
+    if request_id != auth_market_id:
+        raise exceptions.APIException(detail={'code': ErrorMessage.MARKET_ID_NOT_CORRECT.code, "message": ErrorMessage.MARKET_ID_NOT_CORRECT.message})
+    else:
+        return True;
 
 
 def product_select(product_id):
