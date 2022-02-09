@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% load bootstrap5 %}
+
+
+{% block content %}
+    <div style="text-align: center; max-width: 1000px; margin: 4rem auto;">
+
+        <h1>
+            {{ target_product.name }}
+        </h1>
+        <h5>
+            seller : {{ target_product.seller }}
+        </h5>
+        <hr>
+
+        <img style="width:40%; border-radius: 1rem; margin: 2rem 0 "
+                src="{{ target_product.image.url }}" alt="">
+
+
+            <form action="{% url 'product:add_cart' %}" method="post" style="max-width: 500px; margin: 4rem auto;">
+                {% csrf_token %}
+                <p>사이즈/색상 선택</p>
+                {% bootstrap_form purchases_form %}
+                <input type="submit" value="장바구니 담기" class="btn btn-dark rounded-pill col-6 mt-3">
+            </form>
+
+
+        <br>
+        <p style="margin: 4rem auto;">
+            {{ target_product.description }}
+        </p>
+
+        {% if target_product.seller == user %}
+        <a href="{% url 'product:delete' pk=target_product.pk %}"
+        class="btn btn-danger rounded-pill col-3">
+            <p>Delete Product</p>
+        </a>
+        {% endif %}
+        <hr>
+
+        {% for comment in target_product.comment.all %}
+            {% include 'comment/detail.html' with comment=comment %}
+        {% endfor %}
+
+        {% include 'comment/create.html' with product=target_product %}
+
+    </div>
+
+{% endblock %}

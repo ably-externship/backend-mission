@@ -1,0 +1,53 @@
+.logo {
+    font-family: 'Nanum Pen Script', cursive;
+    font-size: 50px;
+}
+.footer {
+    text-align:center;
+    margin-top: 2rem;
+}
+
+.header {
+    text-align:center;
+    margin: 2rem 0;
+}
+
+@media screen and (max-width:500px) {
+    html {
+        font-size: 13px;
+    }
+}
+
+a {
+    color: black;
+}
+
+a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+.header_nav {
+    margin: 0 0.5rem;
+}
+
+
+.header_navbar {
+    margin: 1rem 0;
+}
+
+@font-face {
+  font-family: 'GmarketSansMedium';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html > body {
+  font-family: "GmarketSansMedium";
+}
+
+
+
+
+

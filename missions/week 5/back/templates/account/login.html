@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+
+
+{% block content %}
+
+    <div style="text-align: center; max-width: 500px; margin: 4rem auto">
+        <div>
+            <h4>Login</h4>
+        </div>
+
+        <div>
+            <form action="" method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+
+                <a href="{% url 'account:kakao_login' %}">
+                    <img src="/media/img/kakao_login.png" style="margin: 0.5rem auto">
+                </a>
+                <a href="{% url 'account:find_username' %}">
+                    <p>
+                        아이디 찾기
+                    </p>
+                </a>
+                <a href="{% url 'account:reset_password' %}">
+                    <p>
+                        비밀번호 찾기
+                    </p>
+                </a>
+                <input type="submit" class="btn btn-dark rounded-pill col-6 mt-3">
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
