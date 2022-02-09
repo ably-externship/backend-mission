@@ -1,0 +1,251 @@
+/* 폰트 설정 */
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html > body {
+    font-family:"GmarketSansMedium";
+    text-underline-position: under;
+}
+
+/* 노말라이즈 */
+html, body {
+    overflow-x:hidden;
+}
+
+body, ul, li {
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+
+a {
+    color:inherit;
+    text-decoration:none;
+}
+
+/* 라이브러리 */
+.con {
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.row::after {
+    content:"";
+    display:block;
+    clear:both;
+}
+
+.cell, .cell-right {
+    float:left;
+    box-sizing:border-box;
+}
+
+.cell-right {
+    float:right;
+}
+
+.img-box > img {
+    width:100%;
+    display:block;
+}
+
+.cell {
+    float:left;
+    box-sizing:border-box;
+}
+
+.row::after {
+    content:"";
+    display:block;
+    clear:both;
+}
+
+
+
+/* 커스텀 */
+html, body {
+    overflow-x:hidden;
+}
+
+.con {
+    max-width:1000px;
+}
+
+/*body {*/
+/*  background-color:red;*/
+/*}*/
+
+:root {
+    --site-width:1280px;
+}
+
+
+/* 로고 */
+.logo {
+    --color:Black;
+    color:var(--color);
+    font-size:1.3rem;
+    font-weight:bold;
+    letter-spacing:0.025rem;
+}
+
+/* 탑바 */
+.top-bar {
+    --height:64px;
+    height:var(--height);
+}
+
+/* 리스트박스1 */
+.list-box-1 > ul > li {
+    width:25%;
+    padding:0 10px;
+    margin-top: 20px;
+}
+
+.list-box-1 > ul {
+    margin: 0 -10px;
+}
+
+/* 디테일 박스1 */
+.detail-box-1 > ul > li{
+    width:50%;
+    padding:0 10px;
+    margin-top: 20px;
+}
+
+.detail-box-2 > ul > li{
+    width:40%;
+    /*padding:0 10px;*/
+    margin-top: 20px;
+}
+
+.qna-boxlist-1 > ul > li{
+    padding:0 10px;
+    margin-top: 20px;
+}
+
+
+/* 페이징 */
+.paging-center{
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.my.pagination > .active > a,
+.my.pagination > .active > span,
+.my.pagination > .active > a:hover,
+.my.pagination > .active > span:hover,
+.my.pagination > .active > a:focus,
+.my.pagination > .active > span:focus {
+    background: white;
+    border-color: black;
+    color : black
+}
+
+.qna-input-1 {
+    background: white;
+    border-color: black;
+    color : black
+}
+
+.footer {
+    background-color: #2a2a2a;
+    overflow: auto;
+    margin: 0 auto;
+    padding: 50px 20px 100px 20px;
+}
+
+.qna-title {
+    border-style: solid;
+    border-color: red;
+}
+
+.qna-content{
+
+}
+
+.input-1 {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 25px;
+    padding: 0 15px 2px;
+    font-size: 17px;
+    background: white;
+    border: 2px solid #EBEBEB;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 -2px #EBEBEB;
+    box-shadow: inset 0 -2px #EBEBEB;
+}
+
+.input-2 {
+    width: 100%;
+    height: 300px;
+    margin-bottom: 25px;
+    padding: 0 15px 2px;
+    font-size: 17px;
+    background: white;
+    border: 2px solid #EBEBEB;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 -2px #EBEBEB;
+    box-shadow: inset 0 -2px #EBEBEB;
+}
+
+.button-1{
+    border: 1px solid rgba(102, 112, 139, 0.781);
+    color: white;
+    background-color: black;
+    border-radius: .5rem;
+    display: flex;
+    margin: 0 auto;
+    height: 30px;
+    width: 70px;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-2 {
+    margin-bottom: 10px;
+    position: relative;
+    vertical-align: top;
+    width: 100%;
+    height: 54px;
+    padding: 0;
+    font-size: 22px;
+    color: white;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    background: black;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@media ( min-width:801px ) {
+    .list-box-1 > ul > li {
+        width:25%;
+    }
+}
+
+@media ( max-width:800px ) and ( min-width:601px ) {
+    .list-box-1 > ul > li {
+        width:33.3333%;
+    }
+}
+
+@media ( max-width:600px ) and ( min-width:401px ) {
+    .list-box-1 > ul > li {
+        width:50%;
+    }
+}
+
+@media ( max-width:400px ) {
+    .list-box-1 > ul > li {
+        width:100%;
+    }
+}
