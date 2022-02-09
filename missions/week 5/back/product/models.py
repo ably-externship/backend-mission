@@ -25,18 +25,18 @@ class ProductOption(models.Model):
 
 
 class CartItem(models.Model):
-    user = models.ForeignKey('local_account.User', on_delete=models.CASCADE, verbose_name='구매유저')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='구매유저')
     product = models.ForeignKey(Product, on_delete=models.PROTECT, verbose_name='구매상품')
-    product_option = models.ForeignKey(ProductOption,
+    productoption = models.ForeignKey(ProductOption,
                                        on_delete=models.PROTECT, verbose_name='구매상품의 옵션')
     quantity = models.IntegerField(verbose_name='구매수량')
 
     def __str__(self):
-        return f'{self.user_id}::{self.product_id}::{self.product_option_id}::{self.quantity}'
+        return f'{self.user_id}::{self.product_id}::{self.productoption_id}::{self.quantity}'
 
 
 class Order(models.Model):
-    user = models.ForeignKey('local_account.User', on_delete=models.CASCADE, verbose_name='구매유저')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='구매유저')
     ordered_date = models.DateTimeField()
 
     def __str__(self):
@@ -44,11 +44,12 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.PROTECT, verbose_name='구매상품')
-    product_option = models.ForeignKey(ProductOption,
+    productoption = models.ForeignKey(ProductOption,
                                        on_delete=models.PROTECT, verbose_name='구매상품의 옵션')
     quantity = models.IntegerField(verbose_name='구매수량')
+    ordered_date = models.DateTimeField(auto_now_add=True, verbose_name='주문시간')
 
     def __str__(self):
-        return f'{self.order_id}::{self.product_id}::{self.product_option_id}::{self.quantity}'
+        return f'{self.user_id}::{self.product_id}::{self.productoption_id}::{self.quantity}'
