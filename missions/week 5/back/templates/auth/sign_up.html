@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <div class="grid grid-cols-4 gap-3 mx-auto">
+        <div class="col-span-3">
+            <input name="email" type="email" class="form-control" placeholder="이메일" id="email"/>
+        </div>
+        <div class="col-span-1">
+            <input id="dupCheckBtn" type="button" class="btn w-full 메모 text-white" value="중복 확인"
+                   style="background-color: #0d6efd; color: white;"/>
+        </div>
+        <div class="col-span-4">
+            <input name="name" type="text" class="form-control" placeholder="이름"/>
+        </div>
+        <div class="col-span-4">
+            <input name="password1" type="password" class="form-control" placeholder="비밀번호"/>
+        </div>
+        <div class="col-span-4">
+            <input name="password2" type="password" class="form-control" placeholder="비밀번호 확인" id="passwordConfirm"/>
+        </div>
+        <div class="col-span-4">
+            <button type="button" class="btn w-full bg-[#0d6efd] text-white" id="submitBtn">
+                회원 가입
+            </button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        let duplicateYn = false;
+
+        $("#email").on('change', function () {
+            duplicateYn = false;
+        })
+
+        $("#submitBtn").on('click', function () {
+            if (duplicateYn == true && $("input[name=password1]").val() == $("input[name=password2]").val()) {
+                $('form').submit();
+            } else {
+                $("#passwordConfirm").after('<label for="passwordConfirm" class="text-red-600" id="passwordLabel">비밀번호가 일치하지 않습니다.</label>')
+            }
+        })
+
+        $("#dupCheckBtn").on('click', function () {
+            const email = $("#email").val();
+            const email_regex = new RegExp('^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$');
+            if (!email_regex.test(email)) {
+                dupCheckLabel('이메일 형식에 맞지 않습니다.')
+            } else {
+                $.ajax({
+                    'url': '/auth/dup-check/',
+                    'data': {'username': email},
+                    'method': 'GET',
+                    'success': function (data) {
+                        const dupCheckYn = data.data;
+                        console.log($("#emailValidLabel").length);
+                        if (dupCheckYn == true) {
+                            dupCheckLabel('사용 가능한 이메일 입니다.')
+                            duplicateYn = true;
+                        } else {
+                            dupCheckLabel('이미 등록된 이메일 입니다. 다른 이메일을 이용해 주세요')
+                        }
+                    },
+                })
+            }
+        })
+
+        function dupCheckLabel(message) {
+            if ($("#emailValidLabel").length > 0) {
+                $("#emailValidLabel").text(message);
+            } else {
+                $("#email").after('<label for="email" class="text-red-600" id="emailValidLabel">' + message + '</label>')
+            }
+        }
+    })
+</script>
+
+{% endblock %}
