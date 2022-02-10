@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from "axios";
 
-function Writer(props) {
+function ProductRegister(props) {
     // console.log(props.loginedUserInfo.user_id);
 
     const history = useHistory()
@@ -226,4 +226,4 @@ function Writer(props) {
     )
 }
 
-export default Writer;
+export default ProductRegister;

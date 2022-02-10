@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
-import Header from './components/Header';
+import Header from './components/Header/Header';
+import CartPage from './components/Header/CartPage';
 import LoginModal from './components/LoginModal';
 import { Route } from 'react-router-dom';
 import Product from "./components/Product";
-import Writer from "./components/Writer"
+import ProductRegister from "./components/Header/ProductRegister.js"
+import ProductDetailPage from "./components/Product/ProductDetailPage";
 
 function App() {
     const [modal, setModal] = useState(false);
@@ -71,21 +73,20 @@ function App() {
 
 
                 <div className="auto-margin">
-
+                    <Header modal={modal} handleLogout={handleLogout}/>
                     <Route exact path="/">
-                        <Header modal={modal} handleLogout={handleLogout}/>
                         <Product user={user}/>
                     </Route>
+                    <Route path="/product/:id" component={ProductDetailPage}/>
 
+                    {/*<Route path="/write">*/}
+                    {/*    <ProductRegister user={user} loginedUserInfo={loginedUserInfo}/>*/}
+                    {/*</Route>*/}
+                    <Route path="/cart" component={CartPage}/>
 
-                    <Route exact path="/write">
-                        <Writer user={user} loginedUserInfo={loginedUserInfo}/>
-                    </Route>
-
-                    <Route exact path="/login">
+                    <Route path="/login">
                         <LoginModal setModal={setModal} userHasAuthenticated={userHasAuthenticated}/>
                     </Route>
-
                 </div>
 
 

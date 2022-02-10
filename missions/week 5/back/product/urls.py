@@ -19,4 +19,8 @@ urlpatterns = [
     path('option/create/', views.OptionCreate, name="OptionCreate"),
     # path('option/update/<int:pk>/', views.OptionUpdate, name="OptionUpdate"),
     # path('option/delete/<int:pk>/', views.OptionDelete, name="OptionDelete"),
+
+    # 질문 관련
+    path('qna/<int:pk>/', views.QnaList, name="QnaList"),
+    path('qna/create/<int:pk>/', views.QnaCreate, name="QnaCreate"),
 ]

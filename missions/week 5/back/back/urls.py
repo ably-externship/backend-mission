@@ -28,8 +28,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('cart/', include('cart.urls')),
     path('product/', include('product.urls')),
 
+    # JWT 관련
     path('validate/', validate_jwt_token),
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),

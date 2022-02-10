@@ -4,7 +4,7 @@ from .models import Cart
 
 
 class CartAdmin(admin.ModelAdmin):
-    list_display = ()
+    list_display = ['id']
 
 
 admin.site.register(Cart, CartAdmin)

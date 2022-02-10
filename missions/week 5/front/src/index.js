@@ -9,7 +9,7 @@ import './css/LoginModal.css';
 import './css/Product.css';
 import './css/Sign.css';
 import './css/Writer.css';
-// import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/img/bootstrap.img';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';

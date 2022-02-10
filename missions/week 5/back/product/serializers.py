@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product, Product_option
+from .models import Product, Product_option, Product_qna
 from market.serializers import MarketSerializer
 
 # ProductOption 관련
@@ -30,9 +30,13 @@ class ProductSerializer(serializers.ModelSerializer):
 
 # 상세
 class ProductDetailSerializer(serializers.ModelSerializer):
+    product_options = OptionSerializer(many=True)
+    market = MarketSerializer(read_only=True)
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ['id', 'category', 'name', 'price', 'sale_price', 'description',
+                  'image', 'image_detail', 'is_hidden', 'is_sold_out', 'reg_date',
+                  'hit_count', 'like_count', 'update_date', 'market', 'product_options']
 
 # 생성
 class ProductCreateSerializer(serializers.ModelSerializer):
@@ -54,5 +58,16 @@ class ProductFindSerializer(serializers.ModelSerializer):
 
 
 
+# ProductQna 관련
+# 리스트
+class QnaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product_qna
+        fields = '__all__'
 
 
+# 생성
+class QnaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product_qna
+        fields = '__all__'

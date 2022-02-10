@@ -5,7 +5,6 @@ from .models import *
 from django.http import JsonResponse
 from django.db.models import Prefetch, Case, When
 from django.http import HttpRequest, HttpResponse
-from django.views.decorators.http import require_GET
 from elasticsearch import Elasticsearch
 
 # 제품 리스트
@@ -62,7 +61,7 @@ def ProductCreate(request):
 # 제품 상세
 @api_view(['GET'])
 def ProductDetail(request, pk):
-    product = Product.objects.get(id=pk)
+    product = Product.objects.prefetch_related('product_options').select_related('market').get(id=pk)
     serializer = ProductDetailSerializer(product, many=False)
 
     return Response(serializer.data)
@@ -128,6 +127,32 @@ def OptionCreate(request):
         print("에러 코드 :",serializer.errors)
 
     return Response(serializer.data)
+
+
+
+# 질문 관련
+# 질문 리스트
+@api_view(['GET'])
+def QnaList(request, pk):
+    Qnas = Product_qna.objects.filter(id=pk)
+    serializer = QnaSerializer(Qnas, many=True)
+
+    return Response(serializer.data)
+
+
+# 질문 추가
+@api_view(['POST'])
+def QnaCreate(request, pk):
+
+    serializer = QnaSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    else:
+        print("에러 코드 :", serializer.errors)
+
+    return Response(serializer.data)
+
+
 
 
 # ElasticSearch 테스트용
