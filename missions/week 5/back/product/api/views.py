@@ -19,26 +19,26 @@ from product.models import Product
 @csrf_exempt
 @permission_classes((IsAuthenticated,))
 def products(request):
-    # 사용자가  Market 인지 체크
+    method = request.method
     market_yn = request.auth.payload['market_yn']
 
-    if request.method == 'GET':
+    if method == 'GET':
         if market_yn:
             market_id = request.auth.payload['market_id']
             product_list = Product.objects \
-                .prefetch_related('market_pk') \
-                .prefetch_related('category_fk') \
+                .select_related('market_pk') \
+                .select_related('category_fk') \
                 .prefetch_related('product_option').filter(market_pk=market_id)
         else:
             product_list = Product.objects \
-                .prefetch_related('market_pk') \
-                .prefetch_related('category_fk') \
+                .select_related('market_pk') \
+                .select_related('category_fk') \
                 .prefetch_related('product_option').all()
         serializer = ProductListSerializer(product_list, many=True)
         response = BaseResponse(data=serializer.data, message=None, code="SUCCESS")
         return Response(data=response.to_dict(), status=status.HTTP_200_OK)
 
-    if request.method == 'POST':
+    if method == 'POST':
         product_serializer = ProductPostSerializer(data=request.data)
 
         if product_serializer.is_valid():
@@ -66,15 +66,15 @@ def products(request):
 @api_view(['PATCH', 'DELETE', 'GET'])
 @permission_classes((IsAuthenticated,))
 def product(request, product_id):
-    # 사용자가  Market 인지 체크
+    method = request.method
     market_yn = request.auth.payload['market_yn']
 
-    if request.method == 'GET':
+    if method == 'GET':
         product_model = product_select(product_id)
         serializer = ProductListSerializer(product_model)
         response = BaseResponse(data=serializer.data, message=None, code="SUCCESS")
         return Response(data=response.to_dict(), status=status.HTTP_200_OK)
-    if request.method == 'PATCH':
+    if method == 'PATCH':
         product_model = product_select(product_id)
         serializer = ProductPostSerializer(product_model, data=request.data)
         if serializer.is_valid():
@@ -98,7 +98,7 @@ def product(request, product_id):
             else:
                 raise exceptions.ValidationError(detail={'code': ErrorMessage.PRODUCT_VALIDATION_ERROR.code,
                                                          "message": ErrorMessage.PRODUCT_VALIDATION_ERROR.message})
-    if request.method == 'DELETE':
+    if method == 'DELETE':
         product_model = product_select(product_id)
         if market_yn:
             market_id = request.auth.payload['market_id']

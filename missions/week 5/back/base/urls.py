@@ -24,6 +24,7 @@ from board.urls import urlpatterns as board_url
 from cart.urls import urlpatterns as cart_url
 from product.api.urls import urlpatterns as products_url
 from users.api.urls import urlpatterns as auth_token_url
+from market.api.urls import urlpatterns as market_url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,6 +36,7 @@ urlpatterns = [
     path('500/', CustomHandler500.as_view()),
     path('cart/', include(cart_url)),
     path('products/', include(products_url)),
+    path('markets/', include(market_url)),
 ]
 
 if settings.DEBUG:
