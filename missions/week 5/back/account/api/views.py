@@ -2,7 +2,7 @@ from django.contrib.auth import login, logout, authenticate
 from rest_framework import status, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from account.api.serializers import SignupUserSerializer, LoginSerializer, ChangePasswordSerializer
+from account.api.serializers import SignupUserSerializer, LoginSerializer
 from account.models import User
 
 

@@ -14,6 +14,7 @@ class Product(models.Model):
         return f'{self.seller}::{self.author}::'
 
 
+
 class ProductOption(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='productoption')
     size = models.CharField(max_length=100, verbose_name='사이즈')

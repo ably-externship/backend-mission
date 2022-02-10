@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from product.api.permission import IsOwner
+from product.api.permission import IsSeller, IsAuthor
 from product.api.serializers import ProductSerializer, CartItemSerializer, OrderItemSerializer, ProductOptionSerializer
 from rest_framework.pagination import PageNumberPagination
 from product.models import Product, CartItem, OrderItem, ProductOption
@@ -12,7 +12,7 @@ from product.models import Product, CartItem, OrderItem, ProductOption
 class PageNumberPagination(PageNumberPagination):
     page_size = 10
 
-
+# 상품 조회 및 삭제
 class ProductListAPIView(APIView):
     pagination_class = PageNumberPagination
 
@@ -48,7 +48,7 @@ class ProductListAPIView(APIView):
 
 class ProductDetailAPIView(APIView):
     pagination_class = PageNumberPagination
-    permission_classes = [IsOwner]
+    permission_classes = [IsSeller]
 
     def get_object(self, pk):
         try:
@@ -59,12 +59,10 @@ class ProductDetailAPIView(APIView):
             return None
 
     def get(self, request, pk):
-        try:
-            qs = Product.objects.get(pk=pk)
-            serializer = ProductSerializer(qs, context={'request': request})
-            return Response(serializer.data)
-        except:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+        Product = self.get_object(pk)
+        serializer = ProductSerializer(Product, context={'request': request})
+        return Response(serializer.data)
+
 
     def patch(self, request, pk):
         Product = self.get_object(pk)
@@ -80,7 +78,7 @@ class ProductDetailAPIView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-# 장바구니
+# 장바구니 추가 및 조회
 class CartItemListAPIView(APIView):
     def get(self, request):
         qs = CartItem.objects.filter(user=request.user)
@@ -100,13 +98,21 @@ class CartItemListAPIView(APIView):
 
 
 class CartItemDetailAPIView(APIView):
+    permission_classes = [IsAuthor]
+
     def get_object(self, pk):
-        return get_object_or_404(CartItem, pk=pk)
+        try:
+            qs = CartItem.objects.get(pk=pk)
+            self.check_object_permissions(self.request, qs)
+            return qs
+        except ObjectDoesNotExist:
+            return None
 
     def get(self, request, pk):
         CartItem = self.get_object(pk)
         serializer = CartItemSerializer(CartItem)
         return Response(serializer.data)
+
 
     def patch(self, reqeust, pk):
         CartItem = self.get_object(pk)
@@ -122,7 +128,7 @@ class CartItemDetailAPIView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-# 주문하기
+# 주문하기 및 조회
 class OrderItemListAPIView(APIView):
     def get(self, request):
         qs = OrderItem.objects.filter(user=request.user)
@@ -147,8 +153,15 @@ class OrderItemListAPIView(APIView):
 
 
 class OrderItemDetailAPIView(APIView):
+    permission_classes = [IsAuthor]
+
     def get_object(self, pk):
-        return get_object_or_404(OrderItem, pk=pk)
+        try:
+            qs = CartItem.objects.get(pk=pk)
+            self.check_object_permissions(self.request, qs)
+            return qs
+        except ObjectDoesNotExist:
+            return None
 
     def get(self, request, pk):
         OrderItem = self.get_object(pk)
@@ -158,11 +171,13 @@ class OrderItemDetailAPIView(APIView):
     def patch(self, request, pk):
         OrderItem = self.get_object(pk)
         serializer = OrderItemSerializer(OrderItem, data=request.data, partial=True)
+
         quantity = request.data['quantity']
         productoption = ProductOption.objects.get(id=OrderItem.productoption_id)
         stockcount = productoption.stock_count
         stockcount = stockcount - quantity
         ProductOption.objects.filter(id=OrderItem.productoption_id).update(stock_count=stockcount)
+
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -184,7 +199,7 @@ class OrderedItemListAPIView(APIView):
         return Response(serializer.data)
 
 
-class OrderItemDetailAPIView(APIView):
+class OrderedItemDetailAPIView(APIView):
     def get_object(self, pk):
         return get_object_or_404(OrderItem, pk=pk)
 
