@@ -3,12 +3,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.http import HttpRequest
-from .serializers import MyTokenObtainPairSerializer, ApiRefreshRefreshTokenSerializer, UserSerializer
+from rest_framework.views import APIView
+from .serializers import *
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework import permissions, status, generics
 from rest_framework.generics import GenericAPIView
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import User
+
 
 
 
@@ -22,6 +25,20 @@ def current_user(request):
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class=MyTokenObtainPairSerializer
+
+
+
+class UserList(APIView):
+    permission_classes = (permissions.AllowAny,)
+
+    def post(self, request):
+        serializer = UserSerializerWithToken(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            print("에러 코드 :", serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # class ApiRefreshRefreshTokenView(GenericAPIView):

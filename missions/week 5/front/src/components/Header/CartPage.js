@@ -22,7 +22,7 @@ function CartPage(props) {
         };
         take();
     }, []);
-    // console.log(productList.length)
+    console.log(productList)
 
     const DeleteCart = async (cart_id)=> {
 
@@ -62,34 +62,41 @@ function CartPage(props) {
                             <th scope="row">
                                 <div className="table-img float-left">
                                     <a>
-                                        {
-                                            cart.product.map((pro) => <img key={pro.id} src={`http://localhost:8000/${pro.image}/`}/>)
-                                        }
+                                        <img key={cart.id} src={`http://localhost:8000/${cart.product.image}/`}/>
+                                        {/*{*/}
+                                        {/*    cart.product.map((pro) => <img key={pro.id} src={`http://localhost:8000/${pro.image}/`}/>)*/}
+                                        {/*}*/}
                                     </a>
                                 </div>
                                 <div>
-                                    {
-                                        cart.product.map((pro) => <div key={pro.id}>{pro.name} </div>)
-                                    }
+                                    <div key={cart.id}>{cart.product.name} </div>
+                                    {/*{*/}
+                                    {/*    cart.product.map((pro) => <div key={pro.id}>{pro.name} </div>)*/}
+                                    {/*}*/}
                                 </div>
 
                             </th>
 
                             <th>
-                                {
-                                    cart.product_option.map((opt) => <div key={opt.id}>{opt.opt1_type} :{opt.opt1_name}, 추가가격 :{opt.opt1_price}원</div>
-                                    )
-                                }
+                                <div key={cart.id}>{cart.product_option.opt1_type} :{cart.product_option.opt1_name}, 추가가격 :{cart.product_option.opt1_price}원</div>
+                                {/*{*/}
+                                {/*    cart.product_option.map((opt) => <div key={opt.id}>{opt.opt1_type} :{opt.opt1_name}, 추가가격 :{opt.opt1_price}원</div>*/}
+                                {/*    )*/}
+                                {/*}*/}
                             </th>
                             <td>
-                                {
-                                    cart.product.map((pro) =>
-                                        <div key={pro.id}>
-                                            <div>정가 :{pro.price}원</div>
-                                            <div>할인가 :{pro.sale_price}원</div>
-                                        </div>
-                                    )
-                                }
+                                <div key={cart.id}>
+                                    <div>정가 :{cart.product.price}원</div>
+                                    <div>할인가 :{cart.product.sale_price}원</div>
+                                </div>
+                                {/*{*/}
+                                {/*    cart.product.map((pro) =>*/}
+                                {/*        <div key={pro.id}>*/}
+                                {/*            <div>정가 :{pro.price}원</div>*/}
+                                {/*            <div>할인가 :{pro.sale_price}원</div>*/}
+                                {/*        </div>*/}
+                                {/*    )*/}
+                                {/*}*/}
                             </td>
                             <td>
                                 <button className="JoinLoign-button" onClick={(e)=>{DeleteCart(cart.id, e)}}>삭제하기</button>

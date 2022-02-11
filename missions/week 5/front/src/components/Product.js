@@ -4,6 +4,8 @@ import axios from 'axios';
 
 function Product(props) {
 
+    console.log(props.user_id)
+
     const history = useHistory();
     const [productList, setProductList] = useState([]);
     const [inputsearch, setInputSearch] = useState('');
@@ -68,12 +70,13 @@ function Product(props) {
             <div className="list-box-1 con">
                 <ul className="row">
                     {productList.map((product) => <li key={product.id} className="cell">
-                            <Link to={{
-                                pathname:`/product/${product.id}`,
-                                state:{
-                                    id:`${product.id}`
-                                }
-                            }}>
+                        <Link to={{
+                            pathname:`/product/${product.id}`,
+                            state:{
+                                id:`${product.id}`,
+                                user_id : `${props.user_id}`
+                            }
+                        }}>
                             <div className="img-box ">
                                 <img src={`http://localhost:8000/${product.image}/`} />
                             </div>

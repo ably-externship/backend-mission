@@ -11,6 +11,7 @@ import ProductDetailPage from "./components/Product/ProductDetailPage";
 function App() {
     const [modal, setModal] = useState(false);
     const [user, setUser] = useState([])
+    const [userId, setUserID] = useState([])
     const [loginedUserInfo ,setLoginedUserInfo] =  useState()
 
 
@@ -36,7 +37,8 @@ function App() {
         userInfo.accessToken = token['access']; // 이 토큰과
         userInfo.refreshToken = token['refresh'];
         setLoginedUserInfo(userInfo);
-        // console.log(userInfo);
+        setUserID(userInfo.user_id)
+
         // console.log(loginedUserInfo["user_id"]);
     }
 
@@ -62,7 +64,7 @@ function App() {
     }, [isAuthenticated]);
 
 
-
+    console.log(userId);
 
 
 
@@ -75,7 +77,7 @@ function App() {
                 <div className="auto-margin">
                     <Header modal={modal} handleLogout={handleLogout}/>
                     <Route exact path="/">
-                        <Product user={user}/>
+                        <Product user={user} user_id={userId}/>
                     </Route>
                     <Route path="/product/:id" component={ProductDetailPage}/>
 

@@ -9,7 +9,7 @@ from .models import *
 @api_view(['GET'])
 def CartList(request):
     user_id=request.user.id
-    Carts = Cart.objects.prefetch_related('product').prefetch_related('product_option').filter(user=user_id)
+    Carts = Cart.objects.select_related('product').select_related('product_option').filter(user=user_id)
     serializer = CartSerializer(Carts, many=True)
 
     return Response(serializer.data)
@@ -42,7 +42,7 @@ def CartUpdate(request, pk):
 # 장바구니 추가
 @api_view(['POST'])
 def CartCreate(request):
-    serializer = CartSerializer(data=request.data)
+    serializer = CartCreateSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
     else:

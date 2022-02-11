@@ -5,9 +5,12 @@ import moment from "moment";
 
 function ProductDetailPage(props) {
 
+    // console.log(props.location.state.user_id)
+
     const [product, setProduct] = useState([]);
     const [qnaList, setQnaList] = useState([]);
     const [dateChange, setDateChange] = useState("")
+    const [optionId, setOptionId] = useState(1)
 
     useEffect(() => {
         const take = async () => {
@@ -22,16 +25,36 @@ function ProductDetailPage(props) {
         take1();
     }, []);
 
-    // console.log(qnaList);
-
-    const AddCart = async (product_id,option_id)=> {
 
 
-        // await axios.post('http://localhost:8000/product/create/', formData, {headers: {
-        //         Authorization: `Bearer ${localStorage.getItem('token')}`,
-        //     }
-        // })
+    const handleOption = (e)=>{
+        setOptionId(e.target.value);
+        // console.log(optionId);
+    }
 
+    const AddCart = async()=> {
+        const formData = new FormData();
+
+        const user=props.location.state.user_id;
+        const product=props.location.state.id;
+        const product_option=optionId
+
+        if (!user){
+            alert('로그인 먼저 해주세요')
+        }
+
+
+        const data = {user: user, product: product, product_option:product_option};
+
+        // console.log(data)
+
+        await axios.post('http://localhost:8000/cart/create/', data,
+        {headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            }
+        })
+        alert('옵션 추가 완료')
+        // console.log(formData)
     };
 
 
@@ -63,9 +86,16 @@ function ProductDetailPage(props) {
 
                             옵션
                             <br/>
-                            <select>
+                            <select onClick={handleOption}>
                                     {
-                                        product.product_options && product.product_options.map((option) => <option key={option.id}>사이즈 :{option.opt1_name} 추가금액 :{option.opt1_price} 재고 :{option.opt1_stock} </option>)
+                                        product.product_options && product.product_options.map((option) =>
+                                            <option
+                                                key={option.id}
+                                                value={option.id}
+                                            >
+                                                사이즈 :{option.opt1_name} 추가금액 :{option.opt1_price} 재고 :{option.opt1_stock}
+                                            </option>
+                                        )
                                     }
                             </select>
                         </div>
@@ -73,9 +103,15 @@ function ProductDetailPage(props) {
                             <div>
                                 <input type="submit" value="구매하기" className="signUpButton m-1"/>
                             </div>
-                            <div className="object-right-bottom">
-                                <input type="submit" value="장바구니" className="signUpButton m-1 object-right-bottom"/>
-                            </div>
+                            <button
+                                onClick={AddCart}
+                                className="signUpButton m-1 object-right-bottom"
+                            >
+                                장바구니
+                            </button>
+                            {/*<div className="object-right-bottom">*/}
+                            {/*    <input type="submit" value="장바구니" className="signUpButton m-1 object-right-bottom"/>*/}
+                            {/*</div>*/}
                         </div>
 
                     </li>

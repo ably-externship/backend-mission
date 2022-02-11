@@ -40,7 +40,7 @@ class User(AbstractUser):
     name = models.CharField('이름', max_length=100)
     gender = models.CharField('성별', max_length=1, blank=True, choices=GenderChoices.choices)
     profile_img = models.ImageField('프로필', blank=True, null=True, upload_to="accounts/profile_img/%Y/%m/%d")
-    age_range = models.CharField('연령대', max_length=100)
+    age_range = models.CharField('연령대', max_length=100, null=True)
 
     provider_type_code = models.CharField('프로바이더 타입코드', max_length=20, choices=ProviderTypeCodeChoices.choices, default=ProviderTypeCodeChoices.LOCAL)
     provider_accounts_id = models.PositiveIntegerField('프로바이더 회원번호', default=0)

@@ -25,7 +25,7 @@ function LoginModal(props) {
         <>
             <div className="signUp">
                 <div>
-                    <h1 className="menu">로그인 화면</h1>
+                    <h1 className="menu">{JoinLoign} 화면</h1>
                     {/*<span>{JoinLoign}</span>*/}
                     <form className="">
                         {
@@ -56,9 +56,9 @@ function LoginModal(props) {
                                 )
                                 : (
                                     <>
-                                        <input type="text" placeholder="아이디를 입력하세요" onChange={handleNameChange}/>
-                                        <input type="password" placeholder="비밀번호를 입력하세요" onChange={handlePasswordChange}/>
-                                        <button className="JoinLoign-button" onClick={(e)=>{
+                                        <input type="text" placeholder="아이디를 입력하세요" onChange={handleNameChange} className="signUpInput"/>
+                                        <input type="password" placeholder="비밀번호를 입력하세요" onChange={handlePasswordChange} className="signUpInput"/>
+                                        <button className="signUpButton" onClick={(e)=>{
                                             e.preventDefault();
                                             fetch('http://localhost:8000/user/', {
                                                 method: 'POST',
@@ -87,29 +87,28 @@ function LoginModal(props) {
                                 )
                         }
                     </form>
-                    {/*<div className="login-foot">*/}
-                    {/*    {*/}
-                    {/*        JoinLoign === '회원가입'*/}
-                    {/*            ? (*/}
-                    {/*                <>*/}
-                    {/*                    <span>이미 회원이신가요  ?</span>*/}
-                    {/*                    <div className="foot-link" onClick={(e)=>{*/}
-                    {/*                        e.preventDefault();*/}
-                    {/*                        setJoinLogin('로그인');*/}
-                    {/*                    }}>로그인</div>*/}
-                    {/*                </>*/}
-                    {/*            )*/}
-                    {/*            : (*/}
-                    {/*                <>*/}
-                    {/*                    <span>아직 회원이 아니신가요 ?</span>*/}
-                    {/*                    <div className="foot-link" onClick={(e)=>{*/}
-                    {/*                        e.preventDefault();*/}
-                    {/*                        setJoinLogin('회원가입');*/}
-                    {/*                    }}>회원가입</div>*/}
-                    {/*                </>*/}
-                    {/*            )*/}
-                    {/*    }*/}
-                    {/*</div>*/}
+                    <div>
+                        {
+                            JoinLoign === '회원가입'
+                                ? (
+                                    <>
+                                        <span>이미 회원이신가요  ?</span>
+                                        <div className="foot-link" onClick={(e)=>{
+                                            e.preventDefault();
+                                            setJoinLogin('로그인');
+                                        }}>로그인</div>
+                                    </>
+                                )
+                                : (
+                                    <>
+                                        <button className="signUpButton" onClick={(e)=>{
+                                            e.preventDefault();
+                                            setJoinLogin('회원가입');
+                                        }}>회원가입</button>
+                                    </>
+                                )
+                        }
+                    </div>
                 </div>
             </div>
         </>
