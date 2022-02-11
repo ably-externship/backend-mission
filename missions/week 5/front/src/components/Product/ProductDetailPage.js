@@ -53,7 +53,7 @@ function ProductDetailPage(props) {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             }
         })
-        alert('옵션 추가 완료')
+        alert('장바구니 추가 완료')
         // console.log(formData)
     };
 
@@ -70,9 +70,9 @@ function ProductDetailPage(props) {
                     </li>
                     <li className="cell">
                         <div className="detail-inf-1">
-                            <h3>{product.name}</h3>
+                            <h3 className="text-4xl text-left">{product.name}</h3>
 
-                            <h2 className="text-right">
+                            <h2 className="text-right line-through">
                                 {product.price}원
                             </h2>
 
@@ -84,8 +84,7 @@ function ProductDetailPage(props) {
                                 {product.description}
                             </p>
 
-                            옵션
-                            <br/>
+                            옵션 :
                             <select onClick={handleOption}>
                                     {
                                         product.product_options && product.product_options.map((option) =>

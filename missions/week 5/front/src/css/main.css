@@ -110,6 +110,47 @@ html, body {
     margin: 0 -10px;
 }
 
+.list-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    height: 20px;
+}
+
+.img-box {
+    position:relative;
+}
+
+.img-box .text {
+    position:absolute;
+    top:5px;
+    left:5px;
+}
+
+
+/* 추천리스트박스1 */
+.recom-list-box-1 > ul > li {
+    width:20%;
+    padding:0 10px;
+    margin-top: 20px;
+}
+
+.recom-list-box-1 > ul {
+    margin: 0 -10px;
+}
+
+/* 카테고리리스트박스1 */
+.ca-list-box-1 > ul > li {
+    width:16.66%;
+    padding:0 10px;
+    margin-top: 20px;
+}
+
+.ca-list-box-1 > ul {
+    margin: 0 -10px;
+}
+
 /* 디테일 박스1 */
 .detail-box-1 > ul > li{
     width:50%;

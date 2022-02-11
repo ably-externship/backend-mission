@@ -5,7 +5,7 @@ import CartPage from './components/Header/CartPage';
 import LoginModal from './components/LoginModal';
 import { Route } from 'react-router-dom';
 import Product from "./components/Product";
-import ProductRegister from "./components/Header/ProductRegister.js"
+import KeywordRegister from "./components/Header/KeywordRegister"
 import ProductDetailPage from "./components/Product/ProductDetailPage";
 
 function App() {
@@ -64,7 +64,7 @@ function App() {
     }, [isAuthenticated]);
 
 
-    console.log(userId);
+    // console.log(userId);
 
 
 
@@ -75,15 +75,16 @@ function App() {
 
 
                 <div className="auto-margin">
-                    <Header modal={modal} handleLogout={handleLogout}/>
+                    <Header modal={modal} handleLogout={handleLogout} isAuthenticated={isAuthenticated}/>
                     <Route exact path="/">
-                        <Product user={user} user_id={userId}/>
+                        <Product user={user} user_id={userId} isAuthenticated={isAuthenticated}/>
                     </Route>
                     <Route path="/product/:id" component={ProductDetailPage}/>
 
                     {/*<Route path="/write">*/}
                     {/*    <ProductRegister user={user} loginedUserInfo={loginedUserInfo}/>*/}
                     {/*</Route>*/}
+                    <Route path="/keyword" component={KeywordRegister}/>
                     <Route path="/cart" component={CartPage}/>
 
                     <Route path="/login">

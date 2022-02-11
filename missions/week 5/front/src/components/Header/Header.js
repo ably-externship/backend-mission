@@ -1,9 +1,9 @@
 import React,{useState,useEffect} from "react";
 import {Link, useHistory} from 'react-router-dom';
-import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
 function Header(props){
-
 
 
     return(
@@ -22,7 +22,8 @@ function Header(props){
                                     <div className="writer-button-1">
                                         <ul className="row">
                                             {/*<li className="cell"><Link to="/write"><div className="menu">상품 등록</div></Link></li>*/}
-                                            <li className="cell"><Link to="/cart"><div className="menu">장바구니</div></Link></li>
+                                            <li className="cell"><Link to="/cart"><div className="menu"><FontAwesomeIcon icon={faCartShopping}/></div></Link></li>
+                                            <li className="cell"><Link to="/keyword"><div className="menu">키워드</div></Link></li>
                                             <li className="cell"><Link onClick={props.handleLogout} to="/"><div className="menu">로그아웃</div></Link></li>
                                         </ul>
                                     </div>

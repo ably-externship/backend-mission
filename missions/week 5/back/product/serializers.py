@@ -28,6 +28,14 @@ class ProductSerializer(serializers.ModelSerializer):
                   'image', 'image_detail', 'is_hidden', 'is_sold_out', 'reg_date',
                   'hit_count', 'like_count', 'update_date', 'market', 'product_options']
 
+
+class ProductRecommandSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['id', 'category', 'name', 'price', 'sale_price', 'description',
+                  'image', 'image_detail', 'is_hidden', 'is_sold_out', 'reg_date',
+                  'hit_count', 'like_count', 'update_date']
+
 # 상세
 class ProductDetailSerializer(serializers.ModelSerializer):
     product_options = OptionSerializer(many=True)

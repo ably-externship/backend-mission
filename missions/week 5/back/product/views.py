@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from django.db.models import Prefetch, Case, When
 from django.http import HttpRequest, HttpResponse
 from elasticsearch import Elasticsearch
+from user.models import User_recommand
 
 # 제품 리스트
 @api_view(['GET'])
@@ -41,8 +42,16 @@ def ProductList(request):
     else:
         queryset = Product.objects
 
-    user_id = request.user.id
-    products = queryset.prefetch_related('product_options').select_related('market').all()
+    if request.query_params['category']:
+        category=request.query_params['category']
+        if category=="전체":
+            products = queryset.prefetch_related('product_options').select_related('market').all()
+        else:
+            products = queryset.prefetch_related('product_options').select_related('market').filter(category=category)
+    else:
+        products = queryset.prefetch_related('product_options').select_related('market').all()
+    # user_id = request.user.id
+    # products = queryset.prefetch_related('product_options').select_related('market').filter(category=category)
     serializer = ProductSerializer(products, many=True)
 
     return Response(serializer.data)
@@ -105,7 +114,56 @@ def ProductFind(request, name):
 
     return Response(serializer.data)
 
+# 추천 제품
+@api_view(['GET'])
+def ProductRecommandList(request):
+    user_id=request.user.id
+    keywords = User_recommand.objects.get(user=user_id)
+    keyword1=keywords.keyword1
+    keyword2=keywords.keyword2
+    keyword3=keywords.keyword3
 
+    # ElasticSearch 검색 엔진
+    elasticsearch = Elasticsearch(
+        "http://192.168.56.101:9200", http_auth=('elastic', 'elasticpassword'), )
+
+    elastic_sql = f"""
+        SELECT
+        id
+        FROM
+        mall___product_product_type_1___v1
+        WHERE
+        (
+        MATCH(name_nori, '{keyword1}')
+        OR
+        MATCH(category_nori, '{keyword1}')
+        OR
+        MATCH(description_nori, '{keyword1}')
+        OR
+        MATCH(name_nori, '{keyword2}')
+        OR
+        MATCH(category_nori, '{keyword2}')
+        OR
+        MATCH(description_nori, '{keyword2}')
+                OR
+        MATCH(name_nori, '{keyword3}')
+        OR
+        MATCH(category_nori, '{keyword3}')
+        OR
+        MATCH(description_nori, '{keyword3}')
+        )
+        ORDER BY score() DESC
+    """
+
+    response = elasticsearch.sql.query(body={"query": elastic_sql})
+    product_ids = [row[0] for row in response['rows']]
+    order = Case(*[When(id=id, then=pos) for pos, id in enumerate(product_ids)])
+    queryset = Product.objects.filter(id__in=product_ids).order_by(order)
+
+    products = queryset.all()[:5]
+    serializer = ProductRecommandSerializer(products, many=True)
+
+    return Response(serializer.data)
 
 
 # 옵션 리스트

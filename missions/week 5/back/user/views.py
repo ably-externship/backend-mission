@@ -28,18 +28,28 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
 
 
-class UserList(APIView):
-    permission_classes = (permissions.AllowAny,)
+# 추천 키워드 관련
+# 리스트
+@api_view(['GET'])
+def RecommandList(request):
+    user_id=request.user.id
+    Keywords = User_recommand.objects.filter(user=user_id)
+    serializer = RecommandSerializer(Keywords, many=True)
 
-    def post(self, request):
-        serializer = UserSerializerWithToken(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            print("에러 코드 :", serializer.errors)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.data)
 
+# 추가
+@api_view(['PATCH'])
+def RecommandCreate(request):
+    keyword = User_recommand.objects.get(user=request.user.id)
+
+    serializer = RecommandSerializer(instance=keyword, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+    else:
+        print("에러 코드 :", serializer.errors)
+
+    return Response(serializer.data)
 
 # class ApiRefreshRefreshTokenView(GenericAPIView):
 #     permission_classes = ()  # 중요, 이렇게 해야 접근이 가능합니다.

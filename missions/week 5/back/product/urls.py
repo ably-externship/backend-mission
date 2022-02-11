@@ -10,6 +10,7 @@ urlpatterns = [
     path('update/<int:pk>/', views.ProductUpdate, name="ProductUpdate"),
     path('delete/<int:pk>/', views.ProductDelete, name="ProductDelete"),
     path('find/<str:name>/', views.ProductFind, name="ProductFind"),
+    path('recommand/', views.ProductRecommandList, name="ProductRecommandlist"),
 
     # ElasticSearch
     path('search_by_elastic/', views.search_by_elastic, name='search_by_elastic'), # 테스트용

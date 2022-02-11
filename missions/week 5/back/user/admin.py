@@ -11,7 +11,7 @@ admin.site.register(User, UserAdmin)
 
 
 class UserRecommandAdmin(admin.ModelAdmin):
-    list_display = ('id', 'keyword1', 'keyword2', 'keyword3','user')
+    list_display = ('keyword1', 'keyword2', 'keyword3')
 
 
 admin.site.register(User_recommand, UserRecommandAdmin)

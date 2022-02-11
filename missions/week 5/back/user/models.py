@@ -97,12 +97,10 @@ def password_hashing(instance, **kwargs):
 
 # User_recommand 테이블
 class User_recommand(models.Model):
-    id = models.AutoField(primary_key=True)  # User_recommand_id
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_recommand', primary_key=True)  # User_recommand_id, user_id
     reg_date = models.DateTimeField('등록일', auto_now_add=True) # 등록날짜
     update_date = models.DateTimeField('갱신일', auto_now=True)  # 갱신날짜
     keyword1 = models.CharField('키워드1', max_length=128)  # 키워드1
     keyword2 = models.CharField('키워드2', max_length=128)  # 키워드2
     keyword3 = models.CharField('키워드3', max_length=128)  # 키워드3
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_recommand')  # user_id
 
