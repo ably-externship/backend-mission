@@ -12,6 +12,10 @@ class ErrorMessage(Enum):
 
     PRODUCT_OPTION_DUPLICATE = ("PRODUCT_OPTION_001", "Product Option Duplicate")
 
+    USER_NOT_FOUND = ("USER_001", "User Not Found")
+
+    MARKET_VALIDATION_ERROR = ("MARKET_001", "Market Post Invalid Error")
+
 
     def __init__(self, code, message):
         self.code = code

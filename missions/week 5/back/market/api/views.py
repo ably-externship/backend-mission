@@ -4,6 +4,13 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+from common.BaseResponse import BaseResponse
+from market.api.serializers import MarketCreateSerializer, MarketListSerializer
+from rest_framework import exceptions
+
+from common.exception.ErrorMessage import ErrorMessage
+from market.models import Market
+
 
 @api_view(['GET', 'POST'])
 @csrf_exempt
@@ -13,11 +20,25 @@ def markets(request):
     method = request.method
     if method == 'GET':
         # TODO Market List
-        return Response(data=None, status=status.HTTP_200_OK)
+        market_list = Market.objects.all()
+        serializer = MarketListSerializer(market_list, many=True)
+        response = BaseResponse(data=serializer.data, message=None, code="SUCCESS")
+        return Response(data=response.to_dict(), status=status.HTTP_200_OK)
 
     if method == 'POST':
         # TODO Market Regist
-        return Response(data=None, status=status.HTTP_201_CREATED)
+        market_serializer = MarketCreateSerializer(data=request.data)
+        if market_serializer.is_valid():
+            market_serializer.save()
+            response = BaseResponse(data=market_serializer.data, message=None, code="SUCCESS")
+            return Response(data=response.to_dict(), status=status.HTTP_201_CREATED)
+        else:
+            if market_serializer.errors.get('user_fk') is not None:
+                raise exceptions.NotFound(detail={'code': ErrorMessage.USER_NOT_FOUND.code,
+                                                  "message": ErrorMessage.USER_NOT_FOUND.message})
+            else:
+                raise exceptions.ValidationError(detail={'code': ErrorMessage.MARKET_VALIDATION_ERROR.code,
+                                                         "message": ErrorMessage.MARKET_VALIDATION_ERROR.message})
 
 
 @api_view(['PATCH', 'DELETE', 'GET'])
