@@ -1,0 +1,48 @@
+{% extends 'common/base.html' %}
+{% block title %}장바구니 - 멋블리{% endblock %}
+{% load humanize %}
+{% block head %}
+{% endblock %}
+{% block content %}
+    <h4>장바구니</h4>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">상품명</th>
+            <th scope="col">옵션</th>
+            <th scope="col" style="width: 8rem;">수량</th>
+            <th scope="col">금액</th>
+            <th scope="col" style="width: 8rem;">수정/삭제</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+            <tr>
+                <form method="post" action="{% url 'edit_cart' item.id %}">
+                    {% csrf_token %}
+                    <td>{{ item.product_option.product.display_name }}</td>
+                    <td>{{ item.product_option }}</td>
+                    <td>
+                        <input name="quantity" type="number" value="{{ item.quantity }}" min="1" style="width: 4rem;">개
+                    </td>
+                    <td>{{ item.get_price | intcomma }}원</td>
+                    <td>
+                        <input class="btn" type="submit" value="✔">
+                        <a class="btn" href="{% url 'remove_from_cart' item.id %}">❌</a>
+                    </td>
+                </form>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>합계</td>
+            <td>{{ total_price | intcomma }}원</td>
+            <td></td>
+        </tr>
+        </tfoot>
+    </table>
+    <a href="{% url 'checkout' %}" class="btn btn-primary w-100 mt-5">구매하기</a>
+{% endblock %}

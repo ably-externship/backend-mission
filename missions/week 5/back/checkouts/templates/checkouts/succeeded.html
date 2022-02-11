@@ -1,0 +1,14 @@
+{% extends 'common/base.html' %}
+{% block title %}주문/결제 - 멋블리{% endblock %}
+{% load humanize %}
+{% block content %}
+    <h4>주문/결제</h4>
+    <p>주문이 완료되었습니다.</p>
+    <p>주문 번호: {{ order_id }}</p>
+    <p>주문명: {{ transaction.name }}</p>
+    <p>결제 금액: {{ transaction.amount | intcomma }}원</p>
+    <p>결제 수단: {{ transaction.method }}</p>
+    {% for item in items %}
+        <p>{{ item }}</p>
+    {% endfor %}
+{% endblock %}
