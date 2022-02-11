@@ -9,24 +9,25 @@ function ProductList() {
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false)
   const el = useRef()
-
-
-  const handleCloseModal = (e) => {
-    console.log("chedck")
-    console.log("target",el.current.contains(e.target))
-    if (el.current && !el.current.contains(e.target)) {
-      console.log("da")
-      setOpenModal(true);
-    }
-  }
   
-  useEffect(() => {
-    console.log("lciek")
-    window.addEventListener('click', handleCloseModal);
-    return () => {
-      window.removeEventListener('click', handleCloseModal)
-    };
-  }, [])
+
+  // const handleCloseModal = (e) => {
+  //   console.log("chedck")
+  //   console.log(e)
+  //   console.log("target",el.current.contains(e.target))
+  //   if (el.current && !el.current.contains(e.target)) {
+  //     console.log("da")
+  //     setOpenModal(true);
+  //   }
+  // }
+  
+  // useEffect(() => {
+  //   console.log("lciek")
+  //   window.addEventListener('click', handleCloseModal);
+  //   return () => {
+  //     window.removeEventListener('click', handleCloseModal)
+  //   };
+  // }, [])
 
 
   // // BodyBlackoutStyle
@@ -65,7 +66,7 @@ function ProductList() {
 
         <button className="w-20 bg-green-500 hover:bg-blue-700 text-white font-bold py-2 rounded focus:outline-none focus:shadow-outline" onClick={()=>setOpenModal(true)}>상품추가</button>
         {/* {openModal && <BodyBlackoutStyle closeModal={setOpenModal}/>} */}
-        {openModal && <Modal  closeModal={setOpenModal} />}
+        {/* {openModal && <Modal  closeModal={setOpenModal} />} */}
         <table class="table-auto">
           <thead>
             <tr>
@@ -86,6 +87,7 @@ function ProductList() {
                 description={product.description}
                 image_url={"http://localhost:8000" + product.image}
                 reg_date={product.reg_date}
+                product ={product}
               />
             ))}
           </tbody>
@@ -97,5 +99,8 @@ function ProductList() {
   );
 
 }
+
+
+
 
 export default ProductList;

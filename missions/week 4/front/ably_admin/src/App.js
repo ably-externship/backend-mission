@@ -11,10 +11,8 @@ import Navbar from './components/navbar'
 
 
 
-
 function App() {
   // state만의 장점 웹이 app처럼 동작하게 만들고 싶어서 
-
   // state 가 변경시 html이 자동으로 재렌더링
 
   const  [username,setUsername]  = useState()

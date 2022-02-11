@@ -1,12 +1,15 @@
 import "./modal.css";
 import { useState, useEffect,useRef } from 'react';
-
+import { Dialog } from '@mui/material';
 function Modal({ closeModal }) {
   const el = useRef()
 
 
   const handleCloseModal = (e) => {
-    if (el.current && !el.current.contains(e.target)) closeModal();
+    if (el.current && !el.current.contains(e.target)) {
+      console.log("test")
+      closeModal();
+    }
   }
   
   useEffect(() => {
