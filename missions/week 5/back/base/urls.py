@@ -25,6 +25,7 @@ from cart.urls import urlpatterns as cart_url
 from product.api.urls import urlpatterns as products_url
 from users.api.urls import urlpatterns as auth_token_url
 from market.api.urls import urlpatterns as market_url
+from product_category.api.urls import urlpatterns as product_category_url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -37,6 +38,7 @@ urlpatterns = [
     path('cart/', include(cart_url)),
     path('products/', include(products_url)),
     path('markets/', include(market_url)),
+    path('product-categorys/', include(product_category_url))
 ]
 
 if settings.DEBUG:

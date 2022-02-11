@@ -7,14 +7,15 @@ class ErrorMessage(Enum):
 
     MARKET_NOT_FOUND = ('MARKET_001', 'Market Not Found')
     MARKET_ID_NOT_CORRECT = ("MARKET_002", 'Market Id Is Not Correct')
+    MARKET_VALIDATION_ERROR = ("MARKET_003", "Market Post Invalid Error")
 
     PRODUCT_CATEGORY_NOT_FOUND = ("PRODUCT_CATEGORY_001", "Product Category Not Found")
+    PRODUCT_CATEGORY_INVALID = ("PRODUCT_CATEGORY_002", "Product Category Invalid")
 
     PRODUCT_OPTION_DUPLICATE = ("PRODUCT_OPTION_001", "Product Option Duplicate")
 
     USER_NOT_FOUND = ("USER_001", "User Not Found")
 
-    MARKET_VALIDATION_ERROR = ("MARKET_001", "Market Post Invalid Error")
 
 
     def __init__(self, code, message):

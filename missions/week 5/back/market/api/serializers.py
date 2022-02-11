@@ -1,27 +1,35 @@
 from django.db import transaction
-from rest_framework import serializers
+from rest_framework.serializers import ModelSerializer
 
 from market.models import Market
-from market_sns.api.serializers import MarketSnsSerializer
+from market_sns.api.serializers import MarketSnsSerializer, MarketSnsCreateSerializer
 
 
-class MarketDetailSerializer(serializers.ModelSerializer):
+class MarketDetailSerializer(ModelSerializer):
     class Meta:
         model = Market
         fields = ('id', 'company_name')
 
-class MarketListSerializer(serializers.ModelSerializer):
+
+class MarketListSerializer(ModelSerializer):
     class Meta:
         model = Market
         fields = ('id', 'company_name', 'user_fk', 'create_date')
 
 
-
-class MarketCreateSerializer(serializers.ModelSerializer):
-    market_sns = MarketSnsSerializer(many=True, required=False)
+class MarketSelectSerializer(ModelSerializer):
+    market_sns = MarketSnsSerializer(many=True)
     class Meta:
         model = Market
-        fields = ('id', 'company_name', 'user_fk', 'market_sns')
+        fields = ('id', 'company_name', 'user_fk', 'create_date', 'market_sns')
+
+
+class MarketCreateSerializer(ModelSerializer):
+    market_sns = MarketSnsCreateSerializer(many=True, required=False)
+
+    class Meta:
+        model = Market
+        fields = ('id', 'company_name', 'company_number', 'user_fk', 'market_sns')
 
     @transaction.atomic
     def create(self, validated_data):
@@ -35,3 +43,11 @@ class MarketCreateSerializer(serializers.ModelSerializer):
 
             market_option_serializer.is_valid(raise_exception=True)
             market_option_serializer.save()
+
+        return market
+
+class MarketPatchSerializer(ModelSerializer):
+
+    class Meta:
+        model = Market
+        fields = ('id', 'company_name', 'company_number', 'user_fk')
