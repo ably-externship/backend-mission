@@ -16,25 +16,58 @@ class ProductOptionSerializer(ModelSerializer):
 
 
 class ProductSerializer(ModelSerializer):
-    productoption = ProductOptionSerializer(many=True, read_only=True)
+    product_option = ProductOptionSerializer(many=True, read_only=True)
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'author_id', 'seller', 'price', 'image', 'description', 'productoption', ]
+        fields = [
+            'id',
+            'name',
+            'author_id',
+            'seller',
+            'price',
+            'image',
+            'description',
+            'product_option',
+        ]
 
 
 class CartItemSerializer(ModelSerializer):
     product_name = serializers.ReadOnlyField(source='product.name')
-    productoption_size = serializers.ReadOnlyField(source='productoption.size')
-    productoption_color = serializers.ReadOnlyField(source='productoption.color')
+    product_option_size = serializers.ReadOnlyField(source='product_option.size')
+    product_option_color = serializers.ReadOnlyField(source='product_option.color')
 
     class Meta:
         model = CartItem
-        fields = ['id', 'quantity', 'product_id', 'user_id', 'productoption_id', 'product_name', 'productoption_size', 'productoption_color',]
+        fields = [
+            'quantity',
+            'product_id',
+            'user_id',
+            'product_option_id',
+            'product_name',
+            'product_option_size',
+            'product_option_color',
+        ]
+
+
+class CartItemOrderSerializer(ModelSerializer):
+    class Meta:
+        model = CartItem
+        fields = [
+            'quantity',
+            'product_id',
+            'user_id',
+            'product_option_id',
+        ]
 
 
 class OrderItemSerializer(ModelSerializer):
-
     class Meta:
         model = OrderItem
-        fields = ['id', 'quantity', 'user_id', 'product_id', 'productoption_id']
+        fields = [
+            'id',
+            'quantity',
+            'user_id',
+            'product_id',
+            'product_option_id'
+        ]

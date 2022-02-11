@@ -4,7 +4,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from product.api.permission import IsSeller, IsAuthor
-from product.api.serializers import ProductSerializer, CartItemSerializer, OrderItemSerializer, ProductOptionSerializer
+from product.api.serializers import ProductSerializer, CartItemSerializer, \
+    OrderItemSerializer, CartItemOrderSerializer
 from rest_framework.pagination import PageNumberPagination
 from product.models import Product, CartItem, OrderItem, ProductOption
 
@@ -12,8 +13,9 @@ from product.models import Product, CartItem, OrderItem, ProductOption
 class PageNumberPagination(PageNumberPagination):
     page_size = 10
 
+
 # 상품 조회 및 삭제
-class ProductListAPIView(APIView):
+class ProductListView(APIView):
     pagination_class = PageNumberPagination
 
     def get(self, request):
@@ -46,7 +48,7 @@ class ProductListAPIView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-class ProductDetailAPIView(APIView):
+class ProductDetailView(APIView):
     pagination_class = PageNumberPagination
     permission_classes = [IsSeller]
 
@@ -63,7 +65,6 @@ class ProductDetailAPIView(APIView):
         serializer = ProductSerializer(Product, context={'request': request})
         return Response(serializer.data)
 
-
     def patch(self, request, pk):
         Product = self.get_object(pk)
         serializer = ProductSerializer(Product, data=request.data, partial=True, context={'request': request})
@@ -79,7 +80,7 @@ class ProductDetailAPIView(APIView):
 
 
 # 장바구니 추가 및 조회
-class CartItemListAPIView(APIView):
+class CartItemListView(APIView):
     def get(self, request):
         qs = CartItem.objects.filter(user=request.user)
         serializer = CartItemSerializer(qs, many=True)
@@ -88,16 +89,16 @@ class CartItemListAPIView(APIView):
     def post(self, request):
         user_id = self.request.user.id
         product_id = request.data['product_id']
-        productoption_id = request.data['productoption_id']
-        serializer = CartItemSerializer(data=request.data)
+        product_option_id = request.data['product_option_id']
 
+        serializer = CartItemSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(user_id=user_id, product_id=product_id, productoption_id=productoption_id)
+            serializer.save(user_id=user_id, product_id=product_id, product_option_id=product_option_id)
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
 
 
-class CartItemDetailAPIView(APIView):
+class CartItemDetailView(APIView):
     permission_classes = [IsAuthor]
 
     def get_object(self, pk):
@@ -113,7 +114,6 @@ class CartItemDetailAPIView(APIView):
         serializer = CartItemSerializer(CartItem)
         return Response(serializer.data)
 
-
     def patch(self, reqeust, pk):
         CartItem = self.get_object(pk)
         serializer = CartItemSerializer(CartItem, data=reqeust.data, partial=True)
@@ -128,8 +128,26 @@ class CartItemDetailAPIView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-# 주문하기 및 조회
-class OrderItemListAPIView(APIView):
+# 장바구니 상품 주문
+class CartItemOrderView(APIView):
+    def post(self, request):
+        for order in request.data['orders']:
+            user_id = order['user_id']
+            product_id = order['product_id']
+            product_option_id = order['product_option_id']
+            # quantity = order['quantity']
+
+            serializer = CartItemSerializer(data=request.data)
+
+            if serializer.is_valid():
+                breakpoint()
+                serializer.save(user_id, product_id, product_option_id)
+                return Response(serializer.data, status=201)
+            return Response(serializer.errors, status=400)
+
+
+# 주문하기 및 주문 목록 조회
+class OrderItemListView(APIView):
     def get(self, request):
         qs = OrderItem.objects.filter(user=request.user)
         serializer = OrderItemSerializer(qs, many=True)
@@ -138,21 +156,20 @@ class OrderItemListAPIView(APIView):
     def post(self, request):
         user_id = request.data['user_id']
         product_id = request.data['product_id']
-        productoption_id = request.data['productoption_id']
+        product_option_id = request.data['product_option_id']
         serializer = OrderItemSerializer(data=request.data)
-
-        productoption = ProductOption.objects.get(id=productoption_id)
+        productoption = ProductOption.objects.get(id=product_option_id)
         stockcount = productoption.stock_count
         stockcount -= 1
-        ProductOption.objects.filter(id=productoption_id).update(stock_count=stockcount)
+        ProductOption.objects.filter(id=product_option_id).update(stock_count=stockcount)
 
         if serializer.is_valid():
-            serializer.save(user_id=user_id, product_id=product_id, productoption_id=productoption_id)
+            serializer.save(user_id=user_id, product_id=product_id, product_option_id=product_option_id)
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
 
 
-class OrderItemDetailAPIView(APIView):
+class OrderItemDetailView(APIView):
     permission_classes = [IsAuthor]
 
     def get_object(self, pk):
@@ -171,12 +188,11 @@ class OrderItemDetailAPIView(APIView):
     def patch(self, request, pk):
         OrderItem = self.get_object(pk)
         serializer = OrderItemSerializer(OrderItem, data=request.data, partial=True)
-
         quantity = request.data['quantity']
-        productoption = ProductOption.objects.get(id=OrderItem.productoption_id)
+        productoption = ProductOption.objects.get(id=OrderItem.product_option_id)
         stockcount = productoption.stock_count
         stockcount = stockcount - quantity
-        ProductOption.objects.filter(id=OrderItem.productoption_id).update(stock_count=stockcount)
+        ProductOption.objects.filter(id=OrderItem.product_option_id).update(stock_count=stockcount)
 
         if serializer.is_valid():
             serializer.save()
@@ -190,7 +206,7 @@ class OrderItemDetailAPIView(APIView):
 
 
 # 관리자용 주문목록
-class OrderedItemListAPIView(APIView):
+class OrderedItemListView(APIView):
     def get(self, request):
         qs = OrderItem.objects.filter(product__author=request.user)
         # qs2 = Product.objects.all().filter(author=request.user)
@@ -199,7 +215,7 @@ class OrderedItemListAPIView(APIView):
         return Response(serializer.data)
 
 
-class OrderedItemDetailAPIView(APIView):
+class OrderedItemDetailView(APIView):
     def get_object(self, pk):
         return get_object_or_404(OrderItem, pk=pk)
 

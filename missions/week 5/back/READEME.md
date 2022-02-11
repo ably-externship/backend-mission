@@ -306,7 +306,7 @@ python manage.py runserver
 
 ### 장바구니 조회
 [요청]
-- URL: GET /api/products/cartitems/
+- URL: GET /api/products/cart/items/
 
 [응답]
 - Body
@@ -345,7 +345,7 @@ python manage.py runserver
 
 ### 장바구니 등록
 [요청]
-- URL: POST /api/products/cartitems/
+- URL: POST /api/products/cart/items/
 
 
 - Body
@@ -400,8 +400,8 @@ python manage.py runserver
 
 ### 장바구니 상세 조회
 [요청]
-- URL: GET /api/products/cartitems/:pk/
-  - Path 파라미터 설명 : pk는 cartitems의 식별 아이디를 입력합니다.
+- URL: GET /api/products/cart/items/:pk/
+  - Path 파라미터 설명 : pk는 items의 식별 아이디를 입력합니다.
 
 [응답]
 - Body
@@ -429,8 +429,8 @@ python manage.py runserver
 
 ### 장바구니 상품 수정
 [요청]
-- URL: PATCH /api/products/cartit의ems/:pk/
-  - Path 파라미터 설명 : pk는 cartit의ems의 식별 아이디를 입력합니다.
+- URL: PATCH /api/products/cart/items/:pk/
+  - Path 파라미터 설명 : pk는 items의 식별 아이디를 입력합니다.
 - Body
 ```bash
 {
@@ -466,8 +466,8 @@ python manage.py runserver
 
 ### 장바구니 삭제
 [요청]
-- URL: DELETE /api/products/cartitems/:pk/
-  - Path 파라미터 설명 : pk는 cartitems 식별 아이디를 입력합니다.
+- URL: DELETE /api/products/cart/items/:pk/
+  - Path 파라미터 설명 : pk는 items의 식별 아이디를 입력합니다.
 
 [응답]
 - Body
@@ -481,7 +481,7 @@ python manage.py runserver
 
 ### 주문 조회
 [요청]
-- URL: GET /api/products/orderitems/
+- URL: GET /api/products/order/items/
 
 [응답]
 - Body
@@ -509,7 +509,7 @@ python manage.py runserver
 
 ### 주문 등록 
 [요청]
-- URL: POST /api/products/orderitems/
+- URL: POST /api/products/order/items/
 
 ```bash
 {
@@ -548,8 +548,8 @@ python manage.py runserver
 
 ### 주문 상세 조회
 [요청]
-- URL: GET /api/products/orderitems/:pk/
-  - Path 파라미터 설명 : pk는 orderitems 식별 아이디를 입력합니다.
+- URL: GET /api/products/order/items/:pk/
+  - Path 파라미터 설명 : pk는 items 식별 아이디를 입력합니다.
 
 [응답]
 - Body
@@ -577,8 +577,8 @@ python manage.py runserver
 
 ### 주문 상품 수정
 [요청]
-- URL: PATCH /api/products/orderitems/:pk/
-  - Path 파라미터 설명 : pk는 orderitems의 식별 아이디를 입력합니다.
+- URL: PATCH /api/products/order/items/:pk/
+  - Path 파라미터 설명 : pk는 items의 식별 아이디를 입력합니다.
 - Body
 ```bash
 {
@@ -611,8 +611,8 @@ python manage.py runserver
 
 ### 주문 삭제
 [요청]
-- URL: DELETE /api/products/orderitems/:pk/
-  - Path 파라미터 설명 : pk는 orderitems의 식별 아이디를 입력합니다.
+- URL: DELETE /api/products/order/items/:pk/
+  - Path 파라미터 설명 : pk는 items의 식별 아이디를 입력합니다.
 
 [응답]
 - Body
