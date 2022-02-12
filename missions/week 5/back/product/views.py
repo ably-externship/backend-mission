@@ -1,3 +1,5 @@
+import time
+
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers import *
@@ -7,10 +9,15 @@ from django.db.models import Prefetch, Case, When
 from django.http import HttpRequest, HttpResponse
 from elasticsearch import Elasticsearch
 from user.models import User_recommand
+from django.core.cache import cache # 캐싱
 
 # 제품 리스트
 @api_view(['GET'])
 def ProductList(request):
+
+    start=time.time()
+    data=cache
+
 
     # ElasticSearch 검색 엔진
     if request.query_params['search']:
@@ -42,18 +49,18 @@ def ProductList(request):
     else:
         queryset = Product.objects
 
+    # 카테고리 선택시
     if request.query_params['category']:
         category=request.query_params['category']
         if category=="전체":
             products = queryset.prefetch_related('product_options').select_related('market').all()
         else:
             products = queryset.prefetch_related('product_options').select_related('market').filter(category=category)
+    # 카테고리 선택 안할시(전체로 설정)
     else:
         products = queryset.prefetch_related('product_options').select_related('market').all()
-    # user_id = request.user.id
-    # products = queryset.prefetch_related('product_options').select_related('market').filter(category=category)
-    serializer = ProductSerializer(products, many=True)
 
+    serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)
 
 # 제품 추가
@@ -118,49 +125,63 @@ def ProductFind(request, name):
 @api_view(['GET'])
 def ProductRecommandList(request):
     user_id=request.user.id
-    keywords = User_recommand.objects.get(user=user_id)
-    keyword1=keywords.keyword1
-    keyword2=keywords.keyword2
-    keyword3=keywords.keyword3
+    start = time.time() # Redis 성능 확인을 위한 초기 시간 저장
+    
+    # Redis에 key가 있는지 확인
+    if not cache.get(user_id):
 
-    # ElasticSearch 검색 엔진
-    elasticsearch = Elasticsearch(
-        "http://192.168.56.101:9200", http_auth=('elastic', 'elasticpassword'), )
+        keywords = User_recommand.objects.get(user=user_id)
+        keyword1=keywords.keyword1
+        keyword2=keywords.keyword2
+        keyword3=keywords.keyword3
 
-    elastic_sql = f"""
-        SELECT
-        id
-        FROM
-        mall___product_product_type_1___v1
-        WHERE
-        (
-        MATCH(name_nori, '{keyword1}')
-        OR
-        MATCH(category_nori, '{keyword1}')
-        OR
-        MATCH(description_nori, '{keyword1}')
-        OR
-        MATCH(name_nori, '{keyword2}')
-        OR
-        MATCH(category_nori, '{keyword2}')
-        OR
-        MATCH(description_nori, '{keyword2}')
-                OR
-        MATCH(name_nori, '{keyword3}')
-        OR
-        MATCH(category_nori, '{keyword3}')
-        OR
-        MATCH(description_nori, '{keyword3}')
-        )
-        ORDER BY score() DESC
-    """
+        # ElasticSearch 검색 엔진
+        elasticsearch = Elasticsearch(
+            "http://192.168.56.101:9200", http_auth=('elastic', 'elasticpassword'), )
 
-    response = elasticsearch.sql.query(body={"query": elastic_sql})
-    product_ids = [row[0] for row in response['rows']]
-    order = Case(*[When(id=id, then=pos) for pos, id in enumerate(product_ids)])
-    queryset = Product.objects.filter(id__in=product_ids).order_by(order)
+        elastic_sql = f"""
+            SELECT
+            id
+            FROM
+            mall___product_product_type_1___v1
+            WHERE
+            (
+            MATCH(name_nori, '{keyword1}')
+            OR
+            MATCH(category_nori, '{keyword1}')
+            OR
+            MATCH(description_nori, '{keyword1}')
+            OR
+            MATCH(name_nori, '{keyword2}')
+            OR
+            MATCH(category_nori, '{keyword2}')
+            OR
+            MATCH(description_nori, '{keyword2}')
+                    OR
+            MATCH(name_nori, '{keyword3}')
+            OR
+            MATCH(category_nori, '{keyword3}')
+            OR
+            MATCH(description_nori, '{keyword3}')
+            )
+            ORDER BY score() DESC
+        """
 
-    products = queryset.all()[:5]
+        response = elasticsearch.sql.query(body={"query": elastic_sql})
+        product_ids = [row[0] for row in response['rows']]
+        order = Case(*[When(id=id, then=pos) for pos, id in enumerate(product_ids)])
+        queryset = Product.objects.filter(id__in=product_ids).order_by(order)
+
+        products = queryset.all()[:5]
+        products = cache.set(user_id, products)
+        products = cache.get(user_id)
+        end = time.time()
+        print('Redis에 키 없을 때 조회 시간 : ', end - start)
+    else:
+        products = cache.get(user_id)
+        end = time.time()
+        print('Redis에 키 있을 때 조회 시간 : ', end - start)
+
     serializer = ProductRecommandSerializer(products, many=True)
 
     return Response(serializer.data)

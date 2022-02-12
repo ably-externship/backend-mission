@@ -3,8 +3,10 @@ from market.models import Market
 from cart.models import Cart
 from user.models import User
 
+
 # Product 테이블
 class Product(models.Model):
+
 
     category_choices={
         ('아우터', "아우터"),

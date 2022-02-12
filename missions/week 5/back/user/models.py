@@ -16,6 +16,7 @@ from django.shortcuts import resolve_url
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.contrib.auth.hashers import make_password, is_password_usable
+from django.core.cache import cache
 
 
 # User 테이블
@@ -97,6 +98,16 @@ def password_hashing(instance, **kwargs):
 
 # User_recommand 테이블
 class User_recommand(models.Model):
+
+    def save(self, *args, **kwargs):
+        cache.delete(self.user_id)
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        cache.delete(self.user_id)
+        super().delete(*args, **kwargs)
+
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_recommand', primary_key=True)  # User_recommand_id, user_id
     reg_date = models.DateTimeField('등록일', auto_now_add=True) # 등록날짜
     update_date = models.DateTimeField('갱신일', auto_now=True)  # 갱신날짜
