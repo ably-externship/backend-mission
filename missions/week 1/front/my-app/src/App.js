@@ -219,9 +219,10 @@ function PokeListPage() {
           return (
             <li key={poke.id} className="hover:bg-gray-100">
               <Link to={"poke?id=" + poke.id} className="flex items-center">
-                {/*<img*/}
-                {/*  src={poke.imgs[0].img_url}*/}
-                {/*/>*/}
+
+                <img
+                  src={poke.imgs[0].img_url}
+                />
                 <div className="ml-2">
                   <h2 className="w-20">
                     <span className="badge badge-outline badge-primary">
@@ -239,12 +240,13 @@ function PokeListPage() {
                            <strong>shop: {poke.shop.shop_name}</strong>{' '}
                             {' '}
 
-                           <strong>사이즈 :  {poke.product_reals[0].option_1_display_name}</strong>{' '}
-                           <strong>컬러 :  {poke.product_reals[0].option_2_display_name}</strong>{' '}
-                           <strong>수량 :  {poke.product_reals[0].stock_quantity}</strong>{' '}
-                           <strong>사이즈 :  {poke.product_reals[1].option_1_display_name}</strong>{' '}
-                           <strong>컬러 :  {poke.product_reals[1].option_2_display_name}</strong>{' '}
-                           <strong>수량 :  {poke.product_reals[1].stock_quantity}</strong>{' '}
+
+                           {/*<strong>사이즈 :  {poke.product_reals[0].option_1_display_name}</strong>{' '}*/}
+                           {/*<strong>컬러 :  {poke.product_reals[0].option_2_display_name}</strong>{' '}*/}
+                           {/*<strong>수량 :  {poke.product_reals[0].stock_quantity}</strong>{' '}*/}
+                           {/*<strong>사이즈 :  {poke.product_reals[1].option_1_display_name}</strong>{' '}*/}
+                           {/*<strong>컬러 :  {poke.product_reals[1].option_2_display_name}</strong>{' '}*/}
+                           {/*<strong>수량 :  {poke.product_reals[1].stock_quantity}</strong>{' '}*/}
                       </div>
 
                 </div>
