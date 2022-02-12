@@ -61,6 +61,7 @@ def cart_update(request):
         return redirect('cart:list')
     else:
         cart.quantity = number
+        messages.success(request,cart.product.product.name+" 수량 Update ")
         cart.save()
         return redirect('cart:list')
 
@@ -72,10 +73,22 @@ def cart_delete(request):
     cart = get_object_or_404(Cart,pk = cart_id)
     if cart.user == request.user: # 유저 같은지 판단
         cart.delete()
-        messages.error(request,"유저가 다릅니다")
+        messages.success(request," 삭제 성공")
+        
         return redirect('cart:list')
-    messages.success(request,"성공")
+    messages.error(request,"유저가 다릅니다")
     return redirect('cart:list')
 
 
+def product_purchase(request):
+    """
+    상품 구매
+    """
+    selected = request.GET.getlist('selected')
+    
+    for id in selected:
+        cart = Cart.objects.get(pk=id)
+        
+        cart.delete()
+    return redirect('product:list')
     
