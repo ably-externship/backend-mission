@@ -6,6 +6,11 @@
 
 
 <div id = 'content'>
+  {% for message in messages %}
+    <div class="alert {{ message.tags }} alert-auto-dismissible alert-dismissible notification-container text-center" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
     <div class="container">
         <h2>Products - 둘러보기</h2>
         <div class="row">

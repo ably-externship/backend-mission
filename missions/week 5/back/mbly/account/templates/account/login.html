@@ -27,7 +27,7 @@
             value = "{{ form.password.value|default_if_none:'' }}">
         </div>
         <button type = 'submit' class = 'btn btn-primary'>로그인</button>
-        <a href = "{% url 'account:kakao_login' %}" class='btn btn-primary'>카카오 로그인</a>
+        <a href = "{% url 'account:kakao_login' %}" ><img src ="/static/kakao_login_medium_narrow.png"></a>
     </form>
 </div>
 {% endblock %}

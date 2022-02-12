@@ -37,7 +37,7 @@
       </table>
       
       전체금액 : {{ total }}
-      <button class = 'btn btn-primary'>결제하기</button>
+      <button class = 'btn btn-primary' action="{% url 'cart:purchase' %}" >결제하기</button>
 
     
 </div>
