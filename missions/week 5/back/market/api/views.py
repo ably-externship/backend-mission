@@ -1,16 +1,16 @@
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework import exceptions
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from common.BaseResponse import BaseResponse
+from common.exception.ErrorMessage import ErrorMessage
 from market.api.serializers import MarketCreateSerializer, MarketListSerializer, MarketSelectSerializer, \
     MarketPatchSerializer
-from rest_framework import exceptions
-
-from common.exception.ErrorMessage import ErrorMessage
 from market.models import Market
+from users.models import User
 
 
 @api_view(['GET', 'POST'])
@@ -29,6 +29,9 @@ def markets(request):
         market_serializer = MarketCreateSerializer(data=request.data)
         if market_serializer.is_valid():
             market_serializer.save()
+            user = User.objects.get(id=market_serializer.data['user_fk'])
+            user.market_yn = True
+            user.save()
             response = BaseResponse(data=market_serializer.data, message=None, code="SUCCESS")
             return Response(data=response.to_dict(), status=status.HTTP_201_CREATED)
         else:

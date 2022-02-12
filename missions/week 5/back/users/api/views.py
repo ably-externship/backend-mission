@@ -1,20 +1,17 @@
-from django.contrib.auth import authenticate
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.decorators import api_view
-from rest_framework_simplejwt.tokens import RefreshToken, Token
-from rest_framework_simplejwt.views import TokenObtainPairView
-
-from common.BaseResponse import BaseResponse
-from users.api.serializers import UserAuthSerializer, UserAuthResponseSerializer, UserAuthResponse, \
-    MyTokenObtainPairSerializer
-from rest_framework import exceptions, status
-
-from rest_framework.response import Response
 import uuid
 
-from users.models import RefreshStorage, User
-
+from django.contrib.auth import authenticate
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework import exceptions, status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from rest_framework_simplejwt.exceptions import TokenError
+from rest_framework_simplejwt.tokens import RefreshToken
+
+from common.BaseResponse import BaseResponse
+from market.models import Market
+from users.api.serializers import UserAuthSerializer, MyTokenObtainPairSerializer
+from users.models import RefreshStorage, User
 
 
 @csrf_exempt
@@ -23,6 +20,8 @@ def get_token(request):
     user = UserAuthSerializer(request.data).data
     user_auth = authenticate(username=user.get('username'), password=user.get('password'))
     if user_auth is not None:
+        if user_auth.market_yn:
+            user_auth.market_info = Market.objects.get(user_fk=user_auth.id)
         return issued_token(user_auth)
     else:
         raise exceptions.AuthenticationFailed(detail=None, code=None)
@@ -37,6 +36,9 @@ def refresh_token(request):
         token = RefreshToken(refresh_storage.refresh_token)
 
         user = User.objects.get(id=token['user_id'])
+        if user is not None:
+            if user.market_yn:
+                user.market_info = Market.objects.get(user_fk=user.id)
 
         return issued_token(user)
     except TokenError as e:
