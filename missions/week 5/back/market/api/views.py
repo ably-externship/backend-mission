@@ -36,11 +36,22 @@ def markets(request):
             return Response(data=response.to_dict(), status=status.HTTP_201_CREATED)
         else:
             if market_serializer.errors.get('user_fk') is not None:
-                raise exceptions.NotFound(detail={'code': ErrorMessage.USER_NOT_FOUND.code,
+                code = market_serializer.errors.get('user_fk')[0].code
+                if code == 'does_not_exist':
+                    raise exceptions.NotFound(detail={'code': ErrorMessage.USER_NOT_FOUND.code,
                                                   "message": ErrorMessage.USER_NOT_FOUND.message})
+                else:
+                    raise exceptions.ValidationError(detail={'code': ErrorMessage.MARKET_ALREADY_EXIST_MAPPING_USER.code,
+                                                  "message": ErrorMessage.MARKET_ALREADY_EXIST_MAPPING_USER.message})
+            if market_serializer.errors.get('company_number') is not None:
+                raise exceptions.ValidationError(detail={'code': ErrorMessage.MARKET_COMPANY_NUMBER_DUPLICATE.code,
+                                                  "message": ErrorMessage.MARKET_COMPANY_NUMBER_DUPLICATE.message})
+            if market_serializer.errors.get('company_name') is not None:
+                raise exceptions.ValidationError(detail={'code': ErrorMessage.MARKET_COMPANY_NAME_DUPLICATE.code,
+                                                  "message": ErrorMessage.MARKET_COMPANY_NAME_DUPLICATE.message})
             else:
                 raise exceptions.ValidationError(detail={'code': ErrorMessage.MARKET_VALIDATION_ERROR.code,
-                                                         "message": ErrorMessage.MARKET_VALIDATION_ERROR.message})
+                                                     "message": ErrorMessage.MARKET_VALIDATION_ERROR.message})
 
 
 @api_view(['PATCH', 'DELETE', 'GET'])
@@ -63,6 +74,12 @@ def market(request, market_id):
             if market_serializer.errors.get('user_fk') is not None:
                 raise exceptions.NotFound(detail={'code': ErrorMessage.USER_NOT_FOUND.code,
                                                   "message": ErrorMessage.USER_NOT_FOUND.message})
+            if market_serializer.errors.get('company_number') is not None:
+                raise exceptions.ValidationError(detail={'code': ErrorMessage.MARKET_COMPANY_NUMBER_DUPLICATE.code,
+                                                  "message": ErrorMessage.MARKET_COMPANY_NUMBER_DUPLICATE.message})
+            if market_serializer.errors.get('company_name') is not None:
+                raise exceptions.ValidationError(detail={'code': ErrorMessage.MARKET_COMPANY_NAME_DUPLICATE.code,
+                                                  "message": ErrorMessage.MARKET_COMPANY_NAME_DUPLICATE.message})
             else:
                 raise exceptions.ValidationError(detail={'code': ErrorMessage.MARKET_VALIDATION_ERROR.code,
                                                          "message": ErrorMessage.MARKET_VALIDATION_ERROR.message})
@@ -70,9 +87,7 @@ def market(request, market_id):
         market_model = market_select(market_id)
         market_model.market_status = 'DEACTIVE'
         market_model.save()
-        serializer = MarketPatchSerializer(market_model)
-        response = BaseResponse(data=serializer.data, message=None, code="SUCCESS")
-        return Response(data=response.to_dict(), status=status.HTTP_200_OK)
+        return Response(data=None, status=status.HTTP_204_NO_CONTENT)
 
 
 def market_select(market_id):

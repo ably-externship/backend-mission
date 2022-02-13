@@ -21,7 +21,7 @@ class MarketSelectSerializer(ModelSerializer):
     market_sns = MarketSnsSerializer(many=True)
     class Meta:
         model = Market
-        fields = ('id', 'company_name', 'user_fk', 'create_date', 'market_sns')
+        fields = ('id', 'company_name','company_number', 'user_fk', 'create_date', 'market_sns')
 
 
 class MarketCreateSerializer(ModelSerializer):
