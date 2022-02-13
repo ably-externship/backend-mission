@@ -17,4 +17,4 @@
 
 ## 수행인증영상URL(유튜브)
 
-- https://www.youtube.com/watch?v=g0p_GsjAHRA
+- https://youtu.be/Ay8Dv9WCEag
