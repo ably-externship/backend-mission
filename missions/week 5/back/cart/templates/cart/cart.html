@@ -1,0 +1,73 @@
+{%extends 'mutbly/base.html'%}
+
+  {% block content %}
+    {% load static%}
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="box-element">
+  
+          <a  class="btn btn-outline-dark" href="{% url 'index' %}">&#x2190; Continue Shopping</a>
+  
+          <br>
+          <br>
+          <table class="table">
+            <tr>
+              <th><h5>Items: <strong></strong></h5></th>
+              <th><h5>Total:<strong>₩</strong></h5></th>
+              <th>
+                <a  style="float:right; margin:5px;" class="btn btn-success" href="#">구입하기</a>
+              </th>
+            </tr>
+          </table>
+  
+        </div>
+  
+        <br>
+        <div class="box-element">
+          <div class="cart-row">
+
+            <div style="flex:0.5"></div>
+            <div style="flex:1"><strong>제품명</strong></div>
+            <div style="flex:1"><strong>담은수량</strong></div>
+            <div style="flex:1"><strong>낱개 가격</strong></div>
+            <div style="flex:1"><strong>수량변경</strong></div>
+            <div style="flex:1"><strong>수정/삭제</strong></div>
+          </div>
+          
+          
+          {% for in_cart_item in in_cart_items %}
+          <div class="cart-row">
+              <div style="flex:0.5"></div>
+              <div style="flex:1" ><p>{{in_cart_item.item.name}}</p></div>
+              <div style="flex:1"><p>{{in_cart_item.quantity }}</p></div>
+              <div style="flex:1">{{in_cart_item.item.price}}</div>
+              <form action="{% url 'cart:update_cart' in_cart_item.id %}" method='POST' >
+                {% csrf_token %}
+                <div style="flex:1">
+                  <input class="quantity" type = "number" name="update_quantity" ></input>
+                  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
+                  <button class="btn btn-outline-dark" type="submit" >수정</button>
+                </div>
+              </form>
+
+              {% comment %} <div style="flex:1">지우기</div> {% endcomment %}
+              &nbsp &nbsp &nbsp &nbsp &nbsp 
+              <div style="flex:1"><a href="{% url 'cart:delete_cart' in_cart_item.id %}"><button class="btn btn-outline-dark"  type="submit">삭제</button></a></div>
+              {% comment %} <a href="{% url 'cart:delete_cart' InCartItem.id %}">삭제</a> {% endcomment %}
+       
+          </div>
+            {% endfor %}
+            
+          
+        </div>
+      </div>
+    </div>
+  
+  
+
+      
+
+    {% endblock content %}
+    
+  

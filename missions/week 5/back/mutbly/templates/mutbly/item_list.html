@@ -1,0 +1,119 @@
+{% csrf_token %}
+{% load static%}
+<link rel="stylesheet" href="{% static 'mutbly/css/item-list.css'%}" >
+
+<br>
+<div class = "row">
+{% for item in items %}
+    {% comment %} <br>
+    <a href="/items/{{item.id}}/">
+      <div class = 'item-box'>
+        <img id = "item-img" src = "{{item.photo.url}}" width="30%" />
+        <br>
+        <div class = 'item-text'>
+        <div>
+          <h3 id = "item-name"> {{item.name}} </h3>
+          <p id = "item-price"> ₩{{item.price}}  </p>
+        </div>
+        <div>
+          <p id = "item-description"> {{item.description}} </p>
+        </div>
+        </div>
+      </div>
+    </a>
+  <br/> {% endcomment %}
+  <a href="/items/{{item.id}}/"style="height: 31rem; width: 16rem;"> 
+    <div class="box-element" id = "item-view" style="height: 31rem; width: 16rem;">
+			<div class="card" style="height: 30rem; width: 15rem;">
+        <img class="card-img-top" style ="overflow:hidden;"src = "{{item.photo.url}}" alt="{{item.name}}"/>
+        <div class="card-body">
+          <h5 class="card-title">{{item.name}}</h5>
+          <p class="card-text">{{item.description}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">{{item.price}}</li>
+        </ul>
+      </div>
+		</div>
+    <br/>
+    <br/>
+    <br/>
+
+    {% comment %} <div class="col-lg-4">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src = "{{item.photo.url}}" alt="{{item.name}}"/>
+        <div class="card-body">
+          <h5 class="card-title">{{item.name}}</h5>
+          <p class="card-text">{{item.description}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">{{item.price}}</li>
+        </ul>
+      </div>
+    </div> {% endcomment %}
+  </a>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  
+
+  <br/>
+  <br/>
+  </div>
+<center>
+{% if items.has_previous %}
+  <a href="?page=1">&laquo </a>
+  <a href="?page={{items.previous_page_number}}"> <</a>
+
+
+
+{% endif %}
+{{ items.number}}/ {{items.paginator.num_pages}}
+{% if items.has_next %}
+  
+    <a href="?page={{items.next_page_number}}"> > </a>
+    <a href="?page={{items.paginator.num_pages}}">&raquo</a>
+{% endif %}
+<br/>
+<br/>
+<br/>
+</center>

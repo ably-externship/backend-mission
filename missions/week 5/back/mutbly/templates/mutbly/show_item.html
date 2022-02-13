@@ -1,0 +1,107 @@
+{%extends 'mutbly/base.html'%}
+
+  {% block content %}
+    {% load static%}
+    <link rel="stylesheet" href="{% static 'mutbly/css/show_item.css'%}" >
+
+    <div class = "item-info">
+
+    <div>
+      <h1 class = "item-name">{{item.name}}<h1>
+    </div>
+    <p>{{item.description}}</p>
+
+    <div >
+      <img class = "item-photo" src = "{{item.photo.url}}" /> 
+    </div>
+
+    <div class = "sub-title">
+    <p>가격 <p>  
+    <p>₩{{item.price}}</p>
+    
+    </div>
+
+    <div class = "sub-title">
+      옵션(색상-사이즈-재고수량)
+    </div>
+    <br/>
+    <center>
+    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" style= "width : 47%">
+      <option selected>색상과 사이즈를 골라주세요</option>
+      {% for item_choice in item_choices %}
+          <option id = "dorpdown-option" value="{{item_choice.color}}">{{item_choice.color}} - {{item_choice.size}} - {{item_choice.quantity}}개</option>
+        {% endfor %}
+    </select>
+    </center>
+    <br/>
+    <br/>
+    <div class = "sub-title">
+
+
+    <form method="POST" action="{% url 'cart:add_cart' item.id %}">
+      {% csrf_token %}
+        수량
+      </div>
+      <br/>
+      <center>
+      <input class="form-select form-select-lg mb-3" name = "order_quantity" type ="number" aria-label=".form-select-lg example" style= "width : 47%">
+      </input>
+      <button type = "submit"  id = "add-cart" class="cart-btn" data-action="add"> 장바구니 </button>
+    </form>
+
+
+    </center>
+    <br/>
+    <br/>
+    <div class = "sub-title">
+      질문
+    </div>
+    
+
+
+    {% if user.is_authenticated %}
+      <br/>
+      <div class = "ask-question">
+        <form class ="search" method="POST" action="{% url 'question_create' item.id %}">
+          {% csrf_token %}
+          <input class = "post-question" type="text" placeholder="질문을 적어주세요" name="asked">
+          
+          <button type = "submit" class="ask-btn">
+            Ask
+          </button>
+        </form>
+      </div>
+
+    {% else %}
+      <br/>
+    {% endif %}
+
+    <div>
+      {% for item_question in item_questions %}
+        <br/>
+        <br/>
+        {{item_question.author}}
+        {{item_question.content}}
+        <span id = "question-time">{{item_question.created_at}}</span>
+      {% endfor %}
+    </div>
+  </div>
+  <br/>
+  <br/>
+  <br/>
+
+
+
+  <a href="#" class="float" id = "buy">
+    <button type = "submit" class="buy-btn"> 구매하기 </button>
+  </a>
+
+  {% comment %} <a href="#" class="float" id = "cart"> {% endcomment %}
+  
+  {% comment %} </a> {% endcomment %}
+
+  <br/>
+  <br/>
+    {% endblock content %}
+    
+  
