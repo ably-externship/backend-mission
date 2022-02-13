@@ -99,6 +99,29 @@ python manage.py runserver
 [응답]
 - 응답에 대한 설명
   - 성공 응답 시 상태코드 : 200
+
+### 비밀번호 변경
+[요청]
+- URL: PUT /api/accounts/change-password/:pk/
+  - Path 파라미터 설명: pk는 change-password의 식별 아이디를 입력합니다.
+- Body
+```bash
+{
+  "password": "test",
+  "password2": "test"
+  "current_password":"CurrentPassword"
+} 
+```
+[응답]
+- 응답에 대한 설명
+  - 성공 응답 시 상태코드 : 200
+
+- Error
+
+|에러코드|설명|
+|------|-----|
+|400| 변경하는 비밀번호, 기존 비밀번호가 틀린 경우|
+
   
 ### 상품 조회
 [요청]
@@ -478,6 +501,64 @@ python manage.py runserver
 ```
 - 응답에 대한 설명
   - 응답 Body 설명  : 내역이 삭제 됩니다.
+
+### 장바구니 상품 주문
+[요청]
+- URL: POST /api/products/cart/item/orders/
+
+
+- Body
+```bash
+{
+    "orders":[
+        { "quantity":100,  "user_id":1, "product_id":7, "product_option_id":9},
+        { "quantity":1, "user_id":1, "product_id":7, "product_option_id":9},
+        { "quantity":5, "user_id":1, "product_id":7, "product_option_id":9},
+        { "quantity":10, "user_id":1, "product_id":1, "product_option_id":1}
+    ]
+}
+```
+- Body 파라미터 설명
+  - orders : 장바구니에 담겨 있는 상품 리스트를 의미합니다.
+  - quantity : 상품 수량을 의미합니다.
+  - user_id : 고객을 의미합니다.
+  - product_id : 상품을 의미합니다.
+  - productoption_id : 상품 옵션을 의미합니다.
+
+[응답]
+- Body
+```bash
+{
+    "orders": [
+        {
+            "quantity": 100
+        },
+        {
+            "quantity": 1
+        },
+        {
+            "quantity": 5
+        },
+        {
+            "quantity": 10
+        }
+    ]
+}
+```
+- Body 파라미터 설명이
+    - quantity : 상품 수량을 의미 합니다.
+
+- 응답에 대한 설명
+  - 성공 응답 시 상태코드 : 201
+  - 응답 Body 설명 : 주문된 결과가 반환됩니다.
+
+
+- Error
+
+|에러코드|설명|
+|------|-----|
+|400| 파라미터 입력이 잘못된 경우|
+
 
 ### 주문 조회
 [요청]

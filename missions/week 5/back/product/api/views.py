@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from product.api.permission import IsSeller, IsAuthor
 from product.api.serializers import ProductSerializer, CartItemSerializer, \
-    OrderItemSerializer, CartItemOrderSerializer
+    OrderItemSerializer,BatchOrderSerializer
 from rest_framework.pagination import PageNumberPagination
 from product.models import Product, CartItem, OrderItem, ProductOption
 
@@ -131,19 +131,20 @@ class CartItemDetailView(APIView):
 # 장바구니 상품 주문
 class CartItemOrderView(APIView):
     def post(self, request):
-        for order in request.data['orders']:
-            user_id = order['user_id']
-            product_id = order['product_id']
-            product_option_id = order['product_option_id']
-            # quantity = order['quantity']
 
-            serializer = CartItemSerializer(data=request.data)
-
-            if serializer.is_valid():
-                breakpoint()
-                serializer.save(user_id, product_id, product_option_id)
-                return Response(serializer.data, status=201)
-            return Response(serializer.errors, status=400)
+        serializer = BatchOrderSerializer(data=request.data)
+        if serializer.is_valid():
+            for order in request.data['orders']:
+                order_serializer = OrderItemSerializer(data=order)
+                if order_serializer.is_valid():
+                    quantity = order['quantity']
+                    user_id = order['user_id']
+                    product_id = order['product_id']
+                    product_option_id = order['product_option_id']
+                    order_serializer.save(quantity=quantity, user_id=user_id, product_id=product_id, product_option_id=product_option_id)
+                    CartItem.objects.filter(user_id=user_id, product_id=product_id, product_option_id=product_option_id).delete()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
 
 
 # 주문하기 및 주문 목록 조회
@@ -209,8 +210,6 @@ class OrderItemDetailView(APIView):
 class OrderedItemListView(APIView):
     def get(self, request):
         qs = OrderItem.objects.filter(product__author=request.user)
-        # qs2 = Product.objects.all().filter(author=request.user)
-        # qs3 = OrderItem.objects.select_related('product')
         serializer = OrderItemSerializer(qs, many=True)
         return Response(serializer.data)
 
@@ -223,3 +222,6 @@ class OrderedItemDetailView(APIView):
         OrderItem = self.get_object(pk)
         serializer = CartItemSerializer(OrderItem)
         return Response(serializer.data)
+
+
+

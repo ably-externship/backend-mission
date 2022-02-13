@@ -2,7 +2,7 @@ from django.contrib.auth import login, logout, authenticate
 from rest_framework import status, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from account.api.serializers import SignupUserSerializer, LoginSerializer
+from account.api.serializers import SignupUserSerializer, ChangePasswordSerializer
 from account.models import User
 
 
@@ -41,3 +41,7 @@ class LogoutView(APIView):
 
         return Response(status=status.HTTP_200_OK)
 
+
+class ChangePasswordView(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = ChangePasswordSerializer

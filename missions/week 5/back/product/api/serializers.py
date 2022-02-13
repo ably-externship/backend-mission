@@ -50,17 +50,6 @@ class CartItemSerializer(ModelSerializer):
         ]
 
 
-class CartItemOrderSerializer(ModelSerializer):
-    class Meta:
-        model = CartItem
-        fields = [
-            'quantity',
-            'product_id',
-            'user_id',
-            'product_option_id',
-        ]
-
-
 class OrderItemSerializer(ModelSerializer):
     class Meta:
         model = OrderItem
@@ -71,3 +60,16 @@ class OrderItemSerializer(ModelSerializer):
             'product_id',
             'product_option_id'
         ]
+
+
+class BatchOrderSerializer(serializers.Serializer):
+    orders = OrderItemSerializer(many=True)
+
+
+# class OrderListSerializer(serializers.Serializer):
+#     orders = OrderItemSerializer(many=True)
+#
+#     def save(self, user_id):
+#         for data in self.validated_data['orders']:
+#             breakpoint()
+#             OrderItem.objects.create(**data)
