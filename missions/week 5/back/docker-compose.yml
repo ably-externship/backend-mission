@@ -47,6 +47,9 @@ services:
       TZ: Asia/Seoul
     restart: always
 
+  elasticsearch:
+    container_name: elasticsearch
+
 volumes:
   mariadb_data:
   static_volume:

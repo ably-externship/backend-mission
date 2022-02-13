@@ -16,7 +16,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        fake = Faker(["ko_KR"])
+        fake = Faker()
         number = options.get("number")
         all_markets = Market.objects.all()
         all_categories = Category.objects.all()
