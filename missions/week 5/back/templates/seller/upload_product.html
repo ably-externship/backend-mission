@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load humanize %}
+{% load bootstrap4 %}
+<br>
+<br>
+<br>
+<br>
+<br>
+        <!-- 상품 등록란 -->
+<div class="container">
+    <form method="POST" action="{% url 'seller:upload_product' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form productuploadForm %}
+        <input type="submit" class="btn btn-primary col-12" value="등록">
+    </form>
+</div>
+        <!-- 상품 등록 끝 -->
+
+{% endblock %}
+

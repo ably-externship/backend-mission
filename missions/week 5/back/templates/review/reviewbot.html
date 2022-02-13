@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load humanize %}
+<br>
+<br>
+<br>
+<br>
+<br>
+        <!-- 셀러 등록란 -->
+    <div style="text-align:center;">
+        <p><b>리뷰봇 설정하기</b></p>
+    </div>
+        <div style="text-align: center; padding-left:50px; height:200px;">
+            <form action="{% url 'review:review_bot' %}" method="POST">
+            {% csrf_token %}
+            {% if bot_status.use_bot %}
+            <div class="input-group mb-3" style="margin-top:30px; width:300px; padding-right:15px;">
+              <form action="" method="POST">
+                    <div class="form-check">
+                      <input class="form-check-input" value="1" name="choice" type="radio" id="flexRadioDefault1" checked>
+                      <label class="form-check-label" for="flexRadioDefault1">
+                        리뷰봇을 사용할게요.
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" value="0" name="choice" type="radio" id="flexRadioDefault2">
+                      <label class="form-check-label" for="flexRadioDefault2">
+                        리뷰봇을 사용하지 않을게요.
+                      </label>
+                    </div>
+            </div>
+            {% else %}
+            <div class="input-group mb-3" style="margin-top:30px; width:300px; padding-right:15px;">
+              <form action="" method="POST">
+                    <div class="form-check">
+                      <input class="form-check-input" value="1" name="choice" type="radio" id="flexRadioDefault1">
+                      <label class="form-check-label" for="flexRadioDefault1">
+                        리뷰봇을 사용할게요.
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" value="0" name="choice" type="radio" id="flexRadioDefault2" checked>
+                      <label class="form-check-label" for="flexRadioDefault2">
+                        리뷰봇을 사용하지 않을게요.
+                      </label>
+                    </div>
+            </div>
+            {% endif %}
+                <button class="btn btn-outline-secondary" style="margin-left:150px;" type="submit" id="button-addon1">저장</button>
+
+            </form>
+        </div>
+        <!-- 설러 등록란 끝 -->
+
+{% endblock %}

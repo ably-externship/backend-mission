@@ -1,0 +1,16 @@
+Django
+mysqlclient
+django-ckeditor
+Pillow
+django-crispy-forms
+django-allauth
+bootstrap4
+djangorestframework
+django-cors-headers == 3.11.0
+djangorestframework-simplejwt
+mxnet
+gluonnlp
+sentencepiece
+transformers==3.0.2
+numpy
+git+https://git@github.com/SKTBrain/KoBERT.git@master

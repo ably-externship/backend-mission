@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load humanize %}
+<br>
+<br>
+<br>
+
+<div class="row">
+    <!--  마이페이지 칸 시작  -->
+    <div class="category_box" style="text-align:center;">
+        <p style="padding-top:8px; padding-right:8px;"><b>마이 페이지</b></p>
+    </div>
+    <!--  마이페이지 칸 끝  -->
+    <div class="alert alert-light" role="alert" style=" height:65px; display:flex;">
+        {% if is_social == True %}
+        <div style="width:200px; height:60px;">
+            <h5 style="margin-top: 12px; margin-left:20px;">
+                {{ user.get_username }}
+                <img style="width:25px; margin-left:10px; padding-bottom:5px;" src="http://seoulallnet.org/wp-content/uploads/2020/10/kakaotalk.png">
+            </h5>
+        </div>
+        <div style="float:right; padding-top:10px; padding-left:100px;"><a href="{% url 'user:update_page' %}"><span class="material-icons-outlined" style="color:gray;">settings</span></a></div>
+
+        {% else %}
+        <div style="width:100px;">
+            <h5 style="margin-top: 12px; margin-left:20px;"><a href="{% url 'user:update_page' %}">{{ user.get_full_name }}</a></h5>
+        </div>
+        <div style="float:right; padding-top:10px; padding-left:200px;"><a href="{% url 'user:update_page' %}"><span class="material-icons-outlined" style="color:gray;">settings</span></a></div>
+
+        {% endif %}
+    </div>
+
+    <!--  회원 정보 목록 시작 -->
+    <ol class="list-group list-group-horizontal">
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+                <div class="fw-bold">쿠폰</div>
+                Content for list item
+            </div>
+            <span class="badge bg-primary rounded-pill">0</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+                <div class="fw-bold">포인트</div>
+                Content for list item
+            </div>
+                <span class="badge bg-primary rounded-pill">0</span>
+        </li>
+    </ol>
+    <ol class="list-group list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+                <div class="fw-bold">리뷰 쓰기</div>
+                Content for list item
+            </div>
+            <span class="badge bg-primary rounded-pill">0</span>
+        </li>
+        <a href="{% url 'review:review_bot' %}"
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto" >
+                        <div class="fw-bold">리뷰봇 사용하기</div>
+                        Content for list item
+                    </div>
+            </li>
+        </a>
+        <a href="{% url 'seller:register' %}"
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto" >
+                        <div class="fw-bold">셀러로 이용하기</div>
+                        Content for list item
+                    </div>
+            </li>
+        </a>
+    </ol>
+    <!-- 회원 정보 목록 끝 -->
+    </div>
+</div>
+
+{% endblock %}

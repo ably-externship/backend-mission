@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+<br>
+<br>
+<br>
+
+<div class="row">
+    <!--  회원정보 수정 칸 시작  -->
+    <div class="category_box" style="text-align:center;">
+        <p style="padding-top:8px; padding-right:8px;"><b>회원정보 수정</b></p>
+    </div>
+    <!--  회원정보 수정 칸 끝  -->
+    <div class="alert alert-light" role="alert" style=" height:85px;">
+        {% if is_social == True %}
+        <h5 style="margin-top: 12px; margin-left:10px;">{{ user.get_username }}
+        <img style="width:25px; margin-left:8px; padding-bottom:5px;" src="http://seoulallnet.org/wp-content/uploads/2020/10/kakaotalk.png"></h5>
+        {% else %}
+        <h5 style="margin-top: 12px; margin-left:10px;">{{ user.get_full_name }}</h5>
+        {% endif %}
+        <div class="ms-2 me-auto">
+            <div class="fw-bold">{{user.email}}</div>
+        </div>
+    </div>
+
+    <!--  회원 정보 수정 시작 -->
+    <ol class="list-group list-group">
+    <form action="{% url 'user:update' %}" method="POST">
+    {% csrf_token %}
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto" style=" height:50px; display:flex;margin-top:10px;">
+                <div class="fw-bold" style="margin-top:7px;">이름</div>
+                <input type="text" name="realname" value="{{user.get_full_name}}" style="width:200px; margin-left:20px; height:40px;" class="form-control">
+            </div>
+        </li>
+        {% if is_profiled == True %}
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto" style=" height:50px; display:flex;margin-top:10px;">
+                <div class="fw-bold" style="margin-top:7px;">전화번호</div>
+                <input type="text" name="phone" value="{{user_profile.phone}}"  style="width:180px; margin-left:20px; height:40px;" class="form-control">
+            </div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto" style=" height:50px; display:flex;margin-top:10px;">
+                <div class="fw-bold" style="margin-top:7px;">주소</div>
+                <input type="text" name="address" value="{{user_profile.address}}" style="width:250px; margin-left:20px; height:40px;" class="form-control">
+            </div>
+        </li>
+        {% else %}
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto" style=" height:50px; display:flex;margin-top:10px;">
+                <div class="fw-bold" style="margin-top:7px;">전화번호</div>
+                <input type="text" name="phone" style="width:180px; margin-left:20px; height:40px;" class="form-control">
+            </div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto" style=" height:50px; display:flex;margin-top:10px;">
+                <div class="fw-bold" style="margin-top:7px;">주소</div>
+                <input type="text" name="address" style="width:250px; margin-left:20px; height:40px;" class="form-control">
+            </div>
+        </li>
+        {% endif %}
+    </ol>
+
+    <button type="submit" class="btn btn-outline-secondary" style="margin-left:110px; width:180px; margin-top:50px;">변경</button>
+    </form>
+    <!-- 회원 정보 수정 끝 -->
+    </div>
+</div>
+
+{% endblock %}
