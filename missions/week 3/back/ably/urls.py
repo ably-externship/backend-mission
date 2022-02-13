@@ -20,6 +20,7 @@ from django.shortcuts import redirect
 
 from contents.views import HomeView, ProductListView, ProductDetailView, SearchView, CategoryView, BrandView, CartView
 from apis.views import KaKaoSignInView, KaKaoSignInCallBackView
+from contents.pay_views import KaKaoPayLogic, KaKaoPayView, payFail, payCancel
 
 
 # NonUserTemplateView 를 사용하는 이유는 로그인과 회원가입 페이지에서 사용자의 접근을 막기위함
@@ -59,4 +60,10 @@ urlpatterns = [
     # 소셜로그인 관련 url
     # path('user/', include('allauth.urls')),
     path('social/', include('allauth.urls')),
+
+    # 5주차
+    path('kakaoPay/', KaKaoPayView.as_view(), name='Pay'),
+    path('kakaoPayLogic/', KaKaoPayLogic),
+    path('payCancel/', payCancel),
+    path('payFail/', payFail),
 ]

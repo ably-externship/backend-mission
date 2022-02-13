@@ -1,0 +1,21 @@
+{% extends 'base/base.html' %}
+
+{% load humanize %}
+
+{% block body %}
+<div id="login">
+    <div class="container">
+        <br>
+        <form action="/kakaoPayLogic" method="get">
+            <h3 class="d-flex justify-content-center text-secondary">KaKao Pay 결제하기</h3><br>
+            <div class="row col-md">
+                <h4>{{ products }} 외 {{ product_count }} 개</h4>
+                <h4>{{ total|intcomma }}</h4>
+            </div>
+            <div class="row text-conter">
+                <input type="submit" value="결제">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

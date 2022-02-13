@@ -1,57 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="32fb0568-5add-4a0d-9b25-698fd7e1dfe1" name="Changes" comment="back">
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/.idea/back.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/ably/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/ably/asgi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/ably/settings.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/ably/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/ably/wsgi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/apis/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/apis/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/apis/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/apis/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/apis/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/apis/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/apis/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/apis/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/checklist.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/migrations/0002_image_product_image.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/migrations/0003_remove_product_image_image_product.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/migrations/0004_product_product_img.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/migrations/0005_remove_category_brand.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/migrations/0006_category_slug.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/migrations/0007_brand_slug.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/migrations/0008_rename_quantity_product_stock.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/migrations/0009_brand_brand_thumb.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/manage.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/static/css/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/templates/base/base.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/templates/base/carousel.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/templates/base/category.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/templates/base/navbar.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/templates/home.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/templates/product/product_detail.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/templates/product/product_list.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/templates/user/login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 1/back/templates/user/register.html" beforeDir="false" />
+    <list default="true" id="32fb0568-5add-4a0d-9b25-698fd7e1dfe1" name="Changes" comment="5 th">
+      <change afterPath="$PROJECT_DIR$/apis/api_pay.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apis/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/contents/pay_views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/pay/kakaoPay.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/pay/payCancel.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/pay/payFail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/back.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/back.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ably/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ably/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base/navbar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/product/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/product/cart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 4/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../week 4/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 4/.idea/week 3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../week 4/.idea/week 3.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 4/back/.idea/back.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../week 4/back/.idea/back.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 4/back/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../week 4/back/.idea/misc.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,6 +45,9 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="23H4C2PFtyAx1yLoSIMeGui1wVq" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -148,8 +117,18 @@
       <option name="project" value="LOCAL" />
       <updated>1644081438798</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="5 th">
+      <created>1644745991243</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1644745991243</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="requirements.txt" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -170,6 +149,7 @@
     <MESSAGE value="장바구니 상품 삭제 기능" />
     <MESSAGE value="배포 미완" />
     <MESSAGE value="back" />
-    <option name="LAST_COMMIT_MESSAGE" value="back" />
+    <MESSAGE value="5 th" />
+    <option name="LAST_COMMIT_MESSAGE" value="5 th" />
   </component>
 </project>
