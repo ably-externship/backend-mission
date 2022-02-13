@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+<div style="width:1200px; margin:0px auto;">
+    <h2 style="text-align:center;">게시판</h2><br>
+    {% if board %}
+    <table style="text-align:center; width:1200px; border:1px solid black;" class="table">
+        <thead>
+            <tr class="th_color">
+                <th>번호</th>
+                <th>제목</th>
+                <th>내용</th>
+                <th>작성자</th>
+                <th>수정하기</th>
+                <th>삭제하기</th>
+            </tr>
+        </thead>
+            {% for board_list in board %}
+            <tbody>
+                <tr class="td_color" >
+                    <td>{{ board_list.pk }}</td>
+                    <td>{{ board_list.title }}</td>
+                    <td>{{ board_list.content }}</td>
+                    <td>{{ board_list.user }}</td>
+                    <td><button class="btn btn-secondary btn-sm rounded-pill" onclick="location.href='edit/{{board_list.pk}}'">수정</button></td>
+                    <td><button class="btn btn-danger btn-sm rounded-pill" onclick="location.href='delete/{{board_list.pk}}'">삭제</button></td>
+                </tr>
+            </tbody>
+            {% endfor %}
+    </table>
+    {% endif %}
+    <div style="width:500px; margin:0px auto;">
+        <form action="" method="POST" style="max-width:500px;">
+            {% csrf_token %}
+            {% bootstrap_form boardForm %}
+            <button type="submit" class="btn btn-primary rounded-pill col-12">POST</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

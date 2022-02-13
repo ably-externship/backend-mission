@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load bootstrap4 %}
+{% load static %}
+<html>
+{% include 'head.html' %}
+<body>
+    <div class="top_logo">
+        <a class="logo" href="/">
+        <img src="{%static 'imgs/logo.png'%}" height="50px">
+        </a>
+        <ul>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Shop</a></li>
+        <li><a href="cart/">Cart</a></li>
+        {% if user.is_authenticated %} <li><a href="/accounts/home/logout/">Logout</li>
+        {% else %} <li><a href="/accounts/home/login/">Login</a></li> {% endif %}
+        <li><a href="/accounts/home/signup/">Join</a></li>
+        </ul>
+    </div>
+{% block content %}
+{% endblock %}
+</body>
+</html>

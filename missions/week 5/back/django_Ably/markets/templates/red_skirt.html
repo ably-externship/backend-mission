@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+<html>
+
+    <div style = "text-align : center;">
+        <img src="{%static 'imgs/red_skirt.jpg'%}" height="400px">
+    </div>
+
+    <h1>Red Skirt</h1>
+
+    <div style = "text-align : center;">
+    <form>
+        <select name="size">
+          <option value="none">=== 사이즈 선택 ===</option>
+          <option value="size">44</option>
+          <option value="size">55</option>
+          <option value="size">66</option>
+          <option value="size">77</option>
+        </select>
+    </form>
+    </div> <br><br><br><br><br><br>
+    <div style = "text-align : center;">
+      <a href="#">
+        <img src="{%static 'imgs/size.png'%}">
+      </a>
+    </div>
+    </body>
+</html>
+{% endblock %}
