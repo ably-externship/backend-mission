@@ -1,3 +1,4 @@
+from optparse import Option
 from unicodedata import category
 from django.core import paginator
 from django.shortcuts import render, redirect, get_object_or_404
@@ -7,6 +8,7 @@ from django.core.paginator import Paginator
 
 # Create your views here.
 
+# 홈페이지/상품목록
 def home(request):
     products = Product.objects.all().order_by('-pub_date')
     paginator = Paginator(products, 4)
@@ -14,6 +16,7 @@ def home(request):
     product_list = paginator.get_page(page)
     return render(request, 'home.html', {'product_list':product_list})
 
+# 매니저 - 상품 추가 수정 삭제
 def productNew(request):
     return render(request, 'productNew.html')
 
@@ -70,6 +73,8 @@ def productDelete(request, id):
     delete_product.delete()
     return redirect('main:home')
 
+
+# 고객 - 상품 질문 생성 수정 삭제
 def questionCreate(request, productId):
     new_question = Question()
     new_question.content = request.POST['content']
@@ -95,6 +100,7 @@ def questionDelete(request, productId, questionId):
     delete_question.delete()
     return redirect('main:productDetail', productId)
 
+# 매니저 - 답변 생성
 def answerCreate(request, productId, questionId):
     new_answer = Answer()
     new_answer.content = request.POST['content']
@@ -104,6 +110,7 @@ def answerCreate(request, productId, questionId):
     new_answer.save()
     return redirect('main:productDetail', productId)
 
+# 고객 - 상품 검색
 def search(request):
     products = Product.objects.all().order_by('-pub_date')
     word = request.POST.get('word', "")
@@ -118,6 +125,7 @@ def search(request):
     else:
         return render(request, 'search.html')
 
+# 매니저 - 상품 옵션 추가 수정 삭제
 def optionNew(request, productId):
     product = get_object_or_404(Product, pk = productId)
     return render(request, 'optionNew.html', {'product':product})
@@ -134,6 +142,29 @@ def optionCreate(request, productId):
     new_option.save()
     return redirect('main:productDetail', productId)
 
+def optionEdit(request, productId, optionId):
+    product = Product.objects.get(pk = productId)
+    edit_option = Options.objects.get(pk = optionId)
+    return render(request, 'optionEdit.html', {'product' : product, 'option':edit_option})
+
+def optionUpdate(request, productId, optionId):
+    update_option = Options.objects.get(pk=optionId)
+    update_option.color = request.POST['color']
+    update_option.size = request.POST['size']
+    update_option.stock = request.POST['stock']
+    update_option.price = request.POST['price']
+    update_option.writer = request.user
+    update_option.added = timezone.now()
+    update_option.product = get_object_or_404(Product, pk = productId)
+    update_option.save()
+    return redirect('main:productDetail', productId)
+
+def optionDelete(request, productId, optionId):
+    delete_option = Options.objects.get(pk = optionId)
+    delete_option.delete()
+    return redirect('main:productDetail', productId)
+
+# 마켓별 상품 페이지
 def marcket(request, marcket):
     products = Product.objects.filter(marcket=marcket)
     marcketName = marcket
@@ -142,6 +173,7 @@ def marcket(request, marcket):
     product_list = paginator.get_page(page)
     return render(request, 'home.html', {'product_list':product_list, 'marcketName':marcketName})
 
+# 카테고리별 상품 페이지
 def categoryPage(request, category):
     products = Product.objects.filter(category=category)
     categoryName = category

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+<div class="row justify-content-around">
+  <div class="card border-info mb-3" style="max-width: 18rem; text-align: center;">
+    <div class="card-header"><h3>옵션 등록</h3></div>
+    <div class="card-body">
+        <form action="{% url 'main:optionUpdate' product.id option.id %}" method="post" enctype="multipart/form-data">
+            {%csrf_token%}
+            <p>색상 <input type="text" name="color" value="{{option.color}}"></p>
+            <p>사이즈 <input type="text" name="size"  value="{{opiton.size}}"></p>
+            <p>상품 가격 <input type="number" name="price" min="0" value="{{option.price}}"></p>
+            <p>재고 수량 <input type="number" name="stock" min="0" value="{{option.stock}}"></p>
+            <button type="submit" class="btn btn-outline-primary">수정하기</button>
+        </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

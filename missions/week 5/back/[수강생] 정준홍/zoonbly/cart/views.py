@@ -11,6 +11,7 @@ from django.core.paginator import Paginator
 
 # Create your views here.
 
+# 장바구니 페이지 / 상품 총 금액 및 할인 이벤트 적용
 def cart(request):
     user = request.user
     carts = Cart.objects.filter(user = user)
@@ -35,6 +36,7 @@ def cart(request):
     cart_list = paginator.get_page(page)
     return render(request, 'cart.html', {'cart_list': cart_list, 'total':total, 'catego':catego, 'categoNum':categoNum, 'final':finalPrice})
 
+# 상품 추가 수정 삭제
 def addCart(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     new_cart = Cart()
@@ -62,7 +64,7 @@ def updateCart(request, cart_id):
     update_cart.save()
     return redirect('cart:cart')
 
-
+# 상품 구매 후 구매 목록 페이지
 def purchasePage(request):
     user = request.user
     purchases = Purchase.objects.filter(user = user).order_by('-pur_date')
