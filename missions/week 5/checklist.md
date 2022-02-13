@@ -8,6 +8,33 @@
 
 ## 수행인증영상URL(유튜브)
 
-- https://www.youtube.com/watch?v=g0p_GsjAHRA
+- https://youtu.be/Szk3TDdJC1Y
 - 위 링크를 지우고 여러분의 영상 링크를 남겨주세요.
 - 영상을 일부공개로 설정해주세요, 링크가 있는 분들만 볼 수 있습니다.
+
+
+* 개발,운영 환경 분리
+
+* Custom Command
+    * init_data 를 통해 기본 데이터 셋팅
+        * python manage.py init_data
+    * 가짜 데이터를 활용하여 원하는 수만큼의 제품 생성
+        * python manage.py seed_products —number 100 (100개의 제품 생성)
+
+* DRF , CBV 활용한 API 개발
+    * APIView, Generic, ModelViewSet 활용
+
+* React 와 DRF 연동
+    * 로그인/로그아웃
+    * 기본적인 CRUD
+
+* Dockerizing
+    * nginx
+    * django
+    * db
+
+* Swagger 연동
+    * OAS3 (drf-yasg는 3버전을 지원하지 않아 drf-spectacular사용)
+
+* S3 연동
+    * Image upload
