@@ -1,0 +1,57 @@
+{% extends 'product/base.html' %}
+{% load static %}
+{% block content %}
+<form method="POST" action="{% url 'product:search' %}">
+    {% csrf_token %}
+    <div class="container">
+        <div class="row" style="width:100%">
+            <div class="col-3">
+                <select class="form-select" name="classification">
+                    <option value="product" selected>상품</option>
+                    <option value="brand">브랜드</option>
+                </select>
+            </div>
+            <div class="col-7">
+                <input class="form-control" type="text" placeholder="검색어를 입력해주세요" name="search_word">
+            </div>
+            <div class="col-2">
+                <input type="submit" value="검색">
+            </div>
+        </div>
+    </div>
+</form>
+
+<br>
+<div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+        {% for item in product_list %}
+            <div class="col">
+              <div class="card shadow-sm">
+                <image src="{{ item.main_image.url }}"></image>
+
+                <div class="card-body">
+                  <span class="cost"> {{ item.product_price }}</span><br>
+                  <span class="shop_name">{{ item.shop_id.shop_name }}</span><br>
+                  <span class="product_name"><a href="{% url 'product:detail' item.id %}">{{ item.product_name }}</a></span>
+                </div>
+              </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!--Pagination-->
+<div style="text-align:center">
+    <div class="pagination">
+        <div style="width:30%; margin:5px auto;">
+            {% for page in product_list.paginator.page_range %}
+                {% if page == product_list.number %}
+                    <span style="font-weight:bold;">{{ page }}</span>
+                {% else %}
+                    <a href="?page={{ page }}">{{ page }}</a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
