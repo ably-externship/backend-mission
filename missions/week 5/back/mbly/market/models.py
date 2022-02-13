@@ -11,3 +11,8 @@ class Market(models.Model):
     master = models.OneToOneField(User,on_delete=models.CASCADE) # 대표
 
 
+
+class MarketSales(models.Model):
+    date = models.DateTimeField('날짜')
+    sales = models.PositiveIntegerField('일일 매출',default = 0)
+    sale_number = models.PositiveIntegerField('일일 판매 개수',default = 0)

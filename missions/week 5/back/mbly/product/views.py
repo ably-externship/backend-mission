@@ -10,9 +10,9 @@ from .forms import QuestionForm,AnswerForm
 from django.contrib import messages
 
 class ProductList(ListView):
-    # 한 화면당 4개로 pagination
+    # 한 화면당 10개로 pagination
     model = Product
-    paginate_by = 4
+    paginate_by = 10
     queryset = Product.objects.all()
 
 

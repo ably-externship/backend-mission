@@ -25,7 +25,7 @@
         <tbody>
             {% for cart in object_list %}
             <tr>
-                <td><input id = "selectd" type = "checkbox" name ="selected" value = "{{cart.id}}"></td>
+                <td><input id = "selectd" type = "checkbox" name ="selected" value = "{{cart.id}}" checked></td>
                 <td > <img src = "{{ cart.product.product.image.url }}" width="100px" height="100px"> </td>
                 <td>{{ cart.product.product.name }}</td>
                 <td>{{ cart.product.option_1_display_name }}  {{ cart.product.option_2_display_name }}</td>
@@ -47,7 +47,7 @@
       </table>
       
       전체금액 : {{ total }}
-      <button class = 'btn btn-primary' type="submit"  >결제하기</a>
+      <button class = 'btn btn-primary' type = 'submit'  >결제하기</a>
     </form>
 
     

@@ -7,5 +7,6 @@ app_name = 'rest_api'
 urlpatterns = [
     path('product/',include('product.api.urls')),
     path('account/',include('account.api.urls')),
+    path('sales/',include('sales.api.urls')),
     
 ]

@@ -1,8 +1,9 @@
+from math import prod
 from django.shortcuts import get_object_or_404, redirect, render
 from django.core.paginator import Paginator
-from .models import Cart
+from .models import Cart,Order
 from django.contrib import messages
-from product.models import RealProduct
+from product.models import RealProduct,Product
 # Create your views here.
 
 
@@ -85,10 +86,24 @@ def product_purchase(request):
     상품 구매
     """
     selected = request.GET.getlist('selected')
-    
     for id in selected:
-        cart = Cart.objects.get(pk=id)
-        
-        cart.delete()
+        cart = Cart.objects.select_related('product__product').select_related('product__product__market').get(pk=id)
+        realproduct = cart.product
+        product = realproduct.product
+        market = product.market
+
+        # 구매이력
+        Order.objects.create(
+            user = request.user,
+            market = market,
+            realproduct = realproduct,
+            product = product,
+            product_num = cart.quantity,
+            per_price = realproduct.add_price+product.sale_price,
+            total_price = cart.quantity*realproduct.add_price+product.sale_price,
+        )
+
+        cart.delete() # 카트 삭제
+    messages.success(request," 구매 성공")
     return redirect('product:list')
     

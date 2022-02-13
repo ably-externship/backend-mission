@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'account',
     'product',
     'batch_program',
+    'sales',
 
     'market',
     'cart',
@@ -66,10 +67,13 @@ INSTALLED_APPS = [
     # third
     'rest_framework',
     'corsheaders',
+    'debug_toolbar',
+    
     
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -201,3 +205,5 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+INTERNAL_IPS=['127.0.0.1',]

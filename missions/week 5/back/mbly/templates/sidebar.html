@@ -1,0 +1,13 @@
+<div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <!-- <div class="nav"> -->
+                {% for list in sidebarList %}  
+                <a class="nav-link" href="{% url 'blog:blog_detail' list.id %}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                        {{list.title}}
+                </a>
+                {% endfor %}            
+        </div>
+    </nav>
+</div>
