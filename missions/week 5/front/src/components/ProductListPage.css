@@ -1,10 +1,22 @@
-.col-4 img {
-    width: 105px;
-    height: 120px;
+.col-3 img {
+    width: 160px;
+    height: 170px;
+    margin-bottom: 10px;
 }
 
-.col-4 {
-    font-size: 12px;
-    margin-top: 10px;
+.col-3 {
+    font-size: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     padding: 0px;
+}
+
+.inputContainer {
+    display: block;
+    height: 35px;
+    margin-top: 20px;
+}
+
+.inputContainer input {
+    float: left;
 }
