@@ -1,4 +1,4 @@
-# Mutbly Shopping Mall API
+# Mutbly-Shoppingmall API
 
 ### 필요
 - Python 3.9.x
@@ -102,7 +102,7 @@ python manage.py runserver
 
 ### 비밀번호 변경
 [요청]
-- URL: PUT /api/accounts/change-password/:pk/
+- ###### URL: PUT _/api/accounts/change-password/:pk/_
   - Path 파라미터 설명: pk는 change-password의 식별 아이디를 입력합니다.
 - Body
 ```bash
@@ -138,7 +138,7 @@ python manage.py runserver
         "price": 5,
         "image": "http://127.0.0.1:8000/media/product/woker_DxwdMCK.jpg",
         "description": "멋있는 워커",
-        "productoption": [
+        "product_option": [
             {
                 "id": 9,
                 "size": "250",
@@ -156,7 +156,7 @@ python manage.py runserver
         "price": 80000,
         "image": "http://127.0.0.1:8000/media/product/onepice2_KVyRT2K.jpg",
         "description": "봄용 원피스",
-        "productoption": []
+        "product_option": []
     },
 ```
 - 응답에 대한 설명
@@ -203,7 +203,7 @@ python manage.py runserver
     "price": 22000,
     "image": "/media/product/trainning_XpWd0Q3.jpg",
     "description": "박시하고 이쁨",
-    "productoption": []
+    "product_option": []
 }
 ```
 - 응답에 대한 설명
@@ -234,7 +234,7 @@ python manage.py runserver
         "price": 22000,
         "image": "http://127.0.0.1:8000/media/product/dress_red_IHq6vEU.jpg",
         "description": "박시하고 이쁨",
-        "productoption": [
+        "product_option": [
             {
                 "id": 1,
                 "size": "44",
@@ -292,7 +292,7 @@ python manage.py runserver
     "price": 10000,
     "image": "http://127.0.0.1:8000/media/product/dress_red_IHq6vEU.jpg",
     "description": "박시하고 이쁨",
-    "productoption": [
+    "product_option": [
         {
             "id": 1,
             "size": "44",
@@ -338,22 +338,22 @@ python manage.py runserver
     {
         "quantity": 20,
         "product_name": "워커",
-        "productoption_size": "250",
-        "productoption_color": "brown"
+        "product_option_size": "250",
+        "product_option_color": "brown"
     },
     {
         "quantity": 1,
         "product_name": "워커",
-        "productoption_size": "250",
-        "productoption_color": "brown"
+        "product_option_size": "250",
+        "product_option_color": "brown"
     }
 }
 ```
 - Body 파라미터 설명
     - quantity : 상품 수량을 의미 합니다.
     - product_name : 상품 이름을 의미합니다.
-    - productoption_size : 상품 크기를 의미합니다.
-    - productoption_color : 상품 색상을 의미합니다.
+    - product_option_size : 상품 크기를 의미합니다.
+    - product_option_color : 상품 색상을 의미합니다.
 
 - 응답에 대한 설명
   - 성공 응답 시 상태코드 : 200
@@ -377,14 +377,14 @@ python manage.py runserver
         "quantity": 10,
         "product_id": 1,
         "user_id": 1,
-        "productoption_id": 2
+        "product_option_id": 2
 }
 ```
 - Body 파라미터 설명
   - quantity : 상품 수량을 의미합니다.
   - product_id : 상품을 의미합니다.
   - user_id : 고객을 의미합니다.
-  - productoption_id : 상품 옵션을 의미합니다.
+  - product_option_id : 상품 옵션을 의미합니다.
 
 [응답]
 - Body
@@ -394,20 +394,20 @@ python manage.py runserver
     "quantity": 10,
     "product_id": 1,
     "user_id": 1,
-    "productoption_id": 2,
+    "product_option_id": 2,
     "product_name": "드레스",
-    "productoption_size": "44",
-    "productoption_color": "green"
+    "product_option_size": "44",
+    "product_option_color": "green"
 }
 ```
 - Body 파라미터 설명
   - quantity : 상품 수량을 의미 합니다.
   - product_id : 상품을 의미합니다.
   - user_id : 고객을 의미합니다.
-  - productoption_id : 상품 옵션을 의미합니다.
+  - product_option_id : 상품 옵션을 의미합니다.
   - product_name : 상품 이름을 의미합니다.
-  - productoption_size : 상품 크기를 의미합니다.
-  - productoption_color : 상품 색상을 의미합니다.
+  - product_option_size : 상품 크기를 의미합니다.
+  - product_option_color : 상품 색상을 의미합니다.
   
 
 - 응답에 대한 설명
@@ -434,10 +434,10 @@ python manage.py runserver
     "quantity": 20,
     "product_id": 7,
     "user_id": 1,
-    "productoption_id": 9,
+    "product_option_id": 9,
     "product_name": "워커",
-    "productoption_size": "250",
-    "productoption_color": "brown"
+    "product_option_size": "250",
+    "product_option_color": "brown"
 }
 ```
 - 응답에 대한 설명
@@ -471,10 +471,10 @@ python manage.py runserver
     "quantity": 50,
     "product_id": 7,
     "user_id": 1,
-    "productoption_id": 9,
+    "product_option_id": 9,
     "product_name": "워커",
-    "productoption_size": "250",
-    "productoption_color": "brown"
+    "product_option_size": "250",
+    "product_option_color": "brown"
 }
 ```
 - 응답에 대한 설명
@@ -523,7 +523,7 @@ python manage.py runserver
   - quantity : 상품 수량을 의미합니다.
   - user_id : 고객을 의미합니다.
   - product_id : 상품을 의미합니다.
-  - productoption_id : 상품 옵션을 의미합니다.
+  - product_option_id : 상품 옵션을 의미합니다.
 
 [응답]
 - Body
@@ -573,14 +573,14 @@ python manage.py runserver
         "quantity": 10,
         "user_id": 1,
         "product_id": 1,
-        "productoption_id": 2
+        "product_option_id": 2
     },
     {
         "id": 7,
         "quantity": 2,
         "user_id": 1,
         "product_id": 1,
-        "productoption_id": 2
+        "product_option_id": 2
     }
 ]
 ```
@@ -597,14 +597,14 @@ python manage.py runserver
   "quantity": 3,
   "user_id": 1,
   "product_id": 1,
-  "productoption_id": 2
+  "product_option_id": 2
 } 
 ```
 - Body 파라미터 설명
   - quantity : 상품 수량을 의미합니다.
   - user_id : 고객을 의미합니다.
   - product_id : 상품을 의미합니다.
-  - productoption_id : 상품 옵션을 의미합니다.
+  - product_option_id : 상품 옵션을 의미합니다.
 
 [응답]
 - Body
@@ -614,7 +614,7 @@ python manage.py runserver
     "quantity": 3,
     "user_id": 1,
     "product_id": 1,
-    "productoption_id": 2
+    "product_option_id": 2
 }
 ```
 - 응답에 대한 설명
@@ -640,10 +640,10 @@ python manage.py runserver
     "quantity": 10,
     "product_id": 1,
     "user_id": 1,
-    "productoption_id": 2,
+    "product_option_id": 2,
     "product_name": "드레스",
-    "productoption_size": "44",
-    "productoption_color": "green"
+    "product_option_size": "44",
+    "product_option_color": "green"
 }
 ```
 - 응답에 대한 설명
@@ -677,7 +677,7 @@ python manage.py runserver
     "quantity": 3,
     "user_id": 1,
     "product_id": 1,
-    "productoption_id": 2
+    "product_option_id": 2
 }
 ```
 - 응답에 대한 설명
@@ -705,6 +705,33 @@ python manage.py runserver
 - 응답에 대한 설명
   - 응답 Body 설명  : 내역이 삭제 됩니다.
 
+### 관리자용 주문 조회
+[요청]
+- URL: GET /api/products/order/items/
+
+[응답]
+- Body
+```bash
+[
+    {
+        "id": 6,
+        "quantity": 10,
+        "user_id": 1,
+        "product_id": 1,
+        "product_option_id": 2
+    },
+    {
+        "id": 7,
+        "quantity": 2,
+        "user_id": 1,
+        "product_id": 1,
+        "product_option_id": 2
+    }
+]
+```
+- 응답에 대한 설명
+  - 성공 응답 시 상태코드 : 200
+  - 응답 Body 설명 : 로그인한 user의 주문목록 결과가 반환됩니다.
 
 
 

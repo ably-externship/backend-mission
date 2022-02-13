@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from product.api.permission import IsSeller, IsAuthor
+from product.api.permission import IsAuthor, IsSellerorAdmin
 from product.api.serializers import ProductSerializer, CartItemSerializer, \
     OrderItemSerializer,BatchOrderSerializer
 from rest_framework.pagination import PageNumberPagination
@@ -50,7 +50,7 @@ class ProductListView(APIView):
 
 class ProductDetailView(APIView):
     pagination_class = PageNumberPagination
-    permission_classes = [IsSeller]
+    permission_classes = [IsSellerorAdmin]
 
     def get_object(self, pk):
         try:
@@ -114,9 +114,9 @@ class CartItemDetailView(APIView):
         serializer = CartItemSerializer(CartItem)
         return Response(serializer.data)
 
-    def patch(self, reqeust, pk):
+    def patch(self, request, pk):
         CartItem = self.get_object(pk)
-        serializer = CartItemSerializer(CartItem, data=reqeust.data, partial=True)
+        serializer = CartItemSerializer(CartItem, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -131,7 +131,6 @@ class CartItemDetailView(APIView):
 # 장바구니 상품 주문
 class CartItemOrderView(APIView):
     def post(self, request):
-
         serializer = BatchOrderSerializer(data=request.data)
         if serializer.is_valid():
             for order in request.data['orders']:
@@ -141,6 +140,11 @@ class CartItemOrderView(APIView):
                     user_id = order['user_id']
                     product_id = order['product_id']
                     product_option_id = order['product_option_id']
+
+                    product_option = ProductOption.objects.get(id=product_option_id)
+                    stockcount = product_option.stock_count
+                    stockcount = stockcount - quantity
+                    ProductOption.objects.filter(id=product_option_id).update(stock_count=stockcount)
                     order_serializer.save(quantity=quantity, user_id=user_id, product_id=product_id, product_option_id=product_option_id)
                     CartItem.objects.filter(user_id=user_id, product_id=product_id, product_option_id=product_option_id).delete()
             return Response(serializer.data, status=201)
@@ -159,9 +163,11 @@ class OrderItemListView(APIView):
         product_id = request.data['product_id']
         product_option_id = request.data['product_option_id']
         serializer = OrderItemSerializer(data=request.data)
-        productoption = ProductOption.objects.get(id=product_option_id)
-        stockcount = productoption.stock_count
-        stockcount -= 1
+        quantity = request.data['quantity']
+
+        product_option = ProductOption.objects.get(id=product_option_id)
+        stockcount = product_option.stock_count
+        stockcount = stockcount - quantity
         ProductOption.objects.filter(id=product_option_id).update(stock_count=stockcount)
 
         if serializer.is_valid():
@@ -190,8 +196,8 @@ class OrderItemDetailView(APIView):
         OrderItem = self.get_object(pk)
         serializer = OrderItemSerializer(OrderItem, data=request.data, partial=True)
         quantity = request.data['quantity']
-        productoption = ProductOption.objects.get(id=OrderItem.product_option_id)
-        stockcount = productoption.stock_count
+        product_option = ProductOption.objects.get(id=OrderItem.product_option_id)
+        stockcount = product_option.stock_count
         stockcount = stockcount - quantity
         ProductOption.objects.filter(id=OrderItem.product_option_id).update(stock_count=stockcount)
 
@@ -215,12 +221,14 @@ class OrderedItemListView(APIView):
 
 
 class OrderedItemDetailView(APIView):
+    permission_classes = [IsSellerorAdmin]
+
     def get_object(self, pk):
         return get_object_or_404(OrderItem, pk=pk)
 
     def get(self, request, pk):
         OrderItem = self.get_object(pk)
-        serializer = CartItemSerializer(OrderItem)
+        serializer = OrderItemSerializer(OrderItem)
         return Response(serializer.data)
 
 

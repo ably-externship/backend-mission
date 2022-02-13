@@ -8,6 +8,7 @@ from product.api.views import (
     OrderItemListView,
     OrderItemDetailView,
     OrderedItemListView,
+    OrderedItemDetailView,
 )
 
 urlpatterns = [
@@ -19,6 +20,7 @@ urlpatterns = [
     path('order/items/', OrderItemListView.as_view()), # 주문
     path('order/items/<int:pk>/', OrderItemDetailView.as_view()),
     path('ordered/items/', OrderedItemListView.as_view()),
+    path('ordered/items/<int:pk>/', OrderedItemDetailView.as_view()),
 
 
 ]

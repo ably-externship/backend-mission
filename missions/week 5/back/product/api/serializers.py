@@ -64,12 +64,3 @@ class OrderItemSerializer(ModelSerializer):
 
 class BatchOrderSerializer(serializers.Serializer):
     orders = OrderItemSerializer(many=True)
-
-
-# class OrderListSerializer(serializers.Serializer):
-#     orders = OrderItemSerializer(many=True)
-#
-#     def save(self, user_id):
-#         for data in self.validated_data['orders']:
-#             breakpoint()
-#             OrderItem.objects.create(**data)
