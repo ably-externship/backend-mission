@@ -2,14 +2,56 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32fb0568-5add-4a0d-9b25-698fd7e1dfe1" name="Changes" comment="back">
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/.idea/back.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/ably/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/ably/asgi.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/ably/settings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/ably/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/ably/wsgi.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/apis/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/apis/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/apis/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/apis/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/apis/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/apis/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/apis/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/apis/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/checklist.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/migrations/0002_image_product_image.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/migrations/0003_remove_product_image_image_product.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/migrations/0004_product_product_img.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/migrations/0005_remove_category_brand.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/migrations/0006_category_slug.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/migrations/0007_brand_slug.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/migrations/0008_rename_quantity_product_stock.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/migrations/0009_brand_brand_thumb.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/contents/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/manage.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/static/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/templates/base/base.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/templates/base/carousel.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/templates/base/category.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/templates/base/navbar.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/templates/home.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/templates/product/product_detail.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/templates/product/product_list.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/templates/user/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../week 1/back/templates/user/register.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/back.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/back.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ably/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ably/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/permission.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/permission.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/components/LoginModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/LoginModal.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +161,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="1주차 프로젝트 완성 (데이터 부족)" />
