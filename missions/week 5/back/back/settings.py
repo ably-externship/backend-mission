@@ -238,4 +238,3 @@ CACHES = {
     }
 }
 
-# get_secret("redis_Endpoint"),

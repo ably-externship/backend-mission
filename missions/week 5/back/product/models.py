@@ -70,7 +70,6 @@ class Product_qna(models.Model):
     reg_date = models.DateTimeField(auto_now_add=True, verbose_name='등록일') # 등록날짜
     update_date = models.DateTimeField(auto_now=True, verbose_name='갱신날짜')  # 갱신날짜
     content = models.TextField(max_length=255, verbose_name='질문내용')
-    # datetime = models.DateTimeField(auto_now=True, verbose_name='작성일')
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='users_feature',default="")
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='products_feature',default="")

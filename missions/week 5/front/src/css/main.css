@@ -120,12 +120,21 @@ html, body {
 
 .img-box {
     position:relative;
+    border-radius: 30px;
+    overflow: hidden;
+
+}
+
+.product-img-1{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .img-box .text {
     position:absolute;
     top:5px;
-    left:5px;
+    left:20px;
 }
 
 
@@ -142,9 +151,11 @@ html, body {
 
 /* 카테고리리스트박스1 */
 .ca-list-box-1 > ul > li {
-    width:16.66%;
-    padding:0 10px;
-    margin-top: 20px;
+    border: 3px solid white;
+    width:16.667%;
+    height: 50%;
+    padding:0px;
+    margin: 0px;
 }
 
 .ca-list-box-1 > ul {
@@ -164,10 +175,6 @@ html, body {
     margin-top: 20px;
 }
 
-.qna-boxlist-1 > ul > li{
-    padding:0 10px;
-    margin-top: 20px;
-}
 
 
 /* 페이징 */
@@ -202,14 +209,7 @@ html, body {
     padding: 50px 20px 100px 20px;
 }
 
-.qna-title {
-    border-style: solid;
-    border-color: red;
-}
 
-.qna-content{
-
-}
 
 .input-1 {
     width: 100%;

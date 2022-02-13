@@ -23,5 +23,5 @@ urlpatterns = [
 
     # 질문 관련
     path('qna/<int:pk>/', views.QnaList, name="QnaList"),
-    path('qna/create/<int:pk>/', views.QnaCreate, name="QnaCreate"),
+    path('qna/create/', views.QnaCreate, name="QnaCreate"),
 ]

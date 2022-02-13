@@ -15,9 +15,6 @@ from django.core.cache import cache # 캐싱
 @api_view(['GET'])
 def ProductList(request):
 
-    start=time.time()
-    data=cache
-
 
     # ElasticSearch 검색 엔진
     if request.query_params['search']:
@@ -173,12 +170,12 @@ def ProductRecommandList(request):
         queryset = Product.objects.filter(id__in=product_ids).order_by(order)
 
         products = queryset.all()[:5]
-        products = cache.set(user_id, products)
-        products = cache.get(user_id)
+        products = cache.set(user_id, products)   # Redis에 새로운 캐시 저장
+        products = cache.get(user_id)             # Redis에 방금 저장한 캐시 불러오기
         end = time.time()
         print('Redis에 키 없을 때 조회 시간 : ', end - start)
     else:
-        products = cache.get(user_id)
+        products = cache.get(user_id)             # Redis에 기존에 있는 캐시 불러오기
         end = time.time()
         print('Redis에 키 있을 때 조회 시간 : ', end - start)
 
@@ -213,7 +210,7 @@ def OptionCreate(request):
 # 질문 리스트
 @api_view(['GET'])
 def QnaList(request, pk):
-    Qnas = Product_qna.objects.filter(id=pk)
+    Qnas = Product_qna.objects.filter(product=pk)
     serializer = QnaSerializer(Qnas, many=True)
 
     return Response(serializer.data)
@@ -221,7 +218,7 @@ def QnaList(request, pk):
 
 # 질문 추가
 @api_view(['POST'])
-def QnaCreate(request, pk):
+def QnaCreate(request):
 
     serializer = QnaSerializer(data=request.data)
     if serializer.is_valid():

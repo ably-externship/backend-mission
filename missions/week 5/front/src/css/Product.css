@@ -2,3 +2,74 @@
     width: 40%;
     height: 40%;
 }
+
+.qna-table{
+
+}
+
+.qna-boxlist-1{
+    width: 100%;
+    padding:0 10px;
+    margin-top: 20px;
+}
+
+.qna-boxlist-2{
+    width: 60%;
+    padding:0 10px;
+    margin-top: 20px;
+    border: 1px solid black;
+}
+
+.qna-table, .qna-td, .qna-th {
+    border: 1px solid black;
+}
+
+.qna-col-1{
+
+}
+
+.qna-col-2{
+    width: 30%;
+}
+
+.qna-col-3{
+    width: 60%;
+}
+
+.qna-title {
+    border: 1px solid black;
+    width: 100%;
+}
+
+.search-1{
+    width: 60%;
+    height: 100%;
+}
+
+.search-input-1{
+    width: 80%;
+    height: 40px;
+}
+
+
+.qna-content{
+    border: 1px solid black;
+    width: 100%;
+}
+
+.qna-button{
+    margin-bottom: 10px;
+    position: relative;
+    vertical-align: top;
+    width: 60%;
+    height: 54px;
+    padding: 0;
+    font-size: 22px;
+    color: white;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    background: black;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+}

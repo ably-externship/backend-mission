@@ -14,7 +14,6 @@ function Product(props) {
     const [category, setCategory] = useState('전체');
 
 
-
     useEffect(() => {
         const take = async () => {
             const {data} = await axios.get('http://127.0.0.1:8000/product/',
@@ -116,8 +115,8 @@ function Product(props) {
                                                     <p>추천</p>
                                                 </div>
                                             </div>
-                                            <div className="list-text text-l text-left">{product.name}</div>
-                                            <div className="text-sm text-right line-through">{product.price}원</div>
+                                            <div className="list-text text-l text-center">{product.name}</div>
+                                            <div className="text-sm text-right line-through text-gray-500">{product.price}원</div>
                                             <div className="text-red-600 text-sm text-right">{product.sale_price}원</div>
                                             {/*<button className="JoinLoign-button" onClick={(e)=>{Deleteproduct(product.id, e)}}>삭제하기</button>*/}
                                         </Link>
@@ -137,53 +136,53 @@ function Product(props) {
             <br/>
 
             <div>
-                <div className="ca-list-box-1 con">
+                <div className="ca-list-box-1 con text-white">
                     <ul className="row con">
-                        <li className="cell" onClick={(e)=>{
+                        <li className="rounded-full cell bg-red-300" onClick={(e)=>{
                             e.preventDefault();
                             setCategory('전체')
                             ChangeProduct()}}><a>전체</a></li>
-                        <li className="cell" onClick={(e)=>{
+                        <li className="rounded-full cell bg-red-300" onClick={(e)=>{
                             e.preventDefault();
                             setCategory('아우터')
                             ChangeProduct()}}><a>아우터</a></li>
-                        <li className="cell" onClick={(e)=>{
+                        <li className="rounded-full cell bg-red-300" onClick={(e)=>{
                             e.preventDefault();
                             setCategory('상의')
                             ChangeProduct()}}><a>상의</a></li>
-                        <li className="cell" onClick={(e)=>{
+                        <li className="rounded-full cell bg-red-300" onClick={(e)=>{
                             e.preventDefault();
                             setCategory('원피스/세트')
                             ChangeProduct()}}><a>원피스/세트</a></li>
-                        <li className="cell" onClick={(e)=>{
+                        <li className="rounded-full cell bg-red-300" onClick={(e)=>{
                             e.preventDefault();
                             setCategory('팬츠')
                             ChangeProduct()}}><a>팬츠</a></li>
-                        <li className="cell" onClick={(e)=>{
+                        <li className="rounded-full cell bg-red-300" onClick={(e)=>{
                             e.preventDefault();
                             setCategory('스커트')
                             ChangeProduct()}}><a>스커트</a></li>
-                        <li className="cell" onClick={(e)=>{
+                        <li className="rounded-full cell bg-red-300" onClick={(e)=>{
                             e.preventDefault();
                             setCategory('트레이닝')
                             ChangeProduct()}}><a>트레이닝</a></li>
-                        <li className="cell" onClick={(e)=>{
+                        <li className="rounded-full cell bg-red-300" onClick={(e)=>{
                             e.preventDefault();
                             setCategory('가방')
                             ChangeProduct()}}><a>가방</a></li>
-                        <li className="cell" onClick={(e)=>{
+                        <li className="rounded-full cell bg-red-300" onClick={(e)=>{
                             e.preventDefault();
                             setCategory('신발')
                             ChangeProduct()}}><a>신발</a></li>
-                        <li className="cell" onClick={(e)=>{
+                        <li className="rounded-full cell bg-red-300" onClick={(e)=>{
                             e.preventDefault();
                             setCategory('패션소품')
                             ChangeProduct()}}><a>패션소품</a></li>
-                        <li className="cell" onClick={(e)=>{
+                        <li className="rounded-full cell bg-red-300" onClick={(e)=>{
                             e.preventDefault();
                             setCategory('주얼리')
                             ChangeProduct()}}><a>주얼리</a></li>
-                        <li className="cell" onClick={(e)=>{
+                        <li className="rounded-full cell bg-red-300" onClick={(e)=>{
                             e.preventDefault();
                             setCategory('언더웨어')
                             ChangeProduct()}}><a>언더웨어</a></li>
@@ -191,15 +190,15 @@ function Product(props) {
                     </ul>
                 </div>
             </div>
-
-            <div className="flex-grow flex items-center px-3 con">
-                <div className="bg-gray-200">
+            <br/>
+            <div className="">
+                <div className="search-1 con">
                     <input
-                        className="text-black bg-gray-200" value={inputsearch}
+                        className="search-input-1 text-black bg-gray-200 rounded-xl" value={inputsearch}
                         onChange={e => setInputSearch(e.target.value)}
                         placeholder="찾으실 물건을 입력"
                     />
-                    <FontAwesomeIcon icon={faSearch}/>
+                    <FontAwesomeIcon icon={faSearch} size="2x" className="search-icon"/>
                 </div>
 
             </div>
@@ -215,10 +214,10 @@ function Product(props) {
                             }
                         }}>
                             <div className="img-box ">
-                                <img src={`http://localhost:8000/${product.image}/`} />
+                                <img className="product-img-1" src={`http://localhost:8000/${product.image}/`} />
                             </div>
-                            <div className="list-text text-l text-left">{product.name}</div>
-                            <div className="text-sm text-right line-through">{product.price}원</div>
+                            <div className="list-text text-l text-center">{product.name}</div>
+                            <div className="text-sm text-right line-through text-gray-500">{product.price}원</div>
                             <div className="text-red-600 text-sm text-right">{product.sale_price}원</div>
                             {/*<button className="JoinLoign-button" onClick={(e)=>{Deleteproduct(product.id, e)}}>삭제하기</button>*/}
                         </Link>
@@ -226,6 +225,8 @@ function Product(props) {
                     </li>)}
                 </ul>
             </div>
+            <br/>
+            <br/>
         </div>
     );
 }
