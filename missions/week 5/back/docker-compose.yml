@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb:latest
+    container_name: db
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_DATABASE: ably
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 1234
+      MYSQL_ROOT_PASSWORD: 1234
+    volumes:
+      - ../db/data:/var/lib/mysql
+      - ../db/data/conf.d:/etc/mysql/conf.d
+
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: django
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./:/usr/src/app/
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+    links:
+      - db:db
+    restart: always
+
+  react:
+    build:
+      context: ./front
+      dockerfile: Dockerfile-re
+    container_name: react
+    command: ["npm", "start"]
+    volumes:
+      - ./:/usr/src/app/
+    ports:
+      - "3000:3000"

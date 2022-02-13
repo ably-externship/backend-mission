@@ -1,23 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="32fb0568-5add-4a0d-9b25-698fd7e1dfe1" name="Changes" comment="5 th">
-      <change afterPath="$PROJECT_DIR$/apis/api_pay.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apis/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/contents/pay_views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/pay/kakaoPay.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/pay/payCancel.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/pay/payFail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/back.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/back.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="32fb0568-5add-4a0d-9b25-698fd7e1dfe1" name="Changes" comment="5 th 수정">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ably/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ably/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base/navbar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/product/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/product/cart.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 4/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../week 4/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 4/.idea/week 3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../week 4/.idea/week 3.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 4/back/.idea/back.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../week 4/back/.idea/back.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week 4/back/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../week 4/back/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contents/pay_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/contents/pay_views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,8 +15,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -124,7 +112,14 @@
       <option name="project" value="LOCAL" />
       <updated>1644745991243</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="5 th 수정">
+      <created>1644747820634</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1644747820634</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -150,6 +145,7 @@
     <MESSAGE value="배포 미완" />
     <MESSAGE value="back" />
     <MESSAGE value="5 th" />
-    <option name="LAST_COMMIT_MESSAGE" value="5 th" />
+    <MESSAGE value="5 th 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="5 th 수정" />
   </component>
 </project>
