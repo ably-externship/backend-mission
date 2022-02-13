@@ -1,0 +1,30 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% load i18n %} 
+{% load account socialaccount %}
+{% providers_media_js %}
+{% block content %}
+
+<br>
+<div class="row justify-content-around">
+    <div class="card border-info mb-3" style="max-width: 18rem; text-align: center;">
+        <div class="card-header"><h1>{% trans "Sign In" %}</h1></div>
+        <div class="card-body">
+          {% if process == "connect" %}
+          <p>{% blocktrans with provider.name as provider %}Connect {{ provider }}{% endblocktrans %}</p>
+
+          <p>{% blocktrans with provider.name as provider %}You are about to connect a new third party account from {{ provider }}.{% endblocktrans %}</p>
+          {% else %}
+          <h4>{% blocktrans with provider.name as provider %}{{ provider }}로 로그인{% endblocktrans %}</h4>
+
+          <!-- <p>{% blocktrans with provider.name as provider %}You are about to sign in using a third party account from {{ provider }}.{% endblocktrans %}</p> -->
+          {% endif %}
+          <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn"><img src="{% static 'images/kakao.png' %}" alt="kakao_btn"></button>
+          </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

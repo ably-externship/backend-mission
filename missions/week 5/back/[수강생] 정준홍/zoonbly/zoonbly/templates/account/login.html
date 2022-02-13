@@ -1,0 +1,54 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% load i18n %} 
+{% load account socialaccount %}
+{% providers_media_js %}
+{% block content %}
+
+<br>
+<div class="row justify-content-around">
+    <div class="card border-info mb-3" style="max-width: 18rem; text-align: center;">
+        <div class="card-header"><h1>{% trans "Sign In" %}</h1></div>
+        <div class="card-body">
+          <!-- <h5 class="card-title">Info card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+            {% get_providers as socialaccount_providers %}
+
+            {% if socialaccount_providers %}
+            <!-- <p>{% blocktrans with site.name as site_name %}Please sign in with one
+            of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+            for a {{ site_name }} account and sign in below:{% endblocktrans %}</p> -->
+    
+                <div class="socialaccount_ballot">
+        
+                    <!-- <button class="socialaccount_providers btn btn-warning btn-sm">
+                        {% include "socialaccount/snippets/provider_list.html" with process="login" %}카카오 로그인
+                    </button> -->
+                    <a href="{% provider_login_url "kakao" %}" class="btn" id="kakao_login">
+                        <img src="{% static 'images/kakao.png' %}" alt="kakao_btn">
+                    </a>
+    
+                {% include "socialaccount/snippets/login_extra.html" %}
+    
+            {% endif %}
+                <p>계정이 없으신가요?<br>
+                <a type="button" class="btn btn-outline-primary btn-sm" href="{{ signup_url }}">회원가입
+                </a></p>
+            <hr>
+    
+            <form class="login form-control" method="POST" action="{% url 'account_login' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+            <br><br>
+            <button type="submit" class="btn btn-outline-primary btn-sm">로그인</button>
+            <!-- <button class="primaryAction" type="submit">{% trans "Sign In" %}</button> -->
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

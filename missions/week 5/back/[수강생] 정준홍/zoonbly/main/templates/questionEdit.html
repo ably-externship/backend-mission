@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<br>
+<div class="row justify-content-around">
+  <div class="card border-info mb-3" style="max-width: 18rem; text-align: center;">
+    <div class="card-header"><h3>질문 수정</h3></div>
+    <div class="card-body">
+        <form action="{% url 'main:questionUpdate' product.id question.id %}" method="post">
+            {%csrf_token%}
+            <p><textarea type="text" name="content" id="" cols="30" rows="2">{{question.content}}</textarea></p>
+            <button type="submit" class="btn btn-outline-primary">질문 수정하기</button>
+        </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

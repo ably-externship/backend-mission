@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br>
+    <div class="container">
+        <div class="row" style="margin-bottom: 2rem;">
+            <div class="card bg-light text-black">
+                <img src="{% static 'images/banner.jpg' %}" class="card-img" alt="...">
+              </div>
+        </div>
+        {% if marcketName %}
+        <div class="row">
+            <hr>
+            <div class="card" style="width: fit-content; border: black; border-style: solid;">
+                <div class="card-body">
+                    <h4>
+                        <b>
+                            {{marcketName}}
+                        </b>
+                    </h4>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if categoryName %}
+        <div class="row">
+            <hr>
+            <div class="card" style="width: fit-content; border-style: none;">
+                <div class="card-body">
+                    <h5>
+                        <b>
+                            {{categoryName}}
+                        </b>
+                    </h5>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <hr>
+        <div class="row">
+            {% if product_list %}
+                {% for product in product_list %}
+                    <div class="card shadows" style="width: 18rem; height: 35rem; align-items: center; margin-left: 2rem; margin-bottom: 2rem;">
+                        <div style="width:17rem; height:18rem; align-items: center;">
+                            <a href="{%url 'main:productDetail' product.id %}">
+                                {% if product.image %}
+                                    <img src="{{product.image.url}}" class="card-img-top" alt="...">
+                                {% else %}
+                                    <img src="{% static 'images/noImage.png' %}" class="card-img-top" alt="...">
+                                {% endif %}
+                            </a>
+                        </div>
+                        <div class="card-body" style="width: 17rem;">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title"><b>{{product.title}}...</b></h5>
+                                </div>
+                                <div class="col" style="text-align: right;">
+                                    <a class="card-title" href="{%url 'main:categoryPage' product.category %}" style="text-decoration:none"><b>{{product.category}}</b></a>
+                                </div>
+                            </div>
+                        <a href="{%url 'main:marcket' product.marcket %}" class="btn btn-outline-dark btn-sm card-text"><b>{{product.marcket}}</b></a>
+                        <hr>
+                        <p class="card-text">{{product.summary}}...</p>
+                        <a href="{%url 'main:productDetail' product.id %}" class="btn btn-primary btn-sm">MORE</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h3 style="text-align: center;"> 판매중인 상품이 없습니다. </h3>
+            {% endif %}
+        </div>
+        <hr>
+        <div style="text-align: center;">
+            <div class="pagination" style="display: flex;">
+                <div style="width: 35%; margin: 5px;">
+                    {% if product_list.has_previous %}
+                        <a class="btn btn-outline-primary btn-sm" href="?page=1">맨 앞으로</a>
+                        <a class="btn btn-outline-primary btn-sm" href="?page={{ product_list.previous_page_number }}">이전</a>
+                    {% endif %}
+                </div>
+
+                <div style="width:30%; margin: 5px;">
+                    {% for page in product_list.paginator.page_range %}
+                        {% if page >= product_list.number|add:-2 and page <= product_list.number|add:2 %}
+                        <span class="btn btn-outline-primary btn-sm {% if page == product_list.number %}current{% endif %}">
+                            <a href="?page={{ page }}">{{page}}</a>
+                        </span>
+                        {% elif page >= product_list.number|add:-3 and page <= product_list.number|add:3 %}
+                            ..
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+    
+                    <div style="width:35%; margin: 5px; text-align: left;">
+                    {% if product_list.has_next %}
+                        <a class="btn btn-outline-primary btn-sm" href="?page={{ product_list.next_page_number }}">다음</a>
+                        <a class="btn btn-outline-primary btn-sm" href="?page={{ product_list.paginator.num_pages }}">맨 뒤로</a>
+                    {% endif %}
+                    </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

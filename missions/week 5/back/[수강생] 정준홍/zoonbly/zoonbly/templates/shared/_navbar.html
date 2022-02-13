@@ -1,0 +1,57 @@
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'main:home'%}">ZOONBLY</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="background-color: #e3f2fd;">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">MENU</h5>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+
+            <!-- <li class="nav-item">
+              <a class="nav-link active" href="#">Log In</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Sign up</a>
+            </li> -->
+            {% if user.is_authenticated %}
+              <p>{{user.username}} 님 환영합니다. </p>
+            {% endif %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle btn btn-outline-primary" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                계정
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
+                {% if user.is_authenticated %}
+                  <li><a class="dropdown-item" href="{% url 'account_logout' %}">로그아웃</a></li>
+                  <li><a class="dropdown-item" href="{% url 'cart:cart' %}">장바구니</a></li>
+                  <li><a class="dropdown-item" href="{% url 'cart:purchasePage' %}">구매목록</a></li>
+                {% else %}
+                <li><a class="dropdown-item" href="{% url 'account_login' %}">로그인</a></li>
+                <li><a class="dropdown-item" href="{% url 'account_signup' %}">회원가입</a></li>
+                {% endif %}
+              </ul>
+            </li>
+            <hr>
+            {% if user.is_staff %}
+              <li class="nav-item">
+                <a class="nav-link active btn btn-info" aria-current="page" href="{% url 'main:productNew' %}">상품 등록하기</a>
+              </li>
+            {% else %}
+              <p>로그인 후 상품 등록이 가능합니다.</p>
+            {% endif %}
+
+          <hr>
+          <form class="d-flex" action="{% url 'main:search' %}" method="post">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" placeholder="상품 검색하기" aria-label="Search" name="word" value="{{word}}">
+            <button class="btn btn-primary" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </div>
+</nav>

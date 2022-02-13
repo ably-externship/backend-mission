@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br>
+    <div class="container">
+        <div class="row" style="margin-bottom: 2rem;">
+            <div class="card bg-light text-black">
+                <img src="{% static 'images/banner.jpg' %}" class="card-img" alt="...">
+              </div>
+        </div>
+        <hr>
+        <div class="row">
+            {% if purchases %}
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">상품</th>
+                        <th scope="col">옵션</th>
+                        <th scope="col">수량</th>
+                        <th scope="col">구매날짜</th>
+                        <th scope="col">금액</th>
+                        <th scope="col">상태</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for purchase in purchases %}
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>{{purchase.product.title}}</td>
+                                <td>{{purchase.option.color}} | {{purchase.option.size}}</td>
+                                <td>{{purchase.amount}}</td>
+                                <td>{{purchase.pur_date}}</td>
+                                <td>{{purchase.totalPrice}}</td>
+                                <td>{{purchase.status}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                  </table>
+            {% else %}
+                <h3 style="text-align: center;"> 구매한 상품이 없습니다. </h3>
+            {% endif %}
+        </div>
+        <!-- <div class="row">
+            <div class="col">
+                <h5>총 금액 : <del>{{total}}</del> <i class="fas fa-arrow-right"></i>  {{final}} 원</h5>                  
+            </div>
+        </div> -->
+        <hr>
+    </div>
+{% endblock %}

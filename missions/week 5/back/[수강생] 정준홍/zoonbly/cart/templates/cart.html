@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br>
+    <div class="container">
+        <div class="row" style="margin-bottom: 2rem;">
+            <div class="card bg-light text-black">
+                <img src="{% static 'images/banner.jpg' %}" class="card-img" alt="...">
+              </div>
+        </div>
+        <hr>
+        <div class="row">
+            {% if cart_list %}
+                {% for cart in cart_list %}
+                    <div class="card shadows" style="width: 18rem; align-items: center; margin-left: 2rem; margin-bottom: 2rem;">
+                        <div style="width:17rem; height:18rem; align-items: center; object-fit: cover;">
+                            <a href="{%url 'main:productDetail' cart.product.id %}">
+                                {% if cart.product.image == '0' %}
+                                    <img src="{% static 'images/noImage.png' %}" class="card-img-top" alt="...">
+                                {% else %}
+                                    <img src="{{cart.product.image.url}}" class="card-img-top" alt="...">
+                                {% endif %}
+                            </a>
+                        </div>
+                        <div class="card-body" style="width: 17rem;">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title"><b>{{cart.product.title}}...</b></h5>
+                                </div>
+                                <div class="col" style="text-align: right;">
+                                    <a class="card-title" href="{%url 'main:categoryPage' cart.product.category %}" style="text-decoration:none"><b>{{cart.product.category}}</b></a>
+                                </div>
+                            </div>
+                            <a href="{%url 'main:marcket' cart.product.marcket %}" class="btn btn-outline-dark btn-sm card-text"><b>{{cart.product.marcket}}</b></a>
+                            <hr>
+                            <a href="{%url 'main:productDetail' cart.product.id %}" class="btn btn-primary btn-sm">MORE</a>
+                            <hr>
+                            <div class="row">
+                                <div class="col">
+                                    <p class="card-text">색상 : {{cart.option.color}}</p>
+                                </div>
+                                <div class="col">
+                                    <p class="card-text">사이즈 : {{cart.option.size}}</p>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col">
+                                    <p class="card-text">{{cart.amount}} 개</p>
+                                </div>
+                                <div class="col" style="text-align: right;">
+                                    <a class="btn btn-secondary card-link btn-sm" data-bs-toggle="collapse" href="#updateCart" role="button" aria-expanded="false" aria-controls="updateCart"><i class="fas fa-edit"></i></a>
+                                    <a href="{% url 'cart:deleteCart' cart.id %}" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
+                                </div>
+                            </div>
+                            <div class="collapse" id="updateCart">
+                                <hr>
+                                <div class="card card-body" style="text-align: center;">
+                                    <form action="{% url 'cart:updateCart' cart.id %}" method="post" enctype="multipart/form-data">
+                                        {%csrf_token%}
+                                        <div class="row">
+                                            <div class="col" style="text-align: right;">
+                                                <p><input type="number" name="amount" style="width: 3rem;" value="{{cart.amount}}"></p>
+                                            </div>
+                                            <div class="col">
+                                                <button type="submit" class="btn btn-outline-primary btn-sm"><i class="fas fa-shopping-cart"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p class="card-text">{{cart.optionPrice}} 원</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h3 style="text-align: center;"> 장바구니에 담긴 상품이 없습니다. </h3>
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="col">
+                <h5>총 금액 : <del>{{total}}</del> <i class="fas fa-arrow-right"></i>  {{final}} 원</h5>
+                <p>
+                    <button class="btn btn-dark btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        할인 <i class="fas fa-info-circle"></i>
+                    </button>
+                </p>
+                
+                <div class="collapse" id="collapseExample">
+                    <p>구매하는 품목의 카테고리 종류가 많을수록 할인이 추가됩니다.</p>
+                    <div class="card card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <th scope="col">카테고리 종류</th>
+                                <th scope="col">할인</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2 종류</td>
+                                    <td>5 % 할인</td>
+                                </tr>
+                                <tr>
+                                    <td>3 종류</td>
+                                    <td>7 % 할인</td>
+                                </tr>
+                                <tr>
+                                    <td>4 종류</td>
+                                    <td>9 % 할인</td>
+                                </tr>
+                                <tr>
+                                    <td>5 종류</td>
+                                    <td>11 % 할인</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p> 현재
+                            <b>
+                                {% for category in catego %}
+                                    {{category}} /
+                                {% endfor %}
+                            </b>
+                             총 <b>{{categoNum}}</b> 종류 선택하셨습니다.
+                        </p>
+                    </div>
+                  </div>
+                  
+            </div>
+            <div class="col" style="text-align: right;">
+                <button class="btn btn-primary" type="button">
+                    <a href="{%url 'cart:purchase' %}" style="text-decoration:none; color: white;">
+                        구매하기
+                    </a>
+                </button>
+            </div>
+        </div>
+        <hr>
+        <div style="text-align: center;">
+            <div class="pagination" style="display: flex;">
+                <div style="width: 35%; margin: 5px;">
+                    {% if cart_list.has_previous %}
+                        <a class="btn btn-outline-primary btn-sm" href="?page=1">맨 앞으로</a>
+                        <a class="btn btn-outline-primary btn-sm" href="?page={{ cart_list.previous_page_number }}">이전</a>
+                    {% endif %}
+                </div>
+
+                <div style="width:30%; margin: 5px;">
+                    {% for page in cart_list.paginator.page_range %}
+                        {% if page >= cart_list.number|add:-2 and page <= cart_list.number|add:2 %}
+                        <span class="btn btn-outline-primary btn-sm {% if page == cart_list.number %}current{% endif %}">
+                            <a href="?page={{ page }}">{{page}}</a>
+                        </span>
+                        {% elif page >= cart_list.number|add:-3 and page <= cart_list.number|add:3 %}
+                            ..
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+    
+                    <div style="width:35%; margin: 5px; text-align: left;">
+                    {% if cart_list.has_next %}
+                        <a class="btn btn-outline-primary btn-sm" href="?page={{ cart_list.next_page_number }}">다음</a>
+                        <a class="btn btn-outline-primary btn-sm" href="?page={{ cart_list.paginator.num_pages }}">맨 뒤로</a>
+                    {% endif %}
+                    </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
