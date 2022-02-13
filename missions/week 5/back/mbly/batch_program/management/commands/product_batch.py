@@ -9,14 +9,14 @@ class Command(BaseCommand):
     def handle(self, *args, **options) :
         # 전 날 목록 
         yesterday = datetime.now().date()-dt.timedelta(days=1)
-
+        
+        # start_date : 어제, end_date:오늘
         start_date ,end_date = datetime.now().date(),datetime.now().date()+dt.timedelta(days=1)
         # orders = Order.objects.select_related('product','realproduct').filter(purchase_date__range = [yesterday,datetime.now().date()])
         test_orders = Order.objects.select_related('product','realproduct').filter(purchase_date__range = [start_date,end_date]).filter(is_checked=False)
         # 기본값 0
-        D_product = defaultdict(int)
-        D_sales = defaultdict(int)
-
+        D_product = defaultdict(int) # 상품 갯수
+        D_sales = defaultdict(int) # 팔린 상품 매출
         market_product = defaultdict(int)
         market_sales = defaultdict(int)
         for order in test_orders:

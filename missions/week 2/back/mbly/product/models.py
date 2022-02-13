@@ -24,9 +24,7 @@ class Product(models.Model):
 
     is_deleted= models.BooleanField('삭제 여부',default = False)
     deleted_date = models.DateTimeField('삭제날짜',null = True,blank=True)
-
     is_hidden = models.BooleanField("숨김여부",default = False)
-
     hit_count = models.IntegerField('조회수',default=0)
     like_count = models.IntegerField('좋아요수',default=0)
 

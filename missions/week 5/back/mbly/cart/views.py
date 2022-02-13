@@ -100,7 +100,7 @@ def product_purchase(request):
             product = product,
             product_num = cart.quantity,
             per_price = realproduct.add_price+product.sale_price,
-            total_price = cart.quantity*realproduct.add_price+product.sale_price,
+            total_price = cart.quantity*(realproduct.add_price+product.sale_price),
         )
 
         cart.delete() # 카트 삭제

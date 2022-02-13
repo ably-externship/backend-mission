@@ -54,10 +54,11 @@ class MarketDailyDetail(APIView):
     permission_classes = [IsAdminUser,]
     
     def get(self,request,market_id):
-        date = request.data['date']
-        market = Market.objects.get(pk=market_id)
+        # date = request.data['date']
+        master = request.user
+        market = Market.objects.get(master = master)
         market_sales = MarketDailySales.objects.filter(market=market)
-        serializers = ProductDailySalesSerializer(data=market_sales,many=True)
+        serializers = MarketDailySalesSerializer(data=market_sales,many=True)
         return Response(serializers.data)
 
 
