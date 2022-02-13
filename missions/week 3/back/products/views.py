@@ -93,14 +93,8 @@ class ProductList(CsrfExemptMixin, generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
-
-<< << << < HEAD: missions/week 3/back/products/views.py
-# [permissions.IsAuthenticatedOrReadOnly]
-permission_classes = [permissions.IsAuthenticated]
-== == == =
-permission_classes = [permissions.IsAuthenticatedOrReadOnly,
-                      IsStaffOrReadOnly, ]
->>>>>> > 6bf6ff228541bf7e5a5f9c94ccf86e8263ff5c3c: missions/week 3/back/product/views.py
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly, IsStaffOrReadOnly, ]
 
 
 class ProductDetail(CsrfExemptMixin, generics.RetrieveUpdateDestroyAPIView):

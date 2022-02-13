@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+
+        <!-- jQuery JS -->
+        <script src="{% static 'jquery-3.6.0.min.js' %}"></script>
+
+        <!-- Bootstrap JS -->
+        <script src="{% static 'bootstrap.min.js' %}"></script>
+        
+    {% block header %}
+    {% endblock %}
+</head>
+
+<body>
+    <div class="container">
+        {% block contents %}
+        {% endblock %}
+    </div>
+</body>
+
+</html>

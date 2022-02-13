@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block contents %}
+{% load bootstrap4 %}
+
+<h1>로그인</h1>
+<form action="" method="POST">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% comment %} {{form.as_p}} {% endcomment %}
+  <input type='submit' class='btn btn-primary' value='Sign In'>
+</form>
+<a href="{% url 'user:login_kakao' %}">
+  <i class="fas fa-comment mr-2"></i> Login with Kakao
+</a>
+{% endblock contents %}

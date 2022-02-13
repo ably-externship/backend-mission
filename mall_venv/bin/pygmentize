@@ -1,4 +1,4 @@
-#!/Users/htc/Desktop/backend-mission/mall_venv/bin/python3
+#!/Users/htc/Desktop/backend-mission/mall_venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block contents %}
+    {% if products %}
+        <div class="container" style="width:500px">
+            <div class="row">
+                    {% comment %} {% for product in products %} {% endcomment %}
+                    {% for product in products %}{% for cart_item in cart_items %}
+                    {% if forloop.counter == forloop.parentloop.counter %}
+                        <div class="col-xs-5 gap-3 border"> 
+                            <div class="card">
+                                <a href="{% url 'product:detail' product.id %}" style="text-decorations:none; color:inherit;" class="img-fluid">
+                                    <div class="card-body">
+                                        <img src = "media/{{product.image}}" height="180" width="150">
+                                        <p class="text-center">
+                                            <strong>
+                                                {{product.name}}
+                                                <br>
+                                                {{product.price}}₩
+                                            </strong>
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div>
+                            {{cart_item.quantity}}
+                        </div>
+                        <form action="{% url 'cart:plus_cart' product.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type='submit' value='+'>
+                        </form>
+                        <form action="{% url 'cart:minus_cart' product.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type='submit' value='-'>
+                        </form>
+                        <form action="{% url 'cart:delete_cart' product.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type='submit' value='삭제'>
+                        </form>
+                        {% endif %}    
+                    {% endfor %}{% endfor %}
+                    
+            </div>
+        </div>
+    {% else %}
+        상품 없음
+    {% endif %}
+
+    {% if messages %}
+        {% for message in messages %}
+            {{ message.tag }}
+            {{ message }}
+        {% endfor %}
+
+{% endif %}
+{% endblock contents %}
