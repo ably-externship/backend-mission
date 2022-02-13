@@ -85,6 +85,8 @@ def purchase(request, categoNum):
         else:
             new_purchase.totalPrice = cart.optionPrice
         new_purchase.status = '배송중'
+        cart.option.stock = cart.option.stock - new_purchase.amount
+        cart.option.save()
         new_purchase.save()
         cart.delete()
     purchases = Purchase.objects.filter(user = user).order_by('-pur_date')

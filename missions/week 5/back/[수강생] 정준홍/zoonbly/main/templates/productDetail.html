@@ -39,7 +39,7 @@
                                 <div class="col" style="text-align: right;">
                                     <select name="option" class="form-select" aria-label="Default select example">
                                         {% for option in options %}
-                                        <option value="{{ option.id }}">{{ option.size }} | {{ option.color }} | 금액 : {{ option.price }}</option>
+                                        <option value="{{ option.id }}">{{ option.size }} | {{ option.color }} | 금액 : {{ option.price }} </option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -65,6 +65,7 @@
                                 <tr>
                                     <th scope="col">size</th>
                                     <th scope="col">color</th>
+                                    <th scope="col">stock</th>
                                     <th scope="col">edit</th>
                                     <th scope="col">delete</th>
                                 </tr>
@@ -78,6 +79,9 @@
                                         </td>
                                         <td>
                                             {{option.color}}
+                                        </td>
+                                        <td>
+                                            {{option.stock}}
                                         </td>
                                         <td>
                                             <a href="{%url 'main:optionEdit' product.id option.id %}" class="btn btn-secondary btn-sm"><i class="fas fa-edit"></i></a>
