@@ -13,6 +13,6 @@ urlpatterns = [
     path('updateCart/<int:cart_id>', updateCart, name="updateCart"),
 
     # 사용자 별 상품 구매
-    path('purchase/', purchase, name="purchase"),
+    path('purchase/<int:categoNum>', purchase, name="purchase"),
     path('purchasePage/', purchasePage, name="purchasePage"),
 ]

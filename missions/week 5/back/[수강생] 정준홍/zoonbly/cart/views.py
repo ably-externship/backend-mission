@@ -70,16 +70,20 @@ def purchasePage(request):
     purchases = Purchase.objects.filter(user = user).order_by('-pur_date')
     return render(request, 'purchase.html', {'purchases':purchases})
 
-def purchase(request):
+def purchase(request, categoNum):
     user = request.user
     carts = Cart.objects.filter(user = user)
+    categoNum = categoNum
     for cart in carts:
         new_purchase = Purchase()
         new_purchase.user = request.user
         new_purchase.product = cart.product
         new_purchase.option = cart.option
         new_purchase.amount = cart.amount
-        new_purchase.totalPrice = cart.optionPrice
+        if categoNum > 1:
+            new_purchase.totalPrice = cart.optionPrice - cart.optionPrice * (2 * categoNum  + 1)/100
+        else:
+            new_purchase.totalPrice = cart.optionPrice
         new_purchase.status = '배송중'
         new_purchase.save()
         cart.delete()

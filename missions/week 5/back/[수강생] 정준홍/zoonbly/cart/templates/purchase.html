@@ -26,7 +26,7 @@
                     <tbody>
                         {% for purchase in purchases %}
                             <tr>
-                                <th scope="row">1</th>
+                                <th scope="row">{{purchase.id}}</th>
                                 <td>{{purchase.product.title}}</td>
                                 <td>{{purchase.option.color}} | {{purchase.option.size}}</td>
                                 <td>{{purchase.amount}}</td>
