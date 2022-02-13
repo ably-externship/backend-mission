@@ -1,0 +1,5 @@
+server.host: "10.178.0.2"
+server.name: "my-kibana"
+elasticsearch.hosts: ["http://10.178.0.2:9200"]
+
+elasticsearch.username: "kibana_system"

@@ -1,0 +1,12 @@
+cluster.name: "es-cluster-1"
+node.name: "node-1"
+
+network.host: ["_site_", "_local_"]
+
+discovery.seed_hosts: ["elastic-1"]
+cluster.initial_master_nodes: ["node-1"]
+
+xpack.security.enabled: true
+xpack.security.transport.ssl.enabled: true
+xpack.security.transport.ssl.keystore.path: certs/es-cluster.p12
+xpack.security.transport.ssl.truststore.path: certs/es-cluster.p12
