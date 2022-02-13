@@ -36,6 +36,11 @@ class ProductOption(core_models.DateTimeModel):
         return f'{self.color} / {self.size}'
 
 
+class ProductImage(core_models.DateTimeModel):
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='products/%Y/%m/%d')
+
+
 class Category(models.Model):
     name = models.CharField(max_length=20, unique=True)
 

@@ -10,7 +10,7 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from markets.models import Market
-from .models import Product, ProductOption, Category
+from .models import Product, ProductOption, Category, ProductImage
 from .forms import SearchForm, QuestionForm
 from .permisstions import IsOwnerOrReadOnly
 from .serializers import ProductSerializer, ProductOptionSerializer, ProductDetailSerializer
@@ -234,3 +234,13 @@ class MyProductListView(generics.ListAPIView):
             market__owner=self.request.user
         ).select_related('category', 'market').prefetch_related('options')
         return qs
+
+
+class UploadProductImage(APIView):
+    # TODO 예외처리
+    def post(self, request, *args, **kwargs):
+        if self.request.FILES:
+            image = self.request.FILES['image']
+        product_id = self.request.data['product_id']
+        ProductImage.objects.create(product_id=product_id, image=image)
+        return Response(status=status.HTTP_200_OK)

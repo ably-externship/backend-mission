@@ -14,12 +14,10 @@ services:
   web:
     build: .
     container_name: django
-#    command: python manage.py runserver 0.0.0.0:8000
     command: >
-      bash -c "gunicorn config.wsgi:application --bind 0.0.0.0:8000"
-#      bash -c "python manage.py collectstatic --noinput &&
-#               python manage.py migrate &&
-#               gunicorn config.wsgi:application --bind 0.0.0.0:8000"
+      bash -c "python manage.py collectstatic --noinput &&
+               python manage.py migrate &&
+               gunicorn config.wsgi:application --bind 0.0.0.0:8000"
     volumes:
       - .:/code
       - static_volume:/usr/src/app/static
@@ -46,9 +44,6 @@ services:
     environment:
       TZ: Asia/Seoul
     restart: always
-
-  elasticsearch:
-    container_name: elasticsearch
 
 volumes:
   mariadb_data:

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from markets.serializers import MarketSerializer
-from products.models import Product, Category, ProductOption
+from products.models import Product, Category, ProductOption, ProductImage
 
 
 class CategorySerializer(serializers.ModelSerializer):

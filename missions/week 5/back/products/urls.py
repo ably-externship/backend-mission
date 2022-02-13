@@ -7,7 +7,7 @@ router = DefaultRouter()
 router.register('', views.ProductViewSet)
 
 urlpatterns = [
-    # path('', include(router.urls)),
+    # path('', include(router.urls)), Viewset 활용 시 사용
     path('', views.ProductAPIView.as_view()),
     path('<int:pk>/', views.ProductDetailAPIView.as_view()),
     path('<int:pk>/options/', views.ProductOptionAPIView.as_view()),
@@ -17,4 +17,6 @@ urlpatterns = [
     path("<int:pk>/question/", views.question, name="question"),
     path('search/', views.search, name='search'),
     path('me/', views.MyProductListView.as_view(), name='my-products'),
+    path('image/', views.UploadProductImage.as_view(), name='upload'),
 ]
+
