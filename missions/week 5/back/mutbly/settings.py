@@ -88,18 +88,27 @@ WSGI_APPLICATION = 'mutbly.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'mutbly_first',
+#         'HOST' : 'localhost',
+#         'USERNAME' : 'root',
+#         'PASSWORD' : '123456789',
+#         'PORT' : '3306'
+#         },
+#     }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mutbly_first',
-        'HOST' : 'localhost',
-        'USERNAME' : 'root',
+        'NAME': 'site2',
+        'USER': 'latteadmin',
+        'HOST' : '172.17.0.1',
         'PASSWORD' : '123456789',
         'PORT' : '3306'
         },
     }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -139,9 +148,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
+STATICFILES_DIRS = []
+
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
